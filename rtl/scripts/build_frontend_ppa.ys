@@ -1,0 +1,23 @@
+# Build a timing-only GPU frontend by turning every execution backend instance
+# into top-level request/response ports.  This preserves both sides of the
+# frontend/backend timing boundary without assigning fake timing to blackboxes.
+read_verilog -sv rtl/sv/generated/eval/AecEvalTop.sv rtl/sv/asap7_sram_wrappers.sv
+hierarchy -top AecEvalTop
+chformal -remove
+
+select AecEvalTop/intUnits_0 AecEvalTop/intUnits_1 AecEvalTop/intUnits_2 AecEvalTop/intUnits_3
+select -add AecEvalTop/fp32Units_0 AecEvalTop/fp32Units_1 AecEvalTop/fp32Units_2 AecEvalTop/fp32Units_3
+select -add AecEvalTop/fp64Units_0 AecEvalTop/fp64Units_1 AecEvalTop/fp64Units_2 AecEvalTop/fp64Units_3
+select -add AecEvalTop/sfuUnits_0 AecEvalTop/sfuUnits_1 AecEvalTop/sfuUnits_2 AecEvalTop/sfuUnits_3
+select -add AecEvalTop/cvtUnits_0 AecEvalTop/cvtUnits_1 AecEvalTop/cvtUnits_2 AecEvalTop/cvtUnits_3
+select -add AecEvalTop/gmemLsus_0 AecEvalTop/gmemLsus_1 AecEvalTop/gmemLsus_2 AecEvalTop/gmemLsus_3
+select -add AecEvalTop/localLsu AecEvalTop/external
+expose -evert
+
+rename AecEvalTop AecFrontendPpaTop
+hierarchy -top AecFrontendPpaTop
+select -clear
+proc
+opt
+clean -purge
+write_verilog -noattr rtl/sv/generated/frontend_ppa/AecFrontendPpaTop.sv

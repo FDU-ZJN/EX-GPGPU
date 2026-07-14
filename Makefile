@@ -11,6 +11,8 @@ STA ?= sta
 YOSYS ?= yosys
 PPA_STRICT ?= 1
 PPA_TOP ?= aec_eval_top
+PPA_PATH_COUNT ?= 20
+PPA_JOBS ?= 64
 # Paths are relative to rtl/ because rtl-ppa delegates with make -C rtl.
 RTL_SOURCES ?= sv/generated/eval/AecEvalTop.sv sv/aec_eval_top.sv sv/asap7_sram_wrappers.sv
 ACTIVITY_VCD ?=
@@ -33,10 +35,11 @@ rtl-lint:
 rtl-synth:
 	$(MAKE) -C rtl synth
 rtl-ppa:
-	$(MAKE) -C rtl ppa OUT_DIR=$(OUT_DIR) PERIOD_PS=$(PERIOD_PS) ASAP7_ROOT=$(ASAP7_ROOT) ASAP7_SRAM_ROOT=$(ASAP7_SRAM_ROOT) ASAP7_CORNER=$(ASAP7_CORNER) ASAP7_LIB_KIND=$(ASAP7_LIB_KIND) STA=$(STA) YOSYS=$(YOSYS) PPA_STRICT=$(PPA_STRICT) PPA_TOP=$(PPA_TOP) RTL_SOURCES='$(RTL_SOURCES)' ACTIVITY_VCD=$(ACTIVITY_VCD) ACTIVITY_SCOPE=$(ACTIVITY_SCOPE)
+	$(MAKE) -C rtl ppa OUT_DIR=$(OUT_DIR) PERIOD_PS=$(PERIOD_PS) ASAP7_ROOT=$(ASAP7_ROOT) ASAP7_SRAM_ROOT=$(ASAP7_SRAM_ROOT) ASAP7_CORNER=$(ASAP7_CORNER) ASAP7_LIB_KIND=$(ASAP7_LIB_KIND) STA=$(STA) YOSYS=$(YOSYS) PPA_STRICT=$(PPA_STRICT) PPA_TOP=$(PPA_TOP) PPA_PATH_COUNT=$(PPA_PATH_COUNT) PPA_JOBS=$(PPA_JOBS) RTL_SOURCES='$(RTL_SOURCES)' ACTIVITY_VCD=$(ACTIVITY_VCD) ACTIVITY_SCOPE=$(ACTIVITY_SCOPE)
 ppa: rtl-ppa
 ppa-help:
 	@echo 'Formal timing/area: make ppa ASAP7_ROOT=/path/to/asap7sc7p5t_28 PERIOD_PS=1000'
+	@echo 'Parallel ABC: make ppa PPA_JOBS=64 (hierarchical-module process parallelism)'
 	@echo 'With activity power: make ppa ASAP7_ROOT=/path/to/asap7sc7p5t_28 ACTIVITY_VCD=/path/to/run.vcd'
 	@echo 'Spec top: make ppa PPA_TOP=aec_eval_top RTL_SOURCES="rtl/**/*.sv"'
 	@echo 'Artifacts: reports/yosys (or OUT_DIR=<dir>)'

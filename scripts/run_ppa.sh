@@ -9,6 +9,8 @@ period=${PERIOD_PS:-1000}
 asap7_root=${ASAP7_ROOT:-}
 asap7_sram_root=${ASAP7_SRAM_ROOT:-}
 strict=${PPA_STRICT:-1}
+path_count=${PPA_PATH_COUNT:-20}
+jobs=${PPA_JOBS:-64}
 top=${PPA_TOP:-aec_eval_top}
 rtl_sources=${RTL_SOURCES:-rtl/sv/generated/eval/AecEvalTop.sv rtl/sv/aec_eval_top.sv rtl/sv/asap7_sram_wrappers.sv}
 activity_vcd=${ACTIVITY_VCD:-}
@@ -24,6 +26,8 @@ while [[ $# -gt 0 ]]; do
     --asap7-sram-root) [[ $# -ge 2 ]] || { echo "--asap7-sram-root requires a directory" >&2; exit 2; }; asap7_sram_root=$2; shift 2;;
     --top) [[ $# -ge 2 ]] || { echo "--top requires a module" >&2; exit 2; }; top=$2; shift 2;;
     --rtl-sources) [[ $# -ge 2 ]] || { echo "--rtl-sources requires a list" >&2; exit 2; }; rtl_sources=$2; shift 2;;
+    --path-count) [[ $# -ge 2 ]] || { echo "--path-count requires a value" >&2; exit 2; }; path_count=$2; shift 2;;
+    --jobs) [[ $# -ge 2 ]] || { echo "--jobs requires a value" >&2; exit 2; }; jobs=$2; shift 2;;
     --activity-vcd) [[ $# -ge 2 ]] || { echo "--activity-vcd requires a file" >&2; exit 2; }; activity_vcd=$2; shift 2;;
     --strict) strict=1; shift;;
     --non-strict) strict=0; shift;;
@@ -44,5 +48,5 @@ done
 
 exec env OUT_DIR="$output" PERIOD_PS="$period" ASAP7_ROOT="$asap7_root" ASAP7_SRAM_ROOT="$asap7_sram_root" \
   PPA_TOP="$top" RTL_SOURCES="$rtl_sources" ACTIVITY_VCD="$activity_vcd" ACTIVITY_SCOPE="$activity_scope" \
-  PPA_STRICT="$strict" STA="$sta" YOSYS="$yosys" \
+  PPA_STRICT="$strict" PPA_PATH_COUNT="$path_count" PPA_JOBS="$jobs" STA="$sta" YOSYS="$yosys" \
   "$root/rtl/scripts/report_yosys_ppa.sh"

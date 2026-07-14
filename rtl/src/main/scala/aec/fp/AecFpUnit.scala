@@ -2,9 +2,11 @@ package aec.fp
 
 import chisel3._
 import chisel3.util._
+import chisel3.experimental.{annotate, ChiselAnnotation}
+import firrtl.AttributeAnnotation
 import hardfloat._
-import FPUv2.FMA
 import fudian.FPToFP
+import aec.fp.yunsuan.YunSuanFmaPipe
 
 /** Metadata carried through the Ventus-style elastic f32 pipeline. */
 class AecFpPipeCtrl extends Bundle {
@@ -36,6 +38,14 @@ class AecFpResponse extends Bundle {
   val predicate_result = Bool()
   val dest = UInt(8.W)
   val error = Bool(); val exception_flags = UInt(5.W)
+}
+
+/** A request tagged at issue so independently pipelined operation classes can
+  * complete out of order while the lane still retires in architectural order.
+  */
+class AecFpTaggedRequest extends Bundle {
+  val seq = UInt(6.W)
+  val req = new AecFpRequest
 }
 
 /** Elastic lane-local request register with an unconditionally sampled payload. */
@@ -71,24 +81,78 @@ class AecFpWarpRequestStage(val groups: Int) extends Module {
   } else {
     require(groups % 4 == 0)
     val banks = groups / 4
-    val selectedBank = Reg(UInt(log2Ceil(banks max 2).W))
+    val requestWidth = 7 + 4 + 3 * 64 + 8
+    // The locked logic-only flow performs no physical buffering.  A selector
+    // shared even by a 16-bit chunk maps to several hundred fF, so retain one
+    // narrow selector per payload bit.  This is a small control-register cost
+    // relative to the four FP64 FMA lanes and removes the artificial global
+    // mux net without changing latency or II.
+    val chunkWidth = 1
+    val chunks = (requestWidth + chunkWidth - 1) / chunkWidth
+    val selectValid = RegInit(false.B)
+    // Keep a physically independent low selector for each small payload
+    // chunk.  Without the keep attributes Yosys correctly merges the
+    // equivalent registers, but the resulting selector then drives all 211
+    // request bits and is unusably slow in the logic-only ASAP7 flow.
+    val lowSelect = Reg(Vec(banks, Vec(chunks, UInt(2.W))))
+    lowSelect.foreach(_.foreach { selector =>
+      dontTouch(selector)
+      annotate(new ChiselAnnotation {
+        override def toFirrtl = AttributeAnnotation(selector.toTarget, "keep = \"true\"")
+      })
+    })
+    val highSelect = Reg(Vec(chunks, UInt(log2Ceil(banks max 2).W)))
+    highSelect.foreach { selector =>
+      dontTouch(selector)
+      annotate(new ChiselAnnotation {
+        override def toFirrtl = AttributeAnnotation(selector.toTarget, "keep = \"true\"")
+      })
+    }
+    val selectedBank = Reg(Vec(chunks, UInt(log2Ceil(banks max 2).W)))
+    selectedBank.foreach { selector =>
+      dontTouch(selector)
+      annotate(new ChiselAnnotation {
+        override def toFirrtl = AttributeAnnotation(selector.toTarget, "keep = \"true\"")
+      })
+    }
     val bankData = Reg(Vec(banks, new AecFpRequest))
     val outputValid = RegInit(false.B)
     val outputReady = !outputValid || io.out.ready
+    val selectReady = !selectValid || outputReady
 
-    io.inReady := outputReady
+    io.inReady := selectReady
     io.out.valid := outputValid
-    io.out.bits := bankData(selectedBank)
-
-    // The warp request buffer and architectural group remain stable until the
-    // lane response is consumed.  Sampling every bank unconditionally removes
-    // the shared write-enable that otherwise drives hundreds of payload D muxes.
-    for (bank <- 0 until banks) {
-      bankData(bank) := VecInit(io.data.slice(bank * 4, bank * 4 + 4))(io.group(1, 0))
+    val outputChunks = (0 until chunks).map { chunk =>
+      val lo = chunk * chunkWidth
+      val hi = math.min(requestWidth, lo + chunkWidth) - 1
+      VecInit(bankData.map(_.asUInt(hi, lo)))(selectedBank(chunk))
     }
+    io.out.bits := Cat(outputChunks.reverse).asTypeOf(new AecFpRequest)
+
+    // First register and replicate the narrow select.  Each copy drives only
+    // one four-way payload bank, avoiding a warp-level group bit with hundreds
+    // of data-mux loads.  Both stages support simultaneous replacement, so
+    // this is a latency cut rather than a throughput cut.
     when (outputReady) {
-      outputValid := io.inValid
-      when (io.inValid) { selectedBank := io.group(log2Ceil(groups) - 1, 2) }
+      outputValid := selectValid
+      when (selectValid) {
+        selectedBank.zip(highSelect).foreach { case (selected, high) => selected := high }
+        for (bank <- 0 until banks) {
+          val selectedChunks = (0 until chunks).map { chunk =>
+            val lo = chunk * chunkWidth
+            val hi = math.min(requestWidth, lo + chunkWidth) - 1
+            VecInit(io.data.slice(bank * 4, bank * 4 + 4).map(_.asUInt(hi, lo)))(lowSelect(bank)(chunk))
+          }
+          bankData(bank) := Cat(selectedChunks.reverse).asTypeOf(new AecFpRequest)
+        }
+      }
+    }
+    when (selectReady) {
+      selectValid := io.inValid
+      when (io.inValid) {
+        lowSelect.foreach(_.foreach(_ := io.group(1, 0)))
+        highSelect.foreach(_ := io.group(log2Ceil(groups) - 1, 2))
+      }
     }
   }
 }
@@ -114,61 +178,51 @@ class AecFp64PipeUnit(val acceptNarrow: Boolean = true) extends Module {
     val resp = Decoupled(new AecFpResponse)
   })
 
-  val held = Reg(new AecFpRequest)
-  val busy = RegInit(false.B)
   val reqPipe =
     (io.req.bits.op === AecFpOp.add || io.req.bits.op === AecFpOp.sub ||
       io.req.bits.op === AecFpOp.mul || io.req.bits.op === AecFpOp.fma)
-  val f64Pipe = Module(new FMA(11, 53, new AecFpPipeCtrl))
-  val issueQ = Module(new Queue(UInt(6.W), entries = 32, pipe = true))
+  val f64Pipe = Module(new YunSuanFmaPipe(3))
+  val issueQ = Module(new Queue(UInt(6.W), entries = 16, pipe = true))
+  val simpleQ = Module(new Queue(new AecFpTaggedRequest, entries = 8, pipe = false))
   val issueSeq = RegInit(0.U(6.W))
 
-  val pipeOp = MuxLookup(io.req.bits.op, 0.U(3.W), Seq(
-    AecFpOp.add -> FPUv2.utils.FPUOps.FN_FADD(2, 0),
-    AecFpOp.sub -> FPUv2.utils.FPUOps.FN_FSUB(2, 0),
-    AecFpOp.mul -> FPUv2.utils.FPUOps.FN_FMUL(2, 0),
-    AecFpOp.fma -> FPUv2.utils.FPUOps.FN_FMADD(2, 0)))
+  val arithmeticReq = io.req.bits
   // Exact widening converters, including subnormals and NaN classification.
   val f16Up = Seq.fill(3)(Module(new FPToFP(5, 11, 11, 53)))
   val bf16Up = Seq.fill(3)(Module(new FPToFP(8, 8, 11, 53)))
   val f32Up = Seq.fill(3)(Module(new FPToFP(8, 24, 11, 53)))
-  val reqLowOperands = Seq(io.req.bits.a(15, 0), io.req.bits.b(15, 0), io.req.bits.c(15, 0))
+  val reqLowOperands = Seq(arithmeticReq.a(15, 0), arithmeticReq.b(15, 0), arithmeticReq.c(15, 0))
   f16Up.zip(reqLowOperands).foreach { case (cvt, in) => cvt.io.in := in; cvt.io.rm := 0.U }
   bf16Up.zip(reqLowOperands).foreach { case (cvt, in) => cvt.io.in := in; cvt.io.rm := 0.U }
-  f32Up.zip(Seq(io.req.bits.a(31, 0), io.req.bits.b(31, 0), io.req.bits.c(31, 0))).foreach { case (cvt, in) => cvt.io.in := in; cvt.io.rm := 0.U }
+  f32Up.zip(Seq(arithmeticReq.a(31, 0), arithmeticReq.b(31, 0), arithmeticReq.c(31, 0))).foreach { case (cvt, in) => cvt.io.in := in; cvt.io.rm := 0.U }
   def reqOperand64(index: Int): UInt = {
-    val native = Seq(io.req.bits.a, io.req.bits.b, io.req.bits.c)(index)
+    val native = Seq(arithmeticReq.a, arithmeticReq.b, arithmeticReq.c)(index)
     if (acceptNarrow) {
-      MuxLookup(io.req.bits.dtype, native, Seq(
+      MuxLookup(arithmeticReq.dtype, native, Seq(
         10.U -> f16Up(index).io.result, 11.U -> bf16Up(index).io.result,
         8.U -> f32Up(index).io.result, 9.U -> native))
     } else native
   }
-  def connectPipe(pipe: FMA): Unit = {
-    val ctrl = pipe.io.in.bits.ctrl.get.asInstanceOf[AecFpPipeCtrl]
-    pipe.io.in.bits.op := pipeOp
-    pipe.io.in.bits.a := reqOperand64(0)
-    pipe.io.in.bits.b := reqOperand64(1)
-    pipe.io.in.bits.c := reqOperand64(2)
-    pipe.io.in.bits.rm := 0.U // AEC is fixed RNE.
-    ctrl.seq := issueSeq
-    ctrl.dest := io.req.bits.dest
-    ctrl.dtype := io.req.bits.dtype
-    ctrl.finite_fma := io.req.bits.op === AecFpOp.fma &&
-      reqOperand64(0)(62,52) =/= 2047.U && reqOperand64(1)(62,52) =/= 2047.U && reqOperand64(2)(62,52) =/= 2047.U
-    ctrl.fma_sign := reqOperand64(0)(63) ^ reqOperand64(1)(63)
-    pipe.io.in.valid := io.req.valid && !busy && reqPipe && issueQ.io.enq.ready
-  }
-  connectPipe(f64Pipe)
-  val selectedPipeReady = MuxLookup(io.req.bits.dtype, false.B, Seq(
-    10.U -> f64Pipe.io.in.ready, 11.U -> f64Pipe.io.in.ready,
-    8.U -> f64Pipe.io.in.ready, 9.U -> f64Pipe.io.in.ready))
   val reqDtypeSupported = if (acceptNarrow) true.B else io.req.bits.dtype === 9.U
-  io.req.ready := !busy && reqDtypeSupported && Mux(reqPipe, selectedPipeReady && issueQ.io.enq.ready, true.B)
+  f64Pipe.io.req.bits.op := arithmeticReq.op
+  f64Pipe.io.req.bits.a := reqOperand64(0)
+  f64Pipe.io.req.bits.b := reqOperand64(1)
+  f64Pipe.io.req.bits.c := reqOperand64(2)
+  f64Pipe.io.req.bits.format := 3.U
+  f64Pipe.io.req.bits.seq := issueSeq
+  f64Pipe.io.req.bits.dest := arithmeticReq.dest
+  f64Pipe.io.req.bits.dtype := arithmeticReq.dtype
+  f64Pipe.io.req.valid := io.req.valid && reqPipe && reqDtypeSupported && issueQ.io.enq.ready
+  val selectedReady = Mux(reqPipe, f64Pipe.io.req.ready, simpleQ.io.enq.ready)
+  io.req.ready := reqDtypeSupported && issueQ.io.enq.ready && selectedReady
   issueQ.io.enq.valid := io.req.fire
   issueQ.io.enq.bits := issueSeq
+  simpleQ.io.enq.valid := io.req.valid && !reqPipe && reqDtypeSupported && issueQ.io.enq.ready
+  simpleQ.io.enq.bits.seq := issueSeq
+  simpleQ.io.enq.bits.req := io.req.bits
   when (io.req.fire) { issueSeq := issueSeq + 1.U }
-  when (io.req.fire && !reqPipe) { held := io.req.bits; busy := true.B }
+
+  val held = simpleQ.io.deq.bits.req
 
   val rm = 0.U(3.W)
   val isF16 = held.dtype === 10.U; val isBF16 = held.dtype === 11.U
@@ -185,15 +239,13 @@ class AecFp64PipeUnit(val acceptNarrow: Boolean = true) extends Module {
   cmp16.io.a := rec(bitsFor(held.a, held.dtype), 5, 11); cmp16.io.b := rec(bitsFor(held.b, held.dtype), 5, 11); cmp16.io.signaling := false.B
   cmp32.io.a := rec(bitsFor(held.a, held.dtype), 8, 24); cmp32.io.b := rec(bitsFor(held.b, held.dtype), 8, 24); cmp32.io.signaling := false.B
   cmp64.io.a := rec(held.a, 11, 53); cmp64.io.b := rec(held.b, 11, 53); cmp64.io.signaling := false.B
-  val oldRespValid = busy
-  val f64Ctrl = f64Pipe.io.out.bits.ctrl.get.asInstanceOf[AecFpPipeCtrl]
-  val f64AtHead = f64Pipe.io.out.valid && issueQ.io.deq.valid && f64Ctrl.seq === issueQ.io.deq.bits
-  val oldAtHead = oldRespValid && issueQ.io.deq.valid
+  val f64AtHead = f64Pipe.io.resp.valid && issueQ.io.deq.valid && f64Pipe.io.resp.bits.seq === issueQ.io.deq.bits
+  val oldAtHead = simpleQ.io.deq.valid && issueQ.io.deq.valid && simpleQ.io.deq.bits.seq === issueQ.io.deq.bits
   val pipeRespValid = f64AtHead
   io.resp.valid := pipeRespValid || oldAtHead
   issueQ.io.deq.ready := io.resp.fire
-  f64Pipe.io.out.ready := io.resp.ready && f64AtHead
-  when (io.resp.fire && oldAtHead) { busy := false.B }
+  f64Pipe.io.resp.ready := io.resp.ready && f64AtHead
+  simpleQ.io.deq.ready := io.resp.ready && oldAtHead
   val isCmp = held.op >= AecFpOp.cmpBase && held.op < (AecFpOp.cmpBase + 6.U)
   val isCmpP = held.op >= AecFpOp.cmppBase && held.op < (AecFpOp.cmppBase + 6.U)
   val cmpMode = Mux(isCmpP, held.op - AecFpOp.cmppBase, held.op - AecFpOp.cmpBase)
@@ -221,24 +273,21 @@ class AecFp64PipeUnit(val acceptNarrow: Boolean = true) extends Module {
   val f64DownF16 = Module(new FPToFP(11, 53, 5, 11))
   val f64DownBf16 = Module(new FPToFP(11, 53, 8, 8))
   val f64DownF32 = Module(new FPToFP(11, 53, 8, 24))
-  val pipeF64Raw = f64Pipe.io.out.bits.result
+  val pipeF64Raw = f64Pipe.io.resp.bits.result
   val pipeF64NaNRaw = pipeF64Raw(62,52) === 2047.U && pipeF64Raw(51,0).orR
-  val pipeF64Fixed = Mux(pipeF64NaNRaw && f64Ctrl.finite_fma,
-    Cat(f64Ctrl.fma_sign, "h7ff".U(11.W), 0.U(52.W)), pipeF64Raw)
+  val pipeF64Fixed = pipeF64Raw
   f64DownF16.io.in := pipeF64Fixed; f64DownF16.io.rm := 0.U
   f64DownBf16.io.in := pipeF64Fixed; f64DownBf16.io.rm := 0.U
   f64DownF32.io.in := pipeF64Fixed; f64DownF32.io.rm := 0.U
   val pipeF64NaN = pipeF64Fixed(62,52) === 2047.U && pipeF64Fixed(51,0).orR
-  val pipeResult = MuxLookup(f64Ctrl.dtype, pipeF64Fixed, Seq(
+  val pipeResult = MuxLookup(f64Pipe.io.resp.bits.dtype, pipeF64Fixed, Seq(
     10.U -> Mux(pipeF64NaN, "h0000000000007e00".U(64.W), Cat(0.U(48.W), f64DownF16.io.result)),
     11.U -> Mux(pipeF64NaN, "h0000000000007fc0".U(64.W), Cat(0.U(48.W), f64DownBf16.io.result)),
     8.U -> Mux(pipeF64NaN, "h000000007fc00000".U(64.W), Cat(0.U(32.W), f64DownF32.io.result))))
-  val pipeCtrl = f64Ctrl
-  val f64Flags = Mux(pipeF64NaNRaw && f64Ctrl.finite_fma, "b00101".U, f64Pipe.io.out.bits.fflags)
-  val pipeFlags = f64Flags
+  val pipeFlags = f64Pipe.io.resp.bits.fflags
   io.resp.bits.result := Mux(pipeRespValid, pipeResult, oldResult)
   io.resp.bits.predicate_result := Mux(pipeRespValid, false.B, Mux(isCmpP, cmpTrue, false.B))
-  io.resp.bits.dest := Mux(pipeRespValid, pipeCtrl.dest, held.dest)
+  io.resp.bits.dest := Mux(pipeRespValid, f64Pipe.io.resp.bits.dest, held.dest)
   io.resp.bits.error := Mux(pipeRespValid, false.B,
     !((isCmp || isCmpP || isMinMax) || held.op === AecFpOp.neg || held.op === AecFpOp.abs))
   io.resp.bits.exception_flags := Mux(pipeRespValid, pipeFlags,

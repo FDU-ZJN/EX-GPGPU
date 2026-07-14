@@ -50,6 +50,16 @@ scripts/run_ppa.sh \
   --activity-vcd evidence/performance.vcd
 ```
 
+默认会报告最差 20 条路径；可用 `--path-count 50` 或
+`PPA_PATH_COUNT=50` 调整数量。除了全局路径清单，流程还会分别生成
+register-to-register、input-to-register、register-to-output 和
+input-to-output 报告，用于区分核心流水线、接口输入和接口输出瓶颈。
+
+ABC 使用层次模块级进程并行，默认并发数为 64，可用 `--jobs 16` 或
+`PPA_JOBS=16` 调整。传统 Berkeley ABC 本身是单线程，因此同一个超大模块
+不能被 64 个线程同时映射；并行度取决于可独立映射的 RTL 模块数量，最大的
+单模块仍会形成运行时间长尾。
+
 根目录 `make ppa` 和 `scripts/run_ppa.sh` 默认使用正式评分 top
 `aec_eval_top` 及其生成 RTL/ABI adapter。单元级开发测量仍可通过
 `PPA_TOP`/`--top` 和 `RTL_SOURCES`/`--rtl-sources` 显式选择。
@@ -87,6 +97,8 @@ scripts/run_ppa.sh \
 | `opensta.tcl` | OpenSTA 约束和报告脚本 |
 | `opensta.log` | OpenSTA link/分析日志 |
 | `checks.rpt` | 最差 max path 原始报告 |
+| `critical_paths.rpt` | 全局最差 N 条关键路径（默认 N=20） |
+| `critical_paths_{reg2reg,in2reg,reg2out,in2out}.rpt` | 按起终点类型分组的最差路径 |
 | `worst_slack.rpt` | worst slack |
 | `tns.rpt` | total negative slack |
 | `timing_checks.txt` | setup、unconstrained endpoint、loop 检查 |

@@ -8,6 +8,8 @@ period=${PERIOD_PS:-1000}
 asap7_root=${ASAP7_ROOT:-}
 asap7_sram_root=${ASAP7_SRAM_ROOT:-}
 strict=${PPA_STRICT:-1}
+path_count=${PPA_PATH_COUNT:-20}
+jobs=${PPA_JOBS:-64}
 top=${PPA_TOP:-AecFp32Unit}
 rtl_sources=${RTL_SOURCES:-"$root/sv/generated/fp32/*.sv"}
 activity_vcd=${ACTIVITY_VCD:-}
@@ -24,6 +26,12 @@ mkdir -p "$out"
 [[ "$flatten_hierarchy" = 0 || "$flatten_hierarchy" = 1 ]] || {
   echo "PPA_FLATTEN must be 0 or 1" >&2; exit 2;
 }
+[[ "$path_count" =~ ^[1-9][0-9]*$ ]] || {
+  echo "PPA_PATH_COUNT must be a positive integer" >&2; exit 2;
+}
+[[ "$jobs" =~ ^[1-9][0-9]*$ ]] || {
+  echo "PPA_JOBS must be a positive integer" >&2; exit 2;
+}
 [[ "$top" != AecFp32Unit || -f "$root/sv/generated/fp32/AecFp32Unit.sv" ]] || {
   echo "sv/generated/fp32/AecFp32Unit.sv is missing; run make generate first" >&2; exit 2;
 }
@@ -37,6 +45,9 @@ write_metadata() {
     echo "period_ps=$period"
     echo "flatten_hierarchy=$flatten_hierarchy"
     echo "top=$top"
+    echo "critical_path_count=$path_count"
+    echo "abc_parallel_jobs=$jobs"
+    echo "abc_parallel_granularity=hierarchical_module"
     echo "rtl_sources=$rtl_sources"
     echo "activity_vcd=${activity_vcd:-none}"
     echo "mapping_mode=$1"
@@ -108,8 +119,24 @@ EOF
 
 flatten_cmd=""
 [[ "$flatten_hierarchy" = 1 ]] && flatten_cmd="flatten;"
-mapping_script="read_liberty -lib $lib/AO.lib; read_liberty -lib $lib/INVBUF.lib; read_liberty -lib $lib/OA.lib; read_liberty -lib $lib/SEQ.lib; read_liberty -lib $lib/SIMPLE.lib; $sram_read_cmd read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; $flatten_cmd techmap; opt; abc -script $out/abc.script; dfflibmap -liberty $lib/SEQ.lib; abc -script $out/abc.script; clean; rename -hide; hierarchy -check -top $top; tee -o $out/yosys_area.txt stat -top $top -hierarchy; write_verilog -noexpr $out/mapped_netlist_debug.v; write_verilog -noattr -noexpr $out/mapped_netlist.v"
-if ! "$yosys_bin" -p "$mapping_script" > "$out/yosys_mapping.log" 2>&1; then
+frontend_script="read_liberty -lib $lib/AO.lib; read_liberty -lib $lib/INVBUF.lib; read_liberty -lib $lib/OA.lib; read_liberty -lib $lib/SEQ.lib; read_liberty -lib $lib/SIMPLE.lib; $sram_read_cmd read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; $flatten_cmd techmap; opt; dfflibmap -liberty $lib/SEQ.lib; opt; tee -o $out/abc_modules.txt select -list-mod *; write_rtlil $out/pre_abc.il"
+mapping_failed=0
+if ! "$yosys_bin" -p "$frontend_script" > "$out/yosys_frontend.log" 2>&1; then
+  mapping_failed=1
+elif ! "$root/scripts/run_parallel_abc.sh" "$out/pre_abc.il" "$out/abc_modules.txt" "$out/abc.script" "$out/parallel_abc" "$jobs" "$yosys_bin"; then
+  mapping_failed=1
+else
+  mapped_read_cmd=""
+  while read -r id _module; do
+    mapped_read_cmd+="read_rtlil $out/parallel_abc/mapped/$id.il; "
+  done < "$out/parallel_abc/modules.manifest"
+  finalize_script="read_liberty -lib $lib/AO.lib; read_liberty -lib $lib/INVBUF.lib; read_liberty -lib $lib/OA.lib; read_liberty -lib $lib/SEQ.lib; read_liberty -lib $lib/SIMPLE.lib; $sram_read_cmd $mapped_read_cmd hierarchy -check -top $top; clean; rename -hide; hierarchy -check -top $top; tee -o $out/yosys_area.txt stat -top $top -hierarchy; write_verilog -noexpr $out/mapped_netlist_debug.v; write_verilog -noattr -noexpr $out/mapped_netlist.v"
+  if ! "$yosys_bin" -p "$finalize_script" > "$out/yosys_finalize.log" 2>&1; then
+    mapping_failed=1
+  fi
+fi
+cat "$out/yosys_frontend.log" "$out"/parallel_abc/log/*.log "$out/yosys_finalize.log" > "$out/yosys_mapping.log" 2>/dev/null || true
+if [[ "$mapping_failed" = 1 ]]; then
   cat "$out/yosys_mapping.log" >&2
   write_metadata asap7_mapping_failed 0
   [[ "$strict" = 1 ]] && exit 1 || exit 0
@@ -144,6 +171,22 @@ set_input_delay 0 -clock clock [all_inputs -no_clocks]
 set_output_delay 0 -clock clock [all_outputs]
 check_setup -verbose -unconstrained_endpoints -loops > $out/timing_checks.txt
 report_checks -path_delay max -fields {slew capacitance} -digits 3 > $out/checks.rpt
+report_checks -path_delay max -group_path_count $path_count -endpoint_path_count 1 -unique_paths_to_endpoint -fields {slew capacitance} -digits 3 > $out/critical_paths.rpt
+proc report_path_group {path_file from_set to_set path_count} {
+  if {[sizeof_collection \$from_set] == 0 || [sizeof_collection \$to_set] == 0} {
+    set path_fp [open \$path_file w]
+    close \$path_fp
+  } else {
+    report_checks -path_delay max -from \$from_set -to \$to_set -group_path_count \$path_count -endpoint_path_count 1 -unique_paths_to_endpoint -fields {slew capacitance} -digits 3 > \$path_file
+  }
+}
+set timing_registers [all_registers]
+set timing_inputs [all_inputs -no_clocks]
+set timing_outputs [all_outputs]
+report_path_group "$out/critical_paths_reg2reg.rpt" \$timing_registers \$timing_registers $path_count
+report_path_group "$out/critical_paths_in2reg.rpt" \$timing_inputs \$timing_registers $path_count
+report_path_group "$out/critical_paths_reg2out.rpt" \$timing_registers \$timing_outputs $path_count
+report_path_group "$out/critical_paths_in2out.rpt" \$timing_inputs \$timing_outputs $path_count
 report_worst_slack -max -digits 3 > $out/worst_slack.rpt
 report_tns -max -digits 3 > $out/tns.rpt
 set area_fp [open "$out/design_area.rpt" w]
@@ -220,6 +263,7 @@ fmax=$(awk -v d="$arrival" 'BEGIN {if (d > 0) printf "%.6f", 1000000/d; else exi
   echo "tns_ps=$tns"
   echo "fmax_mhz=$fmax"
   echo "mapped_cell_count=$cell_count"
+  echo "critical_path_report=$out/critical_paths.rpt"
   echo "timing_valid=true"
   if [[ -s "$out/power.rpt" ]]; then echo "power_report=$out/power.rpt"; echo "power_valid=true"; else echo "power_valid=false"; fi
   if [[ -s "$out/power.rpt" ]]; then echo "ppa_valid=true"; else echo "ppa_valid=false"; fi

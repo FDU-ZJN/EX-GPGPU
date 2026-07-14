@@ -33,12 +33,14 @@ ASAP7_SRAM_ROOT ?=
 ASAP7_CORNER ?= RVT_TT
 ASAP7_LIB_KIND ?= NLDM
 PPA_STRICT ?= 1
-PPA_TOP ?= AecFp32Unit
-RTL_SOURCES ?= $(GENERATED_ROOT)/fp32/*.sv
+PPA_TOP ?= aec_eval_top
+PPA_PATH_COUNT ?= 20
+PPA_JOBS ?= 64
+RTL_SOURCES ?= $(EVAL_GENERATED) $(EVAL_TOP) $(SRAM_WRAPPERS)
 ACTIVITY_VCD ?=
 ACTIVITY_SCOPE ?= $(PPA_TOP)
 
-.PHONY: all build generate sfu-generate sfu-test sfu-diff sfu-lint eval-generate eval-runner lint eval-lint synth ppa ppa-help diff fp32-diff fp64-diff int-lint test clean verify-sram-models
+.PHONY: all build generate sfu-generate sfu-test sfu-diff sfu-lint eval-generate frontend-ppa-generate eval-runner lint eval-lint synth ppa ppa-local ppa-gmem ppa-frontend ppa-help diff fp32-diff fp64-diff int-lint test clean verify-sram-models
 all: test
 build:
 	$(SBT) $(SBT_FLAGS) compile
@@ -68,6 +70,9 @@ $(EVAL_GENERATED): $(EVAL_SCALA_SOURCES) build.sbt project/build.properties
 
 eval-generate: $(EVAL_GENERATED)
 
+frontend-ppa-generate: eval-generate
+	$(YOSYS) -Q -s scripts/build_frontend_ppa.ys
+
 verify-sram-models:
 	scripts/verify_sram_models.sh
 
@@ -86,12 +91,19 @@ eval-lint: eval-generate verify-sram-models
 	$(VERILATOR) --lint-only -Wall --Wno-fatal --Wno-DECLFILENAME --Wno-UNUSEDSIGNAL --top-module aec_eval_top $(EVAL_GENERATED) $(EVAL_TOP) $(SRAM_WRAPPERS) $(SRAM_MODELS)
 synth: generate
 	$(YOSYS) -p 'read_verilog -sv $(GENERATED_ROOT)/fp32/*.sv; hierarchy -top AecFp32Unit; proc; opt'
-ppa: generate
-	OUT_DIR=$(OUT_DIR) PERIOD_PS=$(PERIOD_PS) ASAP7_ROOT=$(ASAP7_ROOT) ASAP7_SRAM_ROOT=$(ASAP7_SRAM_ROOT) ASAP7_CORNER=$(ASAP7_CORNER) ASAP7_LIB_KIND=$(ASAP7_LIB_KIND) PPA_STRICT=$(PPA_STRICT) PPA_TOP=$(PPA_TOP) RTL_SOURCES='$(RTL_SOURCES)' ACTIVITY_VCD=$(ACTIVITY_VCD) ACTIVITY_SCOPE=$(ACTIVITY_SCOPE) STA=$(STA) YOSYS=$(YOSYS) scripts/report_yosys_ppa.sh
+ppa: eval-generate
+	OUT_DIR=$(OUT_DIR) PERIOD_PS=$(PERIOD_PS) ASAP7_ROOT=$(ASAP7_ROOT) ASAP7_SRAM_ROOT=$(ASAP7_SRAM_ROOT) ASAP7_CORNER=$(ASAP7_CORNER) ASAP7_LIB_KIND=$(ASAP7_LIB_KIND) PPA_STRICT=$(PPA_STRICT) PPA_TOP=$(PPA_TOP) PPA_PATH_COUNT=$(PPA_PATH_COUNT) PPA_JOBS=$(PPA_JOBS) PPA_FLATTEN=$(PPA_FLATTEN) RTL_SOURCES='$(RTL_SOURCES)' ACTIVITY_VCD=$(ACTIVITY_VCD) ACTIVITY_SCOPE=$(ACTIVITY_SCOPE) STA=$(STA) YOSYS=$(YOSYS) scripts/report_yosys_ppa.sh
+ppa-local: eval-generate
+	$(MAKE) ppa PPA_TOP=AecLocalLsu RTL_SOURCES='$(EVAL_GENERATED) $(SRAM_WRAPPERS)' OUT_DIR=$(OUT_DIR)
+ppa-gmem: eval-generate
+	$(MAKE) ppa PPA_TOP=AecGmemLsu RTL_SOURCES='$(EVAL_GENERATED)' OUT_DIR=$(OUT_DIR)
+ppa-frontend: frontend-ppa-generate
+	$(MAKE) ppa PPA_TOP=AecFrontendPpaTop RTL_SOURCES='$(GENERATED_ROOT)/frontend_ppa/AecFrontendPpaTop.sv $(SRAM_WRAPPERS)' OUT_DIR=$(OUT_DIR)
 ppa-help:
 	@echo 'make -C rtl ppa ASAP7_ROOT=/path/to/asap7sc7p5t_28 PERIOD_PS=1000'
 	@echo 'make -C rtl ppa ASAP7_ROOT=/path/to/asap7sc7p5t_28 ACTIVITY_VCD=/path/to/run.vcd'
-	@echo 'PPA_TOP=$(PPA_TOP) RTL_SOURCES=$(RTL_SOURCES) OUT_DIR=$(OUT_DIR) PPA_STRICT=$(PPA_STRICT)'
+	@echo 'Fast timing tops: ppa-local, ppa-gmem, ppa-frontend'
+	@echo 'PPA_TOP=$(PPA_TOP) RTL_SOURCES=$(RTL_SOURCES) OUT_DIR=$(OUT_DIR) PPA_STRICT=$(PPA_STRICT) PPA_JOBS=$(PPA_JOBS)'
 diff: fp32-diff
 fp32-diff: generate
 	COUNT=$(COUNT) SEED=$(SEED) BACKPRESSURE=$(BACKPRESSURE) scripts/run_fp_diff.sh --unit fp32

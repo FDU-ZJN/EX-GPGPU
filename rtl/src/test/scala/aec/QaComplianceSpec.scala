@@ -113,6 +113,24 @@ class QaComplianceSpec extends AnyFlatSpec with ChiselScalatestTester {
     dut.clock.step(); dut.io.lineComplete.valid.poke(false.B)
   }
 
+  private def waitForLineRequest(dut: AecGmemLsu, limit: Int = 40): Unit = {
+    var cycles = 0
+    while (!dut.io.lineOut.valid.peek().litToBoolean && cycles < limit) {
+      dut.clock.step()
+      cycles += 1
+    }
+    assert(cycles < limit, "timed out waiting for GMEM line request")
+  }
+
+  private def waitForDone(dut: AecGmemLsu, limit: Int = 40): Unit = {
+    var cycles = 0
+    while (!dut.io.done.valid.peek().litToBoolean && cycles < limit) {
+      dut.clock.step()
+      cycles += 1
+    }
+    assert(cycles < limit, "timed out waiting for GMEM completion")
+  }
+
   it should "encode MAX as 1 and MIN as 2 for signed and unsigned words" in {
     def run(op: Int, signed: Boolean): (Long, Long) = {
       var result = (0L, 0L)
@@ -125,6 +143,7 @@ class QaComplianceSpec extends AnyFlatSpec with ChiselScalatestTester {
         dut.clock.step()
         val input = BigInt("0000000180000000", 16)
         respond(dut, input) // RMW read
+        waitForLineRequest(dut)
         dut.io.lineOut.valid.expect(true.B); dut.io.lineOut.bits.write.expect(true.B)
         val words = dut.io.lineOut.bits.wdata.peek().litValue
         result = ((words & 0xffffffffL).longValue, ((words >> 32) & 0xffffffffL).longValue)
@@ -150,6 +169,7 @@ class QaComplianceSpec extends AnyFlatSpec with ChiselScalatestTester {
       }
 
       begin(2, 99)
+      waitForLineRequest(dut)
       dut.io.lineOut.valid.expect(true.B); dut.io.lineOut.bits.write.expect(true.B)
       dut.io.lineOut.bits.wstrb.expect("hf".U)
       dut.io.lineOut.bits.wdata.expect((9L | (3L << 32)).U)
@@ -157,9 +177,29 @@ class QaComplianceSpec extends AnyFlatSpec with ChiselScalatestTester {
       dut.io.done.valid.expect(true.B); dut.clock.step()
 
       begin(98, 99)
+      waitForDone(dut)
       dut.io.done.valid.expect(true.B)
       dut.io.lineOut.valid.expect(false.B)
       dut.io.done.bits.loadData(0).expect(2.U); dut.io.done.bits.loadData(1).expect(3.U)
+    }
+  }
+
+  it should "apply same-word atomic lanes in ascending lane order" in {
+    test(new AecGmemLsu(2)) { dut =>
+      dut.io.start.valid.poke(false.B); dut.io.lineOut.ready.poke(true.B)
+      dut.io.lineComplete.valid.poke(false.B); dut.io.done.ready.poke(true.B)
+      initializeAtomic(dut, AecAtomicOp.add.litValue.toInt, signed = false, 0, 0, 1, 2)
+      dut.io.start.bits.address(1).poke(0.U)
+      dut.io.start.valid.poke(true.B); dut.clock.step(); dut.io.start.valid.poke(false.B)
+      dut.clock.step(); respond(dut, 5) // preflight
+      dut.clock.step(); respond(dut, 5) // RMW read
+      waitForLineRequest(dut)
+      dut.io.lineOut.bits.write.expect(true.B)
+      assert((dut.io.lineOut.bits.wdata.peek().litValue & 0xffffffffL) == 8)
+      dut.io.lineOut.bits.wstrb.expect("hf".U)
+      dut.clock.step(); respond(dut, 0, write = true)
+      dut.io.done.bits.loadData(0).expect(5.U)
+      dut.io.done.bits.loadData(1).expect(6.U)
     }
   }
 

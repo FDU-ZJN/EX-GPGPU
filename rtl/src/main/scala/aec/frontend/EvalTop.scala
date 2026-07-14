@@ -52,13 +52,22 @@ class AecEvalTop extends Module {
   val resultStatus = RegInit(0.U(3.W))
   val abortPending = RegInit(false.B)
   val abortStatus = RegInit(2.U(3.W))
-  val softReset = WireDefault(resultValid && io.result_ready)
+  val softReset = RegNext(resultValid && io.result_ready, false.B)
   val cycles = RegInit(0.U(64.W))
   val launchThreads = RegInit(0.U(32.W))
   val launchGridX = RegInit(0.U(32.W)); val launchGridY = RegInit(0.U(32.W)); val launchGridZ = RegInit(0.U(32.W))
   val launchBlockX = RegInit(0.U(32.W)); val launchBlockY = RegInit(0.U(32.W)); val launchBlockZ = RegInit(0.U(32.W))
   val ctaX = RegInit(0.U(32.W)); val ctaY = RegInit(0.U(32.W)); val ctaZ = RegInit(0.U(32.W))
+  val ctaLinear = RegInit(0.U(20.W))
+  val ctaThreadBase = RegInit(0.U(20.W))
   val restartCta = RegInit(false.B)
+  val launchIdle :: launchBlockXY :: launchBlockXYZ :: launchGridXY :: launchGridXYZ :: launchGridThreads :: Nil = Enum(6)
+  val launchCheckState = RegInit(launchIdle)
+  val launchCheckBad = RegInit(false.B)
+  val pendingGridX = Reg(UInt(32.W)); val pendingGridY = Reg(UInt(32.W)); val pendingGridZ = Reg(UInt(32.W))
+  val pendingBlockX = Reg(UInt(32.W)); val pendingBlockY = Reg(UInt(32.W)); val pendingBlockZ = Reg(UInt(32.W))
+  val launchProduct = Reg(UInt(42.W))
+  val launchStart = WireDefault(false.B)
   // A registered trap gives the simulator one full cycle to emit a useful
   // dynamic diagnostic before Verilator stops on the assertion.
   val unsupportedTrap = RegInit(false.B)
@@ -85,7 +94,7 @@ class AecEvalTop extends Module {
   // apertures make an invalid preload visible at launch instead of silently
   // truncating a testcase image.
   val localLoadTarget = io.load_target === 2.U || io.load_target === 3.U
-  io.load_ready := !running && !resultValid && (!localLoadTarget || localLsu.io.preload.ready)
+  io.load_ready := !running && !resultValid && !softReset && launchCheckState === launchIdle && (!localLoadTarget || localLsu.io.preload.ready)
   val loadFire = io.load_valid && io.load_ready
   val localLoadOutOfRange = VecInit((0 until 16).map(i => io.load_strb(i) &&
     (io.load_addr +& i.U) >= 65536.U)).asUInt.orR
@@ -113,31 +122,64 @@ class AecEvalTop extends Module {
     }.elsewhen (io.load_target =/= 1.U) { loadError := true.B }
   }
 
-  val totalThreads = io.block_x * io.block_y * io.block_z
-  val gridCtasWide = io.grid_x * io.grid_y * io.grid_z
-  val gridThreadsWide = gridCtasWide * totalThreads
-  val launchBad = totalThreads === 0.U || totalThreads > 256.U || io.grid_x === 0.U || io.grid_y === 0.U || io.grid_z === 0.U ||
-    gridThreadsWide > (1 << 20).U || io.program_instructions === 0.U || io.program_instructions > AecFrontendConfig.ImemWords.U || loadError
-  io.launch_ready := !running && !resultValid
+  io.launch_ready := !running && !resultValid && !softReset && launchCheckState === launchIdle
   when (io.launch_valid && io.launch_ready) {
     cycles := 0.U
     unsupportedTrap := false.B
     unsupportedAssert := false.B
-    when (launchBad) { resultValid := true.B; resultStatus := 1.U }
-      .otherwise {
-        running := true.B
-        launchThreads := totalThreads; launchGridX := io.grid_x; launchGridY := io.grid_y; launchGridZ := io.grid_z
-        launchBlockX := io.block_x; launchBlockY := io.block_y; launchBlockZ := io.block_z
-        ctaX := 0.U; ctaY := 0.U; ctaZ := 0.U
-        for (w <- 0 until 8) {
-          val remaining = totalThreads - (w * 32).U
-          activeMask(w) := Mux(remaining >= 32.U, "hffffffff".U, Mux(remaining === 0.U, 0.U, (1.U(33.W) << remaining(5, 0))(31, 0) - 1.U))
-          pc(w) := 0.U
-          warpEpoch(w) := 0.U
-          callDepth(w) := 0.U
-          warpState(w) := Mux(totalThreads > (w * 32).U, 1.U, 3.U)
-        }
+    pendingGridX := io.grid_x; pendingGridY := io.grid_y; pendingGridZ := io.grid_z
+    pendingBlockX := io.block_x; pendingBlockY := io.block_y; pendingBlockZ := io.block_z
+    launchCheckBad := loadError || io.program_instructions === 0.U ||
+      io.program_instructions > AecFrontendConfig.ImemWords.U ||
+      io.block_x === 0.U || io.block_y === 0.U || io.block_z === 0.U ||
+      io.block_x > 256.U || io.block_y > 256.U || io.block_z > 256.U ||
+      io.grid_x === 0.U || io.grid_y === 0.U || io.grid_z === 0.U ||
+      io.grid_x > (1 << 20).U || io.grid_y > (1 << 20).U || io.grid_z > (1 << 20).U
+    launchCheckState := launchBlockXY
+  }
+  when (launchCheckState === launchBlockXY) {
+    launchProduct := pendingBlockX(8, 0) * pendingBlockY(8, 0)
+    launchCheckState := launchBlockXYZ
+  }
+  when (launchCheckState === launchBlockXYZ) {
+    val checkedThreads = launchProduct(17, 0) * pendingBlockZ(8, 0)
+    launchThreads := checkedThreads
+    when (checkedThreads === 0.U || checkedThreads > 256.U) { launchCheckBad := true.B }
+    launchCheckState := launchGridXY
+  }
+  when (launchCheckState === launchGridXY) {
+    val checkedGridXY = pendingGridX(20, 0) * pendingGridY(20, 0)
+    launchProduct := checkedGridXY
+    when (checkedGridXY > (1 << 20).U) { launchCheckBad := true.B }
+    launchCheckState := launchGridXYZ
+  }
+  when (launchCheckState === launchGridXYZ) {
+    val checkedGridXYZ = launchProduct(20, 0) * pendingGridZ(20, 0)
+    launchProduct := checkedGridXYZ
+    when (checkedGridXYZ > (1 << 20).U) { launchCheckBad := true.B }
+    launchCheckState := launchGridThreads
+  }
+  when (launchCheckState === launchGridThreads) {
+    val checkedGridThreads = launchProduct(20, 0) * launchThreads(8, 0)
+    launchCheckState := launchIdle
+    when (launchCheckBad || checkedGridThreads > (1 << 20).U) {
+      resultValid := true.B
+      resultStatus := 1.U
+    }.otherwise {
+      running := true.B
+      launchStart := true.B
+      launchGridX := pendingGridX; launchGridY := pendingGridY; launchGridZ := pendingGridZ
+      launchBlockX := pendingBlockX; launchBlockY := pendingBlockY; launchBlockZ := pendingBlockZ
+      ctaX := 0.U; ctaY := 0.U; ctaZ := 0.U; ctaLinear := 0.U; ctaThreadBase := 0.U
+      for (w <- 0 until 8) {
+        val remaining = launchThreads - (w * 32).U
+        activeMask(w) := Mux(remaining >= 32.U, "hffffffff".U, Mux(remaining === 0.U, 0.U, (1.U(33.W) << remaining(5, 0))(31, 0) - 1.U))
+        pc(w) := 0.U
+        warpEpoch(w) := 0.U
+        callDepth(w) := 0.U
+        warpState(w) := Mux(launchThreads > (w * 32).U, 1.U, 3.U)
       }
+    }
   }
   when (restartCta) {
     restartCta := false.B
@@ -149,7 +191,7 @@ class AecEvalTop extends Module {
       warpState(w) := Mux(launchThreads > (w * 32).U, 1.U, 3.U)
     }
   }
-  when ((io.launch_valid && io.launch_ready && !launchBad) || restartCta) { localLsu.io.clearSmem := true.B }
+  when (launchStart || restartCta) { localLsu.io.clearSmem := true.B }
   when (running) { cycles := cycles + 1.U }
 
   // Each scheduler owns a two-warp register-file partition and an eight-lane
@@ -168,7 +210,7 @@ class AecEvalTop extends Module {
   val sfuUnits = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecSfuWarpUnit(4)) })
   val cvtUnits = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecConvertLane) })
   val gmemLsus = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecGmemLsu) })
-  val robs = Seq.tabulate(8)(w => withReset(reset.asBool || softReset || restartCta) { Module(new AecWarpRob(w)) })
+  val robs = Seq.tabulate(8)(w => withReset(reset.asBool || softReset) { Module(new AecWarpRob(w)) })
   for (rob <- robs) {
     rob.io.allocate.valid := false.B
     rob.io.allocate.bits := 0.U.asTypeOf(rob.io.allocate.bits)
@@ -176,6 +218,7 @@ class AecEvalTop extends Module {
     rob.io.completion.bits := 0.U.asTypeOf(rob.io.completion.bits)
     rob.io.pop := false.B
     rob.io.flush := false.B
+    when (restartCta) { rob.io.flush := true.B }
   }
   val pipeIdle :: pipeReadA :: pipeReadB :: pipeReadC :: pipeReadAHi :: pipeReadBHi :: pipeReadCHi :: pipeDispatch :: pipeWait :: pipeMemStart :: pipeMemWait :: pipeCvt :: pipeMatch :: pipeWrite :: Nil = Enum(14)
   val pipeState = Seq.fill(4)(RegInit(pipeIdle))
@@ -215,6 +258,8 @@ class AecEvalTop extends Module {
   val completionCandidates = Wire(Vec(4, Vec(7, Valid(new AecRobCompletion))))
   val completionGrant = Wire(Vec(4, UInt(3.W)))
   val completionAny = Wire(Vec(4, Bool()))
+  val completionStageValid = RegInit(VecInit(Seq.fill(4)(false.B)))
+  val completionStage = Reg(Vec(4, new AecRobCompletion))
   for (s <- 0 until 4; source <- 0 until 7) {
     completionCandidates(s)(source).valid := false.B
     completionCandidates(s)(source).bits := 0.U.asTypeOf(completionCandidates(s)(source).bits)
@@ -308,18 +353,26 @@ class AecEvalTop extends Module {
   val selectedValid = Wire(Vec(4, Bool()))
   val fetchPending = Seq.fill(4)(RegInit(false.B))
   val fetchWarp = Seq.fill(4)(Reg(UInt(3.W)))
+  val decodeValid = Seq.fill(4)(RegInit(false.B))
+  val decodeWarp = Seq.fill(4)(Reg(UInt(3.W)))
+  val decodeInstruction = Seq.fill(4)(Reg(new AecDecodedInstruction))
   for (s <- 0 until 4) {
     val lo = (s * 2).U(3.W); val hi = (s * 2 + 1).U(3.W)
-    val partitionFree = pipeState(s) === pipeIdle
+    val partitionFree = pipeState(s) === pipeIdle && !decodeValid(s)
     val loRun = warpState(s * 2) === 1.U && partitionFree; val hiRun = warpState(s * 2 + 1) === 1.U && partitionFree
     selectedValid(s) := loRun || hiRun
     selected(s) := Mux(rr(s), Mux(hiRun, hi, lo), Mux(loRun, lo, hi))
-    val fetchRequest = running && !localLsu.io.clearBusy && selectedValid(s) && !fetchPending(s)
+    val fetchRequest = running && !localLsu.io.clearBusy && selectedValid(s) && !fetchPending(s) && !decodeValid(s)
     imem(s).io.readEn := fetchRequest
     imem(s).io.readAddress := pc(selected(s))(9, 0)
     when (fetchRequest) { fetchPending(s) := true.B; fetchWarp(s) := selected(s) }
-    when (fetchPending(s) && pipeState(s) === pipeIdle) { fetchPending(s) := false.B }
-    when (!running) { fetchPending(s) := false.B }
+    when (fetchPending(s) && pipeState(s) === pipeIdle && !decodeValid(s)) {
+      fetchPending(s) := false.B
+      decodeValid(s) := true.B
+      decodeWarp(s) := fetchWarp(s)
+      decodeInstruction(s) := AecDecode(imem(s).io.readData)
+    }
+    when (!running) { fetchPending(s) := false.B; decodeValid(s) := false.B }
   }
 
   // Default all of the bank, scoreboard and execution-unit ports.  The
@@ -333,10 +386,9 @@ class AecEvalTop extends Module {
     val fp64 = fp64Units(s)
     val sfu = sfuUnits(s)
     val cvt = cvtUnits(s)
-    val issueWarp = fetchWarp(s)
-    val issueValid = fetchPending(s) && pipeState(s) === pipeIdle && running
-    val fetch = imem(s).io.readData
-    val decoded = AecDecode(fetch)
+    val issueWarp = decodeWarp(s)
+    val issueValid = decodeValid(s) && pipeState(s) === pipeIdle && running
+    val decoded = decodeInstruction(s)
     val heldIsCmpp = held(s).opcode === AecOpcode.cmpp
     val heldWritesPred = heldIsCmpp || (held(s).opcode === AecOpcode.vote && held(s).ext === 1.U)
     val heldIsBfx = held(s).opcode === AecOpcode.bfx
@@ -362,7 +414,7 @@ class AecEvalTop extends Module {
     syncArriveWarp(s) := issueWarp
     coordRequest(s) := false.B
 
-    bank.io.clear := (io.launch_valid && io.launch_ready && !launchBad) || restartCta
+    bank.io.clear := launchStart || restartCta
     bank.io.read.valid := pipeState(s) === pipeReadA || pipeState(s) === pipeReadB || pipeState(s) === pipeReadC || pipeState(s) === pipeReadAHi || pipeState(s) === pipeReadBHi || pipeState(s) === pipeReadCHi
     bank.io.read.bits.warpLocal := heldWarp(s)(0)
     bank.io.read.bits.reg := MuxLookup(pipeState(s), held(s).src1, Seq(
@@ -510,11 +562,9 @@ class AecEvalTop extends Module {
     cvt.io.dstType := held(s).dtype; cvt.io.srcType := heldCvtSrc
     cvt.io.in := Cat(operandAHi(s)(cvtLane(s)), operandA(s)(cvtLane(s)))
 
-    val ctaLinearWide = ctaX +& launchGridX * (ctaY +& launchGridY * ctaZ)
-    val ctaThreadBaseWide = ctaLinearWide * launchThreads
     lsu.io.start.valid := pipeState(s) === pipeMemStart && heldExternalMemory
     lsu.io.start.bits.space := held(s).ext === AecMemorySpace.lmem
-    lsu.io.start.bits.ctaThreadBase := ctaThreadBaseWide(19, 0)
+    lsu.io.start.bits.ctaThreadBase := ctaThreadBase
     lsu.io.start.bits.warp := heldWarp(s)
     lsu.io.start.bits.load := !heldStore && !heldAtomic
     lsu.io.start.bits.width64 := held(s).dtype === 1.U
@@ -589,6 +639,12 @@ class AecEvalTop extends Module {
     val issueAllocatedTag = Mux(issueWarp(0), robs(s * 2 + 1).io.allocatedTag, robs(s * 2).io.allocatedTag)
     val canStart = issueValid && (legalInteger || legalFp32 || legalFp64 || legalGmem || legalLocalMemory || legalCollective || legalCvt || legalAtom || legalSfu || (decoded.opcode === AecOpcode.loadi64 && encodingValid)) && score.io.sourcesReady &&
       (decodedStore || score.io.destinationFree) && issueRobReady && (!decodedSerializing || issueRobEmpty)
+    val decodedSupported = legalInteger || legalFp32 || legalFp64 || legalGmem || legalLocalMemory || legalCollective || legalCvt || legalAtom || legalSfu ||
+      (decoded.opcode === AecOpcode.loadi64 && encodingValid)
+    val consumeControl = issueValid && issueRobEmpty && encodingValid && decodedControl
+    val consumeInvalid = issueValid && issueRobEmpty && !encodingValid
+    val consumeUnsupported = issueValid && !decodedControl && !decodedSupported
+    when (consumeControl || canStart || consumeInvalid || consumeUnsupported) { decodeValid(s) := false.B }
     val activePred = activeMask(issueWarp) & bank.io.predMask
     val uniformTrue = activePred === activeMask(issueWarp)
     val uniformFalse = activePred === 0.U
@@ -650,7 +706,7 @@ class AecEvalTop extends Module {
       running := false.B
       abortPending := true.B
       abortStatus := 1.U
-    }.elsewhen (issueValid && !decodedControl && !(legalInteger || legalFp32 || legalFp64 || legalGmem || legalLocalMemory || legalCollective || legalCvt || legalAtom || legalSfu || (decoded.opcode === AecOpcode.loadi64 && encodingValid))) {
+    }.elsewhen (consumeUnsupported) {
       // Any other legal instruction reaching an unconnected backend is also a
       // hard integration failure.  It must never be reported as INVALID.
       unsupportedTrap := true.B
@@ -769,40 +825,81 @@ class AecEvalTop extends Module {
     }
   }
 
-  // One shared, registered coordinate unit replaces four copies of dynamic
-  // divide/modulo logic. Special CPY lanes are serialized through this unit;
-  // ordinary conversion lanes remain independent.
-  val coordBusy = RegInit(false.B)
+  // One shared coordinate unit computes the first lane with two exact 8-bit
+  // div/mod operations, then advances x/y/z counters for the rest of the warp.
+  val coordIdle :: coordDivideX :: coordStartY :: coordDivideY :: coordEmit :: Nil = Enum(5)
+  val coordState = RegInit(coordIdle)
   val coordOwner = Reg(UInt(2.W))
-  val coordLinear = Reg(UInt(8.W))
+  val coordLane = Reg(UInt(5.W))
+  val coordX = Reg(UInt(8.W)); val coordY = Reg(UInt(8.W)); val coordZ = Reg(UInt(8.W))
+  val coordQuotX = Reg(UInt(8.W))
+  val coordNeedsDivide = Reg(Bool())
+  val coordDivider = Module(new AecUnsignedDivider8)
+  coordDivider.io.start := false.B
+  coordDivider.io.numerator := 0.U
+  coordDivider.io.divisor := 1.U
   val coordSelect = PriorityEncoder(coordRequest.asUInt)
-  when (!coordBusy && coordRequest.asUInt.orR) {
-    coordBusy := true.B; coordOwner := coordSelect
-    coordLinear := Mux1H((0 until 4).map(i => (coordSelect === i.U) ->
-      ((heldWarp(i) << 5) + cvtLane(i))))
+  when (coordState === coordIdle && coordRequest.asUInt.orR) {
+    val selectedSpecial = Mux1H((0 until 4).map(i => (coordSelect === i.U) -> held(i).src1Raw))
+    val selectedLinear = Mux1H((0 until 4).map(i => (coordSelect === i.U) -> ((heldWarp(i) << 5) + cvtLane(i))))
+    val needsDivide = selectedSpecial === "h0100".U || selectedSpecial === "h0110".U || selectedSpecial === "h0120".U
+    coordOwner := coordSelect
+    coordLane := Mux1H((0 until 4).map(i => (coordSelect === i.U) -> cvtLane(i)))
+    coordNeedsDivide := needsDivide
+    when (needsDivide) {
+      coordDivider.io.start := true.B
+      coordDivider.io.numerator := selectedLinear
+      coordDivider.io.divisor := launchBlockX(8, 0)
+      coordState := coordDivideX
+    }.otherwise {
+      coordX := 0.U; coordY := 0.U; coordZ := 0.U
+      coordState := coordEmit
+    }
   }
-  val coordBlockX = launchBlockX(7, 0)
-  val coordBlockY = launchBlockY(7, 0)
-  val coordBlockXIs256 = launchBlockX === 256.U
-  val coordBlockYIs256 = launchBlockY === 256.U
-  val coordQuotX = Mux(coordBlockXIs256, 0.U, coordLinear / coordBlockX)
-  val coordX = Mux(coordBlockXIs256, coordLinear, coordLinear % coordBlockX)
-  val coordY = Mux(coordBlockYIs256, coordQuotX, coordQuotX % coordBlockY)
-  val coordZ = Mux(coordBlockYIs256, 0.U, coordQuotX / coordBlockY)
-  when (coordBusy) {
+  when (coordState === coordDivideX && coordDivider.io.done) {
+    coordX := coordDivider.io.remainder
+    coordQuotX := coordDivider.io.quotient
+    coordState := coordStartY
+  }
+  when (coordState === coordStartY) {
+    coordDivider.io.start := true.B
+    coordDivider.io.numerator := coordQuotX
+    coordDivider.io.divisor := launchBlockY(8, 0)
+    coordState := coordDivideY
+  }
+  when (coordState === coordDivideY && coordDivider.io.done) {
+    coordY := coordDivider.io.remainder
+    coordZ := coordDivider.io.quotient
+    coordState := coordEmit
+  }
+  when (coordState === coordEmit) {
     for (s <- 0 until 4) {
       when (coordOwner === s.U) {
         val special = MuxLookup(held(s).src1Raw, 0.U(32.W), Seq(
           "h0100".U -> coordX, "h0101".U -> launchBlockX, "h0102".U -> ctaX, "h0103".U -> launchGridX,
-          "h0104".U -> cvtLane(s),
+          "h0104".U -> coordLane,
           "h0110".U -> coordY, "h0111".U -> launchBlockY, "h0112".U -> ctaY, "h0113".U -> launchGridY,
           "h0120".U -> coordZ, "h0121".U -> launchBlockZ, "h0122".U -> ctaZ, "h0123".U -> launchGridZ))
-        writeData(s)(cvtLane(s)) := special; writeHiData(s)(cvtLane(s)) := 0.U
-        when (cvtLane(s) === 31.U) { writeHiPhase(s) := false.B; pipeState(s) := pipeWrite }
-          .otherwise { cvtLane(s) := cvtLane(s) + 1.U }
+        writeData(s)(coordLane) := special; writeHiData(s)(coordLane) := 0.U
+        when (coordLane === 31.U) {
+          writeHiPhase(s) := false.B
+          pipeState(s) := pipeWrite
+          coordState := coordIdle
+        }.otherwise {
+          val wrapX = coordX + 1.U === launchBlockX
+          val wrapY = coordY + 1.U === launchBlockY
+          coordLane := coordLane + 1.U
+          cvtLane(s) := coordLane + 1.U
+          when (coordNeedsDivide) {
+            coordX := Mux(wrapX, 0.U, coordX + 1.U)
+            when (wrapX) {
+              coordY := Mux(wrapY, 0.U, coordY + 1.U)
+              when (wrapY) { coordZ := coordZ + 1.U }
+            }
+          }
+        }
       }
     }
-    coordBusy := false.B
   }
 
   // The resident memory arrays are shared by all four scheduler partitions.
@@ -812,14 +909,19 @@ class AecEvalTop extends Module {
   val localRr = RegInit(0.U(2.W))
   val localOwner = RegInit(0.U(2.W))
   val localOwnerValid = RegInit(false.B)
+  val localPendingValid = RegInit(false.B)
+  val localPendingOwner = Reg(UInt(2.W))
+  val localPendingRequest = Reg(new AecLocalMemoryRequest)
   val localRotated = (Cat(localRequestValid.asUInt, localRequestValid.asUInt) >> localRr)(3, 0)
   val localSelect = (localRr + PriorityEncoder(localRotated))(1, 0)
-  localLsu.io.start.valid := localRequestValid.asUInt.orR
-  localLsu.io.start.bits := Mux1H((0 until 4).map(i => (localSelect === i.U) -> localRequests(i)))
-  when (localLsu.io.start.fire) {
+  val captureLocal = !localPendingValid && !localOwnerValid && localRequestValid.asUInt.orR
+  localLsu.io.start.valid := localPendingValid
+  localLsu.io.start.bits := localPendingRequest
+  when (captureLocal) {
+    localPendingValid := true.B
+    localPendingOwner := localSelect
+    localPendingRequest := Mux1H((0 until 4).map(i => (localSelect === i.U) -> localRequests(i)))
     localRr := localSelect + 1.U
-    localOwner := localSelect
-    localOwnerValid := true.B
     for (s <- 0 until 4) {
       when (localSelect === s.U) {
         val issuingRobCount = Mux(heldWarp(s)(0), robs(s * 2 + 1).io.count, robs(s * 2).io.count)
@@ -829,6 +931,11 @@ class AecEvalTop extends Module {
         pipeState(s) := pipeIdle
       }
     }
+  }
+  when (localLsu.io.start.fire) {
+    localPendingValid := false.B
+    localOwner := localPendingOwner
+    localOwnerValid := true.B
   }
   for (s <- 0 until 4) {
     completionCandidates(s)(6).valid := localOwnerValid && localOwner === s.U && localLsu.io.done.valid
@@ -841,15 +948,18 @@ class AecEvalTop extends Module {
   when (localLsu.io.done.fire) { localOwnerValid := false.B }
 
   for (s <- 0 until 4) {
-    val selectedCompletion = completionCandidates(s)(completionGrant(s)).bits
-    when (completionAny(s)) {
-      when (selectedCompletion.tag.warp(0)) {
+    when (completionStageValid(s)) {
+      when (completionStage(s).tag.warp(0)) {
         robs(s * 2 + 1).io.completion.valid := true.B
-        robs(s * 2 + 1).io.completion.bits := selectedCompletion
+        robs(s * 2 + 1).io.completion.bits := completionStage(s)
       }.otherwise {
         robs(s * 2).io.completion.valid := true.B
-        robs(s * 2).io.completion.bits := selectedCompletion
+        robs(s * 2).io.completion.bits := completionStage(s)
       }
+    }
+    completionStageValid(s) := completionAny(s)
+    when (completionAny(s)) {
+      completionStage(s) := completionCandidates(s)(completionGrant(s)).bits
     }
   }
 
@@ -888,21 +998,30 @@ class AecEvalTop extends Module {
   val lockedRequests = lsuRequests & UIntToOH(atomicOwner, 4)
   val eligibleLsuRequests = Mux(atomicLock, lockedRequests | lmemRequests, lsuRequests)
   val externalRr = RegInit(0.U(2.W))
+  val externalPendingValid = RegInit(false.B)
+  val externalPendingRequest = Reg(new AecLineRequest)
   val lsuRotated = (Cat(eligibleLsuRequests, eligibleLsuRequests) >> externalRr)(3, 0)
   val lsuSelect = (externalRr + PriorityEncoder(lsuRotated))(1, 0)
-  external.io.lineIn.valid := eligibleLsuRequests.orR
-  external.io.lineIn.bits := Mux1H((0 until 4).map(i => (lsuSelect === i.U) -> gmemLsus(i).io.lineOut.bits))
+  val externalPendingReady = !externalPendingValid || external.io.lineIn.ready
+  val captureExternal = externalPendingReady && eligibleLsuRequests.orR
+  external.io.lineIn.valid := externalPendingValid
+  external.io.lineIn.bits := externalPendingRequest
   for (s <- 0 until 4) {
-    gmemLsus(s).io.lineOut.ready := external.io.lineIn.ready && external.io.lineIn.valid && lsuSelect === s.U
+    gmemLsus(s).io.lineOut.ready := externalPendingReady && eligibleLsuRequests.orR && lsuSelect === s.U
     gmemLsus(s).io.lineComplete.valid := external.io.lineComplete.valid && external.io.lineComplete.bits.warp(2, 1) === s.U
     gmemLsus(s).io.lineComplete.bits := external.io.lineComplete.bits
   }
   val selectedAtomic = Mux1H((0 until 4).map(i => (lsuSelect === i.U) -> gmemAtomic(i)))
-  when (external.io.lineIn.fire && !atomicLock && selectedAtomic) {
+  when (external.io.lineIn.fire) { externalPendingValid := false.B }
+  when (captureExternal) {
+    externalPendingValid := true.B
+    externalPendingRequest := Mux1H((0 until 4).map(i => (lsuSelect === i.U) -> gmemLsus(i).io.lineOut.bits))
+    externalRr := lsuSelect + 1.U
+  }
+  when (captureExternal && !atomicLock && selectedAtomic) {
     atomicLock := true.B
     atomicOwner := lsuSelect
   }
-  when (external.io.lineIn.fire) { externalRr := lsuSelect + 1.U }
   for (s <- 0 until 4) {
     when (atomicLock && atomicOwner === s.U && gmemLsus(s).io.done.fire) { atomicLock := false.B }
   }
@@ -930,9 +1049,15 @@ class AecEvalTop extends Module {
   }
   when (running && !restartCta && allDone && external.io.outstanding === 0.U) {
     assert(robs.map(_.io.empty).reduce(_ && _), "CTA completion requires empty ROBs")
-    when (ctaX + 1.U < launchGridX) { ctaX := ctaX + 1.U; restartCta := true.B }
-      .elsewhen (ctaY + 1.U < launchGridY) { ctaX := 0.U; ctaY := ctaY + 1.U; restartCta := true.B }
-      .elsewhen (ctaZ + 1.U < launchGridZ) { ctaX := 0.U; ctaY := 0.U; ctaZ := ctaZ + 1.U; restartCta := true.B }
+    when (ctaX + 1.U < launchGridX) {
+        ctaX := ctaX + 1.U; ctaLinear := ctaLinear + 1.U; ctaThreadBase := ctaThreadBase + launchThreads; restartCta := true.B
+      }
+      .elsewhen (ctaY + 1.U < launchGridY) {
+        ctaX := 0.U; ctaY := ctaY + 1.U; ctaLinear := ctaLinear + 1.U; ctaThreadBase := ctaThreadBase + launchThreads; restartCta := true.B
+      }
+      .elsewhen (ctaZ + 1.U < launchGridZ) {
+        ctaX := 0.U; ctaY := 0.U; ctaZ := ctaZ + 1.U; ctaLinear := ctaLinear + 1.U; ctaThreadBase := ctaThreadBase + launchThreads; restartCta := true.B
+      }
       .otherwise { running := false.B; resultValid := true.B; resultStatus := 0.U }
   }
   io.result_valid := resultValid
@@ -941,8 +1066,11 @@ class AecEvalTop extends Module {
   when (resultValid && io.result_ready) {
     resultValid := false.B; loadError := false.B; abortPending := false.B
     restartCta := false.B; unsupportedTrap := false.B; unsupportedAssert := false.B
-    atomicLock := false.B; coordBusy := false.B
-    for (s <- 0 until 4) { pipeState(s) := pipeIdle; fetchPending(s) := false.B }
+    atomicLock := false.B; coordState := coordIdle
+    localPendingValid := false.B; localOwnerValid := false.B; externalPendingValid := false.B
+    completionStageValid := VecInit(Seq.fill(4)(false.B))
+    launchCheckState := launchIdle
+    for (s <- 0 until 4) { pipeState(s) := pipeIdle; fetchPending(s) := false.B; decodeValid(s) := false.B }
   }
 
   // GMEM is owned by the external harness memory model.  The ABI readback

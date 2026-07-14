@@ -26,12 +26,11 @@ class AecLocalLsu extends Module {
   // Use byte-addressed words.  The sequencer performs a byte update for
   // misaligned accesses, so there is no dependence on host endianness.
   val smem = Module(new AecBankedSram32(AecFrontendConfig.SmemWords))
-  // Valid bits give launch-clear semantics without bulk-writing the SRAM.
-  val smemValid = RegInit(0.U(AecFrontendConfig.SmemWords.W))
+  val smemValid = Module(new AecPackedValidSram(AecFrontendConfig.SmemWords))
   val cmem = Module(new AecBankedSram32(AecFrontendConfig.LocalWords))
   val pmem = Module(new AecBankedSram32(AecFrontendConfig.LocalWords))
-  val cmemValid = RegInit(0.U(AecFrontendConfig.LocalWords.W))
-  val pmemValid = RegInit(0.U(AecFrontendConfig.LocalWords.W))
+  val cmemValid = Module(new AecPackedValidSram(AecFrontendConfig.LocalWords))
+  val pmemValid = Module(new AecPackedValidSram(AecFrontendConfig.LocalWords))
   val cmemCapacity = RegInit(0.U(17.W)); val pmemCapacity = RegInit(0.U(17.W))
   val idle :: precheck :: check :: readAccess :: readLo :: writeLo :: atomicExec :: finish :: preloadRead :: preloadWrite :: Nil = Enum(10)
   val state = RegInit(idle)
@@ -54,11 +53,11 @@ class AecLocalLsu extends Module {
   val inRange = (currentAddress +& bytes) <= localLimit
   val wordAddress = (currentAddress + bytePart)(15, 2)
   val byteOffset = (currentAddress + bytePart)(1, 0)
-  val smemWord = Mux(smemValid(wordAddress), smem.io.readData, 0.U)
+  val smemWord = Mux(smemValid.io.valid, smem.io.readData, 0.U)
   val source = Mux(held.space === AecMemorySpace.smem, smemWord,
     Mux(held.space === AecMemorySpace.cmem,
-      Mux(cmemValid(wordAddress), cmem.io.readData, 0.U),
-      Mux(pmemValid(wordAddress), pmem.io.readData, 0.U)))
+      Mux(cmemValid.io.valid, cmem.io.readData, 0.U),
+      Mux(pmemValid.io.valid, pmem.io.readData, 0.U)))
   val replacementByte = (held.storeData(lane) >> (bytePart << 3))(7, 0)
   val mergedWord = Mux(fastWord, held.storeData(lane)(31, 0),
     (source & ~(255.U(32.W) << (byteOffset << 3))) | (replacementByte << (byteOffset << 3)))
@@ -74,8 +73,8 @@ class AecLocalLsu extends Module {
   val preloadByteAddress = preloadHeld.address +& preloadByte
   val preloadAddress = preloadByteAddress(15, 2)
   val preloadOld = Mux(preloadHeld.pmem,
-    Mux(pmemValid(preloadAddress), pmem.io.readData, 0.U),
-    Mux(cmemValid(preloadAddress), cmem.io.readData, 0.U))
+    Mux(pmemValid.io.valid, pmem.io.readData, 0.U),
+    Mux(cmemValid.io.valid, cmem.io.readData, 0.U))
   val preloadData = (preloadHeld.data >> (preloadByte << 3))(7, 0)
   val preloadEnabled = preloadHeld.mask(preloadByte)
   val preloadShift = preloadByteAddress(1, 0) << 3
@@ -98,9 +97,23 @@ class AecLocalLsu extends Module {
   pmem.io.address := Mux(state === preloadRead || state === preloadWrite, preloadAddress, wordAddress)
   pmem.io.writeData := preloadMerged
 
-  when (io.clearSmem) {
-    smemValid := 0.U
-  }
+  smemValid.io.clear := io.clearSmem
+  smemValid.io.readEn := localRead && held.space === AecMemorySpace.smem
+  smemValid.io.readAddress := wordAddress
+  smemValid.io.writeEn := state === writeLo && held.space === AecMemorySpace.smem ||
+    state === atomicExec && held.space === AecMemorySpace.smem &&
+      (held.atomicOp =/= AecAtomicOp.cas || source === held.compareData(lane))
+  smemValid.io.writeAddress := wordAddress
+  cmemValid.io.clear := false.B
+  cmemValid.io.readEn := localRead && held.space === AecMemorySpace.cmem || state === preloadRead && !preloadHeld.pmem
+  cmemValid.io.readAddress := Mux(state === preloadRead, preloadAddress, wordAddress)
+  cmemValid.io.writeEn := state === preloadWrite && !preloadHeld.pmem && preloadEnabled
+  cmemValid.io.writeAddress := preloadAddress
+  pmemValid.io.clear := false.B
+  pmemValid.io.readEn := localRead && held.space === AecMemorySpace.pmem || state === preloadRead && preloadHeld.pmem
+  pmemValid.io.readAddress := Mux(state === preloadRead, preloadAddress, wordAddress)
+  pmemValid.io.writeEn := state === preloadWrite && preloadHeld.pmem && preloadEnabled
+  pmemValid.io.writeAddress := preloadAddress
 
   when (io.preload.fire) {
     preloadHeld := io.preload.bits
@@ -111,11 +124,9 @@ class AecLocalLsu extends Module {
   when (state === preloadWrite) {
     when (preloadHeld.pmem && preloadEnabled) {
       pmem.io.en := true.B; pmem.io.readEn := false.B; pmem.io.writeEn := true.B
-      pmemValid := pmemValid | (1.U(AecFrontendConfig.LocalWords.W) << preloadAddress)
       when (preloadByteAddress +& 1.U > pmemCapacity) { pmemCapacity := preloadByteAddress +& 1.U }
     }.elsewhen (preloadEnabled) {
       cmem.io.en := true.B; cmem.io.readEn := false.B; cmem.io.writeEn := true.B
-      cmemValid := cmemValid | (1.U(AecFrontendConfig.LocalWords.W) << preloadAddress)
       when (preloadByteAddress +& 1.U > cmemCapacity) { cmemCapacity := preloadByteAddress +& 1.U }
     }
     when (preloadByte === 15.U) { state := idle }
@@ -159,7 +170,6 @@ class AecLocalLsu extends Module {
   when (state === writeLo) {
     when (held.space === AecMemorySpace.smem) {
       smem.io.en := true.B; smem.io.readEn := false.B; smem.io.writeEn := true.B
-      smemValid := smemValid | (1.U(AecFrontendConfig.SmemWords.W) << wordAddress)
     }
     when (fastWord || bytePart + 1.U === bytes) {
       val remaining = (Cat(0.U(1.W), held.mask) & ~((1.U(33.W) << (lane +& 1.U)) - 1.U))(31, 0)
@@ -183,7 +193,6 @@ class AecLocalLsu extends Module {
     data(lane) := Cat(0.U(32.W), old)
     smem.io.en := writesAtomic; smem.io.readEn := false.B; smem.io.writeEn := writesAtomic
     smem.io.writeData := next
-    when (writesAtomic) { smemValid := smemValid | (1.U(AecFrontendConfig.SmemWords.W) << wordAddress) }
     val remaining = (Cat(0.U(1.W), held.mask) & ~((1.U(33.W) << (lane +& 1.U)) - 1.U))(31, 0)
     when (remaining.orR) { lane := PriorityEncoder(remaining); state := readAccess }.otherwise { state := finish }
   }

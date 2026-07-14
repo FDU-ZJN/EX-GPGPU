@@ -67,6 +67,48 @@ class AecBankedSram32(depth: Int) extends Module {
   io.readData := Mux1H((0 until banks).map(i => (selectedRead === i.U) -> macroBanks(i).io.read_data))
 }
 
+/** Packed validity storage for a 16K-word resident memory.
+  *
+  * One SRAM row holds the valid bits for 32 adjacent data words.  The small
+  * rowInitialized vector makes an unread SRAM row architecturally zero after
+  * reset or clear, without bulk-writing the macro.
+  */
+class AecPackedValidSram(depth: Int) extends Module {
+  require(depth == 16384)
+
+  val io = IO(new Bundle {
+    val clear = Input(Bool())
+    val readEn = Input(Bool())
+    val readAddress = Input(UInt(log2Ceil(depth).W))
+    val valid = Output(Bool())
+    val writeEn = Input(Bool())
+    val writeAddress = Input(UInt(log2Ceil(depth).W))
+  })
+
+  val validRows = Module(new AecSram1024x32)
+  val rowInitialized = RegInit(0.U((depth / 32).W))
+  val readRow = RegEnable(io.readAddress(log2Ceil(depth) - 1, 5), io.readEn)
+  val readBit = RegEnable(io.readAddress(4, 0), io.readEn)
+  val writeRow = io.writeAddress(log2Ceil(depth) - 1, 5)
+  val writeBit = io.writeAddress(4, 0)
+  val priorRow = Mux(rowInitialized(readRow), validRows.io.read_data, 0.U)
+
+  validRows.io.clk := clock
+  validRows.io.en := io.readEn || io.writeEn
+  validRows.io.read_en := io.readEn
+  validRows.io.write_en := io.writeEn
+  validRows.io.addr := Mux(io.writeEn, writeRow, io.readAddress(log2Ceil(depth) - 1, 5))
+  validRows.io.write_data := priorRow | UIntToOH(writeBit, 32)
+
+  io.valid := rowInitialized(readRow) && validRows.io.read_data(readBit)
+
+  when (io.writeEn) {
+    assert(readRow === writeRow, "valid update must follow a read of the same row")
+    rowInitialized := rowInitialized | UIntToOH(writeRow, depth / 32)
+  }
+  when (io.clear) { rowInitialized := 0.U }
+}
+
 /** 1024-entry, 128-bit IMEM made from four parallel 1024x32 macros. */
 class AecInstructionSram extends Module {
   val io = IO(new Bundle {

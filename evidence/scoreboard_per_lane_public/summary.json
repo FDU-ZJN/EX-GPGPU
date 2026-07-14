@@ -1,0 +1,10 @@
+{
+  "suite": "public",
+  "fail_fast": true,
+  "total": 36,
+  "passed": 36,
+  "failed": 0,
+  "remaining": 0,
+  "current": null,
+  "first_failure": null
+}

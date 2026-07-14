@@ -23,14 +23,15 @@ class AecGmemLsu(activeLanes: Int = 32) extends Module {
     val storeCommit = Valid(new Bundle { val address = UInt(32.W); val data = UInt(1024.W); val strb = UInt(128.W) })
   })
 
-  val idle :: request :: waitResponse :: finished :: Nil = Enum(4)
+  val idle :: request :: waitResponse :: atomicUpdate :: finished :: Nil = Enum(5)
   val state = RegInit(idle)
   val held = Reg(io.start.bits.cloneType)
   val pendingParts = RegInit(0.U(64.W))
   val preflight = RegInit(false.B)
   val atomicWrite = RegInit(false.B)
-  val atomicLineData = Reg(UInt(1024.W))
+  val atomicLineWords = Reg(Vec(32, UInt(32.W)))
   val atomicLineStrb = Reg(UInt(128.W))
+  val atomicPendingLanes = RegInit(0.U(32.W))
   val data = RegInit(VecInit(Seq.fill(32)(0.U(64.W))))
   val error = RegInit(false.B)
 
@@ -98,7 +99,7 @@ class AecGmemLsu(activeLanes: Int = 32) extends Module {
   val aggregateData = treeOr(partData)
   val aggregateStrb = treeOr(partStrb)
 
-  val requestData = Mux(held.atomic && atomicWrite, atomicLineData, aggregateData)
+  val requestData = Mux(held.atomic && atomicWrite, Cat(atomicLineWords.reverse), aggregateData)
   val requestStrb = Mux(held.atomic && atomicWrite, atomicLineStrb, aggregateStrb)
 
   io.start.ready := state === idle
@@ -123,7 +124,7 @@ class AecGmemLsu(activeLanes: Int = 32) extends Module {
     held := io.start.bits
     pendingParts := startParts
     preflight := !io.start.bits.load
-    atomicWrite := false.B; atomicLineData := 0.U; atomicLineStrb := 0.U
+    atomicWrite := false.B; atomicLineStrb := 0.U; atomicPendingLanes := 0.U
     data := VecInit(Seq.fill(32)(0.U(64.W)))
     error := false.B
     val badAtomic = io.start.bits.atomic && (io.start.bits.space || VecInit((0 until activeLanes).map(i =>
@@ -146,38 +147,13 @@ class AecGmemLsu(activeLanes: Int = 32) extends Module {
       when (remaining.orR) { pendingParts := remaining; state := request }
         .otherwise { pendingParts := initialParts; preflight := false.B; state := request }
     }.elsewhen (held.atomic && !atomicWrite) {
-      var updatedLine = io.lineComplete.bits.rdata
-      var successfulStrb = 0.U(128.W)
-      for (lane <- 0 until activeLanes) {
-        val offset = heldAddress(lane)(6, 0)
-        val shift = offset << 3
-        val old = (updatedLine >> shift)(31, 0)
-        val update = held.storeData(lane)
-        val oldS = old.asSInt; val updateS = update.asSInt
-        val next = MuxLookup(held.atomicOp, old + update, Seq(
-          AecAtomicOp.add -> (old + update),
-          AecAtomicOp.max -> Mux(held.signed, Mux(oldS > updateS, old, update), Mux(old > update, old, update)),
-          AecAtomicOp.min -> Mux(held.signed, Mux(oldS < updateS, old, update), Mux(old < update, old, update)),
-          AecAtomicOp.xchg -> update, AecAtomicOp.andOp -> (old & update),
-          AecAtomicOp.orOp -> (old | update), AecAtomicOp.xorOp -> (old ^ update),
-          AecAtomicOp.cas -> Mux(old === held.compareData(lane), update, old)))
-        val wordMask = "hffffffff".U(1024.W) << shift
-        val casSuccess = old === held.compareData(lane)
-        val writesLane = group(lane * 2) && (held.atomicOp =/= AecAtomicOp.cas || casSuccess)
-        val laneStrb = "hf".U(128.W) << offset
-        when (group(lane * 2)) { data(lane) := old }
-        updatedLine = Mux(writesLane, (updatedLine & ~wordMask) | (next << shift), updatedLine)
-        successfulStrb = successfulStrb | Mux(writesLane, laneStrb, 0.U)
+      for (word <- 0 until 32) {
+        atomicLineWords(word) := io.lineComplete.bits.rdata(word * 32 + 31, word * 32)
       }
-      atomicLineData := updatedLine
-      atomicLineStrb := successfulStrb
-      when (successfulStrb.orR) {
-        atomicWrite := true.B; state := request
-      }.otherwise {
-        val remaining = pendingParts & ~groupMask
-        when (remaining.orR) { pendingParts := remaining; state := request }
-          .otherwise { state := finished }
-      }
+      atomicLineStrb := 0.U
+      atomicPendingLanes := VecInit((0 until 32).map(lane =>
+        if (lane < activeLanes) group(lane * 2) else false.B)).asUInt
+      state := atomicUpdate
     }.otherwise {
       when (held.load) {
         for (lane <- 0 until activeLanes; part <- 0 until 2) {
@@ -198,6 +174,46 @@ class AecGmemLsu(activeLanes: Int = 32) extends Module {
       }.elsewhen (preflight) {
         pendingParts := initialParts; preflight := false.B; atomicWrite := false.B; state := request
       }.otherwise { state := finished }
+    }
+  }
+  when (state === atomicUpdate) {
+    val updateLane = PriorityEncoder(atomicPendingLanes)
+    val wordIndex = heldAddress(updateLane)(6, 2)
+    val old = atomicLineWords(wordIndex)
+    val update = held.storeData(updateLane)
+    val oldS = old.asSInt
+    val updateS = update.asSInt
+    val next = MuxLookup(held.atomicOp, old + update, Seq(
+      AecAtomicOp.add -> (old + update),
+      AecAtomicOp.max -> Mux(held.signed, Mux(oldS > updateS, old, update), Mux(old > update, old, update)),
+      AecAtomicOp.min -> Mux(held.signed, Mux(oldS < updateS, old, update), Mux(old < update, old, update)),
+      AecAtomicOp.xchg -> update,
+      AecAtomicOp.andOp -> (old & update),
+      AecAtomicOp.orOp -> (old | update),
+      AecAtomicOp.xorOp -> (old ^ update),
+      AecAtomicOp.cas -> Mux(old === held.compareData(updateLane), update, old)))
+    val writesLane = held.atomicOp =/= AecAtomicOp.cas || old === held.compareData(updateLane)
+    val laneStrb = "hf".U(128.W) << (wordIndex << 2)
+    val nextStrb = atomicLineStrb | Mux(writesLane, laneStrb, 0.U)
+    val remainingLanes = atomicPendingLanes & ~UIntToOH(updateLane, 32)
+
+    data(updateLane) := old
+    when (writesLane) { atomicLineWords(wordIndex) := next }
+    atomicLineStrb := nextStrb
+    atomicPendingLanes := remainingLanes
+    when (!remainingLanes.orR) {
+      when (nextStrb.orR) {
+        atomicWrite := true.B
+        state := request
+      }.otherwise {
+        val remainingParts = pendingParts & ~groupMask
+        when (remainingParts.orR) {
+          pendingParts := remainingParts
+          state := request
+        }.otherwise {
+          state := finished
+        }
+      }
     }
   }
   when (io.done.fire) { state := idle }

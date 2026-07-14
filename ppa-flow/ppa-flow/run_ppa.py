@@ -15,13 +15,7 @@ from pathlib import Path
 
 FLOW_ROOT = Path(__file__).resolve().parent
 STDCELL_LOCK = FLOW_ROOT / "ASAP7_STDCELL_LOCK.sha256"
-# In the release archive ppa-flow/ and sram/ are siblings.  The repository
-# checkout keeps the locked SRAM manifest under Track-B/sram instead.  Accept
-# both layouts so the exact same flow can run in-place and from a release.
-_RELEASE_SRAM_LOCK = FLOW_ROOT.parent / "sram" / "ASAP7_SRAM_LOCK.sha256"
-_REPOSITORY_SRAM_LOCK = FLOW_ROOT.parents[1] / "Track-B" / "sram" / "ASAP7_SRAM_LOCK.sha256"
-SRAM_LOCK = (_RELEASE_SRAM_LOCK if _RELEASE_SRAM_LOCK.is_file()
-             else _REPOSITORY_SRAM_LOCK)
+SRAM_LOCK = FLOW_ROOT.parent / "sram" / "ASAP7_SRAM_LOCK.sha256"
 SRAM_AREAS = {
     "srambank_64x4x32_6t122": 415.2384,
     "srambank_128x4x32_6t122": 691.2,
