@@ -108,7 +108,7 @@ EOF
 
 flatten_cmd=""
 [[ "$flatten_hierarchy" = 1 ]] && flatten_cmd="flatten;"
-mapping_script="read_liberty -lib $lib/AO.lib; read_liberty -lib $lib/INVBUF.lib; read_liberty -lib $lib/OA.lib; read_liberty -lib $lib/SEQ.lib; read_liberty -lib $lib/SIMPLE.lib; $sram_read_cmd read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; $flatten_cmd techmap; opt; abc -script $out/abc.script; dfflibmap -liberty $lib/SEQ.lib; abc -script $out/abc.script; clean; rename -hide; hierarchy -check -top $top; tee -o $out/yosys_area.txt stat -top $top -hierarchy; write_verilog -noattr -noexpr $out/mapped_netlist.v"
+mapping_script="read_liberty -lib $lib/AO.lib; read_liberty -lib $lib/INVBUF.lib; read_liberty -lib $lib/OA.lib; read_liberty -lib $lib/SEQ.lib; read_liberty -lib $lib/SIMPLE.lib; $sram_read_cmd read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; $flatten_cmd techmap; opt; abc -script $out/abc.script; dfflibmap -liberty $lib/SEQ.lib; abc -script $out/abc.script; clean; rename -hide; hierarchy -check -top $top; tee -o $out/yosys_area.txt stat -top $top -hierarchy; write_verilog -noexpr $out/mapped_netlist_debug.v; write_verilog -noattr -noexpr $out/mapped_netlist.v"
 if ! "$yosys_bin" -p "$mapping_script" > "$out/yosys_mapping.log" 2>&1; then
   cat "$out/yosys_mapping.log" >&2
   write_metadata asap7_mapping_failed 0

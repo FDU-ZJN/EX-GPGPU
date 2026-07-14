@@ -6189,7 +6189,14 @@ module AecWarpRequestBuffer(
   input  [63:0] io_in_c_30,
   input  [63:0] io_in_c_31,
   input  [7:0]  io_in_dest,
-  input         io_arm,
+  input         io_arm_0,
+  input         io_arm_1,
+  input         io_arm_2,
+  input         io_arm_3,
+  input         io_arm_4,
+  input         io_arm_5,
+  input         io_arm_6,
+  input         io_arm_7,
   input         io_capture,
   output [31:0] io_out_activeMask,
   output [63:0] io_out_a_0,
@@ -7125,1255 +7132,839 @@ module AecWarpRequestBuffer(
   reg [31:0] _RAND_831;
   reg [31:0] _RAND_832;
 `endif // RANDOMIZE_REG_INIT
-  reg  operandCapture_0_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_0_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_1_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_2_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_3_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_4_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_5_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_6_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_7_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_8_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_9_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_10_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_11_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_12_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_13_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_14_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_15_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_16_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_17_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_18_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_19_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_20_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_21_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_22_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_23_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_24_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_25_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_26_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_27_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_28_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_29_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_30_11; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_0; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_1; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_2; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_3; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_4; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_5; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_6; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_7; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_8; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_9; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_10; // @[AecExecPort.scala 62:31]
-  reg  operandCapture_31_11; // @[AecExecPort.scala 62:31]
-  reg  maskCapture_0; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_1; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_2; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_3; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_4; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_5; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_6; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_7; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_8; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_9; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_10; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_11; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_12; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_13; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_14; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_15; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_16; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_17; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_18; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_19; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_20; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_21; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_22; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_23; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_24; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_25; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_26; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_27; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_28; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_29; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_30; // @[AecExecPort.scala 64:28]
-  reg  maskCapture_31; // @[AecExecPort.scala 64:28]
-  reg [15:0] a_0_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_0_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_0_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_0_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_1_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_1_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_1_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_1_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_2_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_2_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_2_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_2_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_3_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_3_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_3_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_3_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_4_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_4_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_4_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_4_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_5_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_5_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_5_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_5_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_6_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_6_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_6_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_6_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_7_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_7_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_7_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_7_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_8_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_8_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_8_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_8_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_9_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_9_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_9_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_9_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_10_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_10_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_10_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_10_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_11_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_11_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_11_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_11_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_12_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_12_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_12_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_12_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_13_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_13_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_13_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_13_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_14_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_14_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_14_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_14_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_15_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_15_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_15_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_15_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_16_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_16_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_16_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_16_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_17_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_17_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_17_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_17_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_18_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_18_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_18_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_18_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_19_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_19_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_19_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_19_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_20_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_20_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_20_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_20_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_21_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_21_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_21_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_21_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_22_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_22_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_22_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_22_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_23_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_23_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_23_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_23_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_24_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_24_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_24_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_24_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_25_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_25_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_25_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_25_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_26_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_26_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_26_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_26_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_27_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_27_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_27_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_27_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_28_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_28_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_28_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_28_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_29_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_29_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_29_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_29_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_30_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_30_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_30_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_30_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_31_0; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_31_1; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_31_2; // @[AecExecPort.scala 66:14]
-  reg [15:0] a_31_3; // @[AecExecPort.scala 66:14]
-  reg [15:0] b_0_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_0_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_0_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_0_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_1_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_1_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_1_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_1_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_2_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_2_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_2_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_2_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_3_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_3_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_3_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_3_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_4_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_4_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_4_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_4_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_5_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_5_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_5_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_5_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_6_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_6_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_6_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_6_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_7_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_7_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_7_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_7_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_8_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_8_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_8_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_8_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_9_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_9_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_9_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_9_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_10_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_10_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_10_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_10_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_11_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_11_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_11_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_11_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_12_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_12_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_12_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_12_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_13_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_13_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_13_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_13_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_14_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_14_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_14_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_14_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_15_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_15_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_15_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_15_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_16_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_16_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_16_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_16_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_17_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_17_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_17_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_17_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_18_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_18_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_18_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_18_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_19_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_19_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_19_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_19_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_20_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_20_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_20_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_20_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_21_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_21_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_21_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_21_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_22_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_22_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_22_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_22_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_23_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_23_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_23_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_23_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_24_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_24_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_24_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_24_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_25_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_25_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_25_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_25_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_26_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_26_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_26_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_26_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_27_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_27_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_27_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_27_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_28_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_28_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_28_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_28_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_29_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_29_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_29_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_29_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_30_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_30_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_30_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_30_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_31_0; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_31_1; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_31_2; // @[AecExecPort.scala 67:14]
-  reg [15:0] b_31_3; // @[AecExecPort.scala 67:14]
-  reg [15:0] c_0_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_0_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_0_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_0_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_1_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_1_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_1_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_1_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_2_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_2_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_2_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_2_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_3_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_3_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_3_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_3_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_4_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_4_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_4_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_4_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_5_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_5_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_5_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_5_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_6_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_6_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_6_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_6_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_7_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_7_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_7_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_7_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_8_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_8_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_8_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_8_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_9_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_9_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_9_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_9_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_10_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_10_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_10_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_10_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_11_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_11_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_11_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_11_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_12_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_12_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_12_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_12_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_13_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_13_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_13_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_13_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_14_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_14_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_14_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_14_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_15_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_15_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_15_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_15_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_16_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_16_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_16_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_16_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_17_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_17_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_17_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_17_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_18_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_18_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_18_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_18_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_19_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_19_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_19_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_19_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_20_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_20_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_20_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_20_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_21_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_21_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_21_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_21_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_22_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_22_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_22_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_22_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_23_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_23_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_23_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_23_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_24_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_24_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_24_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_24_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_25_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_25_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_25_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_25_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_26_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_26_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_26_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_26_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_27_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_27_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_27_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_27_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_28_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_28_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_28_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_28_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_29_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_29_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_29_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_29_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_30_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_30_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_30_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_30_3; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_31_0; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_31_1; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_31_2; // @[AecExecPort.scala 68:14]
-  reg [15:0] c_31_3; // @[AecExecPort.scala 68:14]
-  reg  active_0; // @[AecExecPort.scala 69:19]
-  reg  active_1; // @[AecExecPort.scala 69:19]
-  reg  active_2; // @[AecExecPort.scala 69:19]
-  reg  active_3; // @[AecExecPort.scala 69:19]
-  reg  active_4; // @[AecExecPort.scala 69:19]
-  reg  active_5; // @[AecExecPort.scala 69:19]
-  reg  active_6; // @[AecExecPort.scala 69:19]
-  reg  active_7; // @[AecExecPort.scala 69:19]
-  reg  active_8; // @[AecExecPort.scala 69:19]
-  reg  active_9; // @[AecExecPort.scala 69:19]
-  reg  active_10; // @[AecExecPort.scala 69:19]
-  reg  active_11; // @[AecExecPort.scala 69:19]
-  reg  active_12; // @[AecExecPort.scala 69:19]
-  reg  active_13; // @[AecExecPort.scala 69:19]
-  reg  active_14; // @[AecExecPort.scala 69:19]
-  reg  active_15; // @[AecExecPort.scala 69:19]
-  reg  active_16; // @[AecExecPort.scala 69:19]
-  reg  active_17; // @[AecExecPort.scala 69:19]
-  reg  active_18; // @[AecExecPort.scala 69:19]
-  reg  active_19; // @[AecExecPort.scala 69:19]
-  reg  active_20; // @[AecExecPort.scala 69:19]
-  reg  active_21; // @[AecExecPort.scala 69:19]
-  reg  active_22; // @[AecExecPort.scala 69:19]
-  reg  active_23; // @[AecExecPort.scala 69:19]
-  reg  active_24; // @[AecExecPort.scala 69:19]
-  reg  active_25; // @[AecExecPort.scala 69:19]
-  reg  active_26; // @[AecExecPort.scala 69:19]
-  reg  active_27; // @[AecExecPort.scala 69:19]
-  reg  active_28; // @[AecExecPort.scala 69:19]
-  reg  active_29; // @[AecExecPort.scala 69:19]
-  reg  active_30; // @[AecExecPort.scala 69:19]
-  reg  active_31; // @[AecExecPort.scala 69:19]
-  reg [7:0] dest; // @[AecExecPort.scala 73:17]
-  wire  _GEN_14 = io_arm | operandCapture_0_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_15 = io_arm | operandCapture_0_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_16 = io_arm | operandCapture_0_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_17 = io_arm | operandCapture_0_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_18 = io_arm | operandCapture_0_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_19 = io_arm | operandCapture_0_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_20 = io_arm | operandCapture_0_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_21 = io_arm | operandCapture_0_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_22 = io_arm | operandCapture_0_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_23 = io_arm | operandCapture_0_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_24 = io_arm | operandCapture_0_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_25 = io_arm | operandCapture_0_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_26 = io_arm | maskCapture_0; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_54 = io_arm | operandCapture_1_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_55 = io_arm | operandCapture_1_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_56 = io_arm | operandCapture_1_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_57 = io_arm | operandCapture_1_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_58 = io_arm | operandCapture_1_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_59 = io_arm | operandCapture_1_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_60 = io_arm | operandCapture_1_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_61 = io_arm | operandCapture_1_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_62 = io_arm | operandCapture_1_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_63 = io_arm | operandCapture_1_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_64 = io_arm | operandCapture_1_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_65 = io_arm | operandCapture_1_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_66 = io_arm | maskCapture_1; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_94 = io_arm | operandCapture_2_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_95 = io_arm | operandCapture_2_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_96 = io_arm | operandCapture_2_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_97 = io_arm | operandCapture_2_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_98 = io_arm | operandCapture_2_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_99 = io_arm | operandCapture_2_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_100 = io_arm | operandCapture_2_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_101 = io_arm | operandCapture_2_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_102 = io_arm | operandCapture_2_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_103 = io_arm | operandCapture_2_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_104 = io_arm | operandCapture_2_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_105 = io_arm | operandCapture_2_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_106 = io_arm | maskCapture_2; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_134 = io_arm | operandCapture_3_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_135 = io_arm | operandCapture_3_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_136 = io_arm | operandCapture_3_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_137 = io_arm | operandCapture_3_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_138 = io_arm | operandCapture_3_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_139 = io_arm | operandCapture_3_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_140 = io_arm | operandCapture_3_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_141 = io_arm | operandCapture_3_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_142 = io_arm | operandCapture_3_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_143 = io_arm | operandCapture_3_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_144 = io_arm | operandCapture_3_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_145 = io_arm | operandCapture_3_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_146 = io_arm | maskCapture_3; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_174 = io_arm | operandCapture_4_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_175 = io_arm | operandCapture_4_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_176 = io_arm | operandCapture_4_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_177 = io_arm | operandCapture_4_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_178 = io_arm | operandCapture_4_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_179 = io_arm | operandCapture_4_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_180 = io_arm | operandCapture_4_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_181 = io_arm | operandCapture_4_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_182 = io_arm | operandCapture_4_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_183 = io_arm | operandCapture_4_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_184 = io_arm | operandCapture_4_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_185 = io_arm | operandCapture_4_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_186 = io_arm | maskCapture_4; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_214 = io_arm | operandCapture_5_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_215 = io_arm | operandCapture_5_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_216 = io_arm | operandCapture_5_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_217 = io_arm | operandCapture_5_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_218 = io_arm | operandCapture_5_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_219 = io_arm | operandCapture_5_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_220 = io_arm | operandCapture_5_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_221 = io_arm | operandCapture_5_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_222 = io_arm | operandCapture_5_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_223 = io_arm | operandCapture_5_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_224 = io_arm | operandCapture_5_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_225 = io_arm | operandCapture_5_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_226 = io_arm | maskCapture_5; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_254 = io_arm | operandCapture_6_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_255 = io_arm | operandCapture_6_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_256 = io_arm | operandCapture_6_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_257 = io_arm | operandCapture_6_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_258 = io_arm | operandCapture_6_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_259 = io_arm | operandCapture_6_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_260 = io_arm | operandCapture_6_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_261 = io_arm | operandCapture_6_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_262 = io_arm | operandCapture_6_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_263 = io_arm | operandCapture_6_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_264 = io_arm | operandCapture_6_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_265 = io_arm | operandCapture_6_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_266 = io_arm | maskCapture_6; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_294 = io_arm | operandCapture_7_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_295 = io_arm | operandCapture_7_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_296 = io_arm | operandCapture_7_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_297 = io_arm | operandCapture_7_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_298 = io_arm | operandCapture_7_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_299 = io_arm | operandCapture_7_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_300 = io_arm | operandCapture_7_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_301 = io_arm | operandCapture_7_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_302 = io_arm | operandCapture_7_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_303 = io_arm | operandCapture_7_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_304 = io_arm | operandCapture_7_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_305 = io_arm | operandCapture_7_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_306 = io_arm | maskCapture_7; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_334 = io_arm | operandCapture_8_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_335 = io_arm | operandCapture_8_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_336 = io_arm | operandCapture_8_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_337 = io_arm | operandCapture_8_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_338 = io_arm | operandCapture_8_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_339 = io_arm | operandCapture_8_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_340 = io_arm | operandCapture_8_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_341 = io_arm | operandCapture_8_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_342 = io_arm | operandCapture_8_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_343 = io_arm | operandCapture_8_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_344 = io_arm | operandCapture_8_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_345 = io_arm | operandCapture_8_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_346 = io_arm | maskCapture_8; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_374 = io_arm | operandCapture_9_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_375 = io_arm | operandCapture_9_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_376 = io_arm | operandCapture_9_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_377 = io_arm | operandCapture_9_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_378 = io_arm | operandCapture_9_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_379 = io_arm | operandCapture_9_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_380 = io_arm | operandCapture_9_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_381 = io_arm | operandCapture_9_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_382 = io_arm | operandCapture_9_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_383 = io_arm | operandCapture_9_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_384 = io_arm | operandCapture_9_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_385 = io_arm | operandCapture_9_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_386 = io_arm | maskCapture_9; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_414 = io_arm | operandCapture_10_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_415 = io_arm | operandCapture_10_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_416 = io_arm | operandCapture_10_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_417 = io_arm | operandCapture_10_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_418 = io_arm | operandCapture_10_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_419 = io_arm | operandCapture_10_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_420 = io_arm | operandCapture_10_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_421 = io_arm | operandCapture_10_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_422 = io_arm | operandCapture_10_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_423 = io_arm | operandCapture_10_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_424 = io_arm | operandCapture_10_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_425 = io_arm | operandCapture_10_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_426 = io_arm | maskCapture_10; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_454 = io_arm | operandCapture_11_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_455 = io_arm | operandCapture_11_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_456 = io_arm | operandCapture_11_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_457 = io_arm | operandCapture_11_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_458 = io_arm | operandCapture_11_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_459 = io_arm | operandCapture_11_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_460 = io_arm | operandCapture_11_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_461 = io_arm | operandCapture_11_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_462 = io_arm | operandCapture_11_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_463 = io_arm | operandCapture_11_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_464 = io_arm | operandCapture_11_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_465 = io_arm | operandCapture_11_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_466 = io_arm | maskCapture_11; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_494 = io_arm | operandCapture_12_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_495 = io_arm | operandCapture_12_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_496 = io_arm | operandCapture_12_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_497 = io_arm | operandCapture_12_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_498 = io_arm | operandCapture_12_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_499 = io_arm | operandCapture_12_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_500 = io_arm | operandCapture_12_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_501 = io_arm | operandCapture_12_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_502 = io_arm | operandCapture_12_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_503 = io_arm | operandCapture_12_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_504 = io_arm | operandCapture_12_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_505 = io_arm | operandCapture_12_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_506 = io_arm | maskCapture_12; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_534 = io_arm | operandCapture_13_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_535 = io_arm | operandCapture_13_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_536 = io_arm | operandCapture_13_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_537 = io_arm | operandCapture_13_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_538 = io_arm | operandCapture_13_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_539 = io_arm | operandCapture_13_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_540 = io_arm | operandCapture_13_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_541 = io_arm | operandCapture_13_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_542 = io_arm | operandCapture_13_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_543 = io_arm | operandCapture_13_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_544 = io_arm | operandCapture_13_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_545 = io_arm | operandCapture_13_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_546 = io_arm | maskCapture_13; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_574 = io_arm | operandCapture_14_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_575 = io_arm | operandCapture_14_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_576 = io_arm | operandCapture_14_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_577 = io_arm | operandCapture_14_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_578 = io_arm | operandCapture_14_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_579 = io_arm | operandCapture_14_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_580 = io_arm | operandCapture_14_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_581 = io_arm | operandCapture_14_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_582 = io_arm | operandCapture_14_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_583 = io_arm | operandCapture_14_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_584 = io_arm | operandCapture_14_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_585 = io_arm | operandCapture_14_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_586 = io_arm | maskCapture_14; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_614 = io_arm | operandCapture_15_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_615 = io_arm | operandCapture_15_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_616 = io_arm | operandCapture_15_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_617 = io_arm | operandCapture_15_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_618 = io_arm | operandCapture_15_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_619 = io_arm | operandCapture_15_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_620 = io_arm | operandCapture_15_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_621 = io_arm | operandCapture_15_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_622 = io_arm | operandCapture_15_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_623 = io_arm | operandCapture_15_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_624 = io_arm | operandCapture_15_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_625 = io_arm | operandCapture_15_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_626 = io_arm | maskCapture_15; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_654 = io_arm | operandCapture_16_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_655 = io_arm | operandCapture_16_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_656 = io_arm | operandCapture_16_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_657 = io_arm | operandCapture_16_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_658 = io_arm | operandCapture_16_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_659 = io_arm | operandCapture_16_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_660 = io_arm | operandCapture_16_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_661 = io_arm | operandCapture_16_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_662 = io_arm | operandCapture_16_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_663 = io_arm | operandCapture_16_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_664 = io_arm | operandCapture_16_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_665 = io_arm | operandCapture_16_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_666 = io_arm | maskCapture_16; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_694 = io_arm | operandCapture_17_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_695 = io_arm | operandCapture_17_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_696 = io_arm | operandCapture_17_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_697 = io_arm | operandCapture_17_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_698 = io_arm | operandCapture_17_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_699 = io_arm | operandCapture_17_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_700 = io_arm | operandCapture_17_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_701 = io_arm | operandCapture_17_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_702 = io_arm | operandCapture_17_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_703 = io_arm | operandCapture_17_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_704 = io_arm | operandCapture_17_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_705 = io_arm | operandCapture_17_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_706 = io_arm | maskCapture_17; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_734 = io_arm | operandCapture_18_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_735 = io_arm | operandCapture_18_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_736 = io_arm | operandCapture_18_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_737 = io_arm | operandCapture_18_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_738 = io_arm | operandCapture_18_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_739 = io_arm | operandCapture_18_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_740 = io_arm | operandCapture_18_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_741 = io_arm | operandCapture_18_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_742 = io_arm | operandCapture_18_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_743 = io_arm | operandCapture_18_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_744 = io_arm | operandCapture_18_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_745 = io_arm | operandCapture_18_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_746 = io_arm | maskCapture_18; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_774 = io_arm | operandCapture_19_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_775 = io_arm | operandCapture_19_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_776 = io_arm | operandCapture_19_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_777 = io_arm | operandCapture_19_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_778 = io_arm | operandCapture_19_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_779 = io_arm | operandCapture_19_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_780 = io_arm | operandCapture_19_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_781 = io_arm | operandCapture_19_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_782 = io_arm | operandCapture_19_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_783 = io_arm | operandCapture_19_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_784 = io_arm | operandCapture_19_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_785 = io_arm | operandCapture_19_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_786 = io_arm | maskCapture_19; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_814 = io_arm | operandCapture_20_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_815 = io_arm | operandCapture_20_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_816 = io_arm | operandCapture_20_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_817 = io_arm | operandCapture_20_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_818 = io_arm | operandCapture_20_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_819 = io_arm | operandCapture_20_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_820 = io_arm | operandCapture_20_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_821 = io_arm | operandCapture_20_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_822 = io_arm | operandCapture_20_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_823 = io_arm | operandCapture_20_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_824 = io_arm | operandCapture_20_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_825 = io_arm | operandCapture_20_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_826 = io_arm | maskCapture_20; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_854 = io_arm | operandCapture_21_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_855 = io_arm | operandCapture_21_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_856 = io_arm | operandCapture_21_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_857 = io_arm | operandCapture_21_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_858 = io_arm | operandCapture_21_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_859 = io_arm | operandCapture_21_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_860 = io_arm | operandCapture_21_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_861 = io_arm | operandCapture_21_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_862 = io_arm | operandCapture_21_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_863 = io_arm | operandCapture_21_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_864 = io_arm | operandCapture_21_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_865 = io_arm | operandCapture_21_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_866 = io_arm | maskCapture_21; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_894 = io_arm | operandCapture_22_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_895 = io_arm | operandCapture_22_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_896 = io_arm | operandCapture_22_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_897 = io_arm | operandCapture_22_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_898 = io_arm | operandCapture_22_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_899 = io_arm | operandCapture_22_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_900 = io_arm | operandCapture_22_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_901 = io_arm | operandCapture_22_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_902 = io_arm | operandCapture_22_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_903 = io_arm | operandCapture_22_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_904 = io_arm | operandCapture_22_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_905 = io_arm | operandCapture_22_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_906 = io_arm | maskCapture_22; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_934 = io_arm | operandCapture_23_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_935 = io_arm | operandCapture_23_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_936 = io_arm | operandCapture_23_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_937 = io_arm | operandCapture_23_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_938 = io_arm | operandCapture_23_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_939 = io_arm | operandCapture_23_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_940 = io_arm | operandCapture_23_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_941 = io_arm | operandCapture_23_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_942 = io_arm | operandCapture_23_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_943 = io_arm | operandCapture_23_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_944 = io_arm | operandCapture_23_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_945 = io_arm | operandCapture_23_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_946 = io_arm | maskCapture_23; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_974 = io_arm | operandCapture_24_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_975 = io_arm | operandCapture_24_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_976 = io_arm | operandCapture_24_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_977 = io_arm | operandCapture_24_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_978 = io_arm | operandCapture_24_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_979 = io_arm | operandCapture_24_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_980 = io_arm | operandCapture_24_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_981 = io_arm | operandCapture_24_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_982 = io_arm | operandCapture_24_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_983 = io_arm | operandCapture_24_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_984 = io_arm | operandCapture_24_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_985 = io_arm | operandCapture_24_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_986 = io_arm | maskCapture_24; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_1014 = io_arm | operandCapture_25_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1015 = io_arm | operandCapture_25_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1016 = io_arm | operandCapture_25_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1017 = io_arm | operandCapture_25_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1018 = io_arm | operandCapture_25_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1019 = io_arm | operandCapture_25_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1020 = io_arm | operandCapture_25_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1021 = io_arm | operandCapture_25_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1022 = io_arm | operandCapture_25_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1023 = io_arm | operandCapture_25_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1024 = io_arm | operandCapture_25_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1025 = io_arm | operandCapture_25_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1026 = io_arm | maskCapture_25; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_1054 = io_arm | operandCapture_26_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1055 = io_arm | operandCapture_26_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1056 = io_arm | operandCapture_26_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1057 = io_arm | operandCapture_26_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1058 = io_arm | operandCapture_26_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1059 = io_arm | operandCapture_26_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1060 = io_arm | operandCapture_26_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1061 = io_arm | operandCapture_26_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1062 = io_arm | operandCapture_26_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1063 = io_arm | operandCapture_26_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1064 = io_arm | operandCapture_26_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1065 = io_arm | operandCapture_26_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1066 = io_arm | maskCapture_26; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_1094 = io_arm | operandCapture_27_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1095 = io_arm | operandCapture_27_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1096 = io_arm | operandCapture_27_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1097 = io_arm | operandCapture_27_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1098 = io_arm | operandCapture_27_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1099 = io_arm | operandCapture_27_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1100 = io_arm | operandCapture_27_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1101 = io_arm | operandCapture_27_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1102 = io_arm | operandCapture_27_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1103 = io_arm | operandCapture_27_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1104 = io_arm | operandCapture_27_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1105 = io_arm | operandCapture_27_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1106 = io_arm | maskCapture_27; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_1134 = io_arm | operandCapture_28_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1135 = io_arm | operandCapture_28_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1136 = io_arm | operandCapture_28_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1137 = io_arm | operandCapture_28_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1138 = io_arm | operandCapture_28_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1139 = io_arm | operandCapture_28_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1140 = io_arm | operandCapture_28_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1141 = io_arm | operandCapture_28_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1142 = io_arm | operandCapture_28_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1143 = io_arm | operandCapture_28_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1144 = io_arm | operandCapture_28_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1145 = io_arm | operandCapture_28_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1146 = io_arm | maskCapture_28; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_1174 = io_arm | operandCapture_29_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1175 = io_arm | operandCapture_29_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1176 = io_arm | operandCapture_29_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1177 = io_arm | operandCapture_29_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1178 = io_arm | operandCapture_29_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1179 = io_arm | operandCapture_29_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1180 = io_arm | operandCapture_29_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1181 = io_arm | operandCapture_29_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1182 = io_arm | operandCapture_29_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1183 = io_arm | operandCapture_29_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1184 = io_arm | operandCapture_29_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1185 = io_arm | operandCapture_29_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1186 = io_arm | maskCapture_29; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_1214 = io_arm | operandCapture_30_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1215 = io_arm | operandCapture_30_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1216 = io_arm | operandCapture_30_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1217 = io_arm | operandCapture_30_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1218 = io_arm | operandCapture_30_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1219 = io_arm | operandCapture_30_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1220 = io_arm | operandCapture_30_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1221 = io_arm | operandCapture_30_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1222 = io_arm | operandCapture_30_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1223 = io_arm | operandCapture_30_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1224 = io_arm | operandCapture_30_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1225 = io_arm | operandCapture_30_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1226 = io_arm | maskCapture_30; // @[AecExecPort.scala 88:19 90:22 64:28]
-  wire  _GEN_1254 = io_arm | operandCapture_31_0; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1255 = io_arm | operandCapture_31_1; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1256 = io_arm | operandCapture_31_2; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1257 = io_arm | operandCapture_31_3; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1258 = io_arm | operandCapture_31_4; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1259 = io_arm | operandCapture_31_5; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1260 = io_arm | operandCapture_31_6; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1261 = io_arm | operandCapture_31_7; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1262 = io_arm | operandCapture_31_8; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1263 = io_arm | operandCapture_31_9; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1264 = io_arm | operandCapture_31_10; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1265 = io_arm | operandCapture_31_11; // @[AecExecPort.scala 88:19 89:25 62:31]
-  wire  _GEN_1266 = io_arm | maskCapture_31; // @[AecExecPort.scala 88:19 90:22 64:28]
+  reg  operandCapture_0_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_0_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_1_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_2_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_3_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_4_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_5_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_6_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_7_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_8_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_9_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_10_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_11_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_12_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_13_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_14_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_15_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_16_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_17_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_18_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_19_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_20_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_21_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_22_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_23_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_24_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_25_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_26_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_27_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_28_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_29_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_30_11; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_0; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_1; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_2; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_3; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_4; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_5; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_6; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_7; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_8; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_9; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_10; // @[AecExecPort.scala 74:31]
+  reg  operandCapture_31_11; // @[AecExecPort.scala 74:31]
+  reg  maskCapture_0; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_1; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_2; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_3; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_4; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_5; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_6; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_7; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_8; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_9; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_10; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_11; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_12; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_13; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_14; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_15; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_16; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_17; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_18; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_19; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_20; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_21; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_22; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_23; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_24; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_25; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_26; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_27; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_28; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_29; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_30; // @[AecExecPort.scala 76:28]
+  reg  maskCapture_31; // @[AecExecPort.scala 76:28]
+  reg [15:0] a_0_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_0_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_0_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_0_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_1_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_1_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_1_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_1_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_2_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_2_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_2_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_2_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_3_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_3_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_3_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_3_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_4_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_4_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_4_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_4_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_5_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_5_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_5_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_5_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_6_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_6_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_6_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_6_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_7_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_7_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_7_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_7_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_8_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_8_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_8_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_8_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_9_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_9_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_9_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_9_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_10_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_10_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_10_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_10_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_11_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_11_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_11_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_11_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_12_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_12_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_12_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_12_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_13_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_13_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_13_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_13_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_14_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_14_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_14_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_14_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_15_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_15_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_15_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_15_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_16_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_16_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_16_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_16_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_17_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_17_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_17_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_17_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_18_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_18_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_18_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_18_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_19_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_19_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_19_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_19_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_20_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_20_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_20_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_20_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_21_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_21_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_21_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_21_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_22_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_22_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_22_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_22_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_23_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_23_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_23_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_23_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_24_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_24_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_24_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_24_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_25_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_25_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_25_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_25_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_26_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_26_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_26_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_26_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_27_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_27_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_27_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_27_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_28_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_28_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_28_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_28_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_29_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_29_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_29_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_29_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_30_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_30_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_30_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_30_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_31_0; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_31_1; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_31_2; // @[AecExecPort.scala 78:14]
+  reg [15:0] a_31_3; // @[AecExecPort.scala 78:14]
+  reg [15:0] b_0_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_0_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_0_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_0_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_1_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_1_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_1_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_1_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_2_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_2_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_2_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_2_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_3_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_3_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_3_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_3_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_4_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_4_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_4_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_4_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_5_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_5_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_5_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_5_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_6_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_6_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_6_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_6_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_7_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_7_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_7_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_7_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_8_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_8_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_8_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_8_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_9_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_9_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_9_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_9_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_10_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_10_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_10_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_10_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_11_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_11_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_11_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_11_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_12_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_12_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_12_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_12_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_13_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_13_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_13_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_13_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_14_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_14_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_14_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_14_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_15_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_15_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_15_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_15_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_16_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_16_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_16_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_16_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_17_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_17_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_17_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_17_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_18_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_18_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_18_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_18_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_19_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_19_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_19_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_19_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_20_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_20_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_20_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_20_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_21_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_21_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_21_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_21_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_22_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_22_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_22_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_22_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_23_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_23_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_23_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_23_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_24_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_24_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_24_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_24_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_25_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_25_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_25_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_25_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_26_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_26_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_26_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_26_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_27_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_27_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_27_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_27_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_28_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_28_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_28_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_28_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_29_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_29_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_29_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_29_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_30_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_30_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_30_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_30_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_31_0; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_31_1; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_31_2; // @[AecExecPort.scala 79:14]
+  reg [15:0] b_31_3; // @[AecExecPort.scala 79:14]
+  reg [15:0] c_0_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_0_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_0_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_0_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_1_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_1_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_1_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_1_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_2_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_2_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_2_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_2_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_3_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_3_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_3_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_3_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_4_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_4_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_4_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_4_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_5_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_5_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_5_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_5_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_6_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_6_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_6_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_6_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_7_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_7_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_7_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_7_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_8_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_8_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_8_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_8_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_9_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_9_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_9_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_9_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_10_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_10_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_10_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_10_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_11_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_11_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_11_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_11_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_12_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_12_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_12_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_12_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_13_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_13_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_13_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_13_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_14_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_14_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_14_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_14_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_15_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_15_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_15_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_15_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_16_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_16_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_16_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_16_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_17_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_17_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_17_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_17_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_18_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_18_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_18_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_18_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_19_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_19_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_19_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_19_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_20_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_20_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_20_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_20_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_21_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_21_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_21_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_21_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_22_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_22_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_22_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_22_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_23_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_23_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_23_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_23_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_24_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_24_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_24_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_24_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_25_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_25_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_25_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_25_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_26_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_26_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_26_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_26_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_27_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_27_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_27_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_27_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_28_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_28_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_28_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_28_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_29_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_29_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_29_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_29_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_30_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_30_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_30_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_30_3; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_31_0; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_31_1; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_31_2; // @[AecExecPort.scala 80:14]
+  reg [15:0] c_31_3; // @[AecExecPort.scala 80:14]
+  reg  active_0; // @[AecExecPort.scala 81:19]
+  reg  active_1; // @[AecExecPort.scala 81:19]
+  reg  active_2; // @[AecExecPort.scala 81:19]
+  reg  active_3; // @[AecExecPort.scala 81:19]
+  reg  active_4; // @[AecExecPort.scala 81:19]
+  reg  active_5; // @[AecExecPort.scala 81:19]
+  reg  active_6; // @[AecExecPort.scala 81:19]
+  reg  active_7; // @[AecExecPort.scala 81:19]
+  reg  active_8; // @[AecExecPort.scala 81:19]
+  reg  active_9; // @[AecExecPort.scala 81:19]
+  reg  active_10; // @[AecExecPort.scala 81:19]
+  reg  active_11; // @[AecExecPort.scala 81:19]
+  reg  active_12; // @[AecExecPort.scala 81:19]
+  reg  active_13; // @[AecExecPort.scala 81:19]
+  reg  active_14; // @[AecExecPort.scala 81:19]
+  reg  active_15; // @[AecExecPort.scala 81:19]
+  reg  active_16; // @[AecExecPort.scala 81:19]
+  reg  active_17; // @[AecExecPort.scala 81:19]
+  reg  active_18; // @[AecExecPort.scala 81:19]
+  reg  active_19; // @[AecExecPort.scala 81:19]
+  reg  active_20; // @[AecExecPort.scala 81:19]
+  reg  active_21; // @[AecExecPort.scala 81:19]
+  reg  active_22; // @[AecExecPort.scala 81:19]
+  reg  active_23; // @[AecExecPort.scala 81:19]
+  reg  active_24; // @[AecExecPort.scala 81:19]
+  reg  active_25; // @[AecExecPort.scala 81:19]
+  reg  active_26; // @[AecExecPort.scala 81:19]
+  reg  active_27; // @[AecExecPort.scala 81:19]
+  reg  active_28; // @[AecExecPort.scala 81:19]
+  reg  active_29; // @[AecExecPort.scala 81:19]
+  reg  active_30; // @[AecExecPort.scala 81:19]
+  reg  active_31; // @[AecExecPort.scala 81:19]
+  reg [7:0] dest; // @[AecExecPort.scala 85:17]
   wire [31:0] io_out_a_0_lo = {a_0_1,a_0_0}; // @[Cat.scala 33:92]
   wire [31:0] io_out_a_0_hi = {a_0_3,a_0_2}; // @[Cat.scala 33:92]
   wire [31:0] io_out_b_0_lo = {b_0_1,b_0_0}; // @[Cat.scala 33:92]
@@ -8670,4170 +8261,3338 @@ module AecWarpRequestBuffer(
   assign io_out_c_29 = {io_out_c_29_hi,io_out_c_29_lo}; // @[Cat.scala 33:92]
   assign io_out_c_30 = {io_out_c_30_hi,io_out_c_30_lo}; // @[Cat.scala 33:92]
   assign io_out_c_31 = {io_out_c_31_hi,io_out_c_31_lo}; // @[Cat.scala 33:92]
-  assign io_out_dest = dest; // @[AecExecPort.scala 106:15]
+  assign io_out_dest = dest; // @[AecExecPort.scala 117:15]
   always @(posedge clock) begin
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_0 <= _GEN_14;
+      operandCapture_0_0 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_1 <= _GEN_15;
+      operandCapture_0_1 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_2 <= _GEN_16;
+      operandCapture_0_2 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_3 <= _GEN_17;
+      operandCapture_0_3 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_4 <= _GEN_18;
+      operandCapture_0_4 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_5 <= _GEN_19;
+      operandCapture_0_5 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_6 <= _GEN_20;
+      operandCapture_0_6 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_7 <= _GEN_21;
+      operandCapture_0_7 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_8 <= _GEN_22;
+      operandCapture_0_8 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_9 <= _GEN_23;
+      operandCapture_0_9 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_10 <= _GEN_24;
+      operandCapture_0_10 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_0_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_0_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_0_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_0_11 <= _GEN_25;
+      operandCapture_0_11 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_0 <= _GEN_54;
+      operandCapture_1_0 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_1 <= _GEN_55;
+      operandCapture_1_1 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_2 <= _GEN_56;
+      operandCapture_1_2 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_3 <= _GEN_57;
+      operandCapture_1_3 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_4 <= _GEN_58;
+      operandCapture_1_4 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_5 <= _GEN_59;
+      operandCapture_1_5 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_6 <= _GEN_60;
+      operandCapture_1_6 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_7 <= _GEN_61;
+      operandCapture_1_7 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_8 <= _GEN_62;
+      operandCapture_1_8 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_9 <= _GEN_63;
+      operandCapture_1_9 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_10 <= _GEN_64;
+      operandCapture_1_10 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_1_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_1_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_1_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_1_11 <= _GEN_65;
+      operandCapture_1_11 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_0 <= _GEN_94;
+      operandCapture_2_0 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_1 <= _GEN_95;
+      operandCapture_2_1 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_2 <= _GEN_96;
+      operandCapture_2_2 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_3 <= _GEN_97;
+      operandCapture_2_3 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_4 <= _GEN_98;
+      operandCapture_2_4 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_5 <= _GEN_99;
+      operandCapture_2_5 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_6 <= _GEN_100;
+      operandCapture_2_6 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_7 <= _GEN_101;
+      operandCapture_2_7 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_8 <= _GEN_102;
+      operandCapture_2_8 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_9 <= _GEN_103;
+      operandCapture_2_9 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_10 <= _GEN_104;
+      operandCapture_2_10 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_2_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_2_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_2_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_2_11 <= _GEN_105;
+      operandCapture_2_11 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_0 <= _GEN_134;
+      operandCapture_3_0 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_1 <= _GEN_135;
+      operandCapture_3_1 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_2 <= _GEN_136;
+      operandCapture_3_2 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_3 <= _GEN_137;
+      operandCapture_3_3 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_4 <= _GEN_138;
+      operandCapture_3_4 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_5 <= _GEN_139;
+      operandCapture_3_5 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_6 <= _GEN_140;
+      operandCapture_3_6 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_7 <= _GEN_141;
+      operandCapture_3_7 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_8 <= _GEN_142;
+      operandCapture_3_8 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_9 <= _GEN_143;
+      operandCapture_3_9 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_10 <= _GEN_144;
+      operandCapture_3_10 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_3_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_3_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_3_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_3_11 <= _GEN_145;
+      operandCapture_3_11 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_0 <= _GEN_174;
+      operandCapture_4_0 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_1 <= _GEN_175;
+      operandCapture_4_1 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_2 <= _GEN_176;
+      operandCapture_4_2 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_3 <= _GEN_177;
+      operandCapture_4_3 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_4 <= _GEN_178;
+      operandCapture_4_4 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_5 <= _GEN_179;
+      operandCapture_4_5 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_6 <= _GEN_180;
+      operandCapture_4_6 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_7 <= _GEN_181;
+      operandCapture_4_7 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_8 <= _GEN_182;
+      operandCapture_4_8 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_9 <= _GEN_183;
+      operandCapture_4_9 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_10 <= _GEN_184;
+      operandCapture_4_10 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_4_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_4_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_4_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_4_11 <= _GEN_185;
+      operandCapture_4_11 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_0 <= _GEN_214;
+      operandCapture_5_0 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_1 <= _GEN_215;
+      operandCapture_5_1 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_2 <= _GEN_216;
+      operandCapture_5_2 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_3 <= _GEN_217;
+      operandCapture_5_3 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_4 <= _GEN_218;
+      operandCapture_5_4 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_5 <= _GEN_219;
+      operandCapture_5_5 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_6 <= _GEN_220;
+      operandCapture_5_6 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_7 <= _GEN_221;
+      operandCapture_5_7 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_8 <= _GEN_222;
+      operandCapture_5_8 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_9 <= _GEN_223;
+      operandCapture_5_9 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_10 <= _GEN_224;
+      operandCapture_5_10 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_5_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_5_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_5_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_5_11 <= _GEN_225;
+      operandCapture_5_11 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_0 <= _GEN_254;
+      operandCapture_6_0 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_1 <= _GEN_255;
+      operandCapture_6_1 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_2 <= _GEN_256;
+      operandCapture_6_2 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_3 <= _GEN_257;
+      operandCapture_6_3 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_4 <= _GEN_258;
+      operandCapture_6_4 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_5 <= _GEN_259;
+      operandCapture_6_5 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_6 <= _GEN_260;
+      operandCapture_6_6 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_7 <= _GEN_261;
+      operandCapture_6_7 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_8 <= _GEN_262;
+      operandCapture_6_8 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_9 <= _GEN_263;
+      operandCapture_6_9 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_10 <= _GEN_264;
+      operandCapture_6_10 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_6_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_6_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_6_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_6_11 <= _GEN_265;
+      operandCapture_6_11 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_0 <= _GEN_294;
+      operandCapture_7_0 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_1 <= _GEN_295;
+      operandCapture_7_1 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_2 <= _GEN_296;
+      operandCapture_7_2 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_3 <= _GEN_297;
+      operandCapture_7_3 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_4 <= _GEN_298;
+      operandCapture_7_4 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_5 <= _GEN_299;
+      operandCapture_7_5 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_6 <= _GEN_300;
+      operandCapture_7_6 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_7 <= _GEN_301;
+      operandCapture_7_7 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_8 <= _GEN_302;
+      operandCapture_7_8 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_9 <= _GEN_303;
+      operandCapture_7_9 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_10 <= _GEN_304;
+      operandCapture_7_10 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_7_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_7_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_7_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_7_11 <= _GEN_305;
+      operandCapture_7_11 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_0 <= _GEN_334;
+      operandCapture_8_0 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_1 <= _GEN_335;
+      operandCapture_8_1 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_2 <= _GEN_336;
+      operandCapture_8_2 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_3 <= _GEN_337;
+      operandCapture_8_3 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_4 <= _GEN_338;
+      operandCapture_8_4 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_5 <= _GEN_339;
+      operandCapture_8_5 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_6 <= _GEN_340;
+      operandCapture_8_6 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_7 <= _GEN_341;
+      operandCapture_8_7 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_8 <= _GEN_342;
+      operandCapture_8_8 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_9 <= _GEN_343;
+      operandCapture_8_9 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_10 <= _GEN_344;
+      operandCapture_8_10 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_8_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_8_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_8_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_8_11 <= _GEN_345;
+      operandCapture_8_11 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_0 <= _GEN_374;
+      operandCapture_9_0 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_1 <= _GEN_375;
+      operandCapture_9_1 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_2 <= _GEN_376;
+      operandCapture_9_2 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_3 <= _GEN_377;
+      operandCapture_9_3 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_4 <= _GEN_378;
+      operandCapture_9_4 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_5 <= _GEN_379;
+      operandCapture_9_5 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_6 <= _GEN_380;
+      operandCapture_9_6 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_7 <= _GEN_381;
+      operandCapture_9_7 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_8 <= _GEN_382;
+      operandCapture_9_8 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_9 <= _GEN_383;
+      operandCapture_9_9 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_10 <= _GEN_384;
+      operandCapture_9_10 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_9_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_9_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_9_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_9_11 <= _GEN_385;
+      operandCapture_9_11 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_0 <= _GEN_414;
+      operandCapture_10_0 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_1 <= _GEN_415;
+      operandCapture_10_1 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_2 <= _GEN_416;
+      operandCapture_10_2 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_3 <= _GEN_417;
+      operandCapture_10_3 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_4 <= _GEN_418;
+      operandCapture_10_4 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_5 <= _GEN_419;
+      operandCapture_10_5 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_6 <= _GEN_420;
+      operandCapture_10_6 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_7 <= _GEN_421;
+      operandCapture_10_7 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_8 <= _GEN_422;
+      operandCapture_10_8 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_9 <= _GEN_423;
+      operandCapture_10_9 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_10 <= _GEN_424;
+      operandCapture_10_10 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_10_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_10_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_10_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_10_11 <= _GEN_425;
+      operandCapture_10_11 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_0 <= _GEN_454;
+      operandCapture_11_0 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_1 <= _GEN_455;
+      operandCapture_11_1 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_2 <= _GEN_456;
+      operandCapture_11_2 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_3 <= _GEN_457;
+      operandCapture_11_3 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_4 <= _GEN_458;
+      operandCapture_11_4 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_5 <= _GEN_459;
+      operandCapture_11_5 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_6 <= _GEN_460;
+      operandCapture_11_6 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_7 <= _GEN_461;
+      operandCapture_11_7 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_8 <= _GEN_462;
+      operandCapture_11_8 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_9 <= _GEN_463;
+      operandCapture_11_9 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_10 <= _GEN_464;
+      operandCapture_11_10 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_11_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_11_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_11_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_11_11 <= _GEN_465;
+      operandCapture_11_11 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_0 <= _GEN_494;
+      operandCapture_12_0 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_1 <= _GEN_495;
+      operandCapture_12_1 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_2 <= _GEN_496;
+      operandCapture_12_2 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_3 <= _GEN_497;
+      operandCapture_12_3 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_4 <= _GEN_498;
+      operandCapture_12_4 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_5 <= _GEN_499;
+      operandCapture_12_5 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_6 <= _GEN_500;
+      operandCapture_12_6 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_7 <= _GEN_501;
+      operandCapture_12_7 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_8 <= _GEN_502;
+      operandCapture_12_8 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_9 <= _GEN_503;
+      operandCapture_12_9 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_10 <= _GEN_504;
+      operandCapture_12_10 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_12_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_12_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_12_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_12_11 <= _GEN_505;
+      operandCapture_12_11 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_0 <= _GEN_534;
+      operandCapture_13_0 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_1 <= _GEN_535;
+      operandCapture_13_1 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_2 <= _GEN_536;
+      operandCapture_13_2 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_3 <= _GEN_537;
+      operandCapture_13_3 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_4 <= _GEN_538;
+      operandCapture_13_4 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_5 <= _GEN_539;
+      operandCapture_13_5 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_6 <= _GEN_540;
+      operandCapture_13_6 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_7 <= _GEN_541;
+      operandCapture_13_7 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_8 <= _GEN_542;
+      operandCapture_13_8 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_9 <= _GEN_543;
+      operandCapture_13_9 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_10 <= _GEN_544;
+      operandCapture_13_10 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_13_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_13_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_13_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_13_11 <= _GEN_545;
+      operandCapture_13_11 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_0 <= _GEN_574;
+      operandCapture_14_0 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_1 <= _GEN_575;
+      operandCapture_14_1 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_2 <= _GEN_576;
+      operandCapture_14_2 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_3 <= _GEN_577;
+      operandCapture_14_3 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_4 <= _GEN_578;
+      operandCapture_14_4 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_5 <= _GEN_579;
+      operandCapture_14_5 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_6 <= _GEN_580;
+      operandCapture_14_6 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_7 <= _GEN_581;
+      operandCapture_14_7 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_8 <= _GEN_582;
+      operandCapture_14_8 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_9 <= _GEN_583;
+      operandCapture_14_9 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_10 <= _GEN_584;
+      operandCapture_14_10 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_14_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_14_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_14_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_14_11 <= _GEN_585;
+      operandCapture_14_11 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_0 <= _GEN_614;
+      operandCapture_15_0 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_1 <= _GEN_615;
+      operandCapture_15_1 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_2 <= _GEN_616;
+      operandCapture_15_2 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_3 <= _GEN_617;
+      operandCapture_15_3 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_4 <= _GEN_618;
+      operandCapture_15_4 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_5 <= _GEN_619;
+      operandCapture_15_5 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_6 <= _GEN_620;
+      operandCapture_15_6 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_7 <= _GEN_621;
+      operandCapture_15_7 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_8 <= _GEN_622;
+      operandCapture_15_8 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_9 <= _GEN_623;
+      operandCapture_15_9 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_10 <= _GEN_624;
+      operandCapture_15_10 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_15_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_15_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_15_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_15_11 <= _GEN_625;
+      operandCapture_15_11 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_0 <= _GEN_654;
+      operandCapture_16_0 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_1 <= _GEN_655;
+      operandCapture_16_1 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_2 <= _GEN_656;
+      operandCapture_16_2 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_3 <= _GEN_657;
+      operandCapture_16_3 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_4 <= _GEN_658;
+      operandCapture_16_4 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_5 <= _GEN_659;
+      operandCapture_16_5 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_6 <= _GEN_660;
+      operandCapture_16_6 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_7 <= _GEN_661;
+      operandCapture_16_7 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_8 <= _GEN_662;
+      operandCapture_16_8 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_9 <= _GEN_663;
+      operandCapture_16_9 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_10 <= _GEN_664;
+      operandCapture_16_10 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_16_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_16_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_16_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_16_11 <= _GEN_665;
+      operandCapture_16_11 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_0 <= _GEN_694;
+      operandCapture_17_0 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_1 <= _GEN_695;
+      operandCapture_17_1 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_2 <= _GEN_696;
+      operandCapture_17_2 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_3 <= _GEN_697;
+      operandCapture_17_3 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_4 <= _GEN_698;
+      operandCapture_17_4 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_5 <= _GEN_699;
+      operandCapture_17_5 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_6 <= _GEN_700;
+      operandCapture_17_6 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_7 <= _GEN_701;
+      operandCapture_17_7 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_8 <= _GEN_702;
+      operandCapture_17_8 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_9 <= _GEN_703;
+      operandCapture_17_9 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_10 <= _GEN_704;
+      operandCapture_17_10 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_17_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_17_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_17_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_17_11 <= _GEN_705;
+      operandCapture_17_11 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_0 <= _GEN_734;
+      operandCapture_18_0 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_1 <= _GEN_735;
+      operandCapture_18_1 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_2 <= _GEN_736;
+      operandCapture_18_2 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_3 <= _GEN_737;
+      operandCapture_18_3 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_4 <= _GEN_738;
+      operandCapture_18_4 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_5 <= _GEN_739;
+      operandCapture_18_5 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_6 <= _GEN_740;
+      operandCapture_18_6 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_7 <= _GEN_741;
+      operandCapture_18_7 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_8 <= _GEN_742;
+      operandCapture_18_8 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_9 <= _GEN_743;
+      operandCapture_18_9 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_10 <= _GEN_744;
+      operandCapture_18_10 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_18_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_18_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_18_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_18_11 <= _GEN_745;
+      operandCapture_18_11 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_0 <= _GEN_774;
+      operandCapture_19_0 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_1 <= _GEN_775;
+      operandCapture_19_1 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_2 <= _GEN_776;
+      operandCapture_19_2 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_3 <= _GEN_777;
+      operandCapture_19_3 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_4 <= _GEN_778;
+      operandCapture_19_4 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_5 <= _GEN_779;
+      operandCapture_19_5 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_6 <= _GEN_780;
+      operandCapture_19_6 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_7 <= _GEN_781;
+      operandCapture_19_7 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_8 <= _GEN_782;
+      operandCapture_19_8 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_9 <= _GEN_783;
+      operandCapture_19_9 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_10 <= _GEN_784;
+      operandCapture_19_10 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_19_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_19_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_19_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_19_11 <= _GEN_785;
+      operandCapture_19_11 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_0 <= _GEN_814;
+      operandCapture_20_0 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_1 <= _GEN_815;
+      operandCapture_20_1 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_2 <= _GEN_816;
+      operandCapture_20_2 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_3 <= _GEN_817;
+      operandCapture_20_3 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_4 <= _GEN_818;
+      operandCapture_20_4 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_5 <= _GEN_819;
+      operandCapture_20_5 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_6 <= _GEN_820;
+      operandCapture_20_6 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_7 <= _GEN_821;
+      operandCapture_20_7 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_8 <= _GEN_822;
+      operandCapture_20_8 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_9 <= _GEN_823;
+      operandCapture_20_9 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_10 <= _GEN_824;
+      operandCapture_20_10 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_20_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_20_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_20_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_20_11 <= _GEN_825;
+      operandCapture_20_11 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_0 <= _GEN_854;
+      operandCapture_21_0 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_1 <= _GEN_855;
+      operandCapture_21_1 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_2 <= _GEN_856;
+      operandCapture_21_2 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_3 <= _GEN_857;
+      operandCapture_21_3 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_4 <= _GEN_858;
+      operandCapture_21_4 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_5 <= _GEN_859;
+      operandCapture_21_5 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_6 <= _GEN_860;
+      operandCapture_21_6 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_7 <= _GEN_861;
+      operandCapture_21_7 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_8 <= _GEN_862;
+      operandCapture_21_8 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_9 <= _GEN_863;
+      operandCapture_21_9 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_10 <= _GEN_864;
+      operandCapture_21_10 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_21_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_21_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_21_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_21_11 <= _GEN_865;
+      operandCapture_21_11 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_0 <= _GEN_894;
+      operandCapture_22_0 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_1 <= _GEN_895;
+      operandCapture_22_1 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_2 <= _GEN_896;
+      operandCapture_22_2 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_3 <= _GEN_897;
+      operandCapture_22_3 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_4 <= _GEN_898;
+      operandCapture_22_4 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_5 <= _GEN_899;
+      operandCapture_22_5 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_6 <= _GEN_900;
+      operandCapture_22_6 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_7 <= _GEN_901;
+      operandCapture_22_7 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_8 <= _GEN_902;
+      operandCapture_22_8 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_9 <= _GEN_903;
+      operandCapture_22_9 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_10 <= _GEN_904;
+      operandCapture_22_10 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_22_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_22_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_22_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_22_11 <= _GEN_905;
+      operandCapture_22_11 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_0 <= _GEN_934;
+      operandCapture_23_0 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_1 <= _GEN_935;
+      operandCapture_23_1 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_2 <= _GEN_936;
+      operandCapture_23_2 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_3 <= _GEN_937;
+      operandCapture_23_3 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_4 <= _GEN_938;
+      operandCapture_23_4 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_5 <= _GEN_939;
+      operandCapture_23_5 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_6 <= _GEN_940;
+      operandCapture_23_6 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_7 <= _GEN_941;
+      operandCapture_23_7 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_8 <= _GEN_942;
+      operandCapture_23_8 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_9 <= _GEN_943;
+      operandCapture_23_9 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_10 <= _GEN_944;
+      operandCapture_23_10 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_23_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_23_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_23_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_23_11 <= _GEN_945;
+      operandCapture_23_11 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_0 <= _GEN_974;
+      operandCapture_24_0 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_1 <= _GEN_975;
+      operandCapture_24_1 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_2 <= _GEN_976;
+      operandCapture_24_2 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_3 <= _GEN_977;
+      operandCapture_24_3 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_4 <= _GEN_978;
+      operandCapture_24_4 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_5 <= _GEN_979;
+      operandCapture_24_5 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_6 <= _GEN_980;
+      operandCapture_24_6 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_7 <= _GEN_981;
+      operandCapture_24_7 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_8 <= _GEN_982;
+      operandCapture_24_8 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_9 <= _GEN_983;
+      operandCapture_24_9 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_10 <= _GEN_984;
+      operandCapture_24_10 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_24_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_24_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_24_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_24_11 <= _GEN_985;
+      operandCapture_24_11 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_0 <= _GEN_1014;
+      operandCapture_25_0 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_1 <= _GEN_1015;
+      operandCapture_25_1 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_2 <= _GEN_1016;
+      operandCapture_25_2 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_3 <= _GEN_1017;
+      operandCapture_25_3 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_4 <= _GEN_1018;
+      operandCapture_25_4 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_5 <= _GEN_1019;
+      operandCapture_25_5 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_6 <= _GEN_1020;
+      operandCapture_25_6 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_7 <= _GEN_1021;
+      operandCapture_25_7 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_8 <= _GEN_1022;
+      operandCapture_25_8 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_9 <= _GEN_1023;
+      operandCapture_25_9 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_10 <= _GEN_1024;
+      operandCapture_25_10 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_25_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_25_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_25_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_25_11 <= _GEN_1025;
+      operandCapture_25_11 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_0 <= _GEN_1054;
+      operandCapture_26_0 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_1 <= _GEN_1055;
+      operandCapture_26_1 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_2 <= _GEN_1056;
+      operandCapture_26_2 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_3 <= _GEN_1057;
+      operandCapture_26_3 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_4 <= _GEN_1058;
+      operandCapture_26_4 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_5 <= _GEN_1059;
+      operandCapture_26_5 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_6 <= _GEN_1060;
+      operandCapture_26_6 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_7 <= _GEN_1061;
+      operandCapture_26_7 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_8 <= _GEN_1062;
+      operandCapture_26_8 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_9 <= _GEN_1063;
+      operandCapture_26_9 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_10 <= _GEN_1064;
+      operandCapture_26_10 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_26_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_26_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_26_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_26_11 <= _GEN_1065;
+      operandCapture_26_11 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_0 <= _GEN_1094;
+      operandCapture_27_0 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_1 <= _GEN_1095;
+      operandCapture_27_1 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_2 <= _GEN_1096;
+      operandCapture_27_2 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_3 <= _GEN_1097;
+      operandCapture_27_3 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_4 <= _GEN_1098;
+      operandCapture_27_4 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_5 <= _GEN_1099;
+      operandCapture_27_5 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_6 <= _GEN_1100;
+      operandCapture_27_6 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_7 <= _GEN_1101;
+      operandCapture_27_7 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_8 <= _GEN_1102;
+      operandCapture_27_8 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_9 <= _GEN_1103;
+      operandCapture_27_9 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_10 <= _GEN_1104;
+      operandCapture_27_10 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_27_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_27_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_27_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_27_11 <= _GEN_1105;
+      operandCapture_27_11 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_0 <= _GEN_1134;
+      operandCapture_28_0 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_1 <= _GEN_1135;
+      operandCapture_28_1 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_2 <= _GEN_1136;
+      operandCapture_28_2 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_3 <= _GEN_1137;
+      operandCapture_28_3 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_4 <= _GEN_1138;
+      operandCapture_28_4 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_5 <= _GEN_1139;
+      operandCapture_28_5 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_6 <= _GEN_1140;
+      operandCapture_28_6 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_7 <= _GEN_1141;
+      operandCapture_28_7 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_8 <= _GEN_1142;
+      operandCapture_28_8 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_9 <= _GEN_1143;
+      operandCapture_28_9 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_10 <= _GEN_1144;
+      operandCapture_28_10 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_28_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_28_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_28_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_28_11 <= _GEN_1145;
+      operandCapture_28_11 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_0 <= _GEN_1174;
+      operandCapture_29_0 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_1 <= _GEN_1175;
+      operandCapture_29_1 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_2 <= _GEN_1176;
+      operandCapture_29_2 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_3 <= _GEN_1177;
+      operandCapture_29_3 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_4 <= _GEN_1178;
+      operandCapture_29_4 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_5 <= _GEN_1179;
+      operandCapture_29_5 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_6 <= _GEN_1180;
+      operandCapture_29_6 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_7 <= _GEN_1181;
+      operandCapture_29_7 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_8 <= _GEN_1182;
+      operandCapture_29_8 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_9 <= _GEN_1183;
+      operandCapture_29_9 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_10 <= _GEN_1184;
+      operandCapture_29_10 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_29_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_29_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_29_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_29_11 <= _GEN_1185;
+      operandCapture_29_11 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_0 <= _GEN_1214;
+      operandCapture_30_0 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_1 <= _GEN_1215;
+      operandCapture_30_1 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_2 <= _GEN_1216;
+      operandCapture_30_2 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_3 <= _GEN_1217;
+      operandCapture_30_3 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_4 <= _GEN_1218;
+      operandCapture_30_4 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_5 <= _GEN_1219;
+      operandCapture_30_5 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_6 <= _GEN_1220;
+      operandCapture_30_6 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_7 <= _GEN_1221;
+      operandCapture_30_7 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_8 <= _GEN_1222;
+      operandCapture_30_8 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_9 <= _GEN_1223;
+      operandCapture_30_9 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_10 <= _GEN_1224;
+      operandCapture_30_10 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_30_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_30_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_30_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_30_11 <= _GEN_1225;
+      operandCapture_30_11 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_0 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_0 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_0 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_0 <= _GEN_1254;
+      operandCapture_31_0 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_1 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_1 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_1 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_1 <= _GEN_1255;
+      operandCapture_31_1 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_2 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_2 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_2 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_2 <= _GEN_1256;
+      operandCapture_31_2 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_3 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_3 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_3 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_3 <= _GEN_1257;
+      operandCapture_31_3 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_4 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_4 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_4 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_4 <= _GEN_1258;
+      operandCapture_31_4 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_5 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_5 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_5 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_5 <= _GEN_1259;
+      operandCapture_31_5 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_6 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_6 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_6 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_6 <= _GEN_1260;
+      operandCapture_31_6 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_7 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_7 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_7 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_7 <= _GEN_1261;
+      operandCapture_31_7 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_8 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_8 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_8 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_8 <= _GEN_1262;
+      operandCapture_31_8 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_9 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_9 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_9 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_9 <= _GEN_1263;
+      operandCapture_31_9 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_10 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_10 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_10 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_10 <= _GEN_1264;
+      operandCapture_31_10 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 62:31]
-      operandCapture_31_11 <= 1'h0; // @[AecExecPort.scala 62:31]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      operandCapture_31_11 <= 1'h0; // @[AecExecPort.scala 93:25]
+    if (reset) begin // @[AecExecPort.scala 74:31]
+      operandCapture_31_11 <= 1'h0; // @[AecExecPort.scala 74:31]
     end else begin
-      operandCapture_31_11 <= _GEN_1265;
+      operandCapture_31_11 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_0 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_0 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_0 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_0 <= _GEN_26;
+      maskCapture_0 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_1 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_1 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_1 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_1 <= _GEN_66;
+      maskCapture_1 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_2 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_2 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_2 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_2 <= _GEN_106;
+      maskCapture_2 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_3 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_3 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_3 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_3 <= _GEN_146;
+      maskCapture_3 <= io_arm_0;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_4 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_4 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_4 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_4 <= _GEN_186;
+      maskCapture_4 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_5 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_5 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_5 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_5 <= _GEN_226;
+      maskCapture_5 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_6 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_6 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_6 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_6 <= _GEN_266;
+      maskCapture_6 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_7 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_7 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_7 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_7 <= _GEN_306;
+      maskCapture_7 <= io_arm_1;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_8 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_8 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_8 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_8 <= _GEN_346;
+      maskCapture_8 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_9 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_9 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_9 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_9 <= _GEN_386;
+      maskCapture_9 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_10 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_10 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_10 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_10 <= _GEN_426;
+      maskCapture_10 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_11 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_11 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_11 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_11 <= _GEN_466;
+      maskCapture_11 <= io_arm_2;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_12 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_12 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_12 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_12 <= _GEN_506;
+      maskCapture_12 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_13 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_13 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_13 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_13 <= _GEN_546;
+      maskCapture_13 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_14 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_14 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_14 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_14 <= _GEN_586;
+      maskCapture_14 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_15 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_15 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_15 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_15 <= _GEN_626;
+      maskCapture_15 <= io_arm_3;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_16 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_16 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_16 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_16 <= _GEN_666;
+      maskCapture_16 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_17 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_17 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_17 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_17 <= _GEN_706;
+      maskCapture_17 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_18 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_18 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_18 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_18 <= _GEN_746;
+      maskCapture_18 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_19 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_19 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_19 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_19 <= _GEN_786;
+      maskCapture_19 <= io_arm_4;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_20 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_20 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_20 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_20 <= _GEN_826;
+      maskCapture_20 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_21 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_21 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_21 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_21 <= _GEN_866;
+      maskCapture_21 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_22 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_22 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_22 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_22 <= _GEN_906;
+      maskCapture_22 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_23 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_23 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_23 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_23 <= _GEN_946;
+      maskCapture_23 <= io_arm_5;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_24 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_24 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_24 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_24 <= _GEN_986;
+      maskCapture_24 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_25 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_25 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_25 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_25 <= _GEN_1026;
+      maskCapture_25 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_26 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_26 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_26 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_26 <= _GEN_1066;
+      maskCapture_26 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_27 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_27 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_27 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_27 <= _GEN_1106;
+      maskCapture_27 <= io_arm_6;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_28 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_28 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_28 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_28 <= _GEN_1146;
+      maskCapture_28 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_29 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_29 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_29 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_29 <= _GEN_1186;
+      maskCapture_29 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_30 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_30 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_30 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_30 <= _GEN_1226;
+      maskCapture_30 <= io_arm_7;
     end
-    if (reset) begin // @[AecExecPort.scala 64:28]
-      maskCapture_31 <= 1'h0; // @[AecExecPort.scala 64:28]
-    end else if (io_capture) begin // @[AecExecPort.scala 92:23]
-      maskCapture_31 <= 1'h0; // @[AecExecPort.scala 94:22]
+    if (reset) begin // @[AecExecPort.scala 76:28]
+      maskCapture_31 <= 1'h0; // @[AecExecPort.scala 76:28]
     end else begin
-      maskCapture_31 <= _GEN_1266;
+      maskCapture_31 <= io_arm_7;
     end
-    if (operandCapture_0_0) begin // @[AecExecPort.scala 80:38]
-      a_0_0 <= io_in_a_0[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_0_0) begin // @[AecExecPort.scala 92:38]
+      a_0_0 <= io_in_a_0[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_0_1) begin // @[AecExecPort.scala 80:38]
-      a_0_1 <= io_in_a_0[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_0_1) begin // @[AecExecPort.scala 92:38]
+      a_0_1 <= io_in_a_0[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_0_2) begin // @[AecExecPort.scala 80:38]
-      a_0_2 <= io_in_a_0[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_0_2) begin // @[AecExecPort.scala 92:38]
+      a_0_2 <= io_in_a_0[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_0_3) begin // @[AecExecPort.scala 80:38]
-      a_0_3 <= io_in_a_0[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_0_3) begin // @[AecExecPort.scala 92:38]
+      a_0_3 <= io_in_a_0[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_1_0) begin // @[AecExecPort.scala 80:38]
-      a_1_0 <= io_in_a_1[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_1_0) begin // @[AecExecPort.scala 92:38]
+      a_1_0 <= io_in_a_1[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_1_1) begin // @[AecExecPort.scala 80:38]
-      a_1_1 <= io_in_a_1[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_1_1) begin // @[AecExecPort.scala 92:38]
+      a_1_1 <= io_in_a_1[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_1_2) begin // @[AecExecPort.scala 80:38]
-      a_1_2 <= io_in_a_1[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_1_2) begin // @[AecExecPort.scala 92:38]
+      a_1_2 <= io_in_a_1[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_1_3) begin // @[AecExecPort.scala 80:38]
-      a_1_3 <= io_in_a_1[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_1_3) begin // @[AecExecPort.scala 92:38]
+      a_1_3 <= io_in_a_1[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_2_0) begin // @[AecExecPort.scala 80:38]
-      a_2_0 <= io_in_a_2[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_2_0) begin // @[AecExecPort.scala 92:38]
+      a_2_0 <= io_in_a_2[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_2_1) begin // @[AecExecPort.scala 80:38]
-      a_2_1 <= io_in_a_2[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_2_1) begin // @[AecExecPort.scala 92:38]
+      a_2_1 <= io_in_a_2[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_2_2) begin // @[AecExecPort.scala 80:38]
-      a_2_2 <= io_in_a_2[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_2_2) begin // @[AecExecPort.scala 92:38]
+      a_2_2 <= io_in_a_2[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_2_3) begin // @[AecExecPort.scala 80:38]
-      a_2_3 <= io_in_a_2[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_2_3) begin // @[AecExecPort.scala 92:38]
+      a_2_3 <= io_in_a_2[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_3_0) begin // @[AecExecPort.scala 80:38]
-      a_3_0 <= io_in_a_3[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_3_0) begin // @[AecExecPort.scala 92:38]
+      a_3_0 <= io_in_a_3[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_3_1) begin // @[AecExecPort.scala 80:38]
-      a_3_1 <= io_in_a_3[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_3_1) begin // @[AecExecPort.scala 92:38]
+      a_3_1 <= io_in_a_3[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_3_2) begin // @[AecExecPort.scala 80:38]
-      a_3_2 <= io_in_a_3[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_3_2) begin // @[AecExecPort.scala 92:38]
+      a_3_2 <= io_in_a_3[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_3_3) begin // @[AecExecPort.scala 80:38]
-      a_3_3 <= io_in_a_3[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_3_3) begin // @[AecExecPort.scala 92:38]
+      a_3_3 <= io_in_a_3[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_4_0) begin // @[AecExecPort.scala 80:38]
-      a_4_0 <= io_in_a_4[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_4_0) begin // @[AecExecPort.scala 92:38]
+      a_4_0 <= io_in_a_4[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_4_1) begin // @[AecExecPort.scala 80:38]
-      a_4_1 <= io_in_a_4[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_4_1) begin // @[AecExecPort.scala 92:38]
+      a_4_1 <= io_in_a_4[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_4_2) begin // @[AecExecPort.scala 80:38]
-      a_4_2 <= io_in_a_4[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_4_2) begin // @[AecExecPort.scala 92:38]
+      a_4_2 <= io_in_a_4[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_4_3) begin // @[AecExecPort.scala 80:38]
-      a_4_3 <= io_in_a_4[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_4_3) begin // @[AecExecPort.scala 92:38]
+      a_4_3 <= io_in_a_4[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_5_0) begin // @[AecExecPort.scala 80:38]
-      a_5_0 <= io_in_a_5[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_5_0) begin // @[AecExecPort.scala 92:38]
+      a_5_0 <= io_in_a_5[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_5_1) begin // @[AecExecPort.scala 80:38]
-      a_5_1 <= io_in_a_5[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_5_1) begin // @[AecExecPort.scala 92:38]
+      a_5_1 <= io_in_a_5[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_5_2) begin // @[AecExecPort.scala 80:38]
-      a_5_2 <= io_in_a_5[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_5_2) begin // @[AecExecPort.scala 92:38]
+      a_5_2 <= io_in_a_5[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_5_3) begin // @[AecExecPort.scala 80:38]
-      a_5_3 <= io_in_a_5[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_5_3) begin // @[AecExecPort.scala 92:38]
+      a_5_3 <= io_in_a_5[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_6_0) begin // @[AecExecPort.scala 80:38]
-      a_6_0 <= io_in_a_6[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_6_0) begin // @[AecExecPort.scala 92:38]
+      a_6_0 <= io_in_a_6[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_6_1) begin // @[AecExecPort.scala 80:38]
-      a_6_1 <= io_in_a_6[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_6_1) begin // @[AecExecPort.scala 92:38]
+      a_6_1 <= io_in_a_6[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_6_2) begin // @[AecExecPort.scala 80:38]
-      a_6_2 <= io_in_a_6[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_6_2) begin // @[AecExecPort.scala 92:38]
+      a_6_2 <= io_in_a_6[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_6_3) begin // @[AecExecPort.scala 80:38]
-      a_6_3 <= io_in_a_6[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_6_3) begin // @[AecExecPort.scala 92:38]
+      a_6_3 <= io_in_a_6[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_7_0) begin // @[AecExecPort.scala 80:38]
-      a_7_0 <= io_in_a_7[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_7_0) begin // @[AecExecPort.scala 92:38]
+      a_7_0 <= io_in_a_7[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_7_1) begin // @[AecExecPort.scala 80:38]
-      a_7_1 <= io_in_a_7[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_7_1) begin // @[AecExecPort.scala 92:38]
+      a_7_1 <= io_in_a_7[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_7_2) begin // @[AecExecPort.scala 80:38]
-      a_7_2 <= io_in_a_7[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_7_2) begin // @[AecExecPort.scala 92:38]
+      a_7_2 <= io_in_a_7[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_7_3) begin // @[AecExecPort.scala 80:38]
-      a_7_3 <= io_in_a_7[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_7_3) begin // @[AecExecPort.scala 92:38]
+      a_7_3 <= io_in_a_7[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_8_0) begin // @[AecExecPort.scala 80:38]
-      a_8_0 <= io_in_a_8[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_8_0) begin // @[AecExecPort.scala 92:38]
+      a_8_0 <= io_in_a_8[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_8_1) begin // @[AecExecPort.scala 80:38]
-      a_8_1 <= io_in_a_8[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_8_1) begin // @[AecExecPort.scala 92:38]
+      a_8_1 <= io_in_a_8[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_8_2) begin // @[AecExecPort.scala 80:38]
-      a_8_2 <= io_in_a_8[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_8_2) begin // @[AecExecPort.scala 92:38]
+      a_8_2 <= io_in_a_8[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_8_3) begin // @[AecExecPort.scala 80:38]
-      a_8_3 <= io_in_a_8[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_8_3) begin // @[AecExecPort.scala 92:38]
+      a_8_3 <= io_in_a_8[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_9_0) begin // @[AecExecPort.scala 80:38]
-      a_9_0 <= io_in_a_9[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_9_0) begin // @[AecExecPort.scala 92:38]
+      a_9_0 <= io_in_a_9[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_9_1) begin // @[AecExecPort.scala 80:38]
-      a_9_1 <= io_in_a_9[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_9_1) begin // @[AecExecPort.scala 92:38]
+      a_9_1 <= io_in_a_9[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_9_2) begin // @[AecExecPort.scala 80:38]
-      a_9_2 <= io_in_a_9[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_9_2) begin // @[AecExecPort.scala 92:38]
+      a_9_2 <= io_in_a_9[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_9_3) begin // @[AecExecPort.scala 80:38]
-      a_9_3 <= io_in_a_9[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_9_3) begin // @[AecExecPort.scala 92:38]
+      a_9_3 <= io_in_a_9[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_10_0) begin // @[AecExecPort.scala 80:38]
-      a_10_0 <= io_in_a_10[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_10_0) begin // @[AecExecPort.scala 92:38]
+      a_10_0 <= io_in_a_10[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_10_1) begin // @[AecExecPort.scala 80:38]
-      a_10_1 <= io_in_a_10[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_10_1) begin // @[AecExecPort.scala 92:38]
+      a_10_1 <= io_in_a_10[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_10_2) begin // @[AecExecPort.scala 80:38]
-      a_10_2 <= io_in_a_10[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_10_2) begin // @[AecExecPort.scala 92:38]
+      a_10_2 <= io_in_a_10[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_10_3) begin // @[AecExecPort.scala 80:38]
-      a_10_3 <= io_in_a_10[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_10_3) begin // @[AecExecPort.scala 92:38]
+      a_10_3 <= io_in_a_10[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_11_0) begin // @[AecExecPort.scala 80:38]
-      a_11_0 <= io_in_a_11[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_11_0) begin // @[AecExecPort.scala 92:38]
+      a_11_0 <= io_in_a_11[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_11_1) begin // @[AecExecPort.scala 80:38]
-      a_11_1 <= io_in_a_11[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_11_1) begin // @[AecExecPort.scala 92:38]
+      a_11_1 <= io_in_a_11[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_11_2) begin // @[AecExecPort.scala 80:38]
-      a_11_2 <= io_in_a_11[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_11_2) begin // @[AecExecPort.scala 92:38]
+      a_11_2 <= io_in_a_11[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_11_3) begin // @[AecExecPort.scala 80:38]
-      a_11_3 <= io_in_a_11[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_11_3) begin // @[AecExecPort.scala 92:38]
+      a_11_3 <= io_in_a_11[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_12_0) begin // @[AecExecPort.scala 80:38]
-      a_12_0 <= io_in_a_12[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_12_0) begin // @[AecExecPort.scala 92:38]
+      a_12_0 <= io_in_a_12[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_12_1) begin // @[AecExecPort.scala 80:38]
-      a_12_1 <= io_in_a_12[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_12_1) begin // @[AecExecPort.scala 92:38]
+      a_12_1 <= io_in_a_12[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_12_2) begin // @[AecExecPort.scala 80:38]
-      a_12_2 <= io_in_a_12[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_12_2) begin // @[AecExecPort.scala 92:38]
+      a_12_2 <= io_in_a_12[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_12_3) begin // @[AecExecPort.scala 80:38]
-      a_12_3 <= io_in_a_12[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_12_3) begin // @[AecExecPort.scala 92:38]
+      a_12_3 <= io_in_a_12[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_13_0) begin // @[AecExecPort.scala 80:38]
-      a_13_0 <= io_in_a_13[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_13_0) begin // @[AecExecPort.scala 92:38]
+      a_13_0 <= io_in_a_13[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_13_1) begin // @[AecExecPort.scala 80:38]
-      a_13_1 <= io_in_a_13[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_13_1) begin // @[AecExecPort.scala 92:38]
+      a_13_1 <= io_in_a_13[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_13_2) begin // @[AecExecPort.scala 80:38]
-      a_13_2 <= io_in_a_13[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_13_2) begin // @[AecExecPort.scala 92:38]
+      a_13_2 <= io_in_a_13[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_13_3) begin // @[AecExecPort.scala 80:38]
-      a_13_3 <= io_in_a_13[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_13_3) begin // @[AecExecPort.scala 92:38]
+      a_13_3 <= io_in_a_13[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_14_0) begin // @[AecExecPort.scala 80:38]
-      a_14_0 <= io_in_a_14[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_14_0) begin // @[AecExecPort.scala 92:38]
+      a_14_0 <= io_in_a_14[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_14_1) begin // @[AecExecPort.scala 80:38]
-      a_14_1 <= io_in_a_14[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_14_1) begin // @[AecExecPort.scala 92:38]
+      a_14_1 <= io_in_a_14[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_14_2) begin // @[AecExecPort.scala 80:38]
-      a_14_2 <= io_in_a_14[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_14_2) begin // @[AecExecPort.scala 92:38]
+      a_14_2 <= io_in_a_14[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_14_3) begin // @[AecExecPort.scala 80:38]
-      a_14_3 <= io_in_a_14[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_14_3) begin // @[AecExecPort.scala 92:38]
+      a_14_3 <= io_in_a_14[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_15_0) begin // @[AecExecPort.scala 80:38]
-      a_15_0 <= io_in_a_15[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_15_0) begin // @[AecExecPort.scala 92:38]
+      a_15_0 <= io_in_a_15[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_15_1) begin // @[AecExecPort.scala 80:38]
-      a_15_1 <= io_in_a_15[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_15_1) begin // @[AecExecPort.scala 92:38]
+      a_15_1 <= io_in_a_15[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_15_2) begin // @[AecExecPort.scala 80:38]
-      a_15_2 <= io_in_a_15[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_15_2) begin // @[AecExecPort.scala 92:38]
+      a_15_2 <= io_in_a_15[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_15_3) begin // @[AecExecPort.scala 80:38]
-      a_15_3 <= io_in_a_15[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_15_3) begin // @[AecExecPort.scala 92:38]
+      a_15_3 <= io_in_a_15[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_16_0) begin // @[AecExecPort.scala 80:38]
-      a_16_0 <= io_in_a_16[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_16_0) begin // @[AecExecPort.scala 92:38]
+      a_16_0 <= io_in_a_16[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_16_1) begin // @[AecExecPort.scala 80:38]
-      a_16_1 <= io_in_a_16[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_16_1) begin // @[AecExecPort.scala 92:38]
+      a_16_1 <= io_in_a_16[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_16_2) begin // @[AecExecPort.scala 80:38]
-      a_16_2 <= io_in_a_16[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_16_2) begin // @[AecExecPort.scala 92:38]
+      a_16_2 <= io_in_a_16[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_16_3) begin // @[AecExecPort.scala 80:38]
-      a_16_3 <= io_in_a_16[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_16_3) begin // @[AecExecPort.scala 92:38]
+      a_16_3 <= io_in_a_16[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_17_0) begin // @[AecExecPort.scala 80:38]
-      a_17_0 <= io_in_a_17[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_17_0) begin // @[AecExecPort.scala 92:38]
+      a_17_0 <= io_in_a_17[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_17_1) begin // @[AecExecPort.scala 80:38]
-      a_17_1 <= io_in_a_17[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_17_1) begin // @[AecExecPort.scala 92:38]
+      a_17_1 <= io_in_a_17[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_17_2) begin // @[AecExecPort.scala 80:38]
-      a_17_2 <= io_in_a_17[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_17_2) begin // @[AecExecPort.scala 92:38]
+      a_17_2 <= io_in_a_17[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_17_3) begin // @[AecExecPort.scala 80:38]
-      a_17_3 <= io_in_a_17[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_17_3) begin // @[AecExecPort.scala 92:38]
+      a_17_3 <= io_in_a_17[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_18_0) begin // @[AecExecPort.scala 80:38]
-      a_18_0 <= io_in_a_18[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_18_0) begin // @[AecExecPort.scala 92:38]
+      a_18_0 <= io_in_a_18[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_18_1) begin // @[AecExecPort.scala 80:38]
-      a_18_1 <= io_in_a_18[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_18_1) begin // @[AecExecPort.scala 92:38]
+      a_18_1 <= io_in_a_18[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_18_2) begin // @[AecExecPort.scala 80:38]
-      a_18_2 <= io_in_a_18[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_18_2) begin // @[AecExecPort.scala 92:38]
+      a_18_2 <= io_in_a_18[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_18_3) begin // @[AecExecPort.scala 80:38]
-      a_18_3 <= io_in_a_18[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_18_3) begin // @[AecExecPort.scala 92:38]
+      a_18_3 <= io_in_a_18[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_19_0) begin // @[AecExecPort.scala 80:38]
-      a_19_0 <= io_in_a_19[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_19_0) begin // @[AecExecPort.scala 92:38]
+      a_19_0 <= io_in_a_19[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_19_1) begin // @[AecExecPort.scala 80:38]
-      a_19_1 <= io_in_a_19[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_19_1) begin // @[AecExecPort.scala 92:38]
+      a_19_1 <= io_in_a_19[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_19_2) begin // @[AecExecPort.scala 80:38]
-      a_19_2 <= io_in_a_19[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_19_2) begin // @[AecExecPort.scala 92:38]
+      a_19_2 <= io_in_a_19[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_19_3) begin // @[AecExecPort.scala 80:38]
-      a_19_3 <= io_in_a_19[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_19_3) begin // @[AecExecPort.scala 92:38]
+      a_19_3 <= io_in_a_19[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_20_0) begin // @[AecExecPort.scala 80:38]
-      a_20_0 <= io_in_a_20[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_20_0) begin // @[AecExecPort.scala 92:38]
+      a_20_0 <= io_in_a_20[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_20_1) begin // @[AecExecPort.scala 80:38]
-      a_20_1 <= io_in_a_20[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_20_1) begin // @[AecExecPort.scala 92:38]
+      a_20_1 <= io_in_a_20[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_20_2) begin // @[AecExecPort.scala 80:38]
-      a_20_2 <= io_in_a_20[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_20_2) begin // @[AecExecPort.scala 92:38]
+      a_20_2 <= io_in_a_20[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_20_3) begin // @[AecExecPort.scala 80:38]
-      a_20_3 <= io_in_a_20[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_20_3) begin // @[AecExecPort.scala 92:38]
+      a_20_3 <= io_in_a_20[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_21_0) begin // @[AecExecPort.scala 80:38]
-      a_21_0 <= io_in_a_21[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_21_0) begin // @[AecExecPort.scala 92:38]
+      a_21_0 <= io_in_a_21[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_21_1) begin // @[AecExecPort.scala 80:38]
-      a_21_1 <= io_in_a_21[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_21_1) begin // @[AecExecPort.scala 92:38]
+      a_21_1 <= io_in_a_21[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_21_2) begin // @[AecExecPort.scala 80:38]
-      a_21_2 <= io_in_a_21[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_21_2) begin // @[AecExecPort.scala 92:38]
+      a_21_2 <= io_in_a_21[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_21_3) begin // @[AecExecPort.scala 80:38]
-      a_21_3 <= io_in_a_21[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_21_3) begin // @[AecExecPort.scala 92:38]
+      a_21_3 <= io_in_a_21[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_22_0) begin // @[AecExecPort.scala 80:38]
-      a_22_0 <= io_in_a_22[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_22_0) begin // @[AecExecPort.scala 92:38]
+      a_22_0 <= io_in_a_22[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_22_1) begin // @[AecExecPort.scala 80:38]
-      a_22_1 <= io_in_a_22[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_22_1) begin // @[AecExecPort.scala 92:38]
+      a_22_1 <= io_in_a_22[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_22_2) begin // @[AecExecPort.scala 80:38]
-      a_22_2 <= io_in_a_22[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_22_2) begin // @[AecExecPort.scala 92:38]
+      a_22_2 <= io_in_a_22[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_22_3) begin // @[AecExecPort.scala 80:38]
-      a_22_3 <= io_in_a_22[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_22_3) begin // @[AecExecPort.scala 92:38]
+      a_22_3 <= io_in_a_22[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_23_0) begin // @[AecExecPort.scala 80:38]
-      a_23_0 <= io_in_a_23[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_23_0) begin // @[AecExecPort.scala 92:38]
+      a_23_0 <= io_in_a_23[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_23_1) begin // @[AecExecPort.scala 80:38]
-      a_23_1 <= io_in_a_23[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_23_1) begin // @[AecExecPort.scala 92:38]
+      a_23_1 <= io_in_a_23[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_23_2) begin // @[AecExecPort.scala 80:38]
-      a_23_2 <= io_in_a_23[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_23_2) begin // @[AecExecPort.scala 92:38]
+      a_23_2 <= io_in_a_23[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_23_3) begin // @[AecExecPort.scala 80:38]
-      a_23_3 <= io_in_a_23[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_23_3) begin // @[AecExecPort.scala 92:38]
+      a_23_3 <= io_in_a_23[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_24_0) begin // @[AecExecPort.scala 80:38]
-      a_24_0 <= io_in_a_24[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_24_0) begin // @[AecExecPort.scala 92:38]
+      a_24_0 <= io_in_a_24[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_24_1) begin // @[AecExecPort.scala 80:38]
-      a_24_1 <= io_in_a_24[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_24_1) begin // @[AecExecPort.scala 92:38]
+      a_24_1 <= io_in_a_24[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_24_2) begin // @[AecExecPort.scala 80:38]
-      a_24_2 <= io_in_a_24[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_24_2) begin // @[AecExecPort.scala 92:38]
+      a_24_2 <= io_in_a_24[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_24_3) begin // @[AecExecPort.scala 80:38]
-      a_24_3 <= io_in_a_24[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_24_3) begin // @[AecExecPort.scala 92:38]
+      a_24_3 <= io_in_a_24[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_25_0) begin // @[AecExecPort.scala 80:38]
-      a_25_0 <= io_in_a_25[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_25_0) begin // @[AecExecPort.scala 92:38]
+      a_25_0 <= io_in_a_25[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_25_1) begin // @[AecExecPort.scala 80:38]
-      a_25_1 <= io_in_a_25[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_25_1) begin // @[AecExecPort.scala 92:38]
+      a_25_1 <= io_in_a_25[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_25_2) begin // @[AecExecPort.scala 80:38]
-      a_25_2 <= io_in_a_25[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_25_2) begin // @[AecExecPort.scala 92:38]
+      a_25_2 <= io_in_a_25[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_25_3) begin // @[AecExecPort.scala 80:38]
-      a_25_3 <= io_in_a_25[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_25_3) begin // @[AecExecPort.scala 92:38]
+      a_25_3 <= io_in_a_25[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_26_0) begin // @[AecExecPort.scala 80:38]
-      a_26_0 <= io_in_a_26[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_26_0) begin // @[AecExecPort.scala 92:38]
+      a_26_0 <= io_in_a_26[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_26_1) begin // @[AecExecPort.scala 80:38]
-      a_26_1 <= io_in_a_26[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_26_1) begin // @[AecExecPort.scala 92:38]
+      a_26_1 <= io_in_a_26[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_26_2) begin // @[AecExecPort.scala 80:38]
-      a_26_2 <= io_in_a_26[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_26_2) begin // @[AecExecPort.scala 92:38]
+      a_26_2 <= io_in_a_26[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_26_3) begin // @[AecExecPort.scala 80:38]
-      a_26_3 <= io_in_a_26[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_26_3) begin // @[AecExecPort.scala 92:38]
+      a_26_3 <= io_in_a_26[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_27_0) begin // @[AecExecPort.scala 80:38]
-      a_27_0 <= io_in_a_27[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_27_0) begin // @[AecExecPort.scala 92:38]
+      a_27_0 <= io_in_a_27[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_27_1) begin // @[AecExecPort.scala 80:38]
-      a_27_1 <= io_in_a_27[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_27_1) begin // @[AecExecPort.scala 92:38]
+      a_27_1 <= io_in_a_27[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_27_2) begin // @[AecExecPort.scala 80:38]
-      a_27_2 <= io_in_a_27[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_27_2) begin // @[AecExecPort.scala 92:38]
+      a_27_2 <= io_in_a_27[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_27_3) begin // @[AecExecPort.scala 80:38]
-      a_27_3 <= io_in_a_27[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_27_3) begin // @[AecExecPort.scala 92:38]
+      a_27_3 <= io_in_a_27[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_28_0) begin // @[AecExecPort.scala 80:38]
-      a_28_0 <= io_in_a_28[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_28_0) begin // @[AecExecPort.scala 92:38]
+      a_28_0 <= io_in_a_28[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_28_1) begin // @[AecExecPort.scala 80:38]
-      a_28_1 <= io_in_a_28[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_28_1) begin // @[AecExecPort.scala 92:38]
+      a_28_1 <= io_in_a_28[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_28_2) begin // @[AecExecPort.scala 80:38]
-      a_28_2 <= io_in_a_28[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_28_2) begin // @[AecExecPort.scala 92:38]
+      a_28_2 <= io_in_a_28[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_28_3) begin // @[AecExecPort.scala 80:38]
-      a_28_3 <= io_in_a_28[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_28_3) begin // @[AecExecPort.scala 92:38]
+      a_28_3 <= io_in_a_28[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_29_0) begin // @[AecExecPort.scala 80:38]
-      a_29_0 <= io_in_a_29[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_29_0) begin // @[AecExecPort.scala 92:38]
+      a_29_0 <= io_in_a_29[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_29_1) begin // @[AecExecPort.scala 80:38]
-      a_29_1 <= io_in_a_29[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_29_1) begin // @[AecExecPort.scala 92:38]
+      a_29_1 <= io_in_a_29[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_29_2) begin // @[AecExecPort.scala 80:38]
-      a_29_2 <= io_in_a_29[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_29_2) begin // @[AecExecPort.scala 92:38]
+      a_29_2 <= io_in_a_29[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_29_3) begin // @[AecExecPort.scala 80:38]
-      a_29_3 <= io_in_a_29[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_29_3) begin // @[AecExecPort.scala 92:38]
+      a_29_3 <= io_in_a_29[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_30_0) begin // @[AecExecPort.scala 80:38]
-      a_30_0 <= io_in_a_30[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_30_0) begin // @[AecExecPort.scala 92:38]
+      a_30_0 <= io_in_a_30[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_30_1) begin // @[AecExecPort.scala 80:38]
-      a_30_1 <= io_in_a_30[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_30_1) begin // @[AecExecPort.scala 92:38]
+      a_30_1 <= io_in_a_30[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_30_2) begin // @[AecExecPort.scala 80:38]
-      a_30_2 <= io_in_a_30[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_30_2) begin // @[AecExecPort.scala 92:38]
+      a_30_2 <= io_in_a_30[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_30_3) begin // @[AecExecPort.scala 80:38]
-      a_30_3 <= io_in_a_30[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_30_3) begin // @[AecExecPort.scala 92:38]
+      a_30_3 <= io_in_a_30[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_31_0) begin // @[AecExecPort.scala 80:38]
-      a_31_0 <= io_in_a_31[15:0]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_31_0) begin // @[AecExecPort.scala 92:38]
+      a_31_0 <= io_in_a_31[15:0]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_31_1) begin // @[AecExecPort.scala 80:38]
-      a_31_1 <= io_in_a_31[31:16]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_31_1) begin // @[AecExecPort.scala 92:38]
+      a_31_1 <= io_in_a_31[31:16]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_31_2) begin // @[AecExecPort.scala 80:38]
-      a_31_2 <= io_in_a_31[47:32]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_31_2) begin // @[AecExecPort.scala 92:38]
+      a_31_2 <= io_in_a_31[47:32]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_31_3) begin // @[AecExecPort.scala 80:38]
-      a_31_3 <= io_in_a_31[63:48]; // @[AecExecPort.scala 80:51]
+    if (operandCapture_31_3) begin // @[AecExecPort.scala 92:38]
+      a_31_3 <= io_in_a_31[63:48]; // @[AecExecPort.scala 92:51]
     end
-    if (operandCapture_0_4) begin // @[AecExecPort.scala 81:56]
-      b_0_0 <= io_in_b_0[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_0_4) begin // @[AecExecPort.scala 93:56]
+      b_0_0 <= io_in_b_0[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_0_5) begin // @[AecExecPort.scala 81:56]
-      b_0_1 <= io_in_b_0[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_0_5) begin // @[AecExecPort.scala 93:56]
+      b_0_1 <= io_in_b_0[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_0_6) begin // @[AecExecPort.scala 81:56]
-      b_0_2 <= io_in_b_0[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_0_6) begin // @[AecExecPort.scala 93:56]
+      b_0_2 <= io_in_b_0[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_0_7) begin // @[AecExecPort.scala 81:56]
-      b_0_3 <= io_in_b_0[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_0_7) begin // @[AecExecPort.scala 93:56]
+      b_0_3 <= io_in_b_0[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_1_4) begin // @[AecExecPort.scala 81:56]
-      b_1_0 <= io_in_b_1[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_1_4) begin // @[AecExecPort.scala 93:56]
+      b_1_0 <= io_in_b_1[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_1_5) begin // @[AecExecPort.scala 81:56]
-      b_1_1 <= io_in_b_1[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_1_5) begin // @[AecExecPort.scala 93:56]
+      b_1_1 <= io_in_b_1[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_1_6) begin // @[AecExecPort.scala 81:56]
-      b_1_2 <= io_in_b_1[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_1_6) begin // @[AecExecPort.scala 93:56]
+      b_1_2 <= io_in_b_1[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_1_7) begin // @[AecExecPort.scala 81:56]
-      b_1_3 <= io_in_b_1[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_1_7) begin // @[AecExecPort.scala 93:56]
+      b_1_3 <= io_in_b_1[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_2_4) begin // @[AecExecPort.scala 81:56]
-      b_2_0 <= io_in_b_2[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_2_4) begin // @[AecExecPort.scala 93:56]
+      b_2_0 <= io_in_b_2[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_2_5) begin // @[AecExecPort.scala 81:56]
-      b_2_1 <= io_in_b_2[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_2_5) begin // @[AecExecPort.scala 93:56]
+      b_2_1 <= io_in_b_2[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_2_6) begin // @[AecExecPort.scala 81:56]
-      b_2_2 <= io_in_b_2[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_2_6) begin // @[AecExecPort.scala 93:56]
+      b_2_2 <= io_in_b_2[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_2_7) begin // @[AecExecPort.scala 81:56]
-      b_2_3 <= io_in_b_2[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_2_7) begin // @[AecExecPort.scala 93:56]
+      b_2_3 <= io_in_b_2[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_3_4) begin // @[AecExecPort.scala 81:56]
-      b_3_0 <= io_in_b_3[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_3_4) begin // @[AecExecPort.scala 93:56]
+      b_3_0 <= io_in_b_3[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_3_5) begin // @[AecExecPort.scala 81:56]
-      b_3_1 <= io_in_b_3[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_3_5) begin // @[AecExecPort.scala 93:56]
+      b_3_1 <= io_in_b_3[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_3_6) begin // @[AecExecPort.scala 81:56]
-      b_3_2 <= io_in_b_3[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_3_6) begin // @[AecExecPort.scala 93:56]
+      b_3_2 <= io_in_b_3[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_3_7) begin // @[AecExecPort.scala 81:56]
-      b_3_3 <= io_in_b_3[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_3_7) begin // @[AecExecPort.scala 93:56]
+      b_3_3 <= io_in_b_3[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_4_4) begin // @[AecExecPort.scala 81:56]
-      b_4_0 <= io_in_b_4[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_4_4) begin // @[AecExecPort.scala 93:56]
+      b_4_0 <= io_in_b_4[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_4_5) begin // @[AecExecPort.scala 81:56]
-      b_4_1 <= io_in_b_4[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_4_5) begin // @[AecExecPort.scala 93:56]
+      b_4_1 <= io_in_b_4[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_4_6) begin // @[AecExecPort.scala 81:56]
-      b_4_2 <= io_in_b_4[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_4_6) begin // @[AecExecPort.scala 93:56]
+      b_4_2 <= io_in_b_4[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_4_7) begin // @[AecExecPort.scala 81:56]
-      b_4_3 <= io_in_b_4[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_4_7) begin // @[AecExecPort.scala 93:56]
+      b_4_3 <= io_in_b_4[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_5_4) begin // @[AecExecPort.scala 81:56]
-      b_5_0 <= io_in_b_5[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_5_4) begin // @[AecExecPort.scala 93:56]
+      b_5_0 <= io_in_b_5[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_5_5) begin // @[AecExecPort.scala 81:56]
-      b_5_1 <= io_in_b_5[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_5_5) begin // @[AecExecPort.scala 93:56]
+      b_5_1 <= io_in_b_5[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_5_6) begin // @[AecExecPort.scala 81:56]
-      b_5_2 <= io_in_b_5[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_5_6) begin // @[AecExecPort.scala 93:56]
+      b_5_2 <= io_in_b_5[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_5_7) begin // @[AecExecPort.scala 81:56]
-      b_5_3 <= io_in_b_5[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_5_7) begin // @[AecExecPort.scala 93:56]
+      b_5_3 <= io_in_b_5[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_6_4) begin // @[AecExecPort.scala 81:56]
-      b_6_0 <= io_in_b_6[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_6_4) begin // @[AecExecPort.scala 93:56]
+      b_6_0 <= io_in_b_6[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_6_5) begin // @[AecExecPort.scala 81:56]
-      b_6_1 <= io_in_b_6[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_6_5) begin // @[AecExecPort.scala 93:56]
+      b_6_1 <= io_in_b_6[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_6_6) begin // @[AecExecPort.scala 81:56]
-      b_6_2 <= io_in_b_6[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_6_6) begin // @[AecExecPort.scala 93:56]
+      b_6_2 <= io_in_b_6[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_6_7) begin // @[AecExecPort.scala 81:56]
-      b_6_3 <= io_in_b_6[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_6_7) begin // @[AecExecPort.scala 93:56]
+      b_6_3 <= io_in_b_6[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_7_4) begin // @[AecExecPort.scala 81:56]
-      b_7_0 <= io_in_b_7[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_7_4) begin // @[AecExecPort.scala 93:56]
+      b_7_0 <= io_in_b_7[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_7_5) begin // @[AecExecPort.scala 81:56]
-      b_7_1 <= io_in_b_7[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_7_5) begin // @[AecExecPort.scala 93:56]
+      b_7_1 <= io_in_b_7[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_7_6) begin // @[AecExecPort.scala 81:56]
-      b_7_2 <= io_in_b_7[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_7_6) begin // @[AecExecPort.scala 93:56]
+      b_7_2 <= io_in_b_7[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_7_7) begin // @[AecExecPort.scala 81:56]
-      b_7_3 <= io_in_b_7[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_7_7) begin // @[AecExecPort.scala 93:56]
+      b_7_3 <= io_in_b_7[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_8_4) begin // @[AecExecPort.scala 81:56]
-      b_8_0 <= io_in_b_8[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_8_4) begin // @[AecExecPort.scala 93:56]
+      b_8_0 <= io_in_b_8[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_8_5) begin // @[AecExecPort.scala 81:56]
-      b_8_1 <= io_in_b_8[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_8_5) begin // @[AecExecPort.scala 93:56]
+      b_8_1 <= io_in_b_8[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_8_6) begin // @[AecExecPort.scala 81:56]
-      b_8_2 <= io_in_b_8[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_8_6) begin // @[AecExecPort.scala 93:56]
+      b_8_2 <= io_in_b_8[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_8_7) begin // @[AecExecPort.scala 81:56]
-      b_8_3 <= io_in_b_8[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_8_7) begin // @[AecExecPort.scala 93:56]
+      b_8_3 <= io_in_b_8[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_9_4) begin // @[AecExecPort.scala 81:56]
-      b_9_0 <= io_in_b_9[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_9_4) begin // @[AecExecPort.scala 93:56]
+      b_9_0 <= io_in_b_9[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_9_5) begin // @[AecExecPort.scala 81:56]
-      b_9_1 <= io_in_b_9[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_9_5) begin // @[AecExecPort.scala 93:56]
+      b_9_1 <= io_in_b_9[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_9_6) begin // @[AecExecPort.scala 81:56]
-      b_9_2 <= io_in_b_9[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_9_6) begin // @[AecExecPort.scala 93:56]
+      b_9_2 <= io_in_b_9[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_9_7) begin // @[AecExecPort.scala 81:56]
-      b_9_3 <= io_in_b_9[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_9_7) begin // @[AecExecPort.scala 93:56]
+      b_9_3 <= io_in_b_9[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_10_4) begin // @[AecExecPort.scala 81:56]
-      b_10_0 <= io_in_b_10[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_10_4) begin // @[AecExecPort.scala 93:56]
+      b_10_0 <= io_in_b_10[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_10_5) begin // @[AecExecPort.scala 81:56]
-      b_10_1 <= io_in_b_10[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_10_5) begin // @[AecExecPort.scala 93:56]
+      b_10_1 <= io_in_b_10[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_10_6) begin // @[AecExecPort.scala 81:56]
-      b_10_2 <= io_in_b_10[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_10_6) begin // @[AecExecPort.scala 93:56]
+      b_10_2 <= io_in_b_10[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_10_7) begin // @[AecExecPort.scala 81:56]
-      b_10_3 <= io_in_b_10[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_10_7) begin // @[AecExecPort.scala 93:56]
+      b_10_3 <= io_in_b_10[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_11_4) begin // @[AecExecPort.scala 81:56]
-      b_11_0 <= io_in_b_11[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_11_4) begin // @[AecExecPort.scala 93:56]
+      b_11_0 <= io_in_b_11[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_11_5) begin // @[AecExecPort.scala 81:56]
-      b_11_1 <= io_in_b_11[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_11_5) begin // @[AecExecPort.scala 93:56]
+      b_11_1 <= io_in_b_11[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_11_6) begin // @[AecExecPort.scala 81:56]
-      b_11_2 <= io_in_b_11[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_11_6) begin // @[AecExecPort.scala 93:56]
+      b_11_2 <= io_in_b_11[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_11_7) begin // @[AecExecPort.scala 81:56]
-      b_11_3 <= io_in_b_11[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_11_7) begin // @[AecExecPort.scala 93:56]
+      b_11_3 <= io_in_b_11[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_12_4) begin // @[AecExecPort.scala 81:56]
-      b_12_0 <= io_in_b_12[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_12_4) begin // @[AecExecPort.scala 93:56]
+      b_12_0 <= io_in_b_12[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_12_5) begin // @[AecExecPort.scala 81:56]
-      b_12_1 <= io_in_b_12[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_12_5) begin // @[AecExecPort.scala 93:56]
+      b_12_1 <= io_in_b_12[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_12_6) begin // @[AecExecPort.scala 81:56]
-      b_12_2 <= io_in_b_12[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_12_6) begin // @[AecExecPort.scala 93:56]
+      b_12_2 <= io_in_b_12[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_12_7) begin // @[AecExecPort.scala 81:56]
-      b_12_3 <= io_in_b_12[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_12_7) begin // @[AecExecPort.scala 93:56]
+      b_12_3 <= io_in_b_12[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_13_4) begin // @[AecExecPort.scala 81:56]
-      b_13_0 <= io_in_b_13[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_13_4) begin // @[AecExecPort.scala 93:56]
+      b_13_0 <= io_in_b_13[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_13_5) begin // @[AecExecPort.scala 81:56]
-      b_13_1 <= io_in_b_13[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_13_5) begin // @[AecExecPort.scala 93:56]
+      b_13_1 <= io_in_b_13[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_13_6) begin // @[AecExecPort.scala 81:56]
-      b_13_2 <= io_in_b_13[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_13_6) begin // @[AecExecPort.scala 93:56]
+      b_13_2 <= io_in_b_13[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_13_7) begin // @[AecExecPort.scala 81:56]
-      b_13_3 <= io_in_b_13[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_13_7) begin // @[AecExecPort.scala 93:56]
+      b_13_3 <= io_in_b_13[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_14_4) begin // @[AecExecPort.scala 81:56]
-      b_14_0 <= io_in_b_14[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_14_4) begin // @[AecExecPort.scala 93:56]
+      b_14_0 <= io_in_b_14[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_14_5) begin // @[AecExecPort.scala 81:56]
-      b_14_1 <= io_in_b_14[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_14_5) begin // @[AecExecPort.scala 93:56]
+      b_14_1 <= io_in_b_14[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_14_6) begin // @[AecExecPort.scala 81:56]
-      b_14_2 <= io_in_b_14[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_14_6) begin // @[AecExecPort.scala 93:56]
+      b_14_2 <= io_in_b_14[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_14_7) begin // @[AecExecPort.scala 81:56]
-      b_14_3 <= io_in_b_14[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_14_7) begin // @[AecExecPort.scala 93:56]
+      b_14_3 <= io_in_b_14[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_15_4) begin // @[AecExecPort.scala 81:56]
-      b_15_0 <= io_in_b_15[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_15_4) begin // @[AecExecPort.scala 93:56]
+      b_15_0 <= io_in_b_15[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_15_5) begin // @[AecExecPort.scala 81:56]
-      b_15_1 <= io_in_b_15[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_15_5) begin // @[AecExecPort.scala 93:56]
+      b_15_1 <= io_in_b_15[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_15_6) begin // @[AecExecPort.scala 81:56]
-      b_15_2 <= io_in_b_15[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_15_6) begin // @[AecExecPort.scala 93:56]
+      b_15_2 <= io_in_b_15[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_15_7) begin // @[AecExecPort.scala 81:56]
-      b_15_3 <= io_in_b_15[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_15_7) begin // @[AecExecPort.scala 93:56]
+      b_15_3 <= io_in_b_15[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_16_4) begin // @[AecExecPort.scala 81:56]
-      b_16_0 <= io_in_b_16[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_16_4) begin // @[AecExecPort.scala 93:56]
+      b_16_0 <= io_in_b_16[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_16_5) begin // @[AecExecPort.scala 81:56]
-      b_16_1 <= io_in_b_16[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_16_5) begin // @[AecExecPort.scala 93:56]
+      b_16_1 <= io_in_b_16[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_16_6) begin // @[AecExecPort.scala 81:56]
-      b_16_2 <= io_in_b_16[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_16_6) begin // @[AecExecPort.scala 93:56]
+      b_16_2 <= io_in_b_16[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_16_7) begin // @[AecExecPort.scala 81:56]
-      b_16_3 <= io_in_b_16[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_16_7) begin // @[AecExecPort.scala 93:56]
+      b_16_3 <= io_in_b_16[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_17_4) begin // @[AecExecPort.scala 81:56]
-      b_17_0 <= io_in_b_17[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_17_4) begin // @[AecExecPort.scala 93:56]
+      b_17_0 <= io_in_b_17[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_17_5) begin // @[AecExecPort.scala 81:56]
-      b_17_1 <= io_in_b_17[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_17_5) begin // @[AecExecPort.scala 93:56]
+      b_17_1 <= io_in_b_17[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_17_6) begin // @[AecExecPort.scala 81:56]
-      b_17_2 <= io_in_b_17[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_17_6) begin // @[AecExecPort.scala 93:56]
+      b_17_2 <= io_in_b_17[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_17_7) begin // @[AecExecPort.scala 81:56]
-      b_17_3 <= io_in_b_17[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_17_7) begin // @[AecExecPort.scala 93:56]
+      b_17_3 <= io_in_b_17[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_18_4) begin // @[AecExecPort.scala 81:56]
-      b_18_0 <= io_in_b_18[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_18_4) begin // @[AecExecPort.scala 93:56]
+      b_18_0 <= io_in_b_18[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_18_5) begin // @[AecExecPort.scala 81:56]
-      b_18_1 <= io_in_b_18[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_18_5) begin // @[AecExecPort.scala 93:56]
+      b_18_1 <= io_in_b_18[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_18_6) begin // @[AecExecPort.scala 81:56]
-      b_18_2 <= io_in_b_18[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_18_6) begin // @[AecExecPort.scala 93:56]
+      b_18_2 <= io_in_b_18[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_18_7) begin // @[AecExecPort.scala 81:56]
-      b_18_3 <= io_in_b_18[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_18_7) begin // @[AecExecPort.scala 93:56]
+      b_18_3 <= io_in_b_18[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_19_4) begin // @[AecExecPort.scala 81:56]
-      b_19_0 <= io_in_b_19[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_19_4) begin // @[AecExecPort.scala 93:56]
+      b_19_0 <= io_in_b_19[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_19_5) begin // @[AecExecPort.scala 81:56]
-      b_19_1 <= io_in_b_19[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_19_5) begin // @[AecExecPort.scala 93:56]
+      b_19_1 <= io_in_b_19[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_19_6) begin // @[AecExecPort.scala 81:56]
-      b_19_2 <= io_in_b_19[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_19_6) begin // @[AecExecPort.scala 93:56]
+      b_19_2 <= io_in_b_19[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_19_7) begin // @[AecExecPort.scala 81:56]
-      b_19_3 <= io_in_b_19[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_19_7) begin // @[AecExecPort.scala 93:56]
+      b_19_3 <= io_in_b_19[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_20_4) begin // @[AecExecPort.scala 81:56]
-      b_20_0 <= io_in_b_20[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_20_4) begin // @[AecExecPort.scala 93:56]
+      b_20_0 <= io_in_b_20[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_20_5) begin // @[AecExecPort.scala 81:56]
-      b_20_1 <= io_in_b_20[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_20_5) begin // @[AecExecPort.scala 93:56]
+      b_20_1 <= io_in_b_20[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_20_6) begin // @[AecExecPort.scala 81:56]
-      b_20_2 <= io_in_b_20[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_20_6) begin // @[AecExecPort.scala 93:56]
+      b_20_2 <= io_in_b_20[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_20_7) begin // @[AecExecPort.scala 81:56]
-      b_20_3 <= io_in_b_20[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_20_7) begin // @[AecExecPort.scala 93:56]
+      b_20_3 <= io_in_b_20[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_21_4) begin // @[AecExecPort.scala 81:56]
-      b_21_0 <= io_in_b_21[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_21_4) begin // @[AecExecPort.scala 93:56]
+      b_21_0 <= io_in_b_21[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_21_5) begin // @[AecExecPort.scala 81:56]
-      b_21_1 <= io_in_b_21[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_21_5) begin // @[AecExecPort.scala 93:56]
+      b_21_1 <= io_in_b_21[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_21_6) begin // @[AecExecPort.scala 81:56]
-      b_21_2 <= io_in_b_21[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_21_6) begin // @[AecExecPort.scala 93:56]
+      b_21_2 <= io_in_b_21[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_21_7) begin // @[AecExecPort.scala 81:56]
-      b_21_3 <= io_in_b_21[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_21_7) begin // @[AecExecPort.scala 93:56]
+      b_21_3 <= io_in_b_21[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_22_4) begin // @[AecExecPort.scala 81:56]
-      b_22_0 <= io_in_b_22[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_22_4) begin // @[AecExecPort.scala 93:56]
+      b_22_0 <= io_in_b_22[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_22_5) begin // @[AecExecPort.scala 81:56]
-      b_22_1 <= io_in_b_22[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_22_5) begin // @[AecExecPort.scala 93:56]
+      b_22_1 <= io_in_b_22[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_22_6) begin // @[AecExecPort.scala 81:56]
-      b_22_2 <= io_in_b_22[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_22_6) begin // @[AecExecPort.scala 93:56]
+      b_22_2 <= io_in_b_22[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_22_7) begin // @[AecExecPort.scala 81:56]
-      b_22_3 <= io_in_b_22[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_22_7) begin // @[AecExecPort.scala 93:56]
+      b_22_3 <= io_in_b_22[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_23_4) begin // @[AecExecPort.scala 81:56]
-      b_23_0 <= io_in_b_23[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_23_4) begin // @[AecExecPort.scala 93:56]
+      b_23_0 <= io_in_b_23[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_23_5) begin // @[AecExecPort.scala 81:56]
-      b_23_1 <= io_in_b_23[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_23_5) begin // @[AecExecPort.scala 93:56]
+      b_23_1 <= io_in_b_23[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_23_6) begin // @[AecExecPort.scala 81:56]
-      b_23_2 <= io_in_b_23[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_23_6) begin // @[AecExecPort.scala 93:56]
+      b_23_2 <= io_in_b_23[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_23_7) begin // @[AecExecPort.scala 81:56]
-      b_23_3 <= io_in_b_23[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_23_7) begin // @[AecExecPort.scala 93:56]
+      b_23_3 <= io_in_b_23[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_24_4) begin // @[AecExecPort.scala 81:56]
-      b_24_0 <= io_in_b_24[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_24_4) begin // @[AecExecPort.scala 93:56]
+      b_24_0 <= io_in_b_24[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_24_5) begin // @[AecExecPort.scala 81:56]
-      b_24_1 <= io_in_b_24[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_24_5) begin // @[AecExecPort.scala 93:56]
+      b_24_1 <= io_in_b_24[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_24_6) begin // @[AecExecPort.scala 81:56]
-      b_24_2 <= io_in_b_24[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_24_6) begin // @[AecExecPort.scala 93:56]
+      b_24_2 <= io_in_b_24[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_24_7) begin // @[AecExecPort.scala 81:56]
-      b_24_3 <= io_in_b_24[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_24_7) begin // @[AecExecPort.scala 93:56]
+      b_24_3 <= io_in_b_24[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_25_4) begin // @[AecExecPort.scala 81:56]
-      b_25_0 <= io_in_b_25[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_25_4) begin // @[AecExecPort.scala 93:56]
+      b_25_0 <= io_in_b_25[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_25_5) begin // @[AecExecPort.scala 81:56]
-      b_25_1 <= io_in_b_25[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_25_5) begin // @[AecExecPort.scala 93:56]
+      b_25_1 <= io_in_b_25[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_25_6) begin // @[AecExecPort.scala 81:56]
-      b_25_2 <= io_in_b_25[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_25_6) begin // @[AecExecPort.scala 93:56]
+      b_25_2 <= io_in_b_25[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_25_7) begin // @[AecExecPort.scala 81:56]
-      b_25_3 <= io_in_b_25[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_25_7) begin // @[AecExecPort.scala 93:56]
+      b_25_3 <= io_in_b_25[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_26_4) begin // @[AecExecPort.scala 81:56]
-      b_26_0 <= io_in_b_26[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_26_4) begin // @[AecExecPort.scala 93:56]
+      b_26_0 <= io_in_b_26[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_26_5) begin // @[AecExecPort.scala 81:56]
-      b_26_1 <= io_in_b_26[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_26_5) begin // @[AecExecPort.scala 93:56]
+      b_26_1 <= io_in_b_26[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_26_6) begin // @[AecExecPort.scala 81:56]
-      b_26_2 <= io_in_b_26[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_26_6) begin // @[AecExecPort.scala 93:56]
+      b_26_2 <= io_in_b_26[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_26_7) begin // @[AecExecPort.scala 81:56]
-      b_26_3 <= io_in_b_26[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_26_7) begin // @[AecExecPort.scala 93:56]
+      b_26_3 <= io_in_b_26[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_27_4) begin // @[AecExecPort.scala 81:56]
-      b_27_0 <= io_in_b_27[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_27_4) begin // @[AecExecPort.scala 93:56]
+      b_27_0 <= io_in_b_27[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_27_5) begin // @[AecExecPort.scala 81:56]
-      b_27_1 <= io_in_b_27[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_27_5) begin // @[AecExecPort.scala 93:56]
+      b_27_1 <= io_in_b_27[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_27_6) begin // @[AecExecPort.scala 81:56]
-      b_27_2 <= io_in_b_27[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_27_6) begin // @[AecExecPort.scala 93:56]
+      b_27_2 <= io_in_b_27[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_27_7) begin // @[AecExecPort.scala 81:56]
-      b_27_3 <= io_in_b_27[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_27_7) begin // @[AecExecPort.scala 93:56]
+      b_27_3 <= io_in_b_27[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_28_4) begin // @[AecExecPort.scala 81:56]
-      b_28_0 <= io_in_b_28[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_28_4) begin // @[AecExecPort.scala 93:56]
+      b_28_0 <= io_in_b_28[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_28_5) begin // @[AecExecPort.scala 81:56]
-      b_28_1 <= io_in_b_28[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_28_5) begin // @[AecExecPort.scala 93:56]
+      b_28_1 <= io_in_b_28[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_28_6) begin // @[AecExecPort.scala 81:56]
-      b_28_2 <= io_in_b_28[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_28_6) begin // @[AecExecPort.scala 93:56]
+      b_28_2 <= io_in_b_28[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_28_7) begin // @[AecExecPort.scala 81:56]
-      b_28_3 <= io_in_b_28[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_28_7) begin // @[AecExecPort.scala 93:56]
+      b_28_3 <= io_in_b_28[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_29_4) begin // @[AecExecPort.scala 81:56]
-      b_29_0 <= io_in_b_29[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_29_4) begin // @[AecExecPort.scala 93:56]
+      b_29_0 <= io_in_b_29[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_29_5) begin // @[AecExecPort.scala 81:56]
-      b_29_1 <= io_in_b_29[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_29_5) begin // @[AecExecPort.scala 93:56]
+      b_29_1 <= io_in_b_29[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_29_6) begin // @[AecExecPort.scala 81:56]
-      b_29_2 <= io_in_b_29[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_29_6) begin // @[AecExecPort.scala 93:56]
+      b_29_2 <= io_in_b_29[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_29_7) begin // @[AecExecPort.scala 81:56]
-      b_29_3 <= io_in_b_29[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_29_7) begin // @[AecExecPort.scala 93:56]
+      b_29_3 <= io_in_b_29[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_30_4) begin // @[AecExecPort.scala 81:56]
-      b_30_0 <= io_in_b_30[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_30_4) begin // @[AecExecPort.scala 93:56]
+      b_30_0 <= io_in_b_30[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_30_5) begin // @[AecExecPort.scala 81:56]
-      b_30_1 <= io_in_b_30[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_30_5) begin // @[AecExecPort.scala 93:56]
+      b_30_1 <= io_in_b_30[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_30_6) begin // @[AecExecPort.scala 81:56]
-      b_30_2 <= io_in_b_30[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_30_6) begin // @[AecExecPort.scala 93:56]
+      b_30_2 <= io_in_b_30[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_30_7) begin // @[AecExecPort.scala 81:56]
-      b_30_3 <= io_in_b_30[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_30_7) begin // @[AecExecPort.scala 93:56]
+      b_30_3 <= io_in_b_30[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_31_4) begin // @[AecExecPort.scala 81:56]
-      b_31_0 <= io_in_b_31[15:0]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_31_4) begin // @[AecExecPort.scala 93:56]
+      b_31_0 <= io_in_b_31[15:0]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_31_5) begin // @[AecExecPort.scala 81:56]
-      b_31_1 <= io_in_b_31[31:16]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_31_5) begin // @[AecExecPort.scala 93:56]
+      b_31_1 <= io_in_b_31[31:16]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_31_6) begin // @[AecExecPort.scala 81:56]
-      b_31_2 <= io_in_b_31[47:32]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_31_6) begin // @[AecExecPort.scala 93:56]
+      b_31_2 <= io_in_b_31[47:32]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_31_7) begin // @[AecExecPort.scala 81:56]
-      b_31_3 <= io_in_b_31[63:48]; // @[AecExecPort.scala 81:69]
+    if (operandCapture_31_7) begin // @[AecExecPort.scala 93:56]
+      b_31_3 <= io_in_b_31[63:48]; // @[AecExecPort.scala 93:69]
     end
-    if (operandCapture_0_8) begin // @[AecExecPort.scala 82:60]
-      c_0_0 <= io_in_c_0[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_0_8) begin // @[AecExecPort.scala 94:60]
+      c_0_0 <= io_in_c_0[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_0_9) begin // @[AecExecPort.scala 82:60]
-      c_0_1 <= io_in_c_0[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_0_9) begin // @[AecExecPort.scala 94:60]
+      c_0_1 <= io_in_c_0[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_0_10) begin // @[AecExecPort.scala 82:60]
-      c_0_2 <= io_in_c_0[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_0_10) begin // @[AecExecPort.scala 94:60]
+      c_0_2 <= io_in_c_0[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_0_11) begin // @[AecExecPort.scala 82:60]
-      c_0_3 <= io_in_c_0[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_0_11) begin // @[AecExecPort.scala 94:60]
+      c_0_3 <= io_in_c_0[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_1_8) begin // @[AecExecPort.scala 82:60]
-      c_1_0 <= io_in_c_1[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_1_8) begin // @[AecExecPort.scala 94:60]
+      c_1_0 <= io_in_c_1[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_1_9) begin // @[AecExecPort.scala 82:60]
-      c_1_1 <= io_in_c_1[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_1_9) begin // @[AecExecPort.scala 94:60]
+      c_1_1 <= io_in_c_1[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_1_10) begin // @[AecExecPort.scala 82:60]
-      c_1_2 <= io_in_c_1[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_1_10) begin // @[AecExecPort.scala 94:60]
+      c_1_2 <= io_in_c_1[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_1_11) begin // @[AecExecPort.scala 82:60]
-      c_1_3 <= io_in_c_1[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_1_11) begin // @[AecExecPort.scala 94:60]
+      c_1_3 <= io_in_c_1[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_2_8) begin // @[AecExecPort.scala 82:60]
-      c_2_0 <= io_in_c_2[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_2_8) begin // @[AecExecPort.scala 94:60]
+      c_2_0 <= io_in_c_2[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_2_9) begin // @[AecExecPort.scala 82:60]
-      c_2_1 <= io_in_c_2[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_2_9) begin // @[AecExecPort.scala 94:60]
+      c_2_1 <= io_in_c_2[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_2_10) begin // @[AecExecPort.scala 82:60]
-      c_2_2 <= io_in_c_2[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_2_10) begin // @[AecExecPort.scala 94:60]
+      c_2_2 <= io_in_c_2[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_2_11) begin // @[AecExecPort.scala 82:60]
-      c_2_3 <= io_in_c_2[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_2_11) begin // @[AecExecPort.scala 94:60]
+      c_2_3 <= io_in_c_2[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_3_8) begin // @[AecExecPort.scala 82:60]
-      c_3_0 <= io_in_c_3[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_3_8) begin // @[AecExecPort.scala 94:60]
+      c_3_0 <= io_in_c_3[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_3_9) begin // @[AecExecPort.scala 82:60]
-      c_3_1 <= io_in_c_3[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_3_9) begin // @[AecExecPort.scala 94:60]
+      c_3_1 <= io_in_c_3[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_3_10) begin // @[AecExecPort.scala 82:60]
-      c_3_2 <= io_in_c_3[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_3_10) begin // @[AecExecPort.scala 94:60]
+      c_3_2 <= io_in_c_3[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_3_11) begin // @[AecExecPort.scala 82:60]
-      c_3_3 <= io_in_c_3[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_3_11) begin // @[AecExecPort.scala 94:60]
+      c_3_3 <= io_in_c_3[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_4_8) begin // @[AecExecPort.scala 82:60]
-      c_4_0 <= io_in_c_4[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_4_8) begin // @[AecExecPort.scala 94:60]
+      c_4_0 <= io_in_c_4[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_4_9) begin // @[AecExecPort.scala 82:60]
-      c_4_1 <= io_in_c_4[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_4_9) begin // @[AecExecPort.scala 94:60]
+      c_4_1 <= io_in_c_4[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_4_10) begin // @[AecExecPort.scala 82:60]
-      c_4_2 <= io_in_c_4[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_4_10) begin // @[AecExecPort.scala 94:60]
+      c_4_2 <= io_in_c_4[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_4_11) begin // @[AecExecPort.scala 82:60]
-      c_4_3 <= io_in_c_4[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_4_11) begin // @[AecExecPort.scala 94:60]
+      c_4_3 <= io_in_c_4[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_5_8) begin // @[AecExecPort.scala 82:60]
-      c_5_0 <= io_in_c_5[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_5_8) begin // @[AecExecPort.scala 94:60]
+      c_5_0 <= io_in_c_5[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_5_9) begin // @[AecExecPort.scala 82:60]
-      c_5_1 <= io_in_c_5[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_5_9) begin // @[AecExecPort.scala 94:60]
+      c_5_1 <= io_in_c_5[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_5_10) begin // @[AecExecPort.scala 82:60]
-      c_5_2 <= io_in_c_5[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_5_10) begin // @[AecExecPort.scala 94:60]
+      c_5_2 <= io_in_c_5[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_5_11) begin // @[AecExecPort.scala 82:60]
-      c_5_3 <= io_in_c_5[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_5_11) begin // @[AecExecPort.scala 94:60]
+      c_5_3 <= io_in_c_5[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_6_8) begin // @[AecExecPort.scala 82:60]
-      c_6_0 <= io_in_c_6[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_6_8) begin // @[AecExecPort.scala 94:60]
+      c_6_0 <= io_in_c_6[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_6_9) begin // @[AecExecPort.scala 82:60]
-      c_6_1 <= io_in_c_6[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_6_9) begin // @[AecExecPort.scala 94:60]
+      c_6_1 <= io_in_c_6[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_6_10) begin // @[AecExecPort.scala 82:60]
-      c_6_2 <= io_in_c_6[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_6_10) begin // @[AecExecPort.scala 94:60]
+      c_6_2 <= io_in_c_6[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_6_11) begin // @[AecExecPort.scala 82:60]
-      c_6_3 <= io_in_c_6[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_6_11) begin // @[AecExecPort.scala 94:60]
+      c_6_3 <= io_in_c_6[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_7_8) begin // @[AecExecPort.scala 82:60]
-      c_7_0 <= io_in_c_7[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_7_8) begin // @[AecExecPort.scala 94:60]
+      c_7_0 <= io_in_c_7[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_7_9) begin // @[AecExecPort.scala 82:60]
-      c_7_1 <= io_in_c_7[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_7_9) begin // @[AecExecPort.scala 94:60]
+      c_7_1 <= io_in_c_7[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_7_10) begin // @[AecExecPort.scala 82:60]
-      c_7_2 <= io_in_c_7[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_7_10) begin // @[AecExecPort.scala 94:60]
+      c_7_2 <= io_in_c_7[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_7_11) begin // @[AecExecPort.scala 82:60]
-      c_7_3 <= io_in_c_7[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_7_11) begin // @[AecExecPort.scala 94:60]
+      c_7_3 <= io_in_c_7[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_8_8) begin // @[AecExecPort.scala 82:60]
-      c_8_0 <= io_in_c_8[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_8_8) begin // @[AecExecPort.scala 94:60]
+      c_8_0 <= io_in_c_8[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_8_9) begin // @[AecExecPort.scala 82:60]
-      c_8_1 <= io_in_c_8[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_8_9) begin // @[AecExecPort.scala 94:60]
+      c_8_1 <= io_in_c_8[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_8_10) begin // @[AecExecPort.scala 82:60]
-      c_8_2 <= io_in_c_8[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_8_10) begin // @[AecExecPort.scala 94:60]
+      c_8_2 <= io_in_c_8[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_8_11) begin // @[AecExecPort.scala 82:60]
-      c_8_3 <= io_in_c_8[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_8_11) begin // @[AecExecPort.scala 94:60]
+      c_8_3 <= io_in_c_8[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_9_8) begin // @[AecExecPort.scala 82:60]
-      c_9_0 <= io_in_c_9[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_9_8) begin // @[AecExecPort.scala 94:60]
+      c_9_0 <= io_in_c_9[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_9_9) begin // @[AecExecPort.scala 82:60]
-      c_9_1 <= io_in_c_9[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_9_9) begin // @[AecExecPort.scala 94:60]
+      c_9_1 <= io_in_c_9[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_9_10) begin // @[AecExecPort.scala 82:60]
-      c_9_2 <= io_in_c_9[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_9_10) begin // @[AecExecPort.scala 94:60]
+      c_9_2 <= io_in_c_9[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_9_11) begin // @[AecExecPort.scala 82:60]
-      c_9_3 <= io_in_c_9[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_9_11) begin // @[AecExecPort.scala 94:60]
+      c_9_3 <= io_in_c_9[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_10_8) begin // @[AecExecPort.scala 82:60]
-      c_10_0 <= io_in_c_10[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_10_8) begin // @[AecExecPort.scala 94:60]
+      c_10_0 <= io_in_c_10[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_10_9) begin // @[AecExecPort.scala 82:60]
-      c_10_1 <= io_in_c_10[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_10_9) begin // @[AecExecPort.scala 94:60]
+      c_10_1 <= io_in_c_10[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_10_10) begin // @[AecExecPort.scala 82:60]
-      c_10_2 <= io_in_c_10[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_10_10) begin // @[AecExecPort.scala 94:60]
+      c_10_2 <= io_in_c_10[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_10_11) begin // @[AecExecPort.scala 82:60]
-      c_10_3 <= io_in_c_10[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_10_11) begin // @[AecExecPort.scala 94:60]
+      c_10_3 <= io_in_c_10[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_11_8) begin // @[AecExecPort.scala 82:60]
-      c_11_0 <= io_in_c_11[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_11_8) begin // @[AecExecPort.scala 94:60]
+      c_11_0 <= io_in_c_11[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_11_9) begin // @[AecExecPort.scala 82:60]
-      c_11_1 <= io_in_c_11[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_11_9) begin // @[AecExecPort.scala 94:60]
+      c_11_1 <= io_in_c_11[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_11_10) begin // @[AecExecPort.scala 82:60]
-      c_11_2 <= io_in_c_11[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_11_10) begin // @[AecExecPort.scala 94:60]
+      c_11_2 <= io_in_c_11[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_11_11) begin // @[AecExecPort.scala 82:60]
-      c_11_3 <= io_in_c_11[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_11_11) begin // @[AecExecPort.scala 94:60]
+      c_11_3 <= io_in_c_11[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_12_8) begin // @[AecExecPort.scala 82:60]
-      c_12_0 <= io_in_c_12[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_12_8) begin // @[AecExecPort.scala 94:60]
+      c_12_0 <= io_in_c_12[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_12_9) begin // @[AecExecPort.scala 82:60]
-      c_12_1 <= io_in_c_12[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_12_9) begin // @[AecExecPort.scala 94:60]
+      c_12_1 <= io_in_c_12[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_12_10) begin // @[AecExecPort.scala 82:60]
-      c_12_2 <= io_in_c_12[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_12_10) begin // @[AecExecPort.scala 94:60]
+      c_12_2 <= io_in_c_12[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_12_11) begin // @[AecExecPort.scala 82:60]
-      c_12_3 <= io_in_c_12[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_12_11) begin // @[AecExecPort.scala 94:60]
+      c_12_3 <= io_in_c_12[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_13_8) begin // @[AecExecPort.scala 82:60]
-      c_13_0 <= io_in_c_13[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_13_8) begin // @[AecExecPort.scala 94:60]
+      c_13_0 <= io_in_c_13[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_13_9) begin // @[AecExecPort.scala 82:60]
-      c_13_1 <= io_in_c_13[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_13_9) begin // @[AecExecPort.scala 94:60]
+      c_13_1 <= io_in_c_13[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_13_10) begin // @[AecExecPort.scala 82:60]
-      c_13_2 <= io_in_c_13[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_13_10) begin // @[AecExecPort.scala 94:60]
+      c_13_2 <= io_in_c_13[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_13_11) begin // @[AecExecPort.scala 82:60]
-      c_13_3 <= io_in_c_13[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_13_11) begin // @[AecExecPort.scala 94:60]
+      c_13_3 <= io_in_c_13[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_14_8) begin // @[AecExecPort.scala 82:60]
-      c_14_0 <= io_in_c_14[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_14_8) begin // @[AecExecPort.scala 94:60]
+      c_14_0 <= io_in_c_14[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_14_9) begin // @[AecExecPort.scala 82:60]
-      c_14_1 <= io_in_c_14[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_14_9) begin // @[AecExecPort.scala 94:60]
+      c_14_1 <= io_in_c_14[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_14_10) begin // @[AecExecPort.scala 82:60]
-      c_14_2 <= io_in_c_14[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_14_10) begin // @[AecExecPort.scala 94:60]
+      c_14_2 <= io_in_c_14[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_14_11) begin // @[AecExecPort.scala 82:60]
-      c_14_3 <= io_in_c_14[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_14_11) begin // @[AecExecPort.scala 94:60]
+      c_14_3 <= io_in_c_14[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_15_8) begin // @[AecExecPort.scala 82:60]
-      c_15_0 <= io_in_c_15[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_15_8) begin // @[AecExecPort.scala 94:60]
+      c_15_0 <= io_in_c_15[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_15_9) begin // @[AecExecPort.scala 82:60]
-      c_15_1 <= io_in_c_15[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_15_9) begin // @[AecExecPort.scala 94:60]
+      c_15_1 <= io_in_c_15[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_15_10) begin // @[AecExecPort.scala 82:60]
-      c_15_2 <= io_in_c_15[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_15_10) begin // @[AecExecPort.scala 94:60]
+      c_15_2 <= io_in_c_15[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_15_11) begin // @[AecExecPort.scala 82:60]
-      c_15_3 <= io_in_c_15[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_15_11) begin // @[AecExecPort.scala 94:60]
+      c_15_3 <= io_in_c_15[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_16_8) begin // @[AecExecPort.scala 82:60]
-      c_16_0 <= io_in_c_16[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_16_8) begin // @[AecExecPort.scala 94:60]
+      c_16_0 <= io_in_c_16[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_16_9) begin // @[AecExecPort.scala 82:60]
-      c_16_1 <= io_in_c_16[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_16_9) begin // @[AecExecPort.scala 94:60]
+      c_16_1 <= io_in_c_16[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_16_10) begin // @[AecExecPort.scala 82:60]
-      c_16_2 <= io_in_c_16[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_16_10) begin // @[AecExecPort.scala 94:60]
+      c_16_2 <= io_in_c_16[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_16_11) begin // @[AecExecPort.scala 82:60]
-      c_16_3 <= io_in_c_16[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_16_11) begin // @[AecExecPort.scala 94:60]
+      c_16_3 <= io_in_c_16[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_17_8) begin // @[AecExecPort.scala 82:60]
-      c_17_0 <= io_in_c_17[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_17_8) begin // @[AecExecPort.scala 94:60]
+      c_17_0 <= io_in_c_17[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_17_9) begin // @[AecExecPort.scala 82:60]
-      c_17_1 <= io_in_c_17[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_17_9) begin // @[AecExecPort.scala 94:60]
+      c_17_1 <= io_in_c_17[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_17_10) begin // @[AecExecPort.scala 82:60]
-      c_17_2 <= io_in_c_17[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_17_10) begin // @[AecExecPort.scala 94:60]
+      c_17_2 <= io_in_c_17[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_17_11) begin // @[AecExecPort.scala 82:60]
-      c_17_3 <= io_in_c_17[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_17_11) begin // @[AecExecPort.scala 94:60]
+      c_17_3 <= io_in_c_17[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_18_8) begin // @[AecExecPort.scala 82:60]
-      c_18_0 <= io_in_c_18[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_18_8) begin // @[AecExecPort.scala 94:60]
+      c_18_0 <= io_in_c_18[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_18_9) begin // @[AecExecPort.scala 82:60]
-      c_18_1 <= io_in_c_18[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_18_9) begin // @[AecExecPort.scala 94:60]
+      c_18_1 <= io_in_c_18[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_18_10) begin // @[AecExecPort.scala 82:60]
-      c_18_2 <= io_in_c_18[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_18_10) begin // @[AecExecPort.scala 94:60]
+      c_18_2 <= io_in_c_18[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_18_11) begin // @[AecExecPort.scala 82:60]
-      c_18_3 <= io_in_c_18[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_18_11) begin // @[AecExecPort.scala 94:60]
+      c_18_3 <= io_in_c_18[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_19_8) begin // @[AecExecPort.scala 82:60]
-      c_19_0 <= io_in_c_19[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_19_8) begin // @[AecExecPort.scala 94:60]
+      c_19_0 <= io_in_c_19[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_19_9) begin // @[AecExecPort.scala 82:60]
-      c_19_1 <= io_in_c_19[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_19_9) begin // @[AecExecPort.scala 94:60]
+      c_19_1 <= io_in_c_19[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_19_10) begin // @[AecExecPort.scala 82:60]
-      c_19_2 <= io_in_c_19[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_19_10) begin // @[AecExecPort.scala 94:60]
+      c_19_2 <= io_in_c_19[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_19_11) begin // @[AecExecPort.scala 82:60]
-      c_19_3 <= io_in_c_19[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_19_11) begin // @[AecExecPort.scala 94:60]
+      c_19_3 <= io_in_c_19[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_20_8) begin // @[AecExecPort.scala 82:60]
-      c_20_0 <= io_in_c_20[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_20_8) begin // @[AecExecPort.scala 94:60]
+      c_20_0 <= io_in_c_20[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_20_9) begin // @[AecExecPort.scala 82:60]
-      c_20_1 <= io_in_c_20[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_20_9) begin // @[AecExecPort.scala 94:60]
+      c_20_1 <= io_in_c_20[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_20_10) begin // @[AecExecPort.scala 82:60]
-      c_20_2 <= io_in_c_20[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_20_10) begin // @[AecExecPort.scala 94:60]
+      c_20_2 <= io_in_c_20[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_20_11) begin // @[AecExecPort.scala 82:60]
-      c_20_3 <= io_in_c_20[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_20_11) begin // @[AecExecPort.scala 94:60]
+      c_20_3 <= io_in_c_20[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_21_8) begin // @[AecExecPort.scala 82:60]
-      c_21_0 <= io_in_c_21[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_21_8) begin // @[AecExecPort.scala 94:60]
+      c_21_0 <= io_in_c_21[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_21_9) begin // @[AecExecPort.scala 82:60]
-      c_21_1 <= io_in_c_21[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_21_9) begin // @[AecExecPort.scala 94:60]
+      c_21_1 <= io_in_c_21[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_21_10) begin // @[AecExecPort.scala 82:60]
-      c_21_2 <= io_in_c_21[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_21_10) begin // @[AecExecPort.scala 94:60]
+      c_21_2 <= io_in_c_21[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_21_11) begin // @[AecExecPort.scala 82:60]
-      c_21_3 <= io_in_c_21[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_21_11) begin // @[AecExecPort.scala 94:60]
+      c_21_3 <= io_in_c_21[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_22_8) begin // @[AecExecPort.scala 82:60]
-      c_22_0 <= io_in_c_22[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_22_8) begin // @[AecExecPort.scala 94:60]
+      c_22_0 <= io_in_c_22[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_22_9) begin // @[AecExecPort.scala 82:60]
-      c_22_1 <= io_in_c_22[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_22_9) begin // @[AecExecPort.scala 94:60]
+      c_22_1 <= io_in_c_22[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_22_10) begin // @[AecExecPort.scala 82:60]
-      c_22_2 <= io_in_c_22[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_22_10) begin // @[AecExecPort.scala 94:60]
+      c_22_2 <= io_in_c_22[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_22_11) begin // @[AecExecPort.scala 82:60]
-      c_22_3 <= io_in_c_22[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_22_11) begin // @[AecExecPort.scala 94:60]
+      c_22_3 <= io_in_c_22[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_23_8) begin // @[AecExecPort.scala 82:60]
-      c_23_0 <= io_in_c_23[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_23_8) begin // @[AecExecPort.scala 94:60]
+      c_23_0 <= io_in_c_23[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_23_9) begin // @[AecExecPort.scala 82:60]
-      c_23_1 <= io_in_c_23[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_23_9) begin // @[AecExecPort.scala 94:60]
+      c_23_1 <= io_in_c_23[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_23_10) begin // @[AecExecPort.scala 82:60]
-      c_23_2 <= io_in_c_23[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_23_10) begin // @[AecExecPort.scala 94:60]
+      c_23_2 <= io_in_c_23[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_23_11) begin // @[AecExecPort.scala 82:60]
-      c_23_3 <= io_in_c_23[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_23_11) begin // @[AecExecPort.scala 94:60]
+      c_23_3 <= io_in_c_23[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_24_8) begin // @[AecExecPort.scala 82:60]
-      c_24_0 <= io_in_c_24[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_24_8) begin // @[AecExecPort.scala 94:60]
+      c_24_0 <= io_in_c_24[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_24_9) begin // @[AecExecPort.scala 82:60]
-      c_24_1 <= io_in_c_24[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_24_9) begin // @[AecExecPort.scala 94:60]
+      c_24_1 <= io_in_c_24[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_24_10) begin // @[AecExecPort.scala 82:60]
-      c_24_2 <= io_in_c_24[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_24_10) begin // @[AecExecPort.scala 94:60]
+      c_24_2 <= io_in_c_24[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_24_11) begin // @[AecExecPort.scala 82:60]
-      c_24_3 <= io_in_c_24[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_24_11) begin // @[AecExecPort.scala 94:60]
+      c_24_3 <= io_in_c_24[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_25_8) begin // @[AecExecPort.scala 82:60]
-      c_25_0 <= io_in_c_25[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_25_8) begin // @[AecExecPort.scala 94:60]
+      c_25_0 <= io_in_c_25[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_25_9) begin // @[AecExecPort.scala 82:60]
-      c_25_1 <= io_in_c_25[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_25_9) begin // @[AecExecPort.scala 94:60]
+      c_25_1 <= io_in_c_25[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_25_10) begin // @[AecExecPort.scala 82:60]
-      c_25_2 <= io_in_c_25[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_25_10) begin // @[AecExecPort.scala 94:60]
+      c_25_2 <= io_in_c_25[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_25_11) begin // @[AecExecPort.scala 82:60]
-      c_25_3 <= io_in_c_25[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_25_11) begin // @[AecExecPort.scala 94:60]
+      c_25_3 <= io_in_c_25[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_26_8) begin // @[AecExecPort.scala 82:60]
-      c_26_0 <= io_in_c_26[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_26_8) begin // @[AecExecPort.scala 94:60]
+      c_26_0 <= io_in_c_26[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_26_9) begin // @[AecExecPort.scala 82:60]
-      c_26_1 <= io_in_c_26[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_26_9) begin // @[AecExecPort.scala 94:60]
+      c_26_1 <= io_in_c_26[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_26_10) begin // @[AecExecPort.scala 82:60]
-      c_26_2 <= io_in_c_26[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_26_10) begin // @[AecExecPort.scala 94:60]
+      c_26_2 <= io_in_c_26[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_26_11) begin // @[AecExecPort.scala 82:60]
-      c_26_3 <= io_in_c_26[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_26_11) begin // @[AecExecPort.scala 94:60]
+      c_26_3 <= io_in_c_26[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_27_8) begin // @[AecExecPort.scala 82:60]
-      c_27_0 <= io_in_c_27[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_27_8) begin // @[AecExecPort.scala 94:60]
+      c_27_0 <= io_in_c_27[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_27_9) begin // @[AecExecPort.scala 82:60]
-      c_27_1 <= io_in_c_27[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_27_9) begin // @[AecExecPort.scala 94:60]
+      c_27_1 <= io_in_c_27[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_27_10) begin // @[AecExecPort.scala 82:60]
-      c_27_2 <= io_in_c_27[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_27_10) begin // @[AecExecPort.scala 94:60]
+      c_27_2 <= io_in_c_27[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_27_11) begin // @[AecExecPort.scala 82:60]
-      c_27_3 <= io_in_c_27[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_27_11) begin // @[AecExecPort.scala 94:60]
+      c_27_3 <= io_in_c_27[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_28_8) begin // @[AecExecPort.scala 82:60]
-      c_28_0 <= io_in_c_28[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_28_8) begin // @[AecExecPort.scala 94:60]
+      c_28_0 <= io_in_c_28[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_28_9) begin // @[AecExecPort.scala 82:60]
-      c_28_1 <= io_in_c_28[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_28_9) begin // @[AecExecPort.scala 94:60]
+      c_28_1 <= io_in_c_28[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_28_10) begin // @[AecExecPort.scala 82:60]
-      c_28_2 <= io_in_c_28[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_28_10) begin // @[AecExecPort.scala 94:60]
+      c_28_2 <= io_in_c_28[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_28_11) begin // @[AecExecPort.scala 82:60]
-      c_28_3 <= io_in_c_28[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_28_11) begin // @[AecExecPort.scala 94:60]
+      c_28_3 <= io_in_c_28[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_29_8) begin // @[AecExecPort.scala 82:60]
-      c_29_0 <= io_in_c_29[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_29_8) begin // @[AecExecPort.scala 94:60]
+      c_29_0 <= io_in_c_29[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_29_9) begin // @[AecExecPort.scala 82:60]
-      c_29_1 <= io_in_c_29[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_29_9) begin // @[AecExecPort.scala 94:60]
+      c_29_1 <= io_in_c_29[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_29_10) begin // @[AecExecPort.scala 82:60]
-      c_29_2 <= io_in_c_29[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_29_10) begin // @[AecExecPort.scala 94:60]
+      c_29_2 <= io_in_c_29[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_29_11) begin // @[AecExecPort.scala 82:60]
-      c_29_3 <= io_in_c_29[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_29_11) begin // @[AecExecPort.scala 94:60]
+      c_29_3 <= io_in_c_29[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_30_8) begin // @[AecExecPort.scala 82:60]
-      c_30_0 <= io_in_c_30[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_30_8) begin // @[AecExecPort.scala 94:60]
+      c_30_0 <= io_in_c_30[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_30_9) begin // @[AecExecPort.scala 82:60]
-      c_30_1 <= io_in_c_30[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_30_9) begin // @[AecExecPort.scala 94:60]
+      c_30_1 <= io_in_c_30[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_30_10) begin // @[AecExecPort.scala 82:60]
-      c_30_2 <= io_in_c_30[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_30_10) begin // @[AecExecPort.scala 94:60]
+      c_30_2 <= io_in_c_30[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_30_11) begin // @[AecExecPort.scala 82:60]
-      c_30_3 <= io_in_c_30[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_30_11) begin // @[AecExecPort.scala 94:60]
+      c_30_3 <= io_in_c_30[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_31_8) begin // @[AecExecPort.scala 82:60]
-      c_31_0 <= io_in_c_31[15:0]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_31_8) begin // @[AecExecPort.scala 94:60]
+      c_31_0 <= io_in_c_31[15:0]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_31_9) begin // @[AecExecPort.scala 82:60]
-      c_31_1 <= io_in_c_31[31:16]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_31_9) begin // @[AecExecPort.scala 94:60]
+      c_31_1 <= io_in_c_31[31:16]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_31_10) begin // @[AecExecPort.scala 82:60]
-      c_31_2 <= io_in_c_31[47:32]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_31_10) begin // @[AecExecPort.scala 94:60]
+      c_31_2 <= io_in_c_31[47:32]; // @[AecExecPort.scala 94:73]
     end
-    if (operandCapture_31_11) begin // @[AecExecPort.scala 82:60]
-      c_31_3 <= io_in_c_31[63:48]; // @[AecExecPort.scala 82:73]
+    if (operandCapture_31_11) begin // @[AecExecPort.scala 94:60]
+      c_31_3 <= io_in_c_31[63:48]; // @[AecExecPort.scala 94:73]
     end
-    if (maskCapture_0) begin // @[AecExecPort.scala 84:27]
-      active_0 <= io_in_activeMask[0]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_0) begin // @[AecExecPort.scala 96:27]
+      active_0 <= io_in_activeMask[0]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_1) begin // @[AecExecPort.scala 84:27]
-      active_1 <= io_in_activeMask[1]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_1) begin // @[AecExecPort.scala 96:27]
+      active_1 <= io_in_activeMask[1]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_2) begin // @[AecExecPort.scala 84:27]
-      active_2 <= io_in_activeMask[2]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_2) begin // @[AecExecPort.scala 96:27]
+      active_2 <= io_in_activeMask[2]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_3) begin // @[AecExecPort.scala 84:27]
-      active_3 <= io_in_activeMask[3]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_3) begin // @[AecExecPort.scala 96:27]
+      active_3 <= io_in_activeMask[3]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_4) begin // @[AecExecPort.scala 84:27]
-      active_4 <= io_in_activeMask[4]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_4) begin // @[AecExecPort.scala 96:27]
+      active_4 <= io_in_activeMask[4]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_5) begin // @[AecExecPort.scala 84:27]
-      active_5 <= io_in_activeMask[5]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_5) begin // @[AecExecPort.scala 96:27]
+      active_5 <= io_in_activeMask[5]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_6) begin // @[AecExecPort.scala 84:27]
-      active_6 <= io_in_activeMask[6]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_6) begin // @[AecExecPort.scala 96:27]
+      active_6 <= io_in_activeMask[6]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_7) begin // @[AecExecPort.scala 84:27]
-      active_7 <= io_in_activeMask[7]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_7) begin // @[AecExecPort.scala 96:27]
+      active_7 <= io_in_activeMask[7]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_8) begin // @[AecExecPort.scala 84:27]
-      active_8 <= io_in_activeMask[8]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_8) begin // @[AecExecPort.scala 96:27]
+      active_8 <= io_in_activeMask[8]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_9) begin // @[AecExecPort.scala 84:27]
-      active_9 <= io_in_activeMask[9]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_9) begin // @[AecExecPort.scala 96:27]
+      active_9 <= io_in_activeMask[9]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_10) begin // @[AecExecPort.scala 84:27]
-      active_10 <= io_in_activeMask[10]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_10) begin // @[AecExecPort.scala 96:27]
+      active_10 <= io_in_activeMask[10]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_11) begin // @[AecExecPort.scala 84:27]
-      active_11 <= io_in_activeMask[11]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_11) begin // @[AecExecPort.scala 96:27]
+      active_11 <= io_in_activeMask[11]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_12) begin // @[AecExecPort.scala 84:27]
-      active_12 <= io_in_activeMask[12]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_12) begin // @[AecExecPort.scala 96:27]
+      active_12 <= io_in_activeMask[12]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_13) begin // @[AecExecPort.scala 84:27]
-      active_13 <= io_in_activeMask[13]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_13) begin // @[AecExecPort.scala 96:27]
+      active_13 <= io_in_activeMask[13]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_14) begin // @[AecExecPort.scala 84:27]
-      active_14 <= io_in_activeMask[14]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_14) begin // @[AecExecPort.scala 96:27]
+      active_14 <= io_in_activeMask[14]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_15) begin // @[AecExecPort.scala 84:27]
-      active_15 <= io_in_activeMask[15]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_15) begin // @[AecExecPort.scala 96:27]
+      active_15 <= io_in_activeMask[15]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_16) begin // @[AecExecPort.scala 84:27]
-      active_16 <= io_in_activeMask[16]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_16) begin // @[AecExecPort.scala 96:27]
+      active_16 <= io_in_activeMask[16]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_17) begin // @[AecExecPort.scala 84:27]
-      active_17 <= io_in_activeMask[17]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_17) begin // @[AecExecPort.scala 96:27]
+      active_17 <= io_in_activeMask[17]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_18) begin // @[AecExecPort.scala 84:27]
-      active_18 <= io_in_activeMask[18]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_18) begin // @[AecExecPort.scala 96:27]
+      active_18 <= io_in_activeMask[18]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_19) begin // @[AecExecPort.scala 84:27]
-      active_19 <= io_in_activeMask[19]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_19) begin // @[AecExecPort.scala 96:27]
+      active_19 <= io_in_activeMask[19]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_20) begin // @[AecExecPort.scala 84:27]
-      active_20 <= io_in_activeMask[20]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_20) begin // @[AecExecPort.scala 96:27]
+      active_20 <= io_in_activeMask[20]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_21) begin // @[AecExecPort.scala 84:27]
-      active_21 <= io_in_activeMask[21]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_21) begin // @[AecExecPort.scala 96:27]
+      active_21 <= io_in_activeMask[21]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_22) begin // @[AecExecPort.scala 84:27]
-      active_22 <= io_in_activeMask[22]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_22) begin // @[AecExecPort.scala 96:27]
+      active_22 <= io_in_activeMask[22]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_23) begin // @[AecExecPort.scala 84:27]
-      active_23 <= io_in_activeMask[23]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_23) begin // @[AecExecPort.scala 96:27]
+      active_23 <= io_in_activeMask[23]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_24) begin // @[AecExecPort.scala 84:27]
-      active_24 <= io_in_activeMask[24]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_24) begin // @[AecExecPort.scala 96:27]
+      active_24 <= io_in_activeMask[24]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_25) begin // @[AecExecPort.scala 84:27]
-      active_25 <= io_in_activeMask[25]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_25) begin // @[AecExecPort.scala 96:27]
+      active_25 <= io_in_activeMask[25]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_26) begin // @[AecExecPort.scala 84:27]
-      active_26 <= io_in_activeMask[26]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_26) begin // @[AecExecPort.scala 96:27]
+      active_26 <= io_in_activeMask[26]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_27) begin // @[AecExecPort.scala 84:27]
-      active_27 <= io_in_activeMask[27]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_27) begin // @[AecExecPort.scala 96:27]
+      active_27 <= io_in_activeMask[27]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_28) begin // @[AecExecPort.scala 84:27]
-      active_28 <= io_in_activeMask[28]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_28) begin // @[AecExecPort.scala 96:27]
+      active_28 <= io_in_activeMask[28]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_29) begin // @[AecExecPort.scala 84:27]
-      active_29 <= io_in_activeMask[29]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_29) begin // @[AecExecPort.scala 96:27]
+      active_29 <= io_in_activeMask[29]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_30) begin // @[AecExecPort.scala 84:27]
-      active_30 <= io_in_activeMask[30]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_30) begin // @[AecExecPort.scala 96:27]
+      active_30 <= io_in_activeMask[30]; // @[AecExecPort.scala 97:17]
     end
-    if (maskCapture_31) begin // @[AecExecPort.scala 84:27]
-      active_31 <= io_in_activeMask[31]; // @[AecExecPort.scala 85:17]
+    if (maskCapture_31) begin // @[AecExecPort.scala 96:27]
+      active_31 <= io_in_activeMask[31]; // @[AecExecPort.scala 97:17]
     end
-    if (io_capture) begin // @[AecExecPort.scala 97:21]
-      dest <= io_in_dest; // @[AecExecPort.scala 100:10]
+    if (io_capture) begin // @[AecExecPort.scala 108:21]
+      dest <= io_in_dest; // @[AecExecPort.scala 111:10]
     end
   end
 // Register and memory initialization
@@ -14552,41 +13311,67 @@ module AecResultLaneBank(
   input         io_write,
   input  [63:0] io_writeResult,
   input  [4:0]  io_writeFlags,
+  input         io_writePredicate,
+  input         io_writeError,
   output [63:0] io_result,
-  output [4:0]  io_flags
+  output [4:0]  io_flags,
+  output        io_predicate,
+  output        io_error
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [63:0] _RAND_0;
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
-  reg [63:0] _RAND_3;
+  reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
+  reg [63:0] _RAND_5;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_8;
 `endif // RANDOMIZE_REG_INIT
-  reg [63:0] result; // @[AecExecPort.scala 38:23]
-  reg [4:0] flags; // @[AecExecPort.scala 39:22]
-  reg  pending; // @[AecExecPort.scala 40:24]
-  reg [63:0] stagedResult; // @[AecExecPort.scala 41:29]
-  reg [4:0] stagedFlags; // @[AecExecPort.scala 42:28]
-  assign io_result = result; // @[AecExecPort.scala 47:13]
-  assign io_flags = flags; // @[AecExecPort.scala 48:12]
+  reg [63:0] result; // @[AecExecPort.scala 42:23]
+  reg [4:0] flags; // @[AecExecPort.scala 43:22]
+  reg  predicate; // @[AecExecPort.scala 44:26]
+  reg  error; // @[AecExecPort.scala 45:22]
+  reg  pending; // @[AecExecPort.scala 46:24]
+  reg [63:0] stagedResult; // @[AecExecPort.scala 47:29]
+  reg [4:0] stagedFlags; // @[AecExecPort.scala 48:28]
+  reg  stagedPredicate; // @[AecExecPort.scala 49:32]
+  reg  stagedError; // @[AecExecPort.scala 50:28]
+  assign io_result = result; // @[AecExecPort.scala 57:13]
+  assign io_flags = flags; // @[AecExecPort.scala 58:12]
+  assign io_predicate = predicate; // @[AecExecPort.scala 59:16]
+  assign io_error = error; // @[AecExecPort.scala 60:12]
   always @(posedge clock) begin
-    if (reset) begin // @[AecExecPort.scala 38:23]
-      result <= 64'h0; // @[AecExecPort.scala 38:23]
-    end else if (pending) begin // @[AecExecPort.scala 43:18]
-      result <= stagedResult; // @[AecExecPort.scala 44:12]
+    if (reset) begin // @[AecExecPort.scala 42:23]
+      result <= 64'h0; // @[AecExecPort.scala 42:23]
+    end else if (pending) begin // @[AecExecPort.scala 51:18]
+      result <= stagedResult; // @[AecExecPort.scala 52:12]
     end
-    if (reset) begin // @[AecExecPort.scala 39:22]
-      flags <= 5'h0; // @[AecExecPort.scala 39:22]
-    end else if (pending) begin // @[AecExecPort.scala 43:18]
-      flags <= stagedFlags; // @[AecExecPort.scala 45:11]
+    if (reset) begin // @[AecExecPort.scala 43:22]
+      flags <= 5'h0; // @[AecExecPort.scala 43:22]
+    end else if (pending) begin // @[AecExecPort.scala 51:18]
+      flags <= stagedFlags; // @[AecExecPort.scala 53:11]
     end
-    if (reset) begin // @[AecExecPort.scala 40:24]
-      pending <= 1'h0; // @[AecExecPort.scala 40:24]
+    if (reset) begin // @[AecExecPort.scala 44:26]
+      predicate <= 1'h0; // @[AecExecPort.scala 44:26]
+    end else if (pending) begin // @[AecExecPort.scala 51:18]
+      predicate <= stagedPredicate; // @[AecExecPort.scala 54:15]
+    end
+    if (reset) begin // @[AecExecPort.scala 45:22]
+      error <= 1'h0; // @[AecExecPort.scala 45:22]
+    end else if (pending) begin // @[AecExecPort.scala 51:18]
+      error <= stagedError; // @[AecExecPort.scala 55:11]
+    end
+    if (reset) begin // @[AecExecPort.scala 46:24]
+      pending <= 1'h0; // @[AecExecPort.scala 46:24]
     end else begin
-      pending <= io_write; // @[AecExecPort.scala 40:24]
+      pending <= io_write; // @[AecExecPort.scala 46:24]
     end
-    stagedResult <= io_writeResult; // @[AecExecPort.scala 41:29]
-    stagedFlags <= io_writeFlags; // @[AecExecPort.scala 42:28]
+    stagedResult <= io_writeResult; // @[AecExecPort.scala 47:29]
+    stagedFlags <= io_writeFlags; // @[AecExecPort.scala 48:28]
+    stagedPredicate <= io_writePredicate; // @[AecExecPort.scala 49:32]
+    stagedError <= io_writeError; // @[AecExecPort.scala 50:28]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -14629,11 +13414,19 @@ initial begin
   _RAND_1 = {1{`RANDOM}};
   flags = _RAND_1[4:0];
   _RAND_2 = {1{`RANDOM}};
-  pending = _RAND_2[0:0];
-  _RAND_3 = {2{`RANDOM}};
-  stagedResult = _RAND_3[63:0];
+  predicate = _RAND_2[0:0];
+  _RAND_3 = {1{`RANDOM}};
+  error = _RAND_3[0:0];
   _RAND_4 = {1{`RANDOM}};
-  stagedFlags = _RAND_4[4:0];
+  pending = _RAND_4[0:0];
+  _RAND_5 = {2{`RANDOM}};
+  stagedResult = _RAND_5[63:0];
+  _RAND_6 = {1{`RANDOM}};
+  stagedFlags = _RAND_6[4:0];
+  _RAND_7 = {1{`RANDOM}};
+  stagedPredicate = _RAND_7[0:0];
+  _RAND_8 = {1{`RANDOM}};
+  stagedError = _RAND_8[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -14836,709 +13629,929 @@ module AecFp64Unit(
   reg [31:0] _RAND_12;
   reg [31:0] _RAND_13;
   reg [31:0] _RAND_14;
+  reg [31:0] _RAND_15;
+  reg [31:0] _RAND_16;
+  reg [31:0] _RAND_17;
+  reg [31:0] _RAND_18;
+  reg [31:0] _RAND_19;
+  reg [31:0] _RAND_20;
+  reg [31:0] _RAND_21;
 `endif // RANDOMIZE_REG_INIT
-  wire  pipes_0_clock; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_0_reset; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_0_io_req_valid; // @[AecFpWarpUnits.scala 120:45]
-  wire [6:0] pipes_0_io_req_bits_op; // @[AecFpWarpUnits.scala 120:45]
-  wire [3:0] pipes_0_io_req_bits_dtype; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_0_io_req_bits_a; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_0_io_req_bits_b; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_0_io_req_bits_c; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_0_io_resp_ready; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_0_io_resp_valid; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 120:45]
-  wire [4:0] pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_clock; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_reset; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_io_req_valid; // @[AecFpWarpUnits.scala 120:45]
-  wire [6:0] pipes_1_io_req_bits_op; // @[AecFpWarpUnits.scala 120:45]
-  wire [3:0] pipes_1_io_req_bits_dtype; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_1_io_req_bits_a; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_1_io_req_bits_b; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_1_io_req_bits_c; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_io_resp_ready; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 120:45]
-  wire [63:0] pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 120:45]
-  wire  pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 120:45]
-  wire [4:0] pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 120:45]
-  wire  requestStages_0_clock; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_0_reset; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_0_io_inValid; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_0_io_inReady; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_group; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_0_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_0_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_0_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_0_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_0_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_1_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_1_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_1_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_1_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_1_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_2_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_2_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_2_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_2_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_2_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_3_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_3_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_3_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_3_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_3_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_4_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_4_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_4_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_4_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_4_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_5_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_5_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_5_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_5_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_5_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_6_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_6_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_6_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_6_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_6_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_7_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_7_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_7_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_7_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_7_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_8_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_8_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_8_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_8_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_8_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_9_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_9_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_9_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_9_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_9_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_10_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_10_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_10_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_10_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_10_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_11_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_11_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_11_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_11_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_11_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_12_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_12_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_12_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_12_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_12_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_13_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_13_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_13_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_13_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_13_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_14_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_14_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_14_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_14_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_14_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_data_15_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_data_15_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_15_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_15_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_data_15_c; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_0_io_out_ready; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_1_clock; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_1_reset; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_1_io_inValid; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_group; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_0_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_0_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_0_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_0_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_0_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_1_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_1_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_1_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_1_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_1_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_2_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_2_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_2_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_2_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_2_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_3_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_3_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_3_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_3_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_3_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_4_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_4_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_4_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_4_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_4_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_5_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_5_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_5_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_5_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_5_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_6_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_6_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_6_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_6_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_6_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_7_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_7_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_7_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_7_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_7_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_8_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_8_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_8_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_8_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_8_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_9_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_9_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_9_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_9_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_9_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_10_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_10_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_10_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_10_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_10_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_11_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_11_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_11_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_11_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_11_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_12_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_12_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_12_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_12_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_12_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_13_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_13_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_13_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_13_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_13_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_14_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_14_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_14_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_14_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_14_c; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_data_15_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_data_15_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_15_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_15_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_data_15_c; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_1_io_out_ready; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 122:53]
-  wire [6:0] requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 122:53]
-  wire [3:0] requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 122:53]
-  wire [63:0] requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 122:53]
-  wire  requestBuffer_clock; // @[AecFpWarpUnits.scala 123:29]
-  wire  requestBuffer_reset; // @[AecFpWarpUnits.scala 123:29]
-  wire [31:0] requestBuffer_io_in_activeMask; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_0; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_1; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_2; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_3; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_4; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_5; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_6; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_7; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_8; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_9; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_10; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_11; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_12; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_13; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_14; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_15; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_16; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_17; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_18; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_19; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_20; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_21; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_22; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_23; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_24; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_25; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_26; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_27; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_28; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_29; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_30; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_a_31; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_0; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_1; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_2; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_3; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_4; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_5; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_6; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_7; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_8; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_9; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_10; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_11; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_12; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_13; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_14; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_15; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_16; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_17; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_18; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_19; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_20; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_21; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_22; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_23; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_24; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_25; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_26; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_27; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_28; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_29; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_30; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_b_31; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_0; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_1; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_2; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_3; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_4; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_5; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_6; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_7; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_8; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_9; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_10; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_11; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_12; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_13; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_14; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_15; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_16; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_17; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_18; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_19; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_20; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_21; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_22; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_23; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_24; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_25; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_26; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_27; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_28; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_29; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_30; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_in_c_31; // @[AecFpWarpUnits.scala 123:29]
-  wire [7:0] requestBuffer_io_in_dest; // @[AecFpWarpUnits.scala 123:29]
-  wire  requestBuffer_io_arm; // @[AecFpWarpUnits.scala 123:29]
-  wire  requestBuffer_io_capture; // @[AecFpWarpUnits.scala 123:29]
-  wire [31:0] requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 123:29]
-  wire [63:0] requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 123:29]
-  wire [7:0] requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 123:29]
-  wire  resultBanks_0_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_0_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_0_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_0_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_0_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_0_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_0_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_1_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_1_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_1_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_1_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_1_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_1_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_1_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_2_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_2_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_2_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_2_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_2_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_2_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_2_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_3_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_3_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_3_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_3_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_3_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_3_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_3_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_4_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_4_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_4_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_4_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_4_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_4_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_4_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_5_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_5_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_5_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_5_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_5_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_5_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_5_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_6_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_6_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_6_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_6_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_6_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_6_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_6_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_7_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_7_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_7_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_7_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_7_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_7_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_7_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_8_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_8_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_8_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_8_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_8_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_8_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_8_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_9_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_9_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_9_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_9_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_9_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_9_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_9_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_10_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_10_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_10_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_10_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_10_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_10_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_10_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_11_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_11_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_11_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_11_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_11_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_11_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_11_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_12_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_12_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_12_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_12_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_12_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_12_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_12_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_13_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_13_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_13_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_13_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_13_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_13_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_13_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_14_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_14_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_14_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_14_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_14_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_14_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_14_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_15_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_15_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_15_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_15_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_15_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_15_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_15_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_16_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_16_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_16_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_16_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_16_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_16_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_16_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_17_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_17_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_17_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_17_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_17_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_17_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_17_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_18_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_18_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_18_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_18_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_18_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_18_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_18_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_19_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_19_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_19_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_19_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_19_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_19_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_19_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_20_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_20_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_20_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_20_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_20_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_20_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_20_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_21_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_21_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_21_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_21_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_21_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_21_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_21_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_22_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_22_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_22_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_22_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_22_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_22_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_22_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_23_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_23_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_23_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_23_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_23_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_23_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_23_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_24_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_24_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_24_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_24_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_24_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_24_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_24_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_25_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_25_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_25_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_25_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_25_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_25_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_25_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_26_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_26_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_26_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_26_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_26_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_26_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_26_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_27_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_27_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_27_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_27_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_27_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_27_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_27_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_28_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_28_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_28_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_28_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_28_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_28_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_28_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_29_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_29_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_29_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_29_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_29_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_29_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_29_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_30_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_30_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_30_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_30_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_30_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_30_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_30_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_31_clock; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_31_reset; // @[AecFpWarpUnits.scala 131:40]
-  wire  resultBanks_31_io_write; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_31_io_writeResult; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_31_io_writeFlags; // @[AecFpWarpUnits.scala 131:40]
-  wire [63:0] resultBanks_31_io_result; // @[AecFpWarpUnits.scala 131:40]
-  wire [4:0] resultBanks_31_io_flags; // @[AecFpWarpUnits.scala 131:40]
-  reg  capturePending; // @[AecFpWarpUnits.scala 126:31]
-  reg [3:0] group; // @[AecFpWarpUnits.scala 127:22]
-  reg  outValid; // @[AecFpWarpUnits.scala 127:91]
-  reg  running; // @[AecFpWarpUnits.scala 128:24]
-  reg  groupIssued; // @[AecFpWarpUnits.scala 129:28]
-  reg  commitPending; // @[AecFpWarpUnits.scala 130:30]
-  reg [31:0] predicates; // @[AecFpWarpUnits.scala 132:27]
-  reg [31:0] errors; // @[AecFpWarpUnits.scala 132:60]
-  reg [31:0] writeMask; // @[AecFpWarpUnits.scala 133:26]
-  reg [6:0] laneOp_0; // @[AecFpWarpUnits.scala 134:19]
-  reg [6:0] laneOp_1; // @[AecFpWarpUnits.scala 134:19]
-  reg [3:0] laneDtype_0; // @[AecFpWarpUnits.scala 135:22]
-  reg [3:0] laneDtype_1; // @[AecFpWarpUnits.scala 135:22]
-  reg [7:0] laneDest_0; // @[AecFpWarpUnits.scala 136:21]
-  reg [7:0] laneDest_1; // @[AecFpWarpUnits.scala 136:21]
-  wire [5:0] base = group * 2'h2; // @[AecFpWarpUnits.scala 138:20]
-  wire  allReady = requestStages_0_io_inReady & requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 139:59]
-  wire  allValid = pipes_0_io_resp_valid & pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 139:117]
-  wire  _armCapture_T_3 = ~outValid; // @[AecFpWarpUnits.scala 140:51]
-  wire  armCapture = ~capturePending & ~running & ~outValid & io_req_valid; // @[AecFpWarpUnits.scala 140:61]
+  wire  pipes_0_clock; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_0_reset; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_0_io_req_valid; // @[AecFpWarpUnits.scala 114:45]
+  wire [6:0] pipes_0_io_req_bits_op; // @[AecFpWarpUnits.scala 114:45]
+  wire [3:0] pipes_0_io_req_bits_dtype; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_0_io_req_bits_a; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_0_io_req_bits_b; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_0_io_req_bits_c; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_0_io_resp_ready; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_0_io_resp_valid; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 114:45]
+  wire [4:0] pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_clock; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_reset; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_io_req_valid; // @[AecFpWarpUnits.scala 114:45]
+  wire [6:0] pipes_1_io_req_bits_op; // @[AecFpWarpUnits.scala 114:45]
+  wire [3:0] pipes_1_io_req_bits_dtype; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_1_io_req_bits_a; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_1_io_req_bits_b; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_1_io_req_bits_c; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_io_resp_ready; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 114:45]
+  wire [63:0] pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 114:45]
+  wire  pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 114:45]
+  wire [4:0] pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 114:45]
+  wire  requestStages_0_clock; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_0_reset; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_0_io_inValid; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_0_io_inReady; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_group; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_0_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_0_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_0_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_0_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_0_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_1_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_1_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_1_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_1_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_1_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_2_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_2_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_2_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_2_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_2_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_3_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_3_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_3_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_3_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_3_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_4_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_4_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_4_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_4_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_4_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_5_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_5_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_5_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_5_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_5_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_6_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_6_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_6_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_6_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_6_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_7_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_7_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_7_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_7_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_7_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_8_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_8_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_8_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_8_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_8_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_9_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_9_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_9_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_9_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_9_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_10_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_10_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_10_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_10_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_10_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_11_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_11_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_11_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_11_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_11_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_12_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_12_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_12_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_12_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_12_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_13_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_13_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_13_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_13_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_13_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_14_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_14_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_14_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_14_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_14_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_data_15_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_data_15_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_15_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_15_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_data_15_c; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_0_io_out_ready; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_1_clock; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_1_reset; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_1_io_inValid; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_group; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_0_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_0_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_0_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_0_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_0_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_1_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_1_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_1_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_1_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_1_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_2_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_2_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_2_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_2_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_2_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_3_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_3_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_3_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_3_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_3_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_4_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_4_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_4_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_4_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_4_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_5_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_5_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_5_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_5_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_5_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_6_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_6_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_6_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_6_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_6_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_7_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_7_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_7_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_7_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_7_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_8_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_8_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_8_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_8_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_8_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_9_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_9_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_9_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_9_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_9_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_10_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_10_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_10_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_10_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_10_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_11_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_11_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_11_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_11_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_11_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_12_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_12_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_12_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_12_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_12_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_13_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_13_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_13_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_13_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_13_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_14_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_14_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_14_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_14_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_14_c; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_data_15_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_data_15_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_15_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_15_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_data_15_c; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_1_io_out_ready; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 116:53]
+  wire [6:0] requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 116:53]
+  wire [3:0] requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 116:53]
+  wire [63:0] requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 116:53]
+  wire  requestBuffer_clock; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_reset; // @[AecFpWarpUnits.scala 117:29]
+  wire [31:0] requestBuffer_io_in_activeMask; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_0; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_1; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_2; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_3; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_4; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_5; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_6; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_7; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_8; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_9; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_10; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_11; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_12; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_13; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_14; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_15; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_16; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_17; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_18; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_19; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_20; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_21; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_22; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_23; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_24; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_25; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_26; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_27; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_28; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_29; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_30; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_a_31; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_0; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_1; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_2; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_3; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_4; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_5; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_6; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_7; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_8; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_9; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_10; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_11; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_12; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_13; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_14; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_15; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_16; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_17; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_18; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_19; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_20; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_21; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_22; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_23; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_24; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_25; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_26; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_27; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_28; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_29; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_30; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_b_31; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_0; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_1; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_2; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_3; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_4; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_5; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_6; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_7; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_8; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_9; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_10; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_11; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_12; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_13; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_14; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_15; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_16; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_17; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_18; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_19; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_20; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_21; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_22; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_23; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_24; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_25; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_26; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_27; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_28; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_29; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_30; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_in_c_31; // @[AecFpWarpUnits.scala 117:29]
+  wire [7:0] requestBuffer_io_in_dest; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_0; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_1; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_2; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_3; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_4; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_5; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_6; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_arm_7; // @[AecFpWarpUnits.scala 117:29]
+  wire  requestBuffer_io_capture; // @[AecFpWarpUnits.scala 117:29]
+  wire [31:0] requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 117:29]
+  wire [63:0] requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 117:29]
+  wire [7:0] requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 117:29]
+  wire  resultBanks_0_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_0_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_0_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_0_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_0_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_0_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_0_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_0_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_0_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_0_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_0_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_1_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_1_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_1_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_1_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_1_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_1_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_1_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_1_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_1_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_1_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_1_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_2_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_2_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_2_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_2_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_2_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_2_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_2_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_2_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_2_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_2_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_2_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_3_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_3_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_3_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_3_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_3_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_3_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_3_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_3_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_3_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_3_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_3_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_4_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_4_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_4_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_4_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_4_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_4_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_4_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_4_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_4_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_4_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_4_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_5_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_5_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_5_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_5_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_5_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_5_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_5_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_5_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_5_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_5_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_5_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_6_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_6_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_6_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_6_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_6_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_6_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_6_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_6_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_6_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_6_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_6_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_7_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_7_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_7_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_7_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_7_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_7_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_7_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_7_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_7_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_7_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_7_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_8_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_8_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_8_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_8_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_8_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_8_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_8_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_8_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_8_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_8_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_8_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_9_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_9_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_9_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_9_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_9_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_9_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_9_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_9_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_9_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_9_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_9_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_10_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_10_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_10_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_10_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_10_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_10_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_10_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_10_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_10_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_10_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_10_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_11_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_11_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_11_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_11_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_11_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_11_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_11_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_11_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_11_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_11_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_11_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_12_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_12_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_12_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_12_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_12_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_12_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_12_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_12_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_12_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_12_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_12_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_13_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_13_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_13_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_13_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_13_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_13_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_13_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_13_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_13_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_13_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_13_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_14_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_14_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_14_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_14_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_14_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_14_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_14_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_14_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_14_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_14_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_14_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_15_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_15_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_15_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_15_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_15_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_15_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_15_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_15_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_15_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_15_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_15_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_16_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_16_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_16_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_16_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_16_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_16_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_16_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_16_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_16_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_16_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_16_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_17_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_17_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_17_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_17_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_17_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_17_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_17_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_17_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_17_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_17_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_17_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_18_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_18_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_18_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_18_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_18_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_18_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_18_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_18_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_18_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_18_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_18_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_19_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_19_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_19_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_19_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_19_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_19_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_19_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_19_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_19_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_19_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_19_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_20_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_20_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_20_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_20_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_20_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_20_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_20_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_20_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_20_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_20_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_20_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_21_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_21_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_21_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_21_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_21_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_21_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_21_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_21_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_21_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_21_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_21_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_22_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_22_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_22_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_22_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_22_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_22_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_22_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_22_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_22_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_22_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_22_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_23_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_23_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_23_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_23_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_23_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_23_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_23_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_23_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_23_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_23_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_23_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_24_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_24_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_24_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_24_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_24_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_24_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_24_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_24_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_24_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_24_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_24_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_25_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_25_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_25_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_25_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_25_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_25_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_25_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_25_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_25_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_25_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_25_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_26_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_26_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_26_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_26_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_26_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_26_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_26_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_26_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_26_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_26_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_26_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_27_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_27_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_27_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_27_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_27_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_27_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_27_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_27_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_27_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_27_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_27_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_28_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_28_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_28_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_28_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_28_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_28_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_28_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_28_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_28_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_28_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_28_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_29_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_29_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_29_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_29_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_29_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_29_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_29_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_29_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_29_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_29_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_29_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_30_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_30_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_30_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_30_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_30_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_30_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_30_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_30_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_30_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_30_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_30_io_error; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_31_clock; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_31_reset; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_31_io_write; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_31_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_31_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_31_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_31_io_writeError; // @[AecFpWarpUnits.scala 125:40]
+  wire [63:0] resultBanks_31_io_result; // @[AecFpWarpUnits.scala 125:40]
+  wire [4:0] resultBanks_31_io_flags; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_31_io_predicate; // @[AecFpWarpUnits.scala 125:40]
+  wire  resultBanks_31_io_error; // @[AecFpWarpUnits.scala 125:40]
+  reg  capturePending; // @[AecFpWarpUnits.scala 120:31]
+  reg [3:0] group; // @[AecFpWarpUnits.scala 121:22]
+  reg  outValid; // @[AecFpWarpUnits.scala 121:91]
+  reg  running; // @[AecFpWarpUnits.scala 122:24]
+  reg  groupIssued; // @[AecFpWarpUnits.scala 123:28]
+  reg  commitPending; // @[AecFpWarpUnits.scala 124:30]
+  reg [31:0] writeMask; // @[AecFpWarpUnits.scala 126:26]
+  reg [6:0] laneOp_0; // @[AecFpWarpUnits.scala 127:19]
+  reg [6:0] laneOp_1; // @[AecFpWarpUnits.scala 127:19]
+  reg [3:0] laneDtype_0; // @[AecFpWarpUnits.scala 128:22]
+  reg [3:0] laneDtype_1; // @[AecFpWarpUnits.scala 128:22]
+  reg [7:0] laneDest_0; // @[AecFpWarpUnits.scala 129:21]
+  reg [7:0] laneDest_1; // @[AecFpWarpUnits.scala 129:21]
+  wire [5:0] base = group * 2'h2; // @[AecFpWarpUnits.scala 131:20]
+  wire  allReady = requestStages_0_io_inReady & requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 132:59]
+  wire  allValid = pipes_0_io_resp_valid & pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 132:117]
+  reg  armPending; // @[AecFpWarpUnits.scala 133:27]
+  wire  _armCapture_T_5 = ~outValid; // @[AecFpWarpUnits.scala 134:66]
+  wire  armCapture = ~armPending & ~capturePending & ~running & ~outValid & io_req_valid; // @[AecFpWarpUnits.scala 134:76]
+  reg  armClusters_0; // @[AecFpWarpUnits.scala 135:28]
+  reg  armClusters_1; // @[AecFpWarpUnits.scala 135:28]
+  reg  armClusters_2; // @[AecFpWarpUnits.scala 135:28]
+  reg  armClusters_3; // @[AecFpWarpUnits.scala 135:28]
+  reg  armClusters_4; // @[AecFpWarpUnits.scala 135:28]
+  reg  armClusters_5; // @[AecFpWarpUnits.scala 135:28]
+  reg  armClusters_6; // @[AecFpWarpUnits.scala 135:28]
+  reg  armClusters_7; // @[AecFpWarpUnits.scala 135:28]
   wire  _requestBuffer_io_capture_T = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
-  wire  _requestStages_0_io_inValid_T_1 = running & ~groupIssued; // @[AecFpWarpUnits.scala 151:44]
-  wire [6:0] _groupPredicateBits_lane_T = {{1'd0}, base}; // @[AecFpWarpUnits.scala 166:21]
-  wire [5:0] groupPredicateBits_lane = _groupPredicateBits_lane_T[5:0]; // @[AecFpWarpUnits.scala 166:21]
-  wire [31:0] _groupPredicateBits_T = requestBuffer_io_out_activeMask >> groupPredicateBits_lane; // @[AecFpWarpUnits.scala 167:24]
-  wire [94:0] _groupPredicateBits_T_3 = 95'h1 << groupPredicateBits_lane; // @[AecFpWarpUnits.scala 168:18]
-  wire [31:0] _groupPredicateBits_T_5 = _groupPredicateBits_T[0] & pipes_0_io_resp_bits_predicate_result ?
-    _groupPredicateBits_T_3[31:0] : 32'h0; // @[AecFpWarpUnits.scala 167:8]
-  wire [5:0] groupPredicateBits_lane_1 = base + 6'h1; // @[AecFpWarpUnits.scala 166:21]
-  wire [31:0] _groupPredicateBits_T_6 = requestBuffer_io_out_activeMask >> groupPredicateBits_lane_1; // @[AecFpWarpUnits.scala 167:24]
-  wire [94:0] _groupPredicateBits_T_9 = 95'h1 << groupPredicateBits_lane_1; // @[AecFpWarpUnits.scala 168:18]
-  wire [31:0] _groupPredicateBits_T_11 = _groupPredicateBits_T_6[0] & pipes_1_io_resp_bits_predicate_result ?
-    _groupPredicateBits_T_9[31:0] : 32'h0; // @[AecFpWarpUnits.scala 167:8]
-  wire [31:0] groupPredicateBits = _groupPredicateBits_T_5 | _groupPredicateBits_T_11; // @[AecFpWarpUnits.scala 169:14]
-  wire [31:0] _groupErrorBits_T_5 = _groupPredicateBits_T[0] & pipes_0_io_resp_bits_error ? _groupPredicateBits_T_3[31:0
-    ] : 32'h0; // @[AecFpWarpUnits.scala 172:8]
-  wire [31:0] _groupErrorBits_T_11 = _groupPredicateBits_T_6[0] & pipes_1_io_resp_bits_error ? _groupPredicateBits_T_9[
-    31:0] : 32'h0; // @[AecFpWarpUnits.scala 172:8]
-  wire [31:0] groupErrorBits = _groupErrorBits_T_5 | _groupErrorBits_T_11; // @[AecFpWarpUnits.scala 174:14]
-  wire  _resultBanks_30_io_write_T_3 = group == 4'hf; // @[AecFpWarpUnits.scala 177:90]
-  wire  _GEN_0 = armCapture | capturePending; // @[AecFpWarpUnits.scala 181:21 126:31 181:38]
-  wire [6:0] _laneOp_1_T_1 = io_req_bits_op[6:0] ^ 7'h1; // @[AecFpWarpUnits.scala 184:41]
-  wire [3:0] _laneDtype_1_T = io_req_bits_dtype ^ 4'h1; // @[AecFpWarpUnits.scala 185:41]
-  wire [7:0] _laneDest_1_T = io_req_bits_dest ^ 8'h1; // @[AecFpWarpUnits.scala 186:39]
-  wire  _running_T = |io_req_bits_activeMask; // @[AecFpWarpUnits.scala 191:39]
-  wire  _GEN_9 = _requestBuffer_io_capture_T ? 1'h0 : groupIssued; // @[AecFpWarpUnits.scala 182:22 189:17 129:28]
-  wire  _GEN_10 = _requestBuffer_io_capture_T ? 1'h0 : commitPending; // @[AecFpWarpUnits.scala 182:22 190:19 130:30]
-  wire  _GEN_11 = _requestBuffer_io_capture_T ? |io_req_bits_activeMask : running; // @[AecFpWarpUnits.scala 182:22 191:13 128:24]
-  wire  _GEN_12 = _requestBuffer_io_capture_T ? ~_running_T : outValid; // @[AecFpWarpUnits.scala 182:22 192:14 127:91]
-  wire  _T_131 = ~commitPending; // @[AecFpWarpUnits.scala 195:36]
-  wire  _GEN_16 = _requestStages_0_io_inValid_T_1 & ~commitPending & allReady | _GEN_9; // @[AecFpWarpUnits.scala 195:{64,78}]
-  wire [31:0] _predicates_T = predicates | groupPredicateBits; // @[AecFpWarpUnits.scala 198:30]
-  wire [31:0] _errors_T = errors | groupErrorBits; // @[AecFpWarpUnits.scala 199:22]
-  wire  _GEN_17 = running & groupIssued & _T_131 & allValid | _GEN_10; // @[AecFpWarpUnits.scala 196:63 197:19]
-  wire [34:0] _groupMask_T_2 = 35'h4 - 35'h1; // @[AecFpWarpUnits.scala 203:53]
-  wire [97:0] _GEN_1 = {{63'd0}, _groupMask_T_2}; // @[AecFpWarpUnits.scala 203:60]
-  wire [97:0] _groupMask_T_3 = _GEN_1 << base; // @[AecFpWarpUnits.scala 203:60]
-  wire [31:0] groupMask = _groupMask_T_3[31:0]; // @[AecFpWarpUnits.scala 203:68]
-  wire [31:0] _writeMask_T = requestBuffer_io_out_activeMask & groupMask; // @[AecFpWarpUnits.scala 204:47]
-  wire [31:0] _writeMask_T_1 = writeMask | _writeMask_T; // @[AecFpWarpUnits.scala 204:28]
-  wire [3:0] _group_T_1 = group + 4'h1; // @[AecFpWarpUnits.scala 206:121]
-  wire  _GEN_20 = _resultBanks_30_io_write_T_3 | _GEN_12; // @[AecFpWarpUnits.scala 206:{37,48}]
+  wire  _io_resp_bits_predicateMask_T_1 = writeMask[0] & resultBanks_0_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_3 = writeMask[1] & resultBanks_1_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_5 = writeMask[2] & resultBanks_2_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_7 = writeMask[3] & resultBanks_3_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_9 = writeMask[4] & resultBanks_4_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_11 = writeMask[5] & resultBanks_5_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_13 = writeMask[6] & resultBanks_6_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_15 = writeMask[7] & resultBanks_7_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_17 = writeMask[8] & resultBanks_8_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_19 = writeMask[9] & resultBanks_9_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_21 = writeMask[10] & resultBanks_10_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_23 = writeMask[11] & resultBanks_11_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_25 = writeMask[12] & resultBanks_12_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_27 = writeMask[13] & resultBanks_13_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_29 = writeMask[14] & resultBanks_14_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_31 = writeMask[15] & resultBanks_15_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_33 = writeMask[16] & resultBanks_16_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_35 = writeMask[17] & resultBanks_17_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_37 = writeMask[18] & resultBanks_18_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_39 = writeMask[19] & resultBanks_19_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_41 = writeMask[20] & resultBanks_20_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_43 = writeMask[21] & resultBanks_21_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_45 = writeMask[22] & resultBanks_22_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_47 = writeMask[23] & resultBanks_23_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_49 = writeMask[24] & resultBanks_24_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_51 = writeMask[25] & resultBanks_25_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_53 = writeMask[26] & resultBanks_26_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_55 = writeMask[27] & resultBanks_27_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_57 = writeMask[28] & resultBanks_28_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_59 = writeMask[29] & resultBanks_29_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_61 = writeMask[30] & resultBanks_30_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire  _io_resp_bits_predicateMask_T_63 = writeMask[31] & resultBanks_31_io_predicate; // @[AecFpWarpUnits.scala 143:76]
+  wire [7:0] io_resp_bits_predicateMask_lo_lo = {_io_resp_bits_predicateMask_T_15,_io_resp_bits_predicateMask_T_13,
+    _io_resp_bits_predicateMask_T_11,_io_resp_bits_predicateMask_T_9,_io_resp_bits_predicateMask_T_7,
+    _io_resp_bits_predicateMask_T_5,_io_resp_bits_predicateMask_T_3,_io_resp_bits_predicateMask_T_1}; // @[AecFpWarpUnits.scala 143:109]
+  wire [15:0] io_resp_bits_predicateMask_lo = {_io_resp_bits_predicateMask_T_31,_io_resp_bits_predicateMask_T_29,
+    _io_resp_bits_predicateMask_T_27,_io_resp_bits_predicateMask_T_25,_io_resp_bits_predicateMask_T_23,
+    _io_resp_bits_predicateMask_T_21,_io_resp_bits_predicateMask_T_19,_io_resp_bits_predicateMask_T_17,
+    io_resp_bits_predicateMask_lo_lo}; // @[AecFpWarpUnits.scala 143:109]
+  wire [7:0] io_resp_bits_predicateMask_hi_lo = {_io_resp_bits_predicateMask_T_47,_io_resp_bits_predicateMask_T_45,
+    _io_resp_bits_predicateMask_T_43,_io_resp_bits_predicateMask_T_41,_io_resp_bits_predicateMask_T_39,
+    _io_resp_bits_predicateMask_T_37,_io_resp_bits_predicateMask_T_35,_io_resp_bits_predicateMask_T_33}; // @[AecFpWarpUnits.scala 143:109]
+  wire [15:0] io_resp_bits_predicateMask_hi = {_io_resp_bits_predicateMask_T_63,_io_resp_bits_predicateMask_T_61,
+    _io_resp_bits_predicateMask_T_59,_io_resp_bits_predicateMask_T_57,_io_resp_bits_predicateMask_T_55,
+    _io_resp_bits_predicateMask_T_53,_io_resp_bits_predicateMask_T_51,_io_resp_bits_predicateMask_T_49,
+    io_resp_bits_predicateMask_hi_lo}; // @[AecFpWarpUnits.scala 143:109]
+  wire  _io_resp_bits_errorMask_T_1 = writeMask[0] & resultBanks_0_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_3 = writeMask[1] & resultBanks_1_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_5 = writeMask[2] & resultBanks_2_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_7 = writeMask[3] & resultBanks_3_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_9 = writeMask[4] & resultBanks_4_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_11 = writeMask[5] & resultBanks_5_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_13 = writeMask[6] & resultBanks_6_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_15 = writeMask[7] & resultBanks_7_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_17 = writeMask[8] & resultBanks_8_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_19 = writeMask[9] & resultBanks_9_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_21 = writeMask[10] & resultBanks_10_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_23 = writeMask[11] & resultBanks_11_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_25 = writeMask[12] & resultBanks_12_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_27 = writeMask[13] & resultBanks_13_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_29 = writeMask[14] & resultBanks_14_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_31 = writeMask[15] & resultBanks_15_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_33 = writeMask[16] & resultBanks_16_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_35 = writeMask[17] & resultBanks_17_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_37 = writeMask[18] & resultBanks_18_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_39 = writeMask[19] & resultBanks_19_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_41 = writeMask[20] & resultBanks_20_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_43 = writeMask[21] & resultBanks_21_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_45 = writeMask[22] & resultBanks_22_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_47 = writeMask[23] & resultBanks_23_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_49 = writeMask[24] & resultBanks_24_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_51 = writeMask[25] & resultBanks_25_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_53 = writeMask[26] & resultBanks_26_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_55 = writeMask[27] & resultBanks_27_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_57 = writeMask[28] & resultBanks_28_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_59 = writeMask[29] & resultBanks_29_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_61 = writeMask[30] & resultBanks_30_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire  _io_resp_bits_errorMask_T_63 = writeMask[31] & resultBanks_31_io_error; // @[AecFpWarpUnits.scala 144:72]
+  wire [7:0] io_resp_bits_errorMask_lo_lo = {_io_resp_bits_errorMask_T_15,_io_resp_bits_errorMask_T_13,
+    _io_resp_bits_errorMask_T_11,_io_resp_bits_errorMask_T_9,_io_resp_bits_errorMask_T_7,_io_resp_bits_errorMask_T_5,
+    _io_resp_bits_errorMask_T_3,_io_resp_bits_errorMask_T_1}; // @[AecFpWarpUnits.scala 144:101]
+  wire [15:0] io_resp_bits_errorMask_lo = {_io_resp_bits_errorMask_T_31,_io_resp_bits_errorMask_T_29,
+    _io_resp_bits_errorMask_T_27,_io_resp_bits_errorMask_T_25,_io_resp_bits_errorMask_T_23,_io_resp_bits_errorMask_T_21,
+    _io_resp_bits_errorMask_T_19,_io_resp_bits_errorMask_T_17,io_resp_bits_errorMask_lo_lo}; // @[AecFpWarpUnits.scala 144:101]
+  wire [7:0] io_resp_bits_errorMask_hi_lo = {_io_resp_bits_errorMask_T_47,_io_resp_bits_errorMask_T_45,
+    _io_resp_bits_errorMask_T_43,_io_resp_bits_errorMask_T_41,_io_resp_bits_errorMask_T_39,_io_resp_bits_errorMask_T_37,
+    _io_resp_bits_errorMask_T_35,_io_resp_bits_errorMask_T_33}; // @[AecFpWarpUnits.scala 144:101]
+  wire [15:0] io_resp_bits_errorMask_hi = {_io_resp_bits_errorMask_T_63,_io_resp_bits_errorMask_T_61,
+    _io_resp_bits_errorMask_T_59,_io_resp_bits_errorMask_T_57,_io_resp_bits_errorMask_T_55,_io_resp_bits_errorMask_T_53,
+    _io_resp_bits_errorMask_T_51,_io_resp_bits_errorMask_T_49,io_resp_bits_errorMask_hi_lo}; // @[AecFpWarpUnits.scala 144:101]
+  wire  _requestStages_0_io_inValid_T_1 = running & ~groupIssued; // @[AecFpWarpUnits.scala 148:44]
+  wire  _resultBanks_30_io_write_T_3 = group == 4'hf; // @[AecFpWarpUnits.scala 164:90]
+  wire  _GEN_0 = armPending | capturePending; // @[AecFpWarpUnits.scala 171:21 120:31 171:38]
+  wire [6:0] _laneOp_1_T_1 = io_req_bits_op[6:0] ^ 7'h1; // @[AecFpWarpUnits.scala 174:41]
+  wire [3:0] _laneDtype_1_T = io_req_bits_dtype ^ 4'h1; // @[AecFpWarpUnits.scala 175:41]
+  wire [7:0] _laneDest_1_T = io_req_bits_dest ^ 8'h1; // @[AecFpWarpUnits.scala 176:39]
+  wire  _running_T = |io_req_bits_activeMask; // @[AecFpWarpUnits.scala 181:39]
+  wire  _GEN_9 = _requestBuffer_io_capture_T ? 1'h0 : groupIssued; // @[AecFpWarpUnits.scala 172:22 179:17 123:28]
+  wire  _GEN_10 = _requestBuffer_io_capture_T ? 1'h0 : commitPending; // @[AecFpWarpUnits.scala 172:22 180:19 124:30]
+  wire  _GEN_11 = _requestBuffer_io_capture_T ? |io_req_bits_activeMask : running; // @[AecFpWarpUnits.scala 172:22 181:13 122:24]
+  wire  _GEN_12 = _requestBuffer_io_capture_T ? ~_running_T : outValid; // @[AecFpWarpUnits.scala 172:22 182:14 121:91]
+  wire  _T_131 = ~commitPending; // @[AecFpWarpUnits.scala 185:36]
+  wire  _GEN_14 = _requestStages_0_io_inValid_T_1 & ~commitPending & allReady | _GEN_9; // @[AecFpWarpUnits.scala 185:{64,78}]
+  wire  _GEN_15 = running & groupIssued & _T_131 & allValid | _GEN_10; // @[AecFpWarpUnits.scala 186:63 187:19]
+  wire [34:0] _groupMask_T_2 = 35'h4 - 35'h1; // @[AecFpWarpUnits.scala 191:53]
+  wire [97:0] _GEN_1 = {{63'd0}, _groupMask_T_2}; // @[AecFpWarpUnits.scala 191:60]
+  wire [97:0] _groupMask_T_3 = _GEN_1 << base; // @[AecFpWarpUnits.scala 191:60]
+  wire [31:0] groupMask = _groupMask_T_3[31:0]; // @[AecFpWarpUnits.scala 191:68]
+  wire [31:0] _writeMask_T = requestBuffer_io_out_activeMask & groupMask; // @[AecFpWarpUnits.scala 192:47]
+  wire [31:0] _writeMask_T_1 = writeMask | _writeMask_T; // @[AecFpWarpUnits.scala 192:28]
+  wire [3:0] _group_T_1 = group + 4'h1; // @[AecFpWarpUnits.scala 194:121]
+  wire  _GEN_16 = _resultBanks_30_io_write_T_3 | _GEN_12; // @[AecFpWarpUnits.scala 194:{37,48}]
   wire  _T_139 = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
-  AecFp64PipeUnit pipes_0 ( // @[AecFpWarpUnits.scala 120:45]
+  AecFp64PipeUnit pipes_0 ( // @[AecFpWarpUnits.scala 114:45]
     .clock(pipes_0_clock),
     .reset(pipes_0_reset),
     .io_req_ready(pipes_0_io_req_ready),
@@ -15555,7 +14568,7 @@ module AecFp64Unit(
     .io_resp_bits_error(pipes_0_io_resp_bits_error),
     .io_resp_bits_exception_flags(pipes_0_io_resp_bits_exception_flags)
   );
-  AecFp64PipeUnit pipes_1 ( // @[AecFpWarpUnits.scala 120:45]
+  AecFp64PipeUnit pipes_1 ( // @[AecFpWarpUnits.scala 114:45]
     .clock(pipes_1_clock),
     .reset(pipes_1_reset),
     .io_req_ready(pipes_1_io_req_ready),
@@ -15572,7 +14585,7 @@ module AecFp64Unit(
     .io_resp_bits_error(pipes_1_io_resp_bits_error),
     .io_resp_bits_exception_flags(pipes_1_io_resp_bits_exception_flags)
   );
-  AecFpWarpRequestStage requestStages_0 ( // @[AecFpWarpUnits.scala 122:53]
+  AecFpWarpRequestStage requestStages_0 ( // @[AecFpWarpUnits.scala 116:53]
     .clock(requestStages_0_clock),
     .reset(requestStages_0_reset),
     .io_inValid(requestStages_0_io_inValid),
@@ -15666,7 +14679,7 @@ module AecFp64Unit(
     .io_out_bits_b(requestStages_0_io_out_bits_b),
     .io_out_bits_c(requestStages_0_io_out_bits_c)
   );
-  AecFpWarpRequestStage requestStages_1 ( // @[AecFpWarpUnits.scala 122:53]
+  AecFpWarpRequestStage requestStages_1 ( // @[AecFpWarpUnits.scala 116:53]
     .clock(requestStages_1_clock),
     .reset(requestStages_1_reset),
     .io_inValid(requestStages_1_io_inValid),
@@ -15760,7 +14773,7 @@ module AecFp64Unit(
     .io_out_bits_b(requestStages_1_io_out_bits_b),
     .io_out_bits_c(requestStages_1_io_out_bits_c)
   );
-  AecWarpRequestBuffer requestBuffer ( // @[AecFpWarpUnits.scala 123:29]
+  AecWarpRequestBuffer requestBuffer ( // @[AecFpWarpUnits.scala 117:29]
     .clock(requestBuffer_clock),
     .reset(requestBuffer_reset),
     .io_in_activeMask(requestBuffer_io_in_activeMask),
@@ -15861,7 +14874,14 @@ module AecFp64Unit(
     .io_in_c_30(requestBuffer_io_in_c_30),
     .io_in_c_31(requestBuffer_io_in_c_31),
     .io_in_dest(requestBuffer_io_in_dest),
-    .io_arm(requestBuffer_io_arm),
+    .io_arm_0(requestBuffer_io_arm_0),
+    .io_arm_1(requestBuffer_io_arm_1),
+    .io_arm_2(requestBuffer_io_arm_2),
+    .io_arm_3(requestBuffer_io_arm_3),
+    .io_arm_4(requestBuffer_io_arm_4),
+    .io_arm_5(requestBuffer_io_arm_5),
+    .io_arm_6(requestBuffer_io_arm_6),
+    .io_arm_7(requestBuffer_io_arm_7),
     .io_capture(requestBuffer_io_capture),
     .io_out_activeMask(requestBuffer_io_out_activeMask),
     .io_out_a_0(requestBuffer_io_out_a_0),
@@ -15962,907 +14982,1137 @@ module AecFp64Unit(
     .io_out_c_31(requestBuffer_io_out_c_31),
     .io_out_dest(requestBuffer_io_out_dest)
   );
-  AecResultLaneBank resultBanks_0 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_0 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_0_clock),
     .reset(resultBanks_0_reset),
     .io_write(resultBanks_0_io_write),
     .io_writeResult(resultBanks_0_io_writeResult),
     .io_writeFlags(resultBanks_0_io_writeFlags),
+    .io_writePredicate(resultBanks_0_io_writePredicate),
+    .io_writeError(resultBanks_0_io_writeError),
     .io_result(resultBanks_0_io_result),
-    .io_flags(resultBanks_0_io_flags)
+    .io_flags(resultBanks_0_io_flags),
+    .io_predicate(resultBanks_0_io_predicate),
+    .io_error(resultBanks_0_io_error)
   );
-  AecResultLaneBank resultBanks_1 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_1 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_1_clock),
     .reset(resultBanks_1_reset),
     .io_write(resultBanks_1_io_write),
     .io_writeResult(resultBanks_1_io_writeResult),
     .io_writeFlags(resultBanks_1_io_writeFlags),
+    .io_writePredicate(resultBanks_1_io_writePredicate),
+    .io_writeError(resultBanks_1_io_writeError),
     .io_result(resultBanks_1_io_result),
-    .io_flags(resultBanks_1_io_flags)
+    .io_flags(resultBanks_1_io_flags),
+    .io_predicate(resultBanks_1_io_predicate),
+    .io_error(resultBanks_1_io_error)
   );
-  AecResultLaneBank resultBanks_2 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_2 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_2_clock),
     .reset(resultBanks_2_reset),
     .io_write(resultBanks_2_io_write),
     .io_writeResult(resultBanks_2_io_writeResult),
     .io_writeFlags(resultBanks_2_io_writeFlags),
+    .io_writePredicate(resultBanks_2_io_writePredicate),
+    .io_writeError(resultBanks_2_io_writeError),
     .io_result(resultBanks_2_io_result),
-    .io_flags(resultBanks_2_io_flags)
+    .io_flags(resultBanks_2_io_flags),
+    .io_predicate(resultBanks_2_io_predicate),
+    .io_error(resultBanks_2_io_error)
   );
-  AecResultLaneBank resultBanks_3 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_3 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_3_clock),
     .reset(resultBanks_3_reset),
     .io_write(resultBanks_3_io_write),
     .io_writeResult(resultBanks_3_io_writeResult),
     .io_writeFlags(resultBanks_3_io_writeFlags),
+    .io_writePredicate(resultBanks_3_io_writePredicate),
+    .io_writeError(resultBanks_3_io_writeError),
     .io_result(resultBanks_3_io_result),
-    .io_flags(resultBanks_3_io_flags)
+    .io_flags(resultBanks_3_io_flags),
+    .io_predicate(resultBanks_3_io_predicate),
+    .io_error(resultBanks_3_io_error)
   );
-  AecResultLaneBank resultBanks_4 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_4 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_4_clock),
     .reset(resultBanks_4_reset),
     .io_write(resultBanks_4_io_write),
     .io_writeResult(resultBanks_4_io_writeResult),
     .io_writeFlags(resultBanks_4_io_writeFlags),
+    .io_writePredicate(resultBanks_4_io_writePredicate),
+    .io_writeError(resultBanks_4_io_writeError),
     .io_result(resultBanks_4_io_result),
-    .io_flags(resultBanks_4_io_flags)
+    .io_flags(resultBanks_4_io_flags),
+    .io_predicate(resultBanks_4_io_predicate),
+    .io_error(resultBanks_4_io_error)
   );
-  AecResultLaneBank resultBanks_5 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_5 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_5_clock),
     .reset(resultBanks_5_reset),
     .io_write(resultBanks_5_io_write),
     .io_writeResult(resultBanks_5_io_writeResult),
     .io_writeFlags(resultBanks_5_io_writeFlags),
+    .io_writePredicate(resultBanks_5_io_writePredicate),
+    .io_writeError(resultBanks_5_io_writeError),
     .io_result(resultBanks_5_io_result),
-    .io_flags(resultBanks_5_io_flags)
+    .io_flags(resultBanks_5_io_flags),
+    .io_predicate(resultBanks_5_io_predicate),
+    .io_error(resultBanks_5_io_error)
   );
-  AecResultLaneBank resultBanks_6 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_6 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_6_clock),
     .reset(resultBanks_6_reset),
     .io_write(resultBanks_6_io_write),
     .io_writeResult(resultBanks_6_io_writeResult),
     .io_writeFlags(resultBanks_6_io_writeFlags),
+    .io_writePredicate(resultBanks_6_io_writePredicate),
+    .io_writeError(resultBanks_6_io_writeError),
     .io_result(resultBanks_6_io_result),
-    .io_flags(resultBanks_6_io_flags)
+    .io_flags(resultBanks_6_io_flags),
+    .io_predicate(resultBanks_6_io_predicate),
+    .io_error(resultBanks_6_io_error)
   );
-  AecResultLaneBank resultBanks_7 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_7 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_7_clock),
     .reset(resultBanks_7_reset),
     .io_write(resultBanks_7_io_write),
     .io_writeResult(resultBanks_7_io_writeResult),
     .io_writeFlags(resultBanks_7_io_writeFlags),
+    .io_writePredicate(resultBanks_7_io_writePredicate),
+    .io_writeError(resultBanks_7_io_writeError),
     .io_result(resultBanks_7_io_result),
-    .io_flags(resultBanks_7_io_flags)
+    .io_flags(resultBanks_7_io_flags),
+    .io_predicate(resultBanks_7_io_predicate),
+    .io_error(resultBanks_7_io_error)
   );
-  AecResultLaneBank resultBanks_8 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_8 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_8_clock),
     .reset(resultBanks_8_reset),
     .io_write(resultBanks_8_io_write),
     .io_writeResult(resultBanks_8_io_writeResult),
     .io_writeFlags(resultBanks_8_io_writeFlags),
+    .io_writePredicate(resultBanks_8_io_writePredicate),
+    .io_writeError(resultBanks_8_io_writeError),
     .io_result(resultBanks_8_io_result),
-    .io_flags(resultBanks_8_io_flags)
+    .io_flags(resultBanks_8_io_flags),
+    .io_predicate(resultBanks_8_io_predicate),
+    .io_error(resultBanks_8_io_error)
   );
-  AecResultLaneBank resultBanks_9 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_9 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_9_clock),
     .reset(resultBanks_9_reset),
     .io_write(resultBanks_9_io_write),
     .io_writeResult(resultBanks_9_io_writeResult),
     .io_writeFlags(resultBanks_9_io_writeFlags),
+    .io_writePredicate(resultBanks_9_io_writePredicate),
+    .io_writeError(resultBanks_9_io_writeError),
     .io_result(resultBanks_9_io_result),
-    .io_flags(resultBanks_9_io_flags)
+    .io_flags(resultBanks_9_io_flags),
+    .io_predicate(resultBanks_9_io_predicate),
+    .io_error(resultBanks_9_io_error)
   );
-  AecResultLaneBank resultBanks_10 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_10 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_10_clock),
     .reset(resultBanks_10_reset),
     .io_write(resultBanks_10_io_write),
     .io_writeResult(resultBanks_10_io_writeResult),
     .io_writeFlags(resultBanks_10_io_writeFlags),
+    .io_writePredicate(resultBanks_10_io_writePredicate),
+    .io_writeError(resultBanks_10_io_writeError),
     .io_result(resultBanks_10_io_result),
-    .io_flags(resultBanks_10_io_flags)
+    .io_flags(resultBanks_10_io_flags),
+    .io_predicate(resultBanks_10_io_predicate),
+    .io_error(resultBanks_10_io_error)
   );
-  AecResultLaneBank resultBanks_11 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_11 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_11_clock),
     .reset(resultBanks_11_reset),
     .io_write(resultBanks_11_io_write),
     .io_writeResult(resultBanks_11_io_writeResult),
     .io_writeFlags(resultBanks_11_io_writeFlags),
+    .io_writePredicate(resultBanks_11_io_writePredicate),
+    .io_writeError(resultBanks_11_io_writeError),
     .io_result(resultBanks_11_io_result),
-    .io_flags(resultBanks_11_io_flags)
+    .io_flags(resultBanks_11_io_flags),
+    .io_predicate(resultBanks_11_io_predicate),
+    .io_error(resultBanks_11_io_error)
   );
-  AecResultLaneBank resultBanks_12 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_12 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_12_clock),
     .reset(resultBanks_12_reset),
     .io_write(resultBanks_12_io_write),
     .io_writeResult(resultBanks_12_io_writeResult),
     .io_writeFlags(resultBanks_12_io_writeFlags),
+    .io_writePredicate(resultBanks_12_io_writePredicate),
+    .io_writeError(resultBanks_12_io_writeError),
     .io_result(resultBanks_12_io_result),
-    .io_flags(resultBanks_12_io_flags)
+    .io_flags(resultBanks_12_io_flags),
+    .io_predicate(resultBanks_12_io_predicate),
+    .io_error(resultBanks_12_io_error)
   );
-  AecResultLaneBank resultBanks_13 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_13 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_13_clock),
     .reset(resultBanks_13_reset),
     .io_write(resultBanks_13_io_write),
     .io_writeResult(resultBanks_13_io_writeResult),
     .io_writeFlags(resultBanks_13_io_writeFlags),
+    .io_writePredicate(resultBanks_13_io_writePredicate),
+    .io_writeError(resultBanks_13_io_writeError),
     .io_result(resultBanks_13_io_result),
-    .io_flags(resultBanks_13_io_flags)
+    .io_flags(resultBanks_13_io_flags),
+    .io_predicate(resultBanks_13_io_predicate),
+    .io_error(resultBanks_13_io_error)
   );
-  AecResultLaneBank resultBanks_14 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_14 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_14_clock),
     .reset(resultBanks_14_reset),
     .io_write(resultBanks_14_io_write),
     .io_writeResult(resultBanks_14_io_writeResult),
     .io_writeFlags(resultBanks_14_io_writeFlags),
+    .io_writePredicate(resultBanks_14_io_writePredicate),
+    .io_writeError(resultBanks_14_io_writeError),
     .io_result(resultBanks_14_io_result),
-    .io_flags(resultBanks_14_io_flags)
+    .io_flags(resultBanks_14_io_flags),
+    .io_predicate(resultBanks_14_io_predicate),
+    .io_error(resultBanks_14_io_error)
   );
-  AecResultLaneBank resultBanks_15 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_15 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_15_clock),
     .reset(resultBanks_15_reset),
     .io_write(resultBanks_15_io_write),
     .io_writeResult(resultBanks_15_io_writeResult),
     .io_writeFlags(resultBanks_15_io_writeFlags),
+    .io_writePredicate(resultBanks_15_io_writePredicate),
+    .io_writeError(resultBanks_15_io_writeError),
     .io_result(resultBanks_15_io_result),
-    .io_flags(resultBanks_15_io_flags)
+    .io_flags(resultBanks_15_io_flags),
+    .io_predicate(resultBanks_15_io_predicate),
+    .io_error(resultBanks_15_io_error)
   );
-  AecResultLaneBank resultBanks_16 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_16 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_16_clock),
     .reset(resultBanks_16_reset),
     .io_write(resultBanks_16_io_write),
     .io_writeResult(resultBanks_16_io_writeResult),
     .io_writeFlags(resultBanks_16_io_writeFlags),
+    .io_writePredicate(resultBanks_16_io_writePredicate),
+    .io_writeError(resultBanks_16_io_writeError),
     .io_result(resultBanks_16_io_result),
-    .io_flags(resultBanks_16_io_flags)
+    .io_flags(resultBanks_16_io_flags),
+    .io_predicate(resultBanks_16_io_predicate),
+    .io_error(resultBanks_16_io_error)
   );
-  AecResultLaneBank resultBanks_17 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_17 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_17_clock),
     .reset(resultBanks_17_reset),
     .io_write(resultBanks_17_io_write),
     .io_writeResult(resultBanks_17_io_writeResult),
     .io_writeFlags(resultBanks_17_io_writeFlags),
+    .io_writePredicate(resultBanks_17_io_writePredicate),
+    .io_writeError(resultBanks_17_io_writeError),
     .io_result(resultBanks_17_io_result),
-    .io_flags(resultBanks_17_io_flags)
+    .io_flags(resultBanks_17_io_flags),
+    .io_predicate(resultBanks_17_io_predicate),
+    .io_error(resultBanks_17_io_error)
   );
-  AecResultLaneBank resultBanks_18 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_18 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_18_clock),
     .reset(resultBanks_18_reset),
     .io_write(resultBanks_18_io_write),
     .io_writeResult(resultBanks_18_io_writeResult),
     .io_writeFlags(resultBanks_18_io_writeFlags),
+    .io_writePredicate(resultBanks_18_io_writePredicate),
+    .io_writeError(resultBanks_18_io_writeError),
     .io_result(resultBanks_18_io_result),
-    .io_flags(resultBanks_18_io_flags)
+    .io_flags(resultBanks_18_io_flags),
+    .io_predicate(resultBanks_18_io_predicate),
+    .io_error(resultBanks_18_io_error)
   );
-  AecResultLaneBank resultBanks_19 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_19 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_19_clock),
     .reset(resultBanks_19_reset),
     .io_write(resultBanks_19_io_write),
     .io_writeResult(resultBanks_19_io_writeResult),
     .io_writeFlags(resultBanks_19_io_writeFlags),
+    .io_writePredicate(resultBanks_19_io_writePredicate),
+    .io_writeError(resultBanks_19_io_writeError),
     .io_result(resultBanks_19_io_result),
-    .io_flags(resultBanks_19_io_flags)
+    .io_flags(resultBanks_19_io_flags),
+    .io_predicate(resultBanks_19_io_predicate),
+    .io_error(resultBanks_19_io_error)
   );
-  AecResultLaneBank resultBanks_20 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_20 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_20_clock),
     .reset(resultBanks_20_reset),
     .io_write(resultBanks_20_io_write),
     .io_writeResult(resultBanks_20_io_writeResult),
     .io_writeFlags(resultBanks_20_io_writeFlags),
+    .io_writePredicate(resultBanks_20_io_writePredicate),
+    .io_writeError(resultBanks_20_io_writeError),
     .io_result(resultBanks_20_io_result),
-    .io_flags(resultBanks_20_io_flags)
+    .io_flags(resultBanks_20_io_flags),
+    .io_predicate(resultBanks_20_io_predicate),
+    .io_error(resultBanks_20_io_error)
   );
-  AecResultLaneBank resultBanks_21 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_21 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_21_clock),
     .reset(resultBanks_21_reset),
     .io_write(resultBanks_21_io_write),
     .io_writeResult(resultBanks_21_io_writeResult),
     .io_writeFlags(resultBanks_21_io_writeFlags),
+    .io_writePredicate(resultBanks_21_io_writePredicate),
+    .io_writeError(resultBanks_21_io_writeError),
     .io_result(resultBanks_21_io_result),
-    .io_flags(resultBanks_21_io_flags)
+    .io_flags(resultBanks_21_io_flags),
+    .io_predicate(resultBanks_21_io_predicate),
+    .io_error(resultBanks_21_io_error)
   );
-  AecResultLaneBank resultBanks_22 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_22 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_22_clock),
     .reset(resultBanks_22_reset),
     .io_write(resultBanks_22_io_write),
     .io_writeResult(resultBanks_22_io_writeResult),
     .io_writeFlags(resultBanks_22_io_writeFlags),
+    .io_writePredicate(resultBanks_22_io_writePredicate),
+    .io_writeError(resultBanks_22_io_writeError),
     .io_result(resultBanks_22_io_result),
-    .io_flags(resultBanks_22_io_flags)
+    .io_flags(resultBanks_22_io_flags),
+    .io_predicate(resultBanks_22_io_predicate),
+    .io_error(resultBanks_22_io_error)
   );
-  AecResultLaneBank resultBanks_23 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_23 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_23_clock),
     .reset(resultBanks_23_reset),
     .io_write(resultBanks_23_io_write),
     .io_writeResult(resultBanks_23_io_writeResult),
     .io_writeFlags(resultBanks_23_io_writeFlags),
+    .io_writePredicate(resultBanks_23_io_writePredicate),
+    .io_writeError(resultBanks_23_io_writeError),
     .io_result(resultBanks_23_io_result),
-    .io_flags(resultBanks_23_io_flags)
+    .io_flags(resultBanks_23_io_flags),
+    .io_predicate(resultBanks_23_io_predicate),
+    .io_error(resultBanks_23_io_error)
   );
-  AecResultLaneBank resultBanks_24 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_24 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_24_clock),
     .reset(resultBanks_24_reset),
     .io_write(resultBanks_24_io_write),
     .io_writeResult(resultBanks_24_io_writeResult),
     .io_writeFlags(resultBanks_24_io_writeFlags),
+    .io_writePredicate(resultBanks_24_io_writePredicate),
+    .io_writeError(resultBanks_24_io_writeError),
     .io_result(resultBanks_24_io_result),
-    .io_flags(resultBanks_24_io_flags)
+    .io_flags(resultBanks_24_io_flags),
+    .io_predicate(resultBanks_24_io_predicate),
+    .io_error(resultBanks_24_io_error)
   );
-  AecResultLaneBank resultBanks_25 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_25 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_25_clock),
     .reset(resultBanks_25_reset),
     .io_write(resultBanks_25_io_write),
     .io_writeResult(resultBanks_25_io_writeResult),
     .io_writeFlags(resultBanks_25_io_writeFlags),
+    .io_writePredicate(resultBanks_25_io_writePredicate),
+    .io_writeError(resultBanks_25_io_writeError),
     .io_result(resultBanks_25_io_result),
-    .io_flags(resultBanks_25_io_flags)
+    .io_flags(resultBanks_25_io_flags),
+    .io_predicate(resultBanks_25_io_predicate),
+    .io_error(resultBanks_25_io_error)
   );
-  AecResultLaneBank resultBanks_26 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_26 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_26_clock),
     .reset(resultBanks_26_reset),
     .io_write(resultBanks_26_io_write),
     .io_writeResult(resultBanks_26_io_writeResult),
     .io_writeFlags(resultBanks_26_io_writeFlags),
+    .io_writePredicate(resultBanks_26_io_writePredicate),
+    .io_writeError(resultBanks_26_io_writeError),
     .io_result(resultBanks_26_io_result),
-    .io_flags(resultBanks_26_io_flags)
+    .io_flags(resultBanks_26_io_flags),
+    .io_predicate(resultBanks_26_io_predicate),
+    .io_error(resultBanks_26_io_error)
   );
-  AecResultLaneBank resultBanks_27 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_27 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_27_clock),
     .reset(resultBanks_27_reset),
     .io_write(resultBanks_27_io_write),
     .io_writeResult(resultBanks_27_io_writeResult),
     .io_writeFlags(resultBanks_27_io_writeFlags),
+    .io_writePredicate(resultBanks_27_io_writePredicate),
+    .io_writeError(resultBanks_27_io_writeError),
     .io_result(resultBanks_27_io_result),
-    .io_flags(resultBanks_27_io_flags)
+    .io_flags(resultBanks_27_io_flags),
+    .io_predicate(resultBanks_27_io_predicate),
+    .io_error(resultBanks_27_io_error)
   );
-  AecResultLaneBank resultBanks_28 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_28 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_28_clock),
     .reset(resultBanks_28_reset),
     .io_write(resultBanks_28_io_write),
     .io_writeResult(resultBanks_28_io_writeResult),
     .io_writeFlags(resultBanks_28_io_writeFlags),
+    .io_writePredicate(resultBanks_28_io_writePredicate),
+    .io_writeError(resultBanks_28_io_writeError),
     .io_result(resultBanks_28_io_result),
-    .io_flags(resultBanks_28_io_flags)
+    .io_flags(resultBanks_28_io_flags),
+    .io_predicate(resultBanks_28_io_predicate),
+    .io_error(resultBanks_28_io_error)
   );
-  AecResultLaneBank resultBanks_29 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_29 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_29_clock),
     .reset(resultBanks_29_reset),
     .io_write(resultBanks_29_io_write),
     .io_writeResult(resultBanks_29_io_writeResult),
     .io_writeFlags(resultBanks_29_io_writeFlags),
+    .io_writePredicate(resultBanks_29_io_writePredicate),
+    .io_writeError(resultBanks_29_io_writeError),
     .io_result(resultBanks_29_io_result),
-    .io_flags(resultBanks_29_io_flags)
+    .io_flags(resultBanks_29_io_flags),
+    .io_predicate(resultBanks_29_io_predicate),
+    .io_error(resultBanks_29_io_error)
   );
-  AecResultLaneBank resultBanks_30 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_30 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_30_clock),
     .reset(resultBanks_30_reset),
     .io_write(resultBanks_30_io_write),
     .io_writeResult(resultBanks_30_io_writeResult),
     .io_writeFlags(resultBanks_30_io_writeFlags),
+    .io_writePredicate(resultBanks_30_io_writePredicate),
+    .io_writeError(resultBanks_30_io_writeError),
     .io_result(resultBanks_30_io_result),
-    .io_flags(resultBanks_30_io_flags)
+    .io_flags(resultBanks_30_io_flags),
+    .io_predicate(resultBanks_30_io_predicate),
+    .io_error(resultBanks_30_io_error)
   );
-  AecResultLaneBank resultBanks_31 ( // @[AecFpWarpUnits.scala 131:40]
+  AecResultLaneBank resultBanks_31 ( // @[AecFpWarpUnits.scala 125:40]
     .clock(resultBanks_31_clock),
     .reset(resultBanks_31_reset),
     .io_write(resultBanks_31_io_write),
     .io_writeResult(resultBanks_31_io_writeResult),
     .io_writeFlags(resultBanks_31_io_writeFlags),
+    .io_writePredicate(resultBanks_31_io_writePredicate),
+    .io_writeError(resultBanks_31_io_writeError),
     .io_result(resultBanks_31_io_result),
-    .io_flags(resultBanks_31_io_flags)
+    .io_flags(resultBanks_31_io_flags),
+    .io_predicate(resultBanks_31_io_predicate),
+    .io_error(resultBanks_31_io_error)
   );
-  assign io_req_ready = capturePending; // @[AecFpWarpUnits.scala 143:16]
-  assign io_resp_valid = outValid; // @[AecFpWarpUnits.scala 144:17]
-  assign io_resp_bits_result_0 = writeMask[0] ? resultBanks_0_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_1 = writeMask[1] ? resultBanks_1_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_2 = writeMask[2] ? resultBanks_2_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_3 = writeMask[3] ? resultBanks_3_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_4 = writeMask[4] ? resultBanks_4_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_5 = writeMask[5] ? resultBanks_5_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_6 = writeMask[6] ? resultBanks_6_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_7 = writeMask[7] ? resultBanks_7_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_8 = writeMask[8] ? resultBanks_8_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_9 = writeMask[9] ? resultBanks_9_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_10 = writeMask[10] ? resultBanks_10_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_11 = writeMask[11] ? resultBanks_11_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_12 = writeMask[12] ? resultBanks_12_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_13 = writeMask[13] ? resultBanks_13_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_14 = writeMask[14] ? resultBanks_14_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_15 = writeMask[15] ? resultBanks_15_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_16 = writeMask[16] ? resultBanks_16_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_17 = writeMask[17] ? resultBanks_17_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_18 = writeMask[18] ? resultBanks_18_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_19 = writeMask[19] ? resultBanks_19_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_20 = writeMask[20] ? resultBanks_20_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_21 = writeMask[21] ? resultBanks_21_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_22 = writeMask[22] ? resultBanks_22_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_23 = writeMask[23] ? resultBanks_23_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_24 = writeMask[24] ? resultBanks_24_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_25 = writeMask[25] ? resultBanks_25_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_26 = writeMask[26] ? resultBanks_26_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_27 = writeMask[27] ? resultBanks_27_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_28 = writeMask[28] ? resultBanks_28_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_29 = writeMask[29] ? resultBanks_29_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_30 = writeMask[30] ? resultBanks_30_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_result_31 = writeMask[31] ? resultBanks_31_io_result : 64'h0; // @[AecFpWarpUnits.scala 145:59]
-  assign io_resp_bits_predicateMask = predicates; // @[AecFpWarpUnits.scala 146:30]
-  assign io_resp_bits_errorMask = errors; // @[AecFpWarpUnits.scala 147:26]
-  assign io_resp_bits_exceptionFlags_0 = writeMask[0] ? resultBanks_0_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_1 = writeMask[1] ? resultBanks_1_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_2 = writeMask[2] ? resultBanks_2_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_3 = writeMask[3] ? resultBanks_3_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_4 = writeMask[4] ? resultBanks_4_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_5 = writeMask[5] ? resultBanks_5_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_6 = writeMask[6] ? resultBanks_6_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_7 = writeMask[7] ? resultBanks_7_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_8 = writeMask[8] ? resultBanks_8_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_9 = writeMask[9] ? resultBanks_9_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_10 = writeMask[10] ? resultBanks_10_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_11 = writeMask[11] ? resultBanks_11_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_12 = writeMask[12] ? resultBanks_12_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_13 = writeMask[13] ? resultBanks_13_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_14 = writeMask[14] ? resultBanks_14_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_15 = writeMask[15] ? resultBanks_15_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_16 = writeMask[16] ? resultBanks_16_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_17 = writeMask[17] ? resultBanks_17_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_18 = writeMask[18] ? resultBanks_18_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_19 = writeMask[19] ? resultBanks_19_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_20 = writeMask[20] ? resultBanks_20_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_21 = writeMask[21] ? resultBanks_21_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_22 = writeMask[22] ? resultBanks_22_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_23 = writeMask[23] ? resultBanks_23_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_24 = writeMask[24] ? resultBanks_24_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_25 = writeMask[25] ? resultBanks_25_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_26 = writeMask[26] ? resultBanks_26_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_27 = writeMask[27] ? resultBanks_27_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_28 = writeMask[28] ? resultBanks_28_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_29 = writeMask[29] ? resultBanks_29_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_30 = writeMask[30] ? resultBanks_30_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_exceptionFlags_31 = writeMask[31] ? resultBanks_31_io_flags : 5'h0; // @[AecFpWarpUnits.scala 148:67]
-  assign io_resp_bits_activeMask = requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 149:27]
-  assign io_resp_bits_dest = requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 149:65]
+  assign io_req_ready = capturePending; // @[AecFpWarpUnits.scala 140:16]
+  assign io_resp_valid = outValid; // @[AecFpWarpUnits.scala 141:17]
+  assign io_resp_bits_result_0 = writeMask[0] ? resultBanks_0_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_1 = writeMask[1] ? resultBanks_1_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_2 = writeMask[2] ? resultBanks_2_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_3 = writeMask[3] ? resultBanks_3_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_4 = writeMask[4] ? resultBanks_4_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_5 = writeMask[5] ? resultBanks_5_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_6 = writeMask[6] ? resultBanks_6_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_7 = writeMask[7] ? resultBanks_7_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_8 = writeMask[8] ? resultBanks_8_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_9 = writeMask[9] ? resultBanks_9_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_10 = writeMask[10] ? resultBanks_10_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_11 = writeMask[11] ? resultBanks_11_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_12 = writeMask[12] ? resultBanks_12_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_13 = writeMask[13] ? resultBanks_13_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_14 = writeMask[14] ? resultBanks_14_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_15 = writeMask[15] ? resultBanks_15_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_16 = writeMask[16] ? resultBanks_16_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_17 = writeMask[17] ? resultBanks_17_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_18 = writeMask[18] ? resultBanks_18_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_19 = writeMask[19] ? resultBanks_19_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_20 = writeMask[20] ? resultBanks_20_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_21 = writeMask[21] ? resultBanks_21_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_22 = writeMask[22] ? resultBanks_22_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_23 = writeMask[23] ? resultBanks_23_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_24 = writeMask[24] ? resultBanks_24_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_25 = writeMask[25] ? resultBanks_25_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_26 = writeMask[26] ? resultBanks_26_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_27 = writeMask[27] ? resultBanks_27_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_28 = writeMask[28] ? resultBanks_28_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_29 = writeMask[29] ? resultBanks_29_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_30 = writeMask[30] ? resultBanks_30_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_result_31 = writeMask[31] ? resultBanks_31_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
+  assign io_resp_bits_predicateMask = {io_resp_bits_predicateMask_hi,io_resp_bits_predicateMask_lo}; // @[AecFpWarpUnits.scala 143:109]
+  assign io_resp_bits_errorMask = {io_resp_bits_errorMask_hi,io_resp_bits_errorMask_lo}; // @[AecFpWarpUnits.scala 144:101]
+  assign io_resp_bits_exceptionFlags_0 = writeMask[0] ? resultBanks_0_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_1 = writeMask[1] ? resultBanks_1_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_2 = writeMask[2] ? resultBanks_2_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_3 = writeMask[3] ? resultBanks_3_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_4 = writeMask[4] ? resultBanks_4_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_5 = writeMask[5] ? resultBanks_5_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_6 = writeMask[6] ? resultBanks_6_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_7 = writeMask[7] ? resultBanks_7_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_8 = writeMask[8] ? resultBanks_8_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_9 = writeMask[9] ? resultBanks_9_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_10 = writeMask[10] ? resultBanks_10_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_11 = writeMask[11] ? resultBanks_11_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_12 = writeMask[12] ? resultBanks_12_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_13 = writeMask[13] ? resultBanks_13_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_14 = writeMask[14] ? resultBanks_14_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_15 = writeMask[15] ? resultBanks_15_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_16 = writeMask[16] ? resultBanks_16_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_17 = writeMask[17] ? resultBanks_17_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_18 = writeMask[18] ? resultBanks_18_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_19 = writeMask[19] ? resultBanks_19_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_20 = writeMask[20] ? resultBanks_20_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_21 = writeMask[21] ? resultBanks_21_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_22 = writeMask[22] ? resultBanks_22_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_23 = writeMask[23] ? resultBanks_23_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_24 = writeMask[24] ? resultBanks_24_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_25 = writeMask[25] ? resultBanks_25_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_26 = writeMask[26] ? resultBanks_26_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_27 = writeMask[27] ? resultBanks_27_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_28 = writeMask[28] ? resultBanks_28_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_29 = writeMask[29] ? resultBanks_29_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_30 = writeMask[30] ? resultBanks_30_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_exceptionFlags_31 = writeMask[31] ? resultBanks_31_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
+  assign io_resp_bits_activeMask = requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 146:27]
+  assign io_resp_bits_dest = requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 146:65]
   assign pipes_0_clock = clock;
   assign pipes_0_reset = reset;
-  assign pipes_0_io_req_valid = requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_0_io_req_bits_op = requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_0_io_req_bits_dtype = requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_0_io_req_bits_a = requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_0_io_req_bits_b = requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_0_io_req_bits_c = requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_0_io_resp_ready = _armCapture_T_3 & allValid; // @[AecFpWarpUnits.scala 163:41]
+  assign pipes_0_io_req_valid = requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_0_io_req_bits_op = requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_0_io_req_bits_dtype = requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_0_io_req_bits_a = requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_0_io_req_bits_b = requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_0_io_req_bits_c = requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_0_io_resp_ready = _armCapture_T_5 & allValid; // @[AecFpWarpUnits.scala 160:41]
   assign pipes_1_clock = clock;
   assign pipes_1_reset = reset;
-  assign pipes_1_io_req_valid = requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_1_io_req_bits_op = requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_1_io_req_bits_dtype = requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_1_io_req_bits_a = requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_1_io_req_bits_b = requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_1_io_req_bits_c = requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 162:21]
-  assign pipes_1_io_resp_ready = _armCapture_T_3 & allValid; // @[AecFpWarpUnits.scala 163:41]
+  assign pipes_1_io_req_valid = requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_1_io_req_bits_op = requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_1_io_req_bits_dtype = requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_1_io_req_bits_a = requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_1_io_req_bits_b = requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_1_io_req_bits_c = requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 159:21]
+  assign pipes_1_io_resp_ready = _armCapture_T_5 & allValid; // @[AecFpWarpUnits.scala 160:41]
   assign requestStages_0_clock = clock;
   assign requestStages_0_reset = reset;
-  assign requestStages_0_io_inValid = running & ~groupIssued & |requestBuffer_io_out_activeMask & _armCapture_T_3 &
-    allReady; // @[AecFpWarpUnits.scala 151:116]
-  assign requestStages_0_io_group = group; // @[AecFpWarpUnits.scala 152:31]
-  assign requestStages_0_io_data_0_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_0_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_0_a = requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_0_b = requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_0_c = requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_1_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_1_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_1_a = requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_1_b = requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_1_c = requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_2_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_2_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_2_a = requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_2_b = requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_2_c = requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_3_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_3_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_3_a = requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_3_b = requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_3_c = requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_4_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_4_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_4_a = requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_4_b = requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_4_c = requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_5_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_5_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_5_a = requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_5_b = requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_5_c = requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_6_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_6_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_6_a = requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_6_b = requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_6_c = requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_7_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_7_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_7_a = requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_7_b = requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_7_c = requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_8_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_8_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_8_a = requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_8_b = requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_8_c = requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_9_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_9_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_9_a = requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_9_b = requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_9_c = requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_10_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_10_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_10_a = requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_10_b = requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_10_c = requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_11_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_11_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_11_a = requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_11_b = requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_11_c = requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_12_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_12_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_12_a = requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_12_b = requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_12_c = requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_13_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_13_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_13_a = requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_13_b = requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_13_c = requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_14_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_14_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_14_a = requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_14_b = requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_14_c = requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_data_15_op = laneOp_0; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_0_io_data_15_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_0_io_data_15_a = requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_0_io_data_15_b = requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_0_io_data_15_c = requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_0_io_out_ready = pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 162:21]
+  assign requestStages_0_io_inValid = running & ~groupIssued & |requestBuffer_io_out_activeMask & _armCapture_T_5 &
+    allReady; // @[AecFpWarpUnits.scala 148:116]
+  assign requestStages_0_io_group = group; // @[AecFpWarpUnits.scala 149:31]
+  assign requestStages_0_io_data_0_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_0_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_0_a = requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_0_b = requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_0_c = requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_1_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_1_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_1_a = requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_1_b = requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_1_c = requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_2_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_2_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_2_a = requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_2_b = requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_2_c = requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_3_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_3_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_3_a = requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_3_b = requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_3_c = requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_4_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_4_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_4_a = requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_4_b = requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_4_c = requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_5_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_5_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_5_a = requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_5_b = requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_5_c = requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_6_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_6_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_6_a = requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_6_b = requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_6_c = requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_7_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_7_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_7_a = requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_7_b = requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_7_c = requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_8_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_8_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_8_a = requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_8_b = requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_8_c = requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_9_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_9_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_9_a = requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_9_b = requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_9_c = requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_10_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_10_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_10_a = requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_10_b = requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_10_c = requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_11_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_11_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_11_a = requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_11_b = requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_11_c = requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_12_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_12_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_12_a = requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_12_b = requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_12_c = requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_13_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_13_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_13_a = requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_13_b = requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_13_c = requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_14_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_14_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_14_a = requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_14_b = requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_14_c = requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_data_15_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_0_io_data_15_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_0_io_data_15_a = requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_0_io_data_15_b = requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_0_io_data_15_c = requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_0_io_out_ready = pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 159:21]
   assign requestStages_1_clock = clock;
   assign requestStages_1_reset = reset;
-  assign requestStages_1_io_inValid = running & ~groupIssued & |requestBuffer_io_out_activeMask & _armCapture_T_3 &
-    allReady; // @[AecFpWarpUnits.scala 151:116]
-  assign requestStages_1_io_group = group; // @[AecFpWarpUnits.scala 152:31]
-  assign requestStages_1_io_data_0_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_0_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_0_a = requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_0_b = requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_0_c = requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_1_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_1_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_1_a = requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_1_b = requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_1_c = requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_2_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_2_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_2_a = requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_2_b = requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_2_c = requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_3_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_3_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_3_a = requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_3_b = requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_3_c = requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_4_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_4_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_4_a = requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_4_b = requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_4_c = requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_5_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_5_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_5_a = requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_5_b = requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_5_c = requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_6_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_6_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_6_a = requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_6_b = requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_6_c = requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_7_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_7_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_7_a = requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_7_b = requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_7_c = requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_8_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_8_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_8_a = requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_8_b = requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_8_c = requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_9_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_9_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_9_a = requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_9_b = requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_9_c = requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_10_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_10_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_10_a = requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_10_b = requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_10_c = requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_11_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_11_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_11_a = requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_11_b = requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_11_c = requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_12_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_12_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_12_a = requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_12_b = requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_12_c = requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_13_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_13_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_13_a = requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_13_b = requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_13_c = requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_14_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_14_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_14_a = requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_14_b = requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_14_c = requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_data_15_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 155:51]
-  assign requestStages_1_io_data_15_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 156:57]
-  assign requestStages_1_io_data_15_a = requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 157:37]
-  assign requestStages_1_io_data_15_b = requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 158:37]
-  assign requestStages_1_io_data_15_c = requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 159:37]
-  assign requestStages_1_io_out_ready = pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 162:21]
+  assign requestStages_1_io_inValid = running & ~groupIssued & |requestBuffer_io_out_activeMask & _armCapture_T_5 &
+    allReady; // @[AecFpWarpUnits.scala 148:116]
+  assign requestStages_1_io_group = group; // @[AecFpWarpUnits.scala 149:31]
+  assign requestStages_1_io_data_0_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_0_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_0_a = requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_0_b = requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_0_c = requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_1_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_1_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_1_a = requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_1_b = requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_1_c = requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_2_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_2_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_2_a = requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_2_b = requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_2_c = requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_3_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_3_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_3_a = requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_3_b = requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_3_c = requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_4_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_4_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_4_a = requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_4_b = requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_4_c = requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_5_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_5_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_5_a = requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_5_b = requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_5_c = requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_6_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_6_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_6_a = requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_6_b = requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_6_c = requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_7_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_7_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_7_a = requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_7_b = requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_7_c = requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_8_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_8_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_8_a = requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_8_b = requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_8_c = requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_9_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_9_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_9_a = requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_9_b = requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_9_c = requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_10_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_10_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_10_a = requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_10_b = requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_10_c = requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_11_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_11_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_11_a = requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_11_b = requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_11_c = requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_12_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_12_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_12_a = requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_12_b = requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_12_c = requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_13_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_13_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_13_a = requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_13_b = requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_13_c = requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_14_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_14_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_14_a = requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_14_b = requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_14_c = requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_data_15_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
+  assign requestStages_1_io_data_15_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
+  assign requestStages_1_io_data_15_a = requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 154:37]
+  assign requestStages_1_io_data_15_b = requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 155:37]
+  assign requestStages_1_io_data_15_c = requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 156:37]
+  assign requestStages_1_io_out_ready = pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 159:21]
   assign requestBuffer_clock = clock;
   assign requestBuffer_reset = reset;
-  assign requestBuffer_io_in_activeMask = io_req_bits_activeMask; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_0 = io_req_bits_a_0; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_1 = io_req_bits_a_1; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_2 = io_req_bits_a_2; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_3 = io_req_bits_a_3; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_4 = io_req_bits_a_4; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_5 = io_req_bits_a_5; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_6 = io_req_bits_a_6; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_7 = io_req_bits_a_7; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_8 = io_req_bits_a_8; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_9 = io_req_bits_a_9; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_10 = io_req_bits_a_10; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_11 = io_req_bits_a_11; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_12 = io_req_bits_a_12; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_13 = io_req_bits_a_13; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_14 = io_req_bits_a_14; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_15 = io_req_bits_a_15; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_16 = io_req_bits_a_16; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_17 = io_req_bits_a_17; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_18 = io_req_bits_a_18; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_19 = io_req_bits_a_19; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_20 = io_req_bits_a_20; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_21 = io_req_bits_a_21; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_22 = io_req_bits_a_22; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_23 = io_req_bits_a_23; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_24 = io_req_bits_a_24; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_25 = io_req_bits_a_25; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_26 = io_req_bits_a_26; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_27 = io_req_bits_a_27; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_28 = io_req_bits_a_28; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_29 = io_req_bits_a_29; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_30 = io_req_bits_a_30; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_a_31 = io_req_bits_a_31; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_0 = io_req_bits_b_0; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_1 = io_req_bits_b_1; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_2 = io_req_bits_b_2; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_3 = io_req_bits_b_3; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_4 = io_req_bits_b_4; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_5 = io_req_bits_b_5; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_6 = io_req_bits_b_6; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_7 = io_req_bits_b_7; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_8 = io_req_bits_b_8; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_9 = io_req_bits_b_9; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_10 = io_req_bits_b_10; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_11 = io_req_bits_b_11; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_12 = io_req_bits_b_12; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_13 = io_req_bits_b_13; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_14 = io_req_bits_b_14; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_15 = io_req_bits_b_15; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_16 = io_req_bits_b_16; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_17 = io_req_bits_b_17; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_18 = io_req_bits_b_18; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_19 = io_req_bits_b_19; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_20 = io_req_bits_b_20; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_21 = io_req_bits_b_21; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_22 = io_req_bits_b_22; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_23 = io_req_bits_b_23; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_24 = io_req_bits_b_24; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_25 = io_req_bits_b_25; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_26 = io_req_bits_b_26; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_27 = io_req_bits_b_27; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_28 = io_req_bits_b_28; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_29 = io_req_bits_b_29; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_30 = io_req_bits_b_30; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_b_31 = io_req_bits_b_31; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_0 = io_req_bits_c_0; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_1 = io_req_bits_c_1; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_2 = io_req_bits_c_2; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_3 = io_req_bits_c_3; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_4 = io_req_bits_c_4; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_5 = io_req_bits_c_5; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_6 = io_req_bits_c_6; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_7 = io_req_bits_c_7; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_8 = io_req_bits_c_8; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_9 = io_req_bits_c_9; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_10 = io_req_bits_c_10; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_11 = io_req_bits_c_11; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_12 = io_req_bits_c_12; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_13 = io_req_bits_c_13; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_14 = io_req_bits_c_14; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_15 = io_req_bits_c_15; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_16 = io_req_bits_c_16; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_17 = io_req_bits_c_17; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_18 = io_req_bits_c_18; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_19 = io_req_bits_c_19; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_20 = io_req_bits_c_20; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_21 = io_req_bits_c_21; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_22 = io_req_bits_c_22; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_23 = io_req_bits_c_23; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_24 = io_req_bits_c_24; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_25 = io_req_bits_c_25; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_26 = io_req_bits_c_26; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_27 = io_req_bits_c_27; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_28 = io_req_bits_c_28; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_29 = io_req_bits_c_29; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_30 = io_req_bits_c_30; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_c_31 = io_req_bits_c_31; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_in_dest = io_req_bits_dest; // @[AecFpWarpUnits.scala 124:23]
-  assign requestBuffer_io_arm = ~capturePending & ~running & ~outValid & io_req_valid; // @[AecFpWarpUnits.scala 140:61]
+  assign requestBuffer_io_in_activeMask = io_req_bits_activeMask; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_0 = io_req_bits_a_0; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_1 = io_req_bits_a_1; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_2 = io_req_bits_a_2; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_3 = io_req_bits_a_3; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_4 = io_req_bits_a_4; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_5 = io_req_bits_a_5; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_6 = io_req_bits_a_6; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_7 = io_req_bits_a_7; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_8 = io_req_bits_a_8; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_9 = io_req_bits_a_9; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_10 = io_req_bits_a_10; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_11 = io_req_bits_a_11; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_12 = io_req_bits_a_12; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_13 = io_req_bits_a_13; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_14 = io_req_bits_a_14; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_15 = io_req_bits_a_15; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_16 = io_req_bits_a_16; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_17 = io_req_bits_a_17; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_18 = io_req_bits_a_18; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_19 = io_req_bits_a_19; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_20 = io_req_bits_a_20; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_21 = io_req_bits_a_21; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_22 = io_req_bits_a_22; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_23 = io_req_bits_a_23; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_24 = io_req_bits_a_24; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_25 = io_req_bits_a_25; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_26 = io_req_bits_a_26; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_27 = io_req_bits_a_27; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_28 = io_req_bits_a_28; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_29 = io_req_bits_a_29; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_30 = io_req_bits_a_30; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_a_31 = io_req_bits_a_31; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_0 = io_req_bits_b_0; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_1 = io_req_bits_b_1; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_2 = io_req_bits_b_2; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_3 = io_req_bits_b_3; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_4 = io_req_bits_b_4; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_5 = io_req_bits_b_5; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_6 = io_req_bits_b_6; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_7 = io_req_bits_b_7; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_8 = io_req_bits_b_8; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_9 = io_req_bits_b_9; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_10 = io_req_bits_b_10; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_11 = io_req_bits_b_11; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_12 = io_req_bits_b_12; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_13 = io_req_bits_b_13; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_14 = io_req_bits_b_14; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_15 = io_req_bits_b_15; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_16 = io_req_bits_b_16; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_17 = io_req_bits_b_17; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_18 = io_req_bits_b_18; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_19 = io_req_bits_b_19; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_20 = io_req_bits_b_20; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_21 = io_req_bits_b_21; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_22 = io_req_bits_b_22; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_23 = io_req_bits_b_23; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_24 = io_req_bits_b_24; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_25 = io_req_bits_b_25; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_26 = io_req_bits_b_26; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_27 = io_req_bits_b_27; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_28 = io_req_bits_b_28; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_29 = io_req_bits_b_29; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_30 = io_req_bits_b_30; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_b_31 = io_req_bits_b_31; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_0 = io_req_bits_c_0; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_1 = io_req_bits_c_1; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_2 = io_req_bits_c_2; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_3 = io_req_bits_c_3; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_4 = io_req_bits_c_4; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_5 = io_req_bits_c_5; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_6 = io_req_bits_c_6; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_7 = io_req_bits_c_7; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_8 = io_req_bits_c_8; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_9 = io_req_bits_c_9; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_10 = io_req_bits_c_10; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_11 = io_req_bits_c_11; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_12 = io_req_bits_c_12; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_13 = io_req_bits_c_13; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_14 = io_req_bits_c_14; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_15 = io_req_bits_c_15; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_16 = io_req_bits_c_16; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_17 = io_req_bits_c_17; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_18 = io_req_bits_c_18; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_19 = io_req_bits_c_19; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_20 = io_req_bits_c_20; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_21 = io_req_bits_c_21; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_22 = io_req_bits_c_22; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_23 = io_req_bits_c_23; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_24 = io_req_bits_c_24; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_25 = io_req_bits_c_25; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_26 = io_req_bits_c_26; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_27 = io_req_bits_c_27; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_28 = io_req_bits_c_28; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_29 = io_req_bits_c_29; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_30 = io_req_bits_c_30; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_c_31 = io_req_bits_c_31; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_in_dest = io_req_bits_dest; // @[AecFpWarpUnits.scala 118:23]
+  assign requestBuffer_io_arm_0 = armClusters_0; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_arm_1 = armClusters_1; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_arm_2 = armClusters_2; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_arm_3 = armClusters_3; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_arm_4 = armClusters_4; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_arm_5 = armClusters_5; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_arm_6 = armClusters_6; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_arm_7 = armClusters_7; // @[AecFpWarpUnits.scala 138:24]
   assign requestBuffer_io_capture = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
   assign resultBanks_0_clock = clock;
   assign resultBanks_0_reset = reset;
-  assign resultBanks_0_io_write = running & _armCapture_T_3 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_0_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_0_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_0_io_write = running & _armCapture_T_5 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_0_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_0_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_0_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_0_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_1_clock = clock;
   assign resultBanks_1_reset = reset;
-  assign resultBanks_1_io_write = running & _armCapture_T_3 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_1_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_1_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_1_io_write = running & _armCapture_T_5 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_1_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_1_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_1_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_1_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_2_clock = clock;
   assign resultBanks_2_reset = reset;
-  assign resultBanks_2_io_write = running & _armCapture_T_3 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_2_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_2_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_2_io_write = running & _armCapture_T_5 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_2_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_2_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_2_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_2_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_3_clock = clock;
   assign resultBanks_3_reset = reset;
-  assign resultBanks_3_io_write = running & _armCapture_T_3 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_3_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_3_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_3_io_write = running & _armCapture_T_5 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_3_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_3_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_3_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_3_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_4_clock = clock;
   assign resultBanks_4_reset = reset;
-  assign resultBanks_4_io_write = running & _armCapture_T_3 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_4_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_4_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_4_io_write = running & _armCapture_T_5 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_4_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_4_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_4_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_4_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_5_clock = clock;
   assign resultBanks_5_reset = reset;
-  assign resultBanks_5_io_write = running & _armCapture_T_3 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_5_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_5_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_5_io_write = running & _armCapture_T_5 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_5_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_5_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_5_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_5_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_6_clock = clock;
   assign resultBanks_6_reset = reset;
-  assign resultBanks_6_io_write = running & _armCapture_T_3 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_6_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_6_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_6_io_write = running & _armCapture_T_5 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_6_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_6_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_6_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_6_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_7_clock = clock;
   assign resultBanks_7_reset = reset;
-  assign resultBanks_7_io_write = running & _armCapture_T_3 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_7_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_7_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_7_io_write = running & _armCapture_T_5 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_7_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_7_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_7_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_7_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_8_clock = clock;
   assign resultBanks_8_reset = reset;
-  assign resultBanks_8_io_write = running & _armCapture_T_3 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_8_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_8_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_8_io_write = running & _armCapture_T_5 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_8_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_8_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_8_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_8_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_9_clock = clock;
   assign resultBanks_9_reset = reset;
-  assign resultBanks_9_io_write = running & _armCapture_T_3 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_9_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_9_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_9_io_write = running & _armCapture_T_5 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_9_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_9_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_9_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_9_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_10_clock = clock;
   assign resultBanks_10_reset = reset;
-  assign resultBanks_10_io_write = running & _armCapture_T_3 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_10_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_10_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_10_io_write = running & _armCapture_T_5 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_10_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_10_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_10_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_10_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_11_clock = clock;
   assign resultBanks_11_reset = reset;
-  assign resultBanks_11_io_write = running & _armCapture_T_3 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_11_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_11_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_11_io_write = running & _armCapture_T_5 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_11_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_11_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_11_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_11_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_12_clock = clock;
   assign resultBanks_12_reset = reset;
-  assign resultBanks_12_io_write = running & _armCapture_T_3 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_12_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_12_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_12_io_write = running & _armCapture_T_5 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_12_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_12_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_12_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_12_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_13_clock = clock;
   assign resultBanks_13_reset = reset;
-  assign resultBanks_13_io_write = running & _armCapture_T_3 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_13_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_13_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_13_io_write = running & _armCapture_T_5 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_13_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_13_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_13_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_13_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_14_clock = clock;
   assign resultBanks_14_reset = reset;
-  assign resultBanks_14_io_write = running & _armCapture_T_3 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_14_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_14_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_14_io_write = running & _armCapture_T_5 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_14_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_14_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_14_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_14_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_15_clock = clock;
   assign resultBanks_15_reset = reset;
-  assign resultBanks_15_io_write = running & _armCapture_T_3 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_15_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_15_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_15_io_write = running & _armCapture_T_5 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_15_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_15_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_15_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_15_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_16_clock = clock;
   assign resultBanks_16_reset = reset;
-  assign resultBanks_16_io_write = running & _armCapture_T_3 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_16_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_16_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_16_io_write = running & _armCapture_T_5 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_16_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_16_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_16_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_16_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_17_clock = clock;
   assign resultBanks_17_reset = reset;
-  assign resultBanks_17_io_write = running & _armCapture_T_3 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_17_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_17_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_17_io_write = running & _armCapture_T_5 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_17_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_17_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_17_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_17_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_18_clock = clock;
   assign resultBanks_18_reset = reset;
-  assign resultBanks_18_io_write = running & _armCapture_T_3 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_18_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_18_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_18_io_write = running & _armCapture_T_5 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_18_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_18_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_18_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_18_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_19_clock = clock;
   assign resultBanks_19_reset = reset;
-  assign resultBanks_19_io_write = running & _armCapture_T_3 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_19_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_19_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_19_io_write = running & _armCapture_T_5 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_19_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_19_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_19_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_19_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_20_clock = clock;
   assign resultBanks_20_reset = reset;
-  assign resultBanks_20_io_write = running & _armCapture_T_3 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_20_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_20_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_20_io_write = running & _armCapture_T_5 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_20_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_20_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_20_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_20_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_21_clock = clock;
   assign resultBanks_21_reset = reset;
-  assign resultBanks_21_io_write = running & _armCapture_T_3 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_21_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_21_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_21_io_write = running & _armCapture_T_5 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_21_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_21_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_21_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_21_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_22_clock = clock;
   assign resultBanks_22_reset = reset;
-  assign resultBanks_22_io_write = running & _armCapture_T_3 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_22_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_22_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_22_io_write = running & _armCapture_T_5 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_22_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_22_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_22_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_22_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_23_clock = clock;
   assign resultBanks_23_reset = reset;
-  assign resultBanks_23_io_write = running & _armCapture_T_3 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_23_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_23_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_23_io_write = running & _armCapture_T_5 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_23_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_23_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_23_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_23_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_24_clock = clock;
   assign resultBanks_24_reset = reset;
-  assign resultBanks_24_io_write = running & _armCapture_T_3 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_24_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_24_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_24_io_write = running & _armCapture_T_5 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_24_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_24_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_24_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_24_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_25_clock = clock;
   assign resultBanks_25_reset = reset;
-  assign resultBanks_25_io_write = running & _armCapture_T_3 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_25_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_25_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_25_io_write = running & _armCapture_T_5 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_25_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_25_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_25_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_25_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_26_clock = clock;
   assign resultBanks_26_reset = reset;
-  assign resultBanks_26_io_write = running & _armCapture_T_3 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_26_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_26_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_26_io_write = running & _armCapture_T_5 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_26_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_26_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_26_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_26_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_27_clock = clock;
   assign resultBanks_27_reset = reset;
-  assign resultBanks_27_io_write = running & _armCapture_T_3 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_27_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_27_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_27_io_write = running & _armCapture_T_5 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_27_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_27_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_27_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_27_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_28_clock = clock;
   assign resultBanks_28_reset = reset;
-  assign resultBanks_28_io_write = running & _armCapture_T_3 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_28_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_28_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_28_io_write = running & _armCapture_T_5 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_28_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_28_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_28_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_28_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_29_clock = clock;
   assign resultBanks_29_reset = reset;
-  assign resultBanks_29_io_write = running & _armCapture_T_3 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_29_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_29_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_29_io_write = running & _armCapture_T_5 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_29_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_29_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_29_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_29_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_30_clock = clock;
   assign resultBanks_30_reset = reset;
-  assign resultBanks_30_io_write = running & _armCapture_T_3 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_30_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_30_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_30_io_write = running & _armCapture_T_5 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_30_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_30_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_30_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_30_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   assign resultBanks_31_clock = clock;
   assign resultBanks_31_reset = reset;
-  assign resultBanks_31_io_write = running & _armCapture_T_3 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 177:81]
-  assign resultBanks_31_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 178:51]
-  assign resultBanks_31_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 179:50]
+  assign resultBanks_31_io_write = running & _armCapture_T_5 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 164:81]
+  assign resultBanks_31_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
+  assign resultBanks_31_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
+  assign resultBanks_31_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
+  assign resultBanks_31_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
   always @(posedge clock) begin
-    if (reset) begin // @[AecFpWarpUnits.scala 126:31]
-      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 126:31]
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 188:20]
+    if (reset) begin // @[AecFpWarpUnits.scala 120:31]
+      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 120:31]
+    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 178:20]
     end else begin
       capturePending <= _GEN_0;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 127:22]
-      group <= 4'h0; // @[AecFpWarpUnits.scala 127:22]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 201:24]
-      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 206:37]
-        group <= 4'h0; // @[AecFpWarpUnits.scala 206:85]
+    if (reset) begin // @[AecFpWarpUnits.scala 121:22]
+      group <= 4'h0; // @[AecFpWarpUnits.scala 121:22]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
+      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 194:37]
+        group <= 4'h0; // @[AecFpWarpUnits.scala 194:85]
       end else begin
-        group <= _group_T_1; // @[AecFpWarpUnits.scala 206:112]
+        group <= _group_T_1; // @[AecFpWarpUnits.scala 194:112]
       end
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      group <= 4'h0; // @[AecFpWarpUnits.scala 188:38]
+    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      group <= 4'h0; // @[AecFpWarpUnits.scala 178:38]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 127:91]
-      outValid <= 1'h0; // @[AecFpWarpUnits.scala 127:91]
-    end else if (_T_139) begin // @[AecFpWarpUnits.scala 208:23]
-      outValid <= 1'h0; // @[AecFpWarpUnits.scala 209:14]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 201:24]
-      outValid <= _GEN_20;
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      outValid <= ~_running_T; // @[AecFpWarpUnits.scala 192:14]
+    if (reset) begin // @[AecFpWarpUnits.scala 121:91]
+      outValid <= 1'h0; // @[AecFpWarpUnits.scala 121:91]
+    end else if (_T_139) begin // @[AecFpWarpUnits.scala 196:23]
+      outValid <= 1'h0; // @[AecFpWarpUnits.scala 197:14]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
+      outValid <= _GEN_16;
+    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      outValid <= ~_running_T; // @[AecFpWarpUnits.scala 182:14]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 128:24]
-      running <= 1'h0; // @[AecFpWarpUnits.scala 128:24]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 201:24]
-      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 206:37]
-        running <= 1'h0; // @[AecFpWarpUnits.scala 206:67]
+    if (reset) begin // @[AecFpWarpUnits.scala 122:24]
+      running <= 1'h0; // @[AecFpWarpUnits.scala 122:24]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
+      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 194:37]
+        running <= 1'h0; // @[AecFpWarpUnits.scala 194:67]
       end else begin
         running <= _GEN_11;
       end
     end else begin
       running <= _GEN_11;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 129:28]
-      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 129:28]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 201:24]
-      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 202:17]
+    if (reset) begin // @[AecFpWarpUnits.scala 123:28]
+      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 123:28]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
+      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 190:17]
     end else begin
-      groupIssued <= _GEN_16;
+      groupIssued <= _GEN_14;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 130:30]
-      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 130:30]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 201:24]
-      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 205:19]
+    if (reset) begin // @[AecFpWarpUnits.scala 124:30]
+      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 124:30]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
+      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 193:19]
     end else begin
-      commitPending <= _GEN_17;
+      commitPending <= _GEN_15;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 132:27]
-      predicates <= 32'h0; // @[AecFpWarpUnits.scala 132:27]
-    end else if (running & groupIssued & _T_131 & allValid) begin // @[AecFpWarpUnits.scala 196:63]
-      predicates <= _predicates_T; // @[AecFpWarpUnits.scala 198:16]
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      predicates <= 32'h0; // @[AecFpWarpUnits.scala 193:16]
+    if (reset) begin // @[AecFpWarpUnits.scala 126:26]
+      writeMask <= 32'h0; // @[AecFpWarpUnits.scala 126:26]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
+      writeMask <= _writeMask_T_1; // @[AecFpWarpUnits.scala 192:15]
+    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      writeMask <= 32'h0; // @[AecFpWarpUnits.scala 183:15]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 132:60]
-      errors <= 32'h0; // @[AecFpWarpUnits.scala 132:60]
-    end else if (running & groupIssued & _T_131 & allValid) begin // @[AecFpWarpUnits.scala 196:63]
-      errors <= _errors_T; // @[AecFpWarpUnits.scala 199:12]
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      errors <= 32'h0; // @[AecFpWarpUnits.scala 193:31]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      laneOp_0 <= io_req_bits_op[6:0]; // @[AecFpWarpUnits.scala 174:17]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 133:26]
-      writeMask <= 32'h0; // @[AecFpWarpUnits.scala 133:26]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 201:24]
-      writeMask <= _writeMask_T_1; // @[AecFpWarpUnits.scala 204:15]
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      writeMask <= 32'h0; // @[AecFpWarpUnits.scala 193:49]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      laneOp_1 <= _laneOp_1_T_1; // @[AecFpWarpUnits.scala 174:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      laneOp_0 <= io_req_bits_op[6:0]; // @[AecFpWarpUnits.scala 184:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      laneDtype_0 <= io_req_bits_dtype; // @[AecFpWarpUnits.scala 175:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      laneOp_1 <= _laneOp_1_T_1; // @[AecFpWarpUnits.scala 184:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      laneDtype_1 <= _laneDtype_1_T; // @[AecFpWarpUnits.scala 175:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      laneDtype_0 <= io_req_bits_dtype; // @[AecFpWarpUnits.scala 185:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      laneDest_0 <= io_req_bits_dest; // @[AecFpWarpUnits.scala 176:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      laneDtype_1 <= _laneDtype_1_T; // @[AecFpWarpUnits.scala 185:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
+      laneDest_1 <= _laneDest_1_T; // @[AecFpWarpUnits.scala 176:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      laneDest_0 <= io_req_bits_dest; // @[AecFpWarpUnits.scala 186:19]
+    if (reset) begin // @[AecFpWarpUnits.scala 133:27]
+      armPending <= 1'h0; // @[AecFpWarpUnits.scala 133:27]
+    end else begin
+      armPending <= armCapture; // @[AecFpWarpUnits.scala 170:14]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 182:22]
-      laneDest_1 <= _laneDest_1_T; // @[AecFpWarpUnits.scala 186:19]
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_0 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_0 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+    end
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_1 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_1 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+    end
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_2 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_2 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+    end
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_3 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_3 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+    end
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_4 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_4 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+    end
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_5 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_5 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+    end
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_6 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_6 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+    end
+    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
+      armClusters_7 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    end else begin
+      armClusters_7 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
     end
   end
 // Register and memory initialization
@@ -16914,23 +16164,37 @@ initial begin
   _RAND_5 = {1{`RANDOM}};
   commitPending = _RAND_5[0:0];
   _RAND_6 = {1{`RANDOM}};
-  predicates = _RAND_6[31:0];
+  writeMask = _RAND_6[31:0];
   _RAND_7 = {1{`RANDOM}};
-  errors = _RAND_7[31:0];
+  laneOp_0 = _RAND_7[6:0];
   _RAND_8 = {1{`RANDOM}};
-  writeMask = _RAND_8[31:0];
+  laneOp_1 = _RAND_8[6:0];
   _RAND_9 = {1{`RANDOM}};
-  laneOp_0 = _RAND_9[6:0];
+  laneDtype_0 = _RAND_9[3:0];
   _RAND_10 = {1{`RANDOM}};
-  laneOp_1 = _RAND_10[6:0];
+  laneDtype_1 = _RAND_10[3:0];
   _RAND_11 = {1{`RANDOM}};
-  laneDtype_0 = _RAND_11[3:0];
+  laneDest_0 = _RAND_11[7:0];
   _RAND_12 = {1{`RANDOM}};
-  laneDtype_1 = _RAND_12[3:0];
+  laneDest_1 = _RAND_12[7:0];
   _RAND_13 = {1{`RANDOM}};
-  laneDest_0 = _RAND_13[7:0];
+  armPending = _RAND_13[0:0];
   _RAND_14 = {1{`RANDOM}};
-  laneDest_1 = _RAND_14[7:0];
+  armClusters_0 = _RAND_14[0:0];
+  _RAND_15 = {1{`RANDOM}};
+  armClusters_1 = _RAND_15[0:0];
+  _RAND_16 = {1{`RANDOM}};
+  armClusters_2 = _RAND_16[0:0];
+  _RAND_17 = {1{`RANDOM}};
+  armClusters_3 = _RAND_17[0:0];
+  _RAND_18 = {1{`RANDOM}};
+  armClusters_4 = _RAND_18[0:0];
+  _RAND_19 = {1{`RANDOM}};
+  armClusters_5 = _RAND_19[0:0];
+  _RAND_20 = {1{`RANDOM}};
+  armClusters_6 = _RAND_20[0:0];
+  _RAND_21 = {1{`RANDOM}};
+  armClusters_7 = _RAND_21[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial

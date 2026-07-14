@@ -31,28 +31,40 @@ class AecResultLaneBank extends Module {
     val write = Input(Bool())
     val writeResult = Input(UInt(64.W))
     val writeFlags = Input(UInt(5.W))
+    val writePredicate = Input(Bool())
+    val writeError = Input(Bool())
     val result = Output(UInt(64.W))
     val flags = Output(UInt(5.W))
+    val predicate = Output(Bool())
+    val error = Output(Bool())
   })
 
   val result = RegInit(0.U(64.W))
   val flags = RegInit(0.U(5.W))
+  val predicate = RegInit(false.B)
+  val error = RegInit(false.B)
   val pending = RegNext(io.write, false.B)
   val stagedResult = RegNext(io.writeResult)
   val stagedFlags = RegNext(io.writeFlags)
+  val stagedPredicate = RegNext(io.writePredicate)
+  val stagedError = RegNext(io.writeError)
   when (pending) {
     result := stagedResult
     flags := stagedFlags
+    predicate := stagedPredicate
+    error := stagedError
   }
   io.result := result
   io.flags := flags
+  io.predicate := predicate
+  io.error := error
 }
 
 /** Two-phase warp request capture with lane-local write enables. */
 class AecWarpRequestBuffer extends Module {
   val io = IO(new Bundle {
     val in = Input(new AecExecRequest)
-    val arm = Input(Bool())
+    val arm = Input(Vec(8, Bool()))
     val capture = Input(Bool())
     val out = Output(new AecExecRequest)
   })
@@ -85,11 +97,10 @@ class AecWarpRequestBuffer extends Module {
       active(i) := io.in.activeMask(i)
       predicates(i) := io.in.predicateValues(i)
     }
-    when (io.arm) {
+    when (io.arm(i / 4)) {
       operandCapture(i) := VecInit(Seq.fill(3 * banksPerOperand)(true.B))
       maskCapture(i) := true.B
-    }
-    when (io.capture) {
+    }.otherwise {
       operandCapture(i) := VecInit(Seq.fill(3 * banksPerOperand)(false.B))
       maskCapture(i) := false.B
     }

@@ -14,7 +14,7 @@ class AecSfuWarpUnit(val physicalLanes: Int = 1) extends Module {
   })
 
   val lanes = Seq.fill(physicalLanes)(Module(new AESSFU))
-  val idle :: capture :: issue :: waitLanes :: output :: Nil = Enum(5)
+  val idle :: arm :: capture :: issue :: waitLanes :: output :: Nil = Enum(6)
   val state = RegInit(idle)
   val requestBuffer = Module(new AecWarpRequestBuffer)
   requestBuffer.io.in := io.req.bits
@@ -30,7 +30,10 @@ class AecSfuWarpUnit(val physicalLanes: Int = 1) extends Module {
   val allValid = lanes.map(_.io.resp.valid).reduce(_ && _)
 
   val armCapture = state === idle && io.req.valid
-  requestBuffer.io.arm := armCapture
+  val armClusters = RegInit(VecInit(Seq.fill(8)(false.B)))
+  armClusters.foreach(_ := armCapture)
+  armClusters.foreach(dontTouch(_))
+  requestBuffer.io.arm := armClusters
   requestBuffer.io.capture := io.req.fire
   io.req.ready := state === capture
   io.resp.valid := state === output
@@ -53,7 +56,8 @@ class AecSfuWarpUnit(val physicalLanes: Int = 1) extends Module {
     lanes(i).io.resp.ready := state === waitLanes && allValid
   }
 
-  when (armCapture) { state := capture }
+  when (armCapture) { state := arm }
+  when (state === arm) { state := capture }
   when (io.req.fire) {
     heldMode := io.mode
     group := 0.U
