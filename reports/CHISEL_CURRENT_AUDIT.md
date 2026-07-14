@@ -16,11 +16,20 @@
   Local LSU增加aligned word fast path，local/external仲裁改为round-robin。
 - special coordinate改为共享注册单元，MTCH改为逐destination lane迭代，SFU扩展到4个physical lanes。
 
-当前macro footprint约`591,911 um²`，是审查基线`922,968 um²`的64.1%。public regression
-36/36通过；ABI smoke由877降到159 cycles，ADD由2384降到406，ATOM由6628降到372。
+QA整改后LMEM data/tag已移到external service。当前生成层级为128个512x32 GPR macro
+和64个1024x32 IMEM/SMEM/CMEM/PMEM macro；按锁定LEF的macro-only footprint约
+`251,718 um²`，是审查基线`922,968 um²`的27.3%。public regression 36/36通过。
 
-尚未完成：EFF-01的完整multi-instruction-in-flight/Decoupled queue重构、其余local valid
-bitmap RAM化，以及锁定ASAP7环境下的完整top post-buffer STA/PPA。
+EFF-01已完成主路径整改：每warp depth-4 ROB、tagged backend completion、顺序commit、
+load overlap和serializing store/atomic均已接入；public和realtime differential均36/36，
+相对上一版public cycles几何平均为94.90%。为控制宽向量寄存器面积，每partition仍保留
+单operand collector和单条同类backend请求。尚未完成：其余local valid bitmap RAM化，
+tagged连续GPR read/第二collector，以及锁定ASAP7环境下的完整top post-buffer STA/PPA。
+
+Track-2 QA整改也已完成：judged/debug ABI加入`mem_req_space`，request holding register
+保证背压稳定；LMEM按x-fastest global-thread公式走独立external backing；artifact容量由
+init/expected high-water统一推导；ATOM 1/2修正为MAX/MIN且CAS失败不写。对应Chisel QA
+定向测试5/5、Python测试18/18、public RTL/CModel和realtime differential均36/36。
 
 ## 1. 结论摘要
 

@@ -29,8 +29,8 @@ class AESSFU extends Module {
     val resp = Decoupled(new AecSfuLaneResponse)
   })
 
-  val (idle :: intWait :: fpStart :: fpWait :: rsqDivStart :: rsqDivWait ::
-    transStart :: transWait :: finish :: Nil) = Enum(9)
+  val (idle :: intStart :: intWait :: fpStart :: fpWait :: rsqDivStart :: rsqDivWait ::
+    transStart :: transWait :: finish :: Nil) = Enum(10)
   val state = RegInit(idle)
   val held = Reg(new AecSfuLaneRequest)
   val result = RegInit(0.U(64.W))
@@ -39,11 +39,13 @@ class AESSFU extends Module {
   val rsqRoot = Reg(UInt(32.W))
 
   val intDiv = Module(new AecIntDivider)
-  intDiv.io.req.valid := state === idle && io.req.valid && io.req.bits.op === AecOpcode.div &&
-    (io.req.bits.dtype === 2.U || io.req.bits.dtype === 3.U)
-  intDiv.io.req.bits.dividend := io.req.bits.a(31, 0)
-  intDiv.io.req.bits.divisor := io.req.bits.b(31, 0)
-  intDiv.io.req.bits.signed := io.req.bits.dtype === 3.U
+  // Start the divider from the lane-local request bank.  This register cut
+  // keeps request decode and the wide divider initialization mux out of the
+  // same timing path.
+  intDiv.io.req.valid := state === intStart
+  intDiv.io.req.bits.dividend := held.a(31, 0)
+  intDiv.io.req.bits.divisor := held.b(31, 0)
+  intDiv.io.req.bits.signed := held.dtype === 3.U
   intDiv.io.resp.ready := state === intWait
 
   val isRcp = held.op === AecOpcode.rcp
@@ -106,8 +108,10 @@ class AESSFU extends Module {
     result := 0.U
     flags := 0.U
     error := false.B
-    state := Mux(requestIsInt, intWait, Mux(requestIsFpCore, fpStart, transStart))
+    state := Mux(requestIsInt, intStart, Mux(requestIsFpCore, fpStart, transStart))
   }
+
+  when (state === intStart && intDiv.io.req.ready) { state := intWait }
 
   when (state === fpStart) {
     when (divSqrt.io.inReady) { state := fpWait }

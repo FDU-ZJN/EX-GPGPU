@@ -7,6 +7,7 @@ import fudian.utils._
 class FarPath(val expWidth: Int, val precision: Int, val outPc: Int)
     extends Module {
   val io = IO(new Bundle() {
+    val enable = Input(Bool())
     val in = Input(new Bundle() {
       val a, b = new RawFloat(expWidth, precision)
       val expDiff = UInt(expWidth.W)
@@ -19,28 +20,35 @@ class FarPath(val expWidth: Int, val precision: Int, val outPc: Int)
     })
   })
 
-  val in = io.in
+  val in = RegNext(io.in)
+  val localEnable = RegNext(io.enable, false.B)
   val (a, b, expDiff, effSub, smallAdd) =
     (in.a, in.b, in.expDiff, in.effSub, in.smallAdd)
 
   // shamt <- [2, precision + 2]
   val (sig_b_main, sig_b_sticky) = ShiftRightJam(Cat(b.sig, 0.U(2.W)), expDiff)
 
-  val adder_in_sig_b = Cat(0.U(1.W), sig_b_main, sig_b_sticky)
-  val adder_in_sig_a = Cat(0.U(1.W), a.sig, 0.U(3.W))
+  val aReg = RegEnable(a, localEnable)
+  val sigBMainReg = RegEnable(sig_b_main, localEnable)
+  val sigBStickyReg = RegEnable(sig_b_sticky, localEnable)
+  val effSubReg = RegEnable(effSub, localEnable)
+  val smallAddReg = RegEnable(smallAdd, localEnable)
+
+  val adder_in_sig_b = Cat(0.U(1.W), sigBMainReg, sigBStickyReg)
+  val adder_in_sig_a = Cat(0.U(1.W), aReg.sig, 0.U(3.W))
   val adder_result =
     adder_in_sig_a +
-      Mux(effSub, ~adder_in_sig_b, adder_in_sig_b).asUInt() + effSub
+      Mux(effSubReg, ~adder_in_sig_b, adder_in_sig_b).asUInt() + effSubReg
 
-  val exp_a_plus_1 = a.exp + 1.U
-  val exp_a_minus_1 = a.exp - 1.U
+  val exp_a_plus_1 = aReg.exp + 1.U
+  val exp_a_minus_1 = aReg.exp - 1.U
 
   val cout = adder_result.head(1).asBool
   val keep = adder_result.head(2) === 1.U
   val cancellation = adder_result.head(2) === 0.U
 
   val far_path_sig = Mux1H(
-    Seq(cout, keep || smallAdd, cancellation && !smallAdd),
+    Seq(cout, keep || smallAddReg, cancellation && !smallAddReg),
     Seq(
       adder_result.head(outPc + 2) ## adder_result.tail(outPc + 2).orR,
       adder_result.tail(1).head(outPc + 2) ## adder_result.tail(outPc + 3).orR,
@@ -50,11 +58,11 @@ class FarPath(val expWidth: Int, val precision: Int, val outPc: Int)
 
   val far_path_exp = Mux1H(
     Seq(cout, keep, cancellation),
-    Seq(exp_a_plus_1, a.exp, exp_a_minus_1)
+    Seq(exp_a_plus_1, aReg.exp, exp_a_minus_1)
   )
 
   val result = Wire(new RawFloat(expWidth, outPc + 3))
-  result.sign := a.sign
+  result.sign := aReg.sign
   result.exp := far_path_exp
   result.sig := far_path_sig
   io.out.result := result
@@ -64,6 +72,7 @@ class NearPath(val expWidth: Int, val precision: Int, val outPc: Int)
     extends Module {
 
   val io = IO(new Bundle() {
+    val enable = Input(Bool())
     val in = Input(new Bundle() {
       val a, b = new RawFloat(expWidth, precision)
       val need_shift_b = Bool()
@@ -75,8 +84,10 @@ class NearPath(val expWidth: Int, val precision: Int, val outPc: Int)
       val a_lt_b = Bool()
     })
   })
-  val (a, b) = (io.in.a, io.in.b)
-  val need_shift = io.in.need_shift_b
+  val inputReg = RegNext(io.in)
+  val localEnable = RegNext(io.enable, false.B)
+  val (a, b) = (inputReg.a, inputReg.b)
+  val need_shift = inputReg.need_shift_b
   val a_sig = Cat(a.sig, 0.U(1.W))
   val b_sig = (Cat(b.sig, 0.U(1.W)) >> need_shift).asUInt()
   val b_neg = (~b_sig).asUInt()
@@ -99,7 +110,19 @@ class NearPath(val expWidth: Int, val precision: Int, val outPc: Int)
   val shift_lim_mask = Mux(need_shift_lim, shift_lim_mask_raw, 0.U)
   val shift_lim_bit = (shift_lim_mask_raw & sig_raw).orR()
 
-  val lzc_str = shift_lim_mask | lza_str
+  val sigRawReg = RegEnable(sig_raw, localEnable)
+  val lzaStrReg = RegEnable(lza_str, localEnable)
+  val lzaZeroReg = RegEnable(lza_str_zero, localEnable)
+  val aExpReg = RegEnable(a.exp, localEnable)
+  val aSignReg = RegEnable(a.sign, localEnable)
+  val bSignReg = RegEnable(b.sign, localEnable)
+  val aLtBReg = RegEnable(a_lt_b, localEnable)
+  val needShiftLimReg = RegEnable(need_shift_lim, localEnable)
+  val shiftLimMaskRawReg = RegEnable(shift_lim_mask_raw, localEnable)
+  val shiftLimBitReg = RegEnable(shift_lim_bit, localEnable)
+
+  val shift_lim_mask_reg = Mux(needShiftLimReg, shiftLimMaskRawReg, 0.U)
+  val lzc_str = shift_lim_mask_reg | lzaStrReg
   val lzc = CLZ(lzc_str)
 
   val int_bit_mask = Cat((0 until precision + 1).reverseMap {
@@ -108,24 +131,24 @@ class NearPath(val expWidth: Int, val precision: Int, val outPc: Int)
   })
 
   val int_bit_predicted =
-    ((int_bit_mask | lza_str_zero) & sig_raw).orR()
+    ((int_bit_mask | lzaZeroReg) & sigRawReg).orR()
   val int_bit_rshift_1 =
-    ((int_bit_mask >> 1.U).asUInt() & sig_raw).orR()
+    ((int_bit_mask >> 1.U).asUInt() & sigRawReg).orR()
 
   val exceed_lim_mask = Cat((0 until precision + 1).reverseMap {
     case `precision` => false.B
-    case i           => lza_str.head(precision + 1 - i - 1).orR()
+    case i           => lzaStrReg.head(precision + 1 - i - 1).orR()
   })
   val exceed_lim =
-    need_shift_lim && !(exceed_lim_mask & shift_lim_mask_raw).orR()
+    needShiftLimReg && !(exceed_lim_mask & shiftLimMaskRawReg).orR()
 
   val int_bit =
-    Mux(exceed_lim, shift_lim_bit, int_bit_rshift_1 || int_bit_predicted)
+    Mux(exceed_lim, shiftLimBitReg, int_bit_rshift_1 || int_bit_predicted)
 
   val lza_error = !int_bit_predicted && !exceed_lim
-  val exp_s1 = a.exp - lzc
+  val exp_s1 = aExpReg - lzc
   val exp_s2 = exp_s1 - lza_error
-  val sig_s1 = (sig_raw << lzc)(precision, 0)
+  val sig_s1 = (sigRawReg << lzc)(precision, 0)
   val sig_s2 = Mux(lza_error, Cat(sig_s1.tail(1), 0.U(1.W)), sig_s1)
   val near_path_sig = if(outPc + 3 > precision + 1){
     Cat(
@@ -136,15 +159,15 @@ class NearPath(val expWidth: Int, val precision: Int, val outPc: Int)
     sig_s2
   }
   val near_path_exp = Mux(int_bit, exp_s2, 0.U)
-  val near_path_sign = Mux(a_lt_b, b.sign, a.sign)
+  val near_path_sign = Mux(aLtBReg, bSignReg, aSignReg)
 
   val result = Wire(new RawFloat(expWidth, outPc + 3))
   result.sign := near_path_sign
   result.exp := near_path_exp
   result.sig := near_path_sig.head(outPc + 2) ## near_path_sig.tail(outPc + 2).orR
   io.out.result := result
-  io.out.sig_is_zero := lza_str_zero && !sig_raw(0)
-  io.out.a_lt_b := a_lt_b
+  io.out.sig_is_zero := lzaZeroReg && !sigRawReg(0)
+  io.out.a_lt_b := aLtBReg
 }
 
 
@@ -152,6 +175,7 @@ class FCMA_ADD_s1(val expWidth: Int, val precision: Int, val outPc: Int)
   extends Module {
 
   val io = IO(new Bundle() {
+    val enable = Input(Bool())
     val a, b = Input(UInt((expWidth + precision).W))
     val b_inter_valid = Input(Bool())
     val b_inter_flags = Input(new FMULToFADD_fflags)
@@ -212,6 +236,7 @@ class FCMA_ADD_s1(val expWidth: Int, val precision: Int, val outPc: Int)
     far_path.io.in.effSub := eff_sub
     far_path.io.in.smallAdd := small_add
     far_path.io.in.rm := io.rm
+    far_path.io.enable := io.enable
     far_path
   }
   val far_path_out = far_path_mods.head.io.out
@@ -234,33 +259,48 @@ class FCMA_ADD_s1(val expWidth: Int, val precision: Int, val outPc: Int)
     near_path.io.in.b := in._2
     near_path.io.in.need_shift_b := in._3
     near_path.io.in.rm := io.rm
+    near_path.io.enable := io.enable
     near_path
   }
 
   val near_path_a_lt_b = near_path_mods.head.io.out.a_lt_b
+  val metaEnable = RegNext(io.enable, false.B)
+  def metaPipe[T <: Data](value: T): T = RegEnable(RegEnable(value, io.enable), metaEnable)
+  val needSwapReg = metaPipe(need_swap)
+  val nearExpNeqReg = metaPipe(near_path_exp_neq)
+  val rmReg = metaPipe(io.rm)
+  val smallAddReg = metaPipe(small_add)
+  val selFarReg = metaPipe(sel_far_path)
+  val farMulOfReg = metaPipe(b_flags.overflow || (decode_b.expIsOnes && !eff_sub))
+  val farOverflowSignReg = metaPipe(Mux(b_is_inter && b_flags.overflow,
+    b_flags.prod_sign, Mux(!need_swap, raw_a.sign, raw_b.sign)))
+  val specialValidReg = metaPipe(special_case_happen)
+  val specialIvReg = metaPipe(special_path_iv)
+  val specialNanReg = metaPipe(special_path_hasNaN || special_path_inf_iv)
+  val specialInfSignReg = metaPipe(Mux(b_is_inter && b_flags.isInf,
+    b_flags.prod_sign, Mux(decode_a.isInf, fp_a.sign, fp_b.sign)))
+
   val near_path_out = Mux(
-    need_swap || (!near_path_exp_neq && near_path_a_lt_b),
+    needSwapReg || (!nearExpNeqReg && near_path_a_lt_b),
     near_path_mods.last.io.out,
     near_path_mods.head.io.out
   )
 
-  io.out.rm := io.rm
-  io.out.small_add := small_add
-  io.out.sel_far_path := sel_far_path
+  io.out.rm := rmReg
+  io.out.small_add := smallAddReg
+  io.out.sel_far_path := selFarReg
 
   io.out.far_path_out := far_path_out.result
-  io.out.far_path_mul_of := b_flags.overflow || (decode_b.expIsOnes && !eff_sub)
-  io.out.far_path_overflow_sign := Mux(b_is_inter && b_flags.overflow,
-    b_flags.prod_sign, far_path_out.result.sign)
+  io.out.far_path_mul_of := farMulOfReg
+  io.out.far_path_overflow_sign := farOverflowSignReg
 
   io.out.near_path_out := near_path_out.result
   io.out.near_path_sig_is_zero := near_path_out.sig_is_zero
 
-  io.out.special_case.valid := special_case_happen
-  io.out.special_case.bits.iv := special_path_iv
-  io.out.special_case.bits.nan := special_path_hasNaN || special_path_inf_iv
-  io.out.special_case.bits.inf_sign := Mux(b_is_inter && b_flags.isInf,
-    b_flags.prod_sign, Mux(decode_a.isInf, fp_a.sign, fp_b.sign))
+  io.out.special_case.valid := specialValidReg
+  io.out.special_case.bits.iv := specialIvReg
+  io.out.special_case.bits.nan := specialNanReg
+  io.out.special_case.bits.inf_sign := specialInfSignReg
 
 }
 

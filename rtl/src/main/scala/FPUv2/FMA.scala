@@ -71,7 +71,7 @@ class FMULPipe(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
 
 class FADDPipe(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
   extends FPUPipelineModule(expWidth + precision, ctrlGen) {
-  override def latency: Int = 1
+  override def latency: Int = 3
 
   val len = expWidth + precision
 
@@ -79,6 +79,7 @@ class FADDPipe(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
 
   val s1 = Module(new FCMA_ADD_s1(expWidth, 2 * precision, precision))
   val s2 = Module(new FCMA_ADD_s2(expWidth, precision))
+  s1.io.enable := regEnable(1)
 
   val isFMA = FPUOps.isFMA(io.in.bits.op)
   //val s1_isFMA = S1Reg(isFMA)
@@ -105,11 +106,11 @@ class FADDPipe(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
     0.U.asTypeOf(s1.io.b_inter_flags)
   )
   s1.io.rm := Mux(isFMA, fromMul.rm, io.in.bits.rm)
-  s2.io.in := S1Reg(s1.io.out)
+  s2.io.in := S3Reg(s1.io.out)
 
   io.out.bits.result := s2.io.result
   io.out.bits.fflags := s2.io.fflags
-  io.out.bits.ctrl.foreach( _ := S1Reg(io.in.bits.ctrl.get))
+  io.out.bits.ctrl.foreach( _ := S3Reg(io.in.bits.ctrl.get))
 }
 
 class FMA(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
@@ -131,7 +132,11 @@ class FMA(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
   }
 
   val toAddArbiter = Module(new Arbiter(new ArbiterIO, 2))
-  val toAddArbiterFIFO = Seq.fill(2)(Module(new Queue(new ArbiterIO, entries = 1, pipe = true)))
+  // Keep ready local to each elastic stage.  A pipelined one-entry Queue
+  // forwards ready combinationally and creates a path across the complete FMA
+  // arbitration network; bubbles are acceptable for these resource-shared
+  // units, so use registered backpressure boundaries here.
+  val toAddArbiterFIFO = Seq.fill(2)(Module(new Queue(new ArbiterIO, entries = 1, pipe = false)))
   toAddArbiterFIFO(1).io.enq.bits.op := io.in.bits.op(2,0)
   toAddArbiterFIFO(1).io.enq.bits.ctrl.foreach( _ := io.in.bits.ctrl.get )
   toAddArbiterFIFO(0).io.enq.bits.op := mulPipe.toAdd.op
@@ -141,12 +146,12 @@ class FMA(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
   toAddArbiter.io.in(0) <> toAddArbiterFIFO(0).io.deq
   toAddArbiter.io.in(1) <> toAddArbiterFIFO(1).io.deq
 
-  val inToAddFIFO = Module(new Queue(io.in.bits.cloneType, entries = 1, pipe = true))
+  val inToAddFIFO = Module(new Queue(io.in.bits.cloneType, entries = 1, pipe = false))
   inToAddFIFO.io.enq.bits := io.in.bits
   inToAddFIFO.io.enq.valid := FPUOps.isADDSUB(io.in.bits.op) && io.in.valid
   inToAddFIFO.io.deq.ready := toAddArbiter.io.in(1).ready
 
-  val mulToAddFIFO = Module(new Queue(new MulToAddIO(expWidth, precision, ctrlGen), entries = 1, pipe = true))
+  val mulToAddFIFO = Module(new Queue(new MulToAddIO(expWidth, precision, ctrlGen), entries = 1, pipe = false))
   mulToAddFIFO.io.enq.bits := mulPipe.toAdd
   mulToAddFIFO.io.enq.valid := toAddArbiterFIFO(0).io.enq.fire
   mulToAddFIFO.io.deq.ready := toAddArbiter.io.in(0).ready
@@ -155,8 +160,8 @@ class FMA(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
   // Cut the FIFO/source-selection delay from the add alignment stage.  The
   // synchronized one-entry queues remain elastic and can replace their entry
   // every cycle, preserving the original one-request-per-cycle throughput.
-  val addInputStage = Module(new Queue(addPipe.io.in.bits.cloneType, entries = 1, pipe = true))
-  val addMulStage = Module(new Queue(new MulToAddIO(expWidth, precision, ctrlGen), entries = 1, pipe = true))
+  val addInputStage = Module(new Queue(addPipe.io.in.bits.cloneType, entries = 1, pipe = false))
+  val addMulStage = Module(new Queue(new MulToAddIO(expWidth, precision, ctrlGen), entries = 1, pipe = false))
   addInputStage.io.enq.bits := inToAddFIFO.io.deq.bits
   addInputStage.io.enq.bits.op := toAddArbiter.io.out.bits.op
   addInputStage.io.enq.bits.ctrl.foreach(_ := toAddArbiter.io.out.bits.ctrl.get)
@@ -177,8 +182,8 @@ class FMA(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
   // 另一种阻塞FMA输入的情况是乘法器那边卡住了
   //io.in.ready := mulPipe.io.in.ready && !(ArbiterInQueue(1).io.enq.valid && !ArbiterInQueue(1).io.enq.ready)
   io.in.ready := Mux(FPUOps.isADDSUB(io.in.bits.op), toAddArbiterFIFO(1).io.enq.ready, mulPipe.io.in.ready)
-  val mulFIFO = Module(new Queue(new FPUOutput(expWidth + precision, ctrlGen), entries = 1, pipe = true))
-  val addFIFO = Module(new Queue(new FPUOutput(expWidth + precision, ctrlGen), entries = 1, pipe = true))
+  val mulFIFO = Module(new Queue(new FPUOutput(expWidth + precision, ctrlGen), entries = 1, pipe = false))
+  val addFIFO = Module(new Queue(new FPUOutput(expWidth + precision, ctrlGen), entries = 1, pipe = false))
   mulFIFO.io.enq.bits := mulPipe.io.out.bits
   mulFIFO.io.enq.valid := mulPipe.io.out.valid && FPUOps.isFMUL(mulPipe.toAdd.op)
   addFIFO.io.enq <> addPipe.io.out

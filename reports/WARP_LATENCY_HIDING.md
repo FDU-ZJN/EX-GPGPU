@@ -1,8 +1,28 @@
 # Warp Latency Hiding 流水线调度设计
 
 > 日期：2026-07-14  
-> 状态：架构建议，尚未全部实现  
+> 状态：depth-4 ROB、tagged completion、load overlap 已实现
 > 基线：当前 `AecEvalTop`、32-bank vector GPR、4 个固定 partition、每 partition 2 个 warp
+
+## 实施结果（2026-07-14）
+
+- 每warp加入depth-4 ROB和`{warp,epoch,sequence,robIndex,pc}` tag；backend可乱序完成，
+  GPR/predicate和error只从ROB head顺序提交。
+- INT、FP32、FP64、SFU、GMEM和共享Local LSU接受请求后释放frontend FSM，等待响应时
+  sibling warp和同warp无依赖指令可继续issue。
+- 64-bit pair在commit端锁定两个cycle；source-use scoreboard覆盖GPR pair和predicate
+  RAW/WAW；control、barrier、store和atomic保持serializing。
+- GMEM/Local load可与年轻独立计算重叠；store/atomic仅在本warp ROB为空时执行，避免
+  speculative memory side effect。
+- 为避免复制宽向量operand，本版保留每partition一个collector，而不是建议稿中的两个
+  slot/多组backend request queue。公开回归几何平均cycles降至旧RTL的94.90%，因此暂不
+  为额外queue支付面积和高扇出代价。
+- manifest回归与in-process realtime differential均为36/36。代表变化：GEMM
+  `1090 -> 959`、DIV `617 -> 573`、SYNC.CT `1077 -> 889`、partial warp
+  `539 -> 465`。
+
+后续可选优化仅包括tagged连续GPR read、第二collector slot和同partition多条GMEM
+instruction queue；这些不是当前正确性所需，且应在完整PPA后决定。
 
 ## 1. 目标与非目标
 

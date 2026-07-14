@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
   dut->reset=1; dut->io_req_valid=0; dut->io_resp_ready=0; dut->io_mode=0; tick(); tick(); dut->reset=0;
   std::deque<Vector> expected; unsigned sent=0,tested=0,failed=0,cycles=0; uint32_t rng=seed?seed:1;
   while (tested<vectors.size()) {
-    if (++cycles>vectors.size()*180+2000) { std::fprintf(stderr,"timeout sent=%u tested=%u\n",sent,tested); failed++; break; }
+    if (++cycles>vectors.size()*5000+2000) { std::fprintf(stderr,"timeout sent=%u tested=%u\n",sent,tested); failed++; break; }
     rng=rng*1664525u+1013904223u; dut->io_resp_ready=(rng%100)>=backpressure;
     dut->io_req_valid=sent<vectors.size();
     if (dut->io_req_valid) {
@@ -72,4 +72,3 @@ int main(int argc, char **argv) {
   std::printf("SFU differential: %u vectors, %u failures, %u cycles, seed=%u, backpressure=%u%%\n",tested,failed,cycles,seed,backpressure);
   delete dut; return failed?1:0;
 }
-

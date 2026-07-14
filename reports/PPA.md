@@ -97,9 +97,12 @@ scripts/run_ppa.sh \
 
 ## 单位和指标
 
-当前结构使用128个512x32 GPR macro和384个1024x32 resident-memory macro。
-按锁定LEF计算，SRAM footprint约`591,911 um²`，为优化前704个1024x32 macro
-基线`922,968 um²`的64.1%。这只是macro面积，不替代完整top标准单元、时序和功耗报告。
+重新生成的 judged hierarchy 使用128个512x32 GPR macro和64个1024x32 resident-memory
+macro：16个IMEM（四个read-port副本，每份4个slice）以及SMEM/CMEM/PMEM各16个。
+LMEM data/tag已移到external service，不再占judged core SRAM。按锁定LEF每实例
+`1311.0336 um²`计算，192个macro footprint约`251,718 um²`，为原704-macro基线
+`922,968 um²`的27.3%。本轮按要求未运行完整PPA；这个数字只统计macro footprint，
+不替代完整top标准单元、时序和功耗报告。
 
 ASAP7 Liberty 声明：
 

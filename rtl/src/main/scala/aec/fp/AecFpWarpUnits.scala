@@ -28,7 +28,6 @@ class AecFp32Unit(val lanesPerCycle: Int = 16) extends Module with AecWarpPipeSc
   val groupIssued = RegInit(false.B)
   val commitPending = RegInit(false.B)
   val resultBanks = Seq.fill(32)(Module(new AecResultLaneBank))
-  val writeMask = RegInit(0.U(32.W))
   val laneOp = Reg(Vec(lanesPerCycle, UInt(7.W)))
   val laneDtype = Reg(Vec(lanesPerCycle, UInt(4.W)))
   val laneDest = Reg(Vec(lanesPerCycle, UInt(8.W)))
@@ -46,13 +45,13 @@ class AecFp32Unit(val lanesPerCycle: Int = 16) extends Module with AecWarpPipeSc
   requestBuffer.io.capture := io.req.fire
   io.req.ready := capturePending
   io.resp.valid := outValid
-  io.resp.bits.result := VecInit((0 until 32).map(i => Mux(writeMask(i), resultBanks(i).io.result, 0.U)))
-  io.resp.bits.predicateMask := VecInit((0 until 32).map(i => writeMask(i) && resultBanks(i).io.predicate)).asUInt
-  io.resp.bits.errorMask := VecInit((0 until 32).map(i => writeMask(i) && resultBanks(i).io.error)).asUInt
-  io.resp.bits.exceptionFlags := VecInit((0 until 32).map(i => Mux(writeMask(i), resultBanks(i).io.flags, 0.U)))
+  io.resp.bits.result := VecInit(resultBanks.map(_.io.result))
+  io.resp.bits.predicateMask := VecInit(resultBanks.map(_.io.predicate)).asUInt
+  io.resp.bits.errorMask := VecInit(resultBanks.map(_.io.error)).asUInt
+  io.resp.bits.exceptionFlags := VecInit(resultBanks.map(_.io.flags))
   io.resp.bits.activeMask := held.activeMask; io.resp.bits.dest := held.dest
   for (i <- 0 until lanesPerCycle) {
-    requestStages(i).io.inValid := running && !groupIssued && held.activeMask.orR && !outValid && group < groups.U && allReady
+    requestStages(i).io.inValid := running && !groupIssued && !outValid && group < groups.U && allReady
     requestStages(i).io.group := group
     for (g <- 0 until groups) {
       val lane = g * lanesPerCycle + i
@@ -69,10 +68,10 @@ class AecFp32Unit(val lanesPerCycle: Int = 16) extends Module with AecWarpPipeSc
   for (g <- 0 until groups; i <- 0 until lanesPerCycle) {
     val architecturalLane = g * lanesPerCycle + i
     resultBanks(architecturalLane).io.write := running && !outValid && allValid && group === g.U
-    resultBanks(architecturalLane).io.writeResult := pipes(i).io.resp.bits.result
-    resultBanks(architecturalLane).io.writeFlags := pipes(i).io.resp.bits.exception_flags
-    resultBanks(architecturalLane).io.writePredicate := pipes(i).io.resp.bits.predicate_result
-    resultBanks(architecturalLane).io.writeError := pipes(i).io.resp.bits.error
+    resultBanks(architecturalLane).io.writeResult := Mux(held.activeMask(architecturalLane), pipes(i).io.resp.bits.result, 0.U)
+    resultBanks(architecturalLane).io.writeFlags := Mux(held.activeMask(architecturalLane), pipes(i).io.resp.bits.exception_flags, 0.U)
+    resultBanks(architecturalLane).io.writePredicate := held.activeMask(architecturalLane) && pipes(i).io.resp.bits.predicate_result
+    resultBanks(architecturalLane).io.writeError := held.activeMask(architecturalLane) && pipes(i).io.resp.bits.error
   }
   armPending := armCapture
   when (armPending) { capturePending := true.B }
@@ -85,9 +84,8 @@ class AecFp32Unit(val lanesPerCycle: Int = 16) extends Module with AecWarpPipeSc
     capturePending := false.B; group := 0.U
     groupIssued := false.B
     commitPending := false.B
-    running := io.req.bits.activeMask.orR
-    outValid := !io.req.bits.activeMask.orR
-    writeMask := 0.U
+    running := true.B
+    outValid := false.B
   }
   when (running && !groupIssued && !commitPending && allReady) { groupIssued := true.B }
   when (running && groupIssued && !commitPending && allValid) {
@@ -95,8 +93,6 @@ class AecFp32Unit(val lanesPerCycle: Int = 16) extends Module with AecWarpPipeSc
   }
   when (commitPending) {
     groupIssued := false.B
-    val groupMask = ((((1.U(33.W) << lanesPerCycle) - 1.U) << base)(31, 0))
-    writeMask := writeMask | (held.activeMask & groupMask)
     commitPending := false.B
     when (group === (groups - 1).U) { outValid := true.B; running := false.B; group := 0.U }.otherwise { group := group + 1.U }
   }
@@ -123,7 +119,6 @@ class AecFp64Unit(val lanesPerCycle: Int = 2) extends Module with AecWarpPipeSch
   val groupIssued = RegInit(false.B)
   val commitPending = RegInit(false.B)
   val resultBanks = Seq.fill(32)(Module(new AecResultLaneBank))
-  val writeMask = RegInit(0.U(32.W))
   val laneOp = Reg(Vec(lanesPerCycle, UInt(7.W)))
   val laneDtype = Reg(Vec(lanesPerCycle, UInt(4.W)))
   val laneDest = Reg(Vec(lanesPerCycle, UInt(8.W)))
@@ -139,13 +134,13 @@ class AecFp64Unit(val lanesPerCycle: Int = 2) extends Module with AecWarpPipeSch
   requestBuffer.io.capture := io.req.fire
   io.req.ready := capturePending
   io.resp.valid := outValid
-  io.resp.bits.result := VecInit((0 until 32).map(i => Mux(writeMask(i), resultBanks(i).io.result, 0.U)))
-  io.resp.bits.predicateMask := VecInit((0 until 32).map(i => writeMask(i) && resultBanks(i).io.predicate)).asUInt
-  io.resp.bits.errorMask := VecInit((0 until 32).map(i => writeMask(i) && resultBanks(i).io.error)).asUInt
-  io.resp.bits.exceptionFlags := VecInit((0 until 32).map(i => Mux(writeMask(i), resultBanks(i).io.flags, 0.U)))
+  io.resp.bits.result := VecInit(resultBanks.map(_.io.result))
+  io.resp.bits.predicateMask := VecInit(resultBanks.map(_.io.predicate)).asUInt
+  io.resp.bits.errorMask := VecInit(resultBanks.map(_.io.error)).asUInt
+  io.resp.bits.exceptionFlags := VecInit(resultBanks.map(_.io.flags))
   io.resp.bits.activeMask := held.activeMask; io.resp.bits.dest := held.dest
   for (i <- 0 until lanesPerCycle) {
-    requestStages(i).io.inValid := running && !groupIssued && held.activeMask.orR && !outValid && group < groups.U && allReady
+    requestStages(i).io.inValid := running && !groupIssued && !outValid && group < groups.U && allReady
     requestStages(i).io.group := group
     for (g <- 0 until groups) {
       val lane = g * lanesPerCycle + i
@@ -162,10 +157,10 @@ class AecFp64Unit(val lanesPerCycle: Int = 2) extends Module with AecWarpPipeSch
   for (g <- 0 until groups; i <- 0 until lanesPerCycle) {
     val architecturalLane = g * lanesPerCycle + i
     resultBanks(architecturalLane).io.write := running && !outValid && allValid && group === g.U
-    resultBanks(architecturalLane).io.writeResult := pipes(i).io.resp.bits.result
-    resultBanks(architecturalLane).io.writeFlags := pipes(i).io.resp.bits.exception_flags
-    resultBanks(architecturalLane).io.writePredicate := pipes(i).io.resp.bits.predicate_result
-    resultBanks(architecturalLane).io.writeError := pipes(i).io.resp.bits.error
+    resultBanks(architecturalLane).io.writeResult := Mux(held.activeMask(architecturalLane), pipes(i).io.resp.bits.result, 0.U)
+    resultBanks(architecturalLane).io.writeFlags := Mux(held.activeMask(architecturalLane), pipes(i).io.resp.bits.exception_flags, 0.U)
+    resultBanks(architecturalLane).io.writePredicate := held.activeMask(architecturalLane) && pipes(i).io.resp.bits.predicate_result
+    resultBanks(architecturalLane).io.writeError := held.activeMask(architecturalLane) && pipes(i).io.resp.bits.error
   }
   armPending := armCapture
   when (armPending) { capturePending := true.B }
@@ -178,9 +173,8 @@ class AecFp64Unit(val lanesPerCycle: Int = 2) extends Module with AecWarpPipeSch
     capturePending := false.B; group := 0.U
     groupIssued := false.B
     commitPending := false.B
-    running := io.req.bits.activeMask.orR
-    outValid := !io.req.bits.activeMask.orR
-    writeMask := 0.U
+    running := true.B
+    outValid := false.B
   }
   when (running && !groupIssued && !commitPending && allReady) { groupIssued := true.B }
   when (running && groupIssued && !commitPending && allValid) {
@@ -188,8 +182,6 @@ class AecFp64Unit(val lanesPerCycle: Int = 2) extends Module with AecWarpPipeSch
   }
   when (commitPending) {
     groupIssued := false.B
-    val groupMask = ((((1.U(33.W) << lanesPerCycle) - 1.U) << base)(31, 0))
-    writeMask := writeMask | (held.activeMask & groupMask)
     commitPending := false.B
     when (group === (groups - 1).U) { outValid := true.B; running := false.B; group := 0.U }.otherwise { group := group + 1.U }
   }

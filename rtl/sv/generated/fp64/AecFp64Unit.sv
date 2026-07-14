@@ -1000,6 +1000,9 @@ module ShiftRightJam(
   assign io_sticky = |_io_sticky_T; // @[ShiftRightJam.scala 22:41]
 endmodule
 module FarPath(
+  input          clock,
+  input          reset,
+  input          io_enable,
   input          io_in_a_sign,
   input  [10:0]  io_in_a_exp,
   input  [105:0] io_in_a_sig,
@@ -1011,33 +1014,65 @@ module FarPath(
   output [10:0]  io_out_result_exp,
   output [55:0]  io_out_result_sig
 );
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+  reg [127:0] _RAND_2;
+  reg [127:0] _RAND_3;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_8;
+  reg [31:0] _RAND_9;
+  reg [127:0] _RAND_10;
+  reg [127:0] _RAND_11;
+  reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
+`endif // RANDOMIZE_REG_INIT
   wire [107:0] shiftRightJam_io_in; // @[ShiftRightJam.scala 27:31]
   wire [10:0] shiftRightJam_io_shamt; // @[ShiftRightJam.scala 27:31]
   wire [107:0] shiftRightJam_io_out; // @[ShiftRightJam.scala 27:31]
   wire  shiftRightJam_io_sticky; // @[ShiftRightJam.scala 27:31]
-  wire [109:0] adder_in_sig_b = {1'h0,shiftRightJam_io_out,shiftRightJam_io_sticky}; // @[Cat.scala 33:92]
-  wire [109:0] adder_in_sig_a = {1'h0,io_in_a_sig,3'h0}; // @[Cat.scala 33:92]
-  wire [109:0] _adder_result_T = ~adder_in_sig_b; // @[FADD.scala 33:19]
-  wire [109:0] _adder_result_T_1 = io_in_effSub ? _adder_result_T : adder_in_sig_b; // @[FADD.scala 33:10]
-  wire [109:0] _adder_result_T_3 = adder_in_sig_a + _adder_result_T_1; // @[FADD.scala 32:20]
-  wire [109:0] _GEN_0 = {{109'd0}, io_in_effSub}; // @[FADD.scala 33:61]
-  wire [109:0] adder_result = _adder_result_T_3 + _GEN_0; // @[FADD.scala 33:61]
-  wire [10:0] exp_a_plus_1 = io_in_a_exp + 11'h1; // @[FADD.scala 35:28]
-  wire [10:0] exp_a_minus_1 = io_in_a_exp - 11'h1; // @[FADD.scala 36:29]
-  wire  cout = adder_result[109]; // @[FADD.scala 38:31]
-  wire  keep = adder_result[109:108] == 2'h1; // @[FADD.scala 39:35]
-  wire  cancellation = adder_result[109:108] == 2'h0; // @[FADD.scala 40:43]
-  wire  _far_path_sig_T = keep | io_in_smallAdd; // @[FADD.scala 43:20]
-  wire  _far_path_sig_T_2 = cancellation & ~io_in_smallAdd; // @[FADD.scala 43:46]
-  wire [55:0] _far_path_sig_T_6 = {adder_result[109:55],|adder_result[54:0]}; // @[FADD.scala 45:36]
-  wire [55:0] _far_path_sig_T_11 = {adder_result[108:54],|adder_result[53:0]}; // @[FADD.scala 46:44]
-  wire [55:0] _far_path_sig_T_16 = {adder_result[107:53],|adder_result[52:0]}; // @[FADD.scala 47:44]
+  reg  in_a_sign; // @[FADD.scala 23:19]
+  reg [10:0] in_a_exp; // @[FADD.scala 23:19]
+  reg [105:0] in_a_sig; // @[FADD.scala 23:19]
+  reg [105:0] in_b_sig; // @[FADD.scala 23:19]
+  reg [10:0] in_expDiff; // @[FADD.scala 23:19]
+  reg  in_effSub; // @[FADD.scala 23:19]
+  reg  in_smallAdd; // @[FADD.scala 23:19]
+  reg  localEnable; // @[FADD.scala 24:28]
+  reg  aReg_sign; // @[Reg.scala 19:16]
+  reg [10:0] aReg_exp; // @[Reg.scala 19:16]
+  reg [105:0] aReg_sig; // @[Reg.scala 19:16]
+  reg [107:0] sigBMainReg; // @[Reg.scala 19:16]
+  reg  sigBStickyReg; // @[Reg.scala 19:16]
+  reg  effSubReg; // @[Reg.scala 19:16]
+  reg  smallAddReg; // @[Reg.scala 19:16]
+  wire [109:0] adder_in_sig_b = {1'h0,sigBMainReg,sigBStickyReg}; // @[Cat.scala 33:92]
+  wire [109:0] adder_in_sig_a = {1'h0,aReg_sig,3'h0}; // @[Cat.scala 33:92]
+  wire [109:0] _adder_result_T = ~adder_in_sig_b; // @[FADD.scala 41:22]
+  wire [109:0] _adder_result_T_1 = effSubReg ? _adder_result_T : adder_in_sig_b; // @[FADD.scala 41:10]
+  wire [109:0] _adder_result_T_3 = adder_in_sig_a + _adder_result_T_1; // @[FADD.scala 40:20]
+  wire [109:0] _GEN_7 = {{109'd0}, effSubReg}; // @[FADD.scala 41:64]
+  wire [109:0] adder_result = _adder_result_T_3 + _GEN_7; // @[FADD.scala 41:64]
+  wire [10:0] exp_a_plus_1 = aReg_exp + 11'h1; // @[FADD.scala 43:31]
+  wire [10:0] exp_a_minus_1 = aReg_exp - 11'h1; // @[FADD.scala 44:32]
+  wire  cout = adder_result[109]; // @[FADD.scala 46:31]
+  wire  keep = adder_result[109:108] == 2'h1; // @[FADD.scala 47:35]
+  wire  cancellation = adder_result[109:108] == 2'h0; // @[FADD.scala 48:43]
+  wire  _far_path_sig_T = keep | smallAddReg; // @[FADD.scala 51:20]
+  wire  _far_path_sig_T_2 = cancellation & ~smallAddReg; // @[FADD.scala 51:49]
+  wire [55:0] _far_path_sig_T_6 = {adder_result[109:55],|adder_result[54:0]}; // @[FADD.scala 53:36]
+  wire [55:0] _far_path_sig_T_11 = {adder_result[108:54],|adder_result[53:0]}; // @[FADD.scala 54:44]
+  wire [55:0] _far_path_sig_T_16 = {adder_result[107:53],|adder_result[52:0]}; // @[FADD.scala 55:44]
   wire [55:0] _far_path_sig_T_17 = cout ? _far_path_sig_T_6 : 56'h0; // @[Mux.scala 27:73]
   wire [55:0] _far_path_sig_T_18 = _far_path_sig_T ? _far_path_sig_T_11 : 56'h0; // @[Mux.scala 27:73]
   wire [55:0] _far_path_sig_T_19 = _far_path_sig_T_2 ? _far_path_sig_T_16 : 56'h0; // @[Mux.scala 27:73]
   wire [55:0] _far_path_sig_T_20 = _far_path_sig_T_17 | _far_path_sig_T_18; // @[Mux.scala 27:73]
   wire [10:0] _far_path_exp_T = cout ? exp_a_plus_1 : 11'h0; // @[Mux.scala 27:73]
-  wire [10:0] _far_path_exp_T_1 = keep ? io_in_a_exp : 11'h0; // @[Mux.scala 27:73]
+  wire [10:0] _far_path_exp_T_1 = keep ? aReg_exp : 11'h0; // @[Mux.scala 27:73]
   wire [10:0] _far_path_exp_T_2 = cancellation ? exp_a_minus_1 : 11'h0; // @[Mux.scala 27:73]
   wire [10:0] _far_path_exp_T_3 = _far_path_exp_T | _far_path_exp_T_1; // @[Mux.scala 27:73]
   ShiftRightJam shiftRightJam ( // @[ShiftRightJam.scala 27:31]
@@ -1046,11 +1081,119 @@ module FarPath(
     .io_out(shiftRightJam_io_out),
     .io_sticky(shiftRightJam_io_sticky)
   );
-  assign io_out_result_sign = io_in_a_sign; // @[FADD.scala 56:20 57:15]
+  assign io_out_result_sign = aReg_sign; // @[FADD.scala 64:20 65:15]
   assign io_out_result_exp = _far_path_exp_T_3 | _far_path_exp_T_2; // @[Mux.scala 27:73]
   assign io_out_result_sig = _far_path_sig_T_20 | _far_path_sig_T_19; // @[Mux.scala 27:73]
-  assign shiftRightJam_io_in = {io_in_b_sig,2'h0}; // @[Cat.scala 33:92]
-  assign shiftRightJam_io_shamt = io_in_expDiff; // @[ShiftRightJam.scala 29:28]
+  assign shiftRightJam_io_in = {in_b_sig,2'h0}; // @[Cat.scala 33:92]
+  assign shiftRightJam_io_shamt = in_expDiff; // @[ShiftRightJam.scala 29:28]
+  always @(posedge clock) begin
+    in_a_sign <= io_in_a_sign; // @[FADD.scala 23:19]
+    in_a_exp <= io_in_a_exp; // @[FADD.scala 23:19]
+    in_a_sig <= io_in_a_sig; // @[FADD.scala 23:19]
+    in_b_sig <= io_in_b_sig; // @[FADD.scala 23:19]
+    in_expDiff <= io_in_expDiff; // @[FADD.scala 23:19]
+    in_effSub <= io_in_effSub; // @[FADD.scala 23:19]
+    in_smallAdd <= io_in_smallAdd; // @[FADD.scala 23:19]
+    if (reset) begin // @[FADD.scala 24:28]
+      localEnable <= 1'h0; // @[FADD.scala 24:28]
+    end else begin
+      localEnable <= io_enable; // @[FADD.scala 24:28]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      aReg_sign <= in_a_sign; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      aReg_exp <= in_a_exp; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      aReg_sig <= in_a_sig; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      sigBMainReg <= shiftRightJam_io_out; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      sigBStickyReg <= shiftRightJam_io_sticky; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      effSubReg <= in_effSub; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      smallAddReg <= in_smallAdd; // @[Reg.scala 20:22]
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  in_a_sign = _RAND_0[0:0];
+  _RAND_1 = {1{`RANDOM}};
+  in_a_exp = _RAND_1[10:0];
+  _RAND_2 = {4{`RANDOM}};
+  in_a_sig = _RAND_2[105:0];
+  _RAND_3 = {4{`RANDOM}};
+  in_b_sig = _RAND_3[105:0];
+  _RAND_4 = {1{`RANDOM}};
+  in_expDiff = _RAND_4[10:0];
+  _RAND_5 = {1{`RANDOM}};
+  in_effSub = _RAND_5[0:0];
+  _RAND_6 = {1{`RANDOM}};
+  in_smallAdd = _RAND_6[0:0];
+  _RAND_7 = {1{`RANDOM}};
+  localEnable = _RAND_7[0:0];
+  _RAND_8 = {1{`RANDOM}};
+  aReg_sign = _RAND_8[0:0];
+  _RAND_9 = {1{`RANDOM}};
+  aReg_exp = _RAND_9[10:0];
+  _RAND_10 = {4{`RANDOM}};
+  aReg_sig = _RAND_10[105:0];
+  _RAND_11 = {4{`RANDOM}};
+  sigBMainReg = _RAND_11[107:0];
+  _RAND_12 = {1{`RANDOM}};
+  sigBStickyReg = _RAND_12[0:0];
+  _RAND_13 = {1{`RANDOM}};
+  effSubReg = _RAND_13[0:0];
+  _RAND_14 = {1{`RANDOM}};
+  smallAddReg = _RAND_14[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
 endmodule
 module LZA(
   input  [106:0] io_a,
@@ -1505,6 +1648,9 @@ module CLZ_1(
   assign io_out = io_in[106] ? 7'h0 : _io_out_T_211; // @[Mux.scala 47:70]
 endmodule
 module NearPath(
+  input          clock,
+  input          reset,
+  input          io_enable,
   input          io_in_a_sign,
   input  [10:0]  io_in_a_exp,
   input  [105:0] io_in_a_sig,
@@ -1517,134 +1663,170 @@ module NearPath(
   output         io_out_sig_is_zero,
   output         io_out_a_lt_b
 );
-  wire [106:0] lza_ab_io_a; // @[FADD.scala 87:22]
-  wire [106:0] lza_ab_io_b; // @[FADD.scala 87:22]
-  wire [106:0] lza_ab_io_f; // @[FADD.scala 87:22]
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+  reg [127:0] _RAND_2;
+  reg [31:0] _RAND_3;
+  reg [127:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_6;
+  reg [127:0] _RAND_7;
+  reg [127:0] _RAND_8;
+  reg [31:0] _RAND_9;
+  reg [31:0] _RAND_10;
+  reg [31:0] _RAND_11;
+  reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [127:0] _RAND_15;
+  reg [31:0] _RAND_16;
+`endif // RANDOMIZE_REG_INIT
+  wire [106:0] lza_ab_io_a; // @[FADD.scala 98:22]
+  wire [106:0] lza_ab_io_b; // @[FADD.scala 98:22]
+  wire [106:0] lza_ab_io_f; // @[FADD.scala 98:22]
   wire [106:0] lzc_clz_io_in; // @[CLZ.scala 22:21]
   wire [6:0] lzc_clz_io_out; // @[CLZ.scala 22:21]
-  wire [106:0] _b_sig_T = {io_in_b_sig,1'h0}; // @[Cat.scala 33:92]
-  wire [106:0] b_sig = _b_sig_T >> io_in_need_shift_b; // @[FADD.scala 81:37]
-  wire [106:0] b_neg = ~b_sig; // @[FADD.scala 82:16]
-  wire [107:0] _a_minus_b_T = {1'h0,io_in_a_sig,1'h0}; // @[Cat.scala 33:92]
+  reg  inputReg_a_sign; // @[FADD.scala 87:25]
+  reg [10:0] inputReg_a_exp; // @[FADD.scala 87:25]
+  reg [105:0] inputReg_a_sig; // @[FADD.scala 87:25]
+  reg  inputReg_b_sign; // @[FADD.scala 87:25]
+  reg [105:0] inputReg_b_sig; // @[FADD.scala 87:25]
+  reg  inputReg_need_shift_b; // @[FADD.scala 87:25]
+  reg  localEnable; // @[FADD.scala 88:28]
+  wire [106:0] _b_sig_T = {inputReg_b_sig,1'h0}; // @[Cat.scala 33:92]
+  wire [106:0] b_sig = _b_sig_T >> inputReg_need_shift_b; // @[FADD.scala 92:37]
+  wire [106:0] b_neg = ~b_sig; // @[FADD.scala 93:16]
+  wire [107:0] _a_minus_b_T = {1'h0,inputReg_a_sig,1'h0}; // @[Cat.scala 33:92]
   wire [107:0] _a_minus_b_T_1 = {1'h1,b_neg}; // @[Cat.scala 33:92]
-  wire [107:0] _a_minus_b_T_3 = _a_minus_b_T + _a_minus_b_T_1; // @[FADD.scala 84:40]
-  wire [107:0] a_minus_b = _a_minus_b_T_3 + 108'h1; // @[FADD.scala 84:63]
-  wire  a_lt_b = a_minus_b[107]; // @[FADD.scala 85:30]
-  wire [106:0] sig_raw = a_minus_b[106:0]; // @[FADD.scala 86:31]
-  wire  lza_str_zero = ~(|lza_ab_io_f); // @[FADD.scala 91:22]
-  wire  need_shift_lim = io_in_a_exp < 11'h6b; // @[FADD.scala 94:30]
-  wire [107:0] _shift_lim_mask_raw_T_2 = 108'h800000000000000000000000000 >> io_in_a_exp[6:0]; // @[FADD.scala 97:41]
-  wire [106:0] shift_lim_mask_raw = _shift_lim_mask_raw_T_2[106:0]; // @[FADD.scala 98:16]
-  wire [106:0] shift_lim_mask = need_shift_lim ? shift_lim_mask_raw : 107'h0; // @[FADD.scala 99:27]
-  wire [106:0] _shift_lim_bit_T = shift_lim_mask_raw & sig_raw; // @[FADD.scala 100:43]
-  wire  shift_lim_bit = |_shift_lim_bit_T; // @[FADD.scala 100:57]
-  wire [106:0] lzc_str = shift_lim_mask | lza_ab_io_f; // @[FADD.scala 102:32]
-  wire  _int_bit_mask_T_5 = lzc_str[105] & ~(|lzc_str[106]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_10 = lzc_str[104] & ~(|lzc_str[106:105]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_15 = lzc_str[103] & ~(|lzc_str[106:104]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_20 = lzc_str[102] & ~(|lzc_str[106:103]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_25 = lzc_str[101] & ~(|lzc_str[106:102]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_30 = lzc_str[100] & ~(|lzc_str[106:101]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_35 = lzc_str[99] & ~(|lzc_str[106:100]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_40 = lzc_str[98] & ~(|lzc_str[106:99]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_45 = lzc_str[97] & ~(|lzc_str[106:98]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_50 = lzc_str[96] & ~(|lzc_str[106:97]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_55 = lzc_str[95] & ~(|lzc_str[106:96]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_60 = lzc_str[94] & ~(|lzc_str[106:95]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_65 = lzc_str[93] & ~(|lzc_str[106:94]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_70 = lzc_str[92] & ~(|lzc_str[106:93]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_75 = lzc_str[91] & ~(|lzc_str[106:92]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_80 = lzc_str[90] & ~(|lzc_str[106:91]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_85 = lzc_str[89] & ~(|lzc_str[106:90]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_90 = lzc_str[88] & ~(|lzc_str[106:89]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_95 = lzc_str[87] & ~(|lzc_str[106:88]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_100 = lzc_str[86] & ~(|lzc_str[106:87]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_105 = lzc_str[85] & ~(|lzc_str[106:86]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_110 = lzc_str[84] & ~(|lzc_str[106:85]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_115 = lzc_str[83] & ~(|lzc_str[106:84]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_120 = lzc_str[82] & ~(|lzc_str[106:83]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_125 = lzc_str[81] & ~(|lzc_str[106:82]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_130 = lzc_str[80] & ~(|lzc_str[106:81]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_135 = lzc_str[79] & ~(|lzc_str[106:80]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_140 = lzc_str[78] & ~(|lzc_str[106:79]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_145 = lzc_str[77] & ~(|lzc_str[106:78]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_150 = lzc_str[76] & ~(|lzc_str[106:77]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_155 = lzc_str[75] & ~(|lzc_str[106:76]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_160 = lzc_str[74] & ~(|lzc_str[106:75]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_165 = lzc_str[73] & ~(|lzc_str[106:74]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_170 = lzc_str[72] & ~(|lzc_str[106:73]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_175 = lzc_str[71] & ~(|lzc_str[106:72]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_180 = lzc_str[70] & ~(|lzc_str[106:71]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_185 = lzc_str[69] & ~(|lzc_str[106:70]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_190 = lzc_str[68] & ~(|lzc_str[106:69]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_195 = lzc_str[67] & ~(|lzc_str[106:68]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_200 = lzc_str[66] & ~(|lzc_str[106:67]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_205 = lzc_str[65] & ~(|lzc_str[106:66]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_210 = lzc_str[64] & ~(|lzc_str[106:65]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_215 = lzc_str[63] & ~(|lzc_str[106:64]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_220 = lzc_str[62] & ~(|lzc_str[106:63]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_225 = lzc_str[61] & ~(|lzc_str[106:62]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_230 = lzc_str[60] & ~(|lzc_str[106:61]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_235 = lzc_str[59] & ~(|lzc_str[106:60]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_240 = lzc_str[58] & ~(|lzc_str[106:59]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_245 = lzc_str[57] & ~(|lzc_str[106:58]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_250 = lzc_str[56] & ~(|lzc_str[106:57]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_255 = lzc_str[55] & ~(|lzc_str[106:56]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_260 = lzc_str[54] & ~(|lzc_str[106:55]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_265 = lzc_str[53] & ~(|lzc_str[106:54]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_270 = lzc_str[52] & ~(|lzc_str[106:53]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_275 = lzc_str[51] & ~(|lzc_str[106:52]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_280 = lzc_str[50] & ~(|lzc_str[106:51]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_285 = lzc_str[49] & ~(|lzc_str[106:50]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_290 = lzc_str[48] & ~(|lzc_str[106:49]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_295 = lzc_str[47] & ~(|lzc_str[106:48]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_300 = lzc_str[46] & ~(|lzc_str[106:47]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_305 = lzc_str[45] & ~(|lzc_str[106:46]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_310 = lzc_str[44] & ~(|lzc_str[106:45]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_315 = lzc_str[43] & ~(|lzc_str[106:44]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_320 = lzc_str[42] & ~(|lzc_str[106:43]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_325 = lzc_str[41] & ~(|lzc_str[106:42]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_330 = lzc_str[40] & ~(|lzc_str[106:41]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_335 = lzc_str[39] & ~(|lzc_str[106:40]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_340 = lzc_str[38] & ~(|lzc_str[106:39]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_345 = lzc_str[37] & ~(|lzc_str[106:38]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_350 = lzc_str[36] & ~(|lzc_str[106:37]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_355 = lzc_str[35] & ~(|lzc_str[106:36]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_360 = lzc_str[34] & ~(|lzc_str[106:35]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_365 = lzc_str[33] & ~(|lzc_str[106:34]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_370 = lzc_str[32] & ~(|lzc_str[106:33]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_375 = lzc_str[31] & ~(|lzc_str[106:32]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_380 = lzc_str[30] & ~(|lzc_str[106:31]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_385 = lzc_str[29] & ~(|lzc_str[106:30]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_390 = lzc_str[28] & ~(|lzc_str[106:29]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_395 = lzc_str[27] & ~(|lzc_str[106:28]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_400 = lzc_str[26] & ~(|lzc_str[106:27]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_405 = lzc_str[25] & ~(|lzc_str[106:26]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_410 = lzc_str[24] & ~(|lzc_str[106:25]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_415 = lzc_str[23] & ~(|lzc_str[106:24]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_420 = lzc_str[22] & ~(|lzc_str[106:23]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_425 = lzc_str[21] & ~(|lzc_str[106:22]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_430 = lzc_str[20] & ~(|lzc_str[106:21]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_435 = lzc_str[19] & ~(|lzc_str[106:20]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_440 = lzc_str[18] & ~(|lzc_str[106:19]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_445 = lzc_str[17] & ~(|lzc_str[106:18]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_450 = lzc_str[16] & ~(|lzc_str[106:17]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_455 = lzc_str[15] & ~(|lzc_str[106:16]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_460 = lzc_str[14] & ~(|lzc_str[106:15]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_465 = lzc_str[13] & ~(|lzc_str[106:14]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_470 = lzc_str[12] & ~(|lzc_str[106:13]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_475 = lzc_str[11] & ~(|lzc_str[106:12]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_480 = lzc_str[10] & ~(|lzc_str[106:11]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_485 = lzc_str[9] & ~(|lzc_str[106:10]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_490 = lzc_str[8] & ~(|lzc_str[106:9]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_495 = lzc_str[7] & ~(|lzc_str[106:8]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_500 = lzc_str[6] & ~(|lzc_str[106:7]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_505 = lzc_str[5] & ~(|lzc_str[106:6]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_510 = lzc_str[4] & ~(|lzc_str[106:5]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_515 = lzc_str[3] & ~(|lzc_str[106:4]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_520 = lzc_str[2] & ~(|lzc_str[106:3]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_525 = lzc_str[1] & ~(|lzc_str[106:2]); // @[FADD.scala 107:40]
-  wire  _int_bit_mask_T_530 = lzc_str[0] & ~(|lzc_str[106:1]); // @[FADD.scala 107:40]
+  wire [107:0] _a_minus_b_T_3 = _a_minus_b_T + _a_minus_b_T_1; // @[FADD.scala 95:40]
+  wire [107:0] a_minus_b = _a_minus_b_T_3 + 108'h1; // @[FADD.scala 95:63]
+  wire  a_lt_b = a_minus_b[107]; // @[FADD.scala 96:30]
+  wire [106:0] sig_raw = a_minus_b[106:0]; // @[FADD.scala 97:31]
+  wire  lza_str_zero = ~(|lza_ab_io_f); // @[FADD.scala 102:22]
+  wire  need_shift_lim = inputReg_a_exp < 11'h6b; // @[FADD.scala 105:30]
+  wire [107:0] _shift_lim_mask_raw_T_2 = 108'h800000000000000000000000000 >> inputReg_a_exp[6:0]; // @[FADD.scala 108:41]
+  wire [106:0] shift_lim_mask_raw = _shift_lim_mask_raw_T_2[106:0]; // @[FADD.scala 109:16]
+  wire [106:0] _shift_lim_bit_T = shift_lim_mask_raw & sig_raw; // @[FADD.scala 111:43]
+  wire  shift_lim_bit = |_shift_lim_bit_T; // @[FADD.scala 111:57]
+  reg [106:0] sigRawReg; // @[Reg.scala 19:16]
+  reg [106:0] lzaStrReg; // @[Reg.scala 19:16]
+  reg  lzaZeroReg; // @[Reg.scala 19:16]
+  reg [10:0] aExpReg; // @[Reg.scala 19:16]
+  reg  aSignReg; // @[Reg.scala 19:16]
+  reg  bSignReg; // @[Reg.scala 19:16]
+  reg  aLtBReg; // @[Reg.scala 19:16]
+  reg  needShiftLimReg; // @[Reg.scala 19:16]
+  reg [106:0] shiftLimMaskRawReg; // @[Reg.scala 19:16]
+  reg  shiftLimBitReg; // @[Reg.scala 19:16]
+  wire [106:0] shift_lim_mask_reg = needShiftLimReg ? shiftLimMaskRawReg : 107'h0; // @[FADD.scala 124:31]
+  wire [106:0] lzc_str = shift_lim_mask_reg | lzaStrReg; // @[FADD.scala 125:36]
+  wire  _int_bit_mask_T_5 = lzc_str[105] & ~(|lzc_str[106]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_10 = lzc_str[104] & ~(|lzc_str[106:105]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_15 = lzc_str[103] & ~(|lzc_str[106:104]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_20 = lzc_str[102] & ~(|lzc_str[106:103]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_25 = lzc_str[101] & ~(|lzc_str[106:102]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_30 = lzc_str[100] & ~(|lzc_str[106:101]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_35 = lzc_str[99] & ~(|lzc_str[106:100]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_40 = lzc_str[98] & ~(|lzc_str[106:99]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_45 = lzc_str[97] & ~(|lzc_str[106:98]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_50 = lzc_str[96] & ~(|lzc_str[106:97]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_55 = lzc_str[95] & ~(|lzc_str[106:96]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_60 = lzc_str[94] & ~(|lzc_str[106:95]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_65 = lzc_str[93] & ~(|lzc_str[106:94]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_70 = lzc_str[92] & ~(|lzc_str[106:93]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_75 = lzc_str[91] & ~(|lzc_str[106:92]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_80 = lzc_str[90] & ~(|lzc_str[106:91]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_85 = lzc_str[89] & ~(|lzc_str[106:90]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_90 = lzc_str[88] & ~(|lzc_str[106:89]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_95 = lzc_str[87] & ~(|lzc_str[106:88]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_100 = lzc_str[86] & ~(|lzc_str[106:87]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_105 = lzc_str[85] & ~(|lzc_str[106:86]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_110 = lzc_str[84] & ~(|lzc_str[106:85]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_115 = lzc_str[83] & ~(|lzc_str[106:84]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_120 = lzc_str[82] & ~(|lzc_str[106:83]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_125 = lzc_str[81] & ~(|lzc_str[106:82]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_130 = lzc_str[80] & ~(|lzc_str[106:81]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_135 = lzc_str[79] & ~(|lzc_str[106:80]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_140 = lzc_str[78] & ~(|lzc_str[106:79]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_145 = lzc_str[77] & ~(|lzc_str[106:78]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_150 = lzc_str[76] & ~(|lzc_str[106:77]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_155 = lzc_str[75] & ~(|lzc_str[106:76]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_160 = lzc_str[74] & ~(|lzc_str[106:75]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_165 = lzc_str[73] & ~(|lzc_str[106:74]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_170 = lzc_str[72] & ~(|lzc_str[106:73]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_175 = lzc_str[71] & ~(|lzc_str[106:72]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_180 = lzc_str[70] & ~(|lzc_str[106:71]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_185 = lzc_str[69] & ~(|lzc_str[106:70]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_190 = lzc_str[68] & ~(|lzc_str[106:69]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_195 = lzc_str[67] & ~(|lzc_str[106:68]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_200 = lzc_str[66] & ~(|lzc_str[106:67]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_205 = lzc_str[65] & ~(|lzc_str[106:66]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_210 = lzc_str[64] & ~(|lzc_str[106:65]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_215 = lzc_str[63] & ~(|lzc_str[106:64]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_220 = lzc_str[62] & ~(|lzc_str[106:63]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_225 = lzc_str[61] & ~(|lzc_str[106:62]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_230 = lzc_str[60] & ~(|lzc_str[106:61]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_235 = lzc_str[59] & ~(|lzc_str[106:60]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_240 = lzc_str[58] & ~(|lzc_str[106:59]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_245 = lzc_str[57] & ~(|lzc_str[106:58]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_250 = lzc_str[56] & ~(|lzc_str[106:57]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_255 = lzc_str[55] & ~(|lzc_str[106:56]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_260 = lzc_str[54] & ~(|lzc_str[106:55]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_265 = lzc_str[53] & ~(|lzc_str[106:54]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_270 = lzc_str[52] & ~(|lzc_str[106:53]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_275 = lzc_str[51] & ~(|lzc_str[106:52]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_280 = lzc_str[50] & ~(|lzc_str[106:51]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_285 = lzc_str[49] & ~(|lzc_str[106:50]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_290 = lzc_str[48] & ~(|lzc_str[106:49]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_295 = lzc_str[47] & ~(|lzc_str[106:48]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_300 = lzc_str[46] & ~(|lzc_str[106:47]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_305 = lzc_str[45] & ~(|lzc_str[106:46]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_310 = lzc_str[44] & ~(|lzc_str[106:45]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_315 = lzc_str[43] & ~(|lzc_str[106:44]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_320 = lzc_str[42] & ~(|lzc_str[106:43]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_325 = lzc_str[41] & ~(|lzc_str[106:42]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_330 = lzc_str[40] & ~(|lzc_str[106:41]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_335 = lzc_str[39] & ~(|lzc_str[106:40]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_340 = lzc_str[38] & ~(|lzc_str[106:39]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_345 = lzc_str[37] & ~(|lzc_str[106:38]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_350 = lzc_str[36] & ~(|lzc_str[106:37]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_355 = lzc_str[35] & ~(|lzc_str[106:36]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_360 = lzc_str[34] & ~(|lzc_str[106:35]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_365 = lzc_str[33] & ~(|lzc_str[106:34]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_370 = lzc_str[32] & ~(|lzc_str[106:33]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_375 = lzc_str[31] & ~(|lzc_str[106:32]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_380 = lzc_str[30] & ~(|lzc_str[106:31]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_385 = lzc_str[29] & ~(|lzc_str[106:30]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_390 = lzc_str[28] & ~(|lzc_str[106:29]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_395 = lzc_str[27] & ~(|lzc_str[106:28]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_400 = lzc_str[26] & ~(|lzc_str[106:27]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_405 = lzc_str[25] & ~(|lzc_str[106:26]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_410 = lzc_str[24] & ~(|lzc_str[106:25]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_415 = lzc_str[23] & ~(|lzc_str[106:24]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_420 = lzc_str[22] & ~(|lzc_str[106:23]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_425 = lzc_str[21] & ~(|lzc_str[106:22]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_430 = lzc_str[20] & ~(|lzc_str[106:21]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_435 = lzc_str[19] & ~(|lzc_str[106:20]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_440 = lzc_str[18] & ~(|lzc_str[106:19]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_445 = lzc_str[17] & ~(|lzc_str[106:18]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_450 = lzc_str[16] & ~(|lzc_str[106:17]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_455 = lzc_str[15] & ~(|lzc_str[106:16]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_460 = lzc_str[14] & ~(|lzc_str[106:15]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_465 = lzc_str[13] & ~(|lzc_str[106:14]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_470 = lzc_str[12] & ~(|lzc_str[106:13]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_475 = lzc_str[11] & ~(|lzc_str[106:12]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_480 = lzc_str[10] & ~(|lzc_str[106:11]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_485 = lzc_str[9] & ~(|lzc_str[106:10]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_490 = lzc_str[8] & ~(|lzc_str[106:9]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_495 = lzc_str[7] & ~(|lzc_str[106:8]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_500 = lzc_str[6] & ~(|lzc_str[106:7]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_505 = lzc_str[5] & ~(|lzc_str[106:6]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_510 = lzc_str[4] & ~(|lzc_str[106:5]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_515 = lzc_str[3] & ~(|lzc_str[106:4]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_520 = lzc_str[2] & ~(|lzc_str[106:3]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_525 = lzc_str[1] & ~(|lzc_str[106:2]); // @[FADD.scala 130:40]
+  wire  _int_bit_mask_T_530 = lzc_str[0] & ~(|lzc_str[106:1]); // @[FADD.scala 130:40]
   wire [5:0] int_bit_mask_lo_lo_lo_lo = {_int_bit_mask_T_505,_int_bit_mask_T_510,_int_bit_mask_T_515,_int_bit_mask_T_520
     ,_int_bit_mask_T_525,_int_bit_mask_T_530}; // @[Cat.scala 33:92]
   wire [12:0] int_bit_mask_lo_lo_lo = {_int_bit_mask_T_470,_int_bit_mask_T_475,_int_bit_mask_T_480,_int_bit_mask_T_485,
@@ -1679,119 +1861,119 @@ module NearPath(
   wire [53:0] int_bit_mask_hi = {lzc_str[106],_int_bit_mask_T_5,_int_bit_mask_T_10,_int_bit_mask_T_15,_int_bit_mask_T_20
     ,_int_bit_mask_T_25,_int_bit_mask_T_30,int_bit_mask_hi_hi_hi_lo,int_bit_mask_hi_hi_lo,int_bit_mask_hi_lo}; // @[Cat.scala 33:92]
   wire [106:0] int_bit_mask = {int_bit_mask_hi,int_bit_mask_lo}; // @[Cat.scala 33:92]
-  wire [106:0] _GEN_0 = {{106'd0}, lza_str_zero}; // @[FADD.scala 111:20]
-  wire [106:0] _int_bit_predicted_T = int_bit_mask | _GEN_0; // @[FADD.scala 111:20]
-  wire [106:0] _int_bit_predicted_T_1 = _int_bit_predicted_T & sig_raw; // @[FADD.scala 111:36]
-  wire  int_bit_predicted = |_int_bit_predicted_T_1; // @[FADD.scala 111:50]
-  wire [106:0] _int_bit_rshift_1_T = {{1'd0}, int_bit_mask[106:1]}; // @[FADD.scala 113:20]
-  wire [106:0] _int_bit_rshift_1_T_1 = _int_bit_rshift_1_T & sig_raw; // @[FADD.scala 113:37]
-  wire  int_bit_rshift_1 = |_int_bit_rshift_1_T_1; // @[FADD.scala 113:51]
-  wire  _exceed_lim_mask_T_1 = |lza_ab_io_f[106]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_3 = |lza_ab_io_f[106:105]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_5 = |lza_ab_io_f[106:104]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_7 = |lza_ab_io_f[106:103]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_9 = |lza_ab_io_f[106:102]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_11 = |lza_ab_io_f[106:101]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_13 = |lza_ab_io_f[106:100]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_15 = |lza_ab_io_f[106:99]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_17 = |lza_ab_io_f[106:98]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_19 = |lza_ab_io_f[106:97]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_21 = |lza_ab_io_f[106:96]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_23 = |lza_ab_io_f[106:95]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_25 = |lza_ab_io_f[106:94]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_27 = |lza_ab_io_f[106:93]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_29 = |lza_ab_io_f[106:92]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_31 = |lza_ab_io_f[106:91]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_33 = |lza_ab_io_f[106:90]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_35 = |lza_ab_io_f[106:89]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_37 = |lza_ab_io_f[106:88]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_39 = |lza_ab_io_f[106:87]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_41 = |lza_ab_io_f[106:86]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_43 = |lza_ab_io_f[106:85]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_45 = |lza_ab_io_f[106:84]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_47 = |lza_ab_io_f[106:83]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_49 = |lza_ab_io_f[106:82]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_51 = |lza_ab_io_f[106:81]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_53 = |lza_ab_io_f[106:80]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_55 = |lza_ab_io_f[106:79]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_57 = |lza_ab_io_f[106:78]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_59 = |lza_ab_io_f[106:77]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_61 = |lza_ab_io_f[106:76]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_63 = |lza_ab_io_f[106:75]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_65 = |lza_ab_io_f[106:74]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_67 = |lza_ab_io_f[106:73]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_69 = |lza_ab_io_f[106:72]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_71 = |lza_ab_io_f[106:71]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_73 = |lza_ab_io_f[106:70]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_75 = |lza_ab_io_f[106:69]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_77 = |lza_ab_io_f[106:68]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_79 = |lza_ab_io_f[106:67]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_81 = |lza_ab_io_f[106:66]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_83 = |lza_ab_io_f[106:65]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_85 = |lza_ab_io_f[106:64]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_87 = |lza_ab_io_f[106:63]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_89 = |lza_ab_io_f[106:62]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_91 = |lza_ab_io_f[106:61]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_93 = |lza_ab_io_f[106:60]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_95 = |lza_ab_io_f[106:59]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_97 = |lza_ab_io_f[106:58]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_99 = |lza_ab_io_f[106:57]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_101 = |lza_ab_io_f[106:56]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_103 = |lza_ab_io_f[106:55]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_105 = |lza_ab_io_f[106:54]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_107 = |lza_ab_io_f[106:53]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_109 = |lza_ab_io_f[106:52]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_111 = |lza_ab_io_f[106:51]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_113 = |lza_ab_io_f[106:50]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_115 = |lza_ab_io_f[106:49]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_117 = |lza_ab_io_f[106:48]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_119 = |lza_ab_io_f[106:47]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_121 = |lza_ab_io_f[106:46]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_123 = |lza_ab_io_f[106:45]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_125 = |lza_ab_io_f[106:44]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_127 = |lza_ab_io_f[106:43]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_129 = |lza_ab_io_f[106:42]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_131 = |lza_ab_io_f[106:41]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_133 = |lza_ab_io_f[106:40]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_135 = |lza_ab_io_f[106:39]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_137 = |lza_ab_io_f[106:38]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_139 = |lza_ab_io_f[106:37]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_141 = |lza_ab_io_f[106:36]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_143 = |lza_ab_io_f[106:35]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_145 = |lza_ab_io_f[106:34]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_147 = |lza_ab_io_f[106:33]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_149 = |lza_ab_io_f[106:32]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_151 = |lza_ab_io_f[106:31]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_153 = |lza_ab_io_f[106:30]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_155 = |lza_ab_io_f[106:29]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_157 = |lza_ab_io_f[106:28]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_159 = |lza_ab_io_f[106:27]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_161 = |lza_ab_io_f[106:26]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_163 = |lza_ab_io_f[106:25]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_165 = |lza_ab_io_f[106:24]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_167 = |lza_ab_io_f[106:23]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_169 = |lza_ab_io_f[106:22]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_171 = |lza_ab_io_f[106:21]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_173 = |lza_ab_io_f[106:20]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_175 = |lza_ab_io_f[106:19]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_177 = |lza_ab_io_f[106:18]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_179 = |lza_ab_io_f[106:17]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_181 = |lza_ab_io_f[106:16]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_183 = |lza_ab_io_f[106:15]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_185 = |lza_ab_io_f[106:14]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_187 = |lza_ab_io_f[106:13]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_189 = |lza_ab_io_f[106:12]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_191 = |lza_ab_io_f[106:11]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_193 = |lza_ab_io_f[106:10]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_195 = |lza_ab_io_f[106:9]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_197 = |lza_ab_io_f[106:8]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_199 = |lza_ab_io_f[106:7]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_201 = |lza_ab_io_f[106:6]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_203 = |lza_ab_io_f[106:5]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_205 = |lza_ab_io_f[106:4]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_207 = |lza_ab_io_f[106:3]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_209 = |lza_ab_io_f[106:2]; // @[FADD.scala 117:64]
-  wire  _exceed_lim_mask_T_211 = |lza_ab_io_f[106:1]; // @[FADD.scala 117:64]
+  wire [106:0] _GEN_10 = {{106'd0}, lzaZeroReg}; // @[FADD.scala 134:20]
+  wire [106:0] _int_bit_predicted_T = int_bit_mask | _GEN_10; // @[FADD.scala 134:20]
+  wire [106:0] _int_bit_predicted_T_1 = _int_bit_predicted_T & sigRawReg; // @[FADD.scala 134:34]
+  wire  int_bit_predicted = |_int_bit_predicted_T_1; // @[FADD.scala 134:50]
+  wire [106:0] _int_bit_rshift_1_T = {{1'd0}, int_bit_mask[106:1]}; // @[FADD.scala 136:20]
+  wire [106:0] _int_bit_rshift_1_T_1 = _int_bit_rshift_1_T & sigRawReg; // @[FADD.scala 136:37]
+  wire  int_bit_rshift_1 = |_int_bit_rshift_1_T_1; // @[FADD.scala 136:53]
+  wire  _exceed_lim_mask_T_1 = |lzaStrReg[106]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_3 = |lzaStrReg[106:105]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_5 = |lzaStrReg[106:104]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_7 = |lzaStrReg[106:103]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_9 = |lzaStrReg[106:102]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_11 = |lzaStrReg[106:101]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_13 = |lzaStrReg[106:100]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_15 = |lzaStrReg[106:99]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_17 = |lzaStrReg[106:98]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_19 = |lzaStrReg[106:97]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_21 = |lzaStrReg[106:96]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_23 = |lzaStrReg[106:95]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_25 = |lzaStrReg[106:94]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_27 = |lzaStrReg[106:93]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_29 = |lzaStrReg[106:92]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_31 = |lzaStrReg[106:91]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_33 = |lzaStrReg[106:90]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_35 = |lzaStrReg[106:89]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_37 = |lzaStrReg[106:88]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_39 = |lzaStrReg[106:87]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_41 = |lzaStrReg[106:86]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_43 = |lzaStrReg[106:85]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_45 = |lzaStrReg[106:84]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_47 = |lzaStrReg[106:83]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_49 = |lzaStrReg[106:82]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_51 = |lzaStrReg[106:81]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_53 = |lzaStrReg[106:80]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_55 = |lzaStrReg[106:79]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_57 = |lzaStrReg[106:78]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_59 = |lzaStrReg[106:77]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_61 = |lzaStrReg[106:76]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_63 = |lzaStrReg[106:75]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_65 = |lzaStrReg[106:74]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_67 = |lzaStrReg[106:73]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_69 = |lzaStrReg[106:72]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_71 = |lzaStrReg[106:71]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_73 = |lzaStrReg[106:70]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_75 = |lzaStrReg[106:69]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_77 = |lzaStrReg[106:68]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_79 = |lzaStrReg[106:67]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_81 = |lzaStrReg[106:66]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_83 = |lzaStrReg[106:65]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_85 = |lzaStrReg[106:64]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_87 = |lzaStrReg[106:63]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_89 = |lzaStrReg[106:62]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_91 = |lzaStrReg[106:61]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_93 = |lzaStrReg[106:60]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_95 = |lzaStrReg[106:59]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_97 = |lzaStrReg[106:58]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_99 = |lzaStrReg[106:57]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_101 = |lzaStrReg[106:56]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_103 = |lzaStrReg[106:55]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_105 = |lzaStrReg[106:54]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_107 = |lzaStrReg[106:53]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_109 = |lzaStrReg[106:52]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_111 = |lzaStrReg[106:51]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_113 = |lzaStrReg[106:50]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_115 = |lzaStrReg[106:49]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_117 = |lzaStrReg[106:48]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_119 = |lzaStrReg[106:47]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_121 = |lzaStrReg[106:46]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_123 = |lzaStrReg[106:45]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_125 = |lzaStrReg[106:44]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_127 = |lzaStrReg[106:43]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_129 = |lzaStrReg[106:42]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_131 = |lzaStrReg[106:41]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_133 = |lzaStrReg[106:40]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_135 = |lzaStrReg[106:39]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_137 = |lzaStrReg[106:38]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_139 = |lzaStrReg[106:37]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_141 = |lzaStrReg[106:36]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_143 = |lzaStrReg[106:35]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_145 = |lzaStrReg[106:34]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_147 = |lzaStrReg[106:33]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_149 = |lzaStrReg[106:32]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_151 = |lzaStrReg[106:31]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_153 = |lzaStrReg[106:30]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_155 = |lzaStrReg[106:29]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_157 = |lzaStrReg[106:28]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_159 = |lzaStrReg[106:27]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_161 = |lzaStrReg[106:26]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_163 = |lzaStrReg[106:25]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_165 = |lzaStrReg[106:24]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_167 = |lzaStrReg[106:23]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_169 = |lzaStrReg[106:22]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_171 = |lzaStrReg[106:21]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_173 = |lzaStrReg[106:20]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_175 = |lzaStrReg[106:19]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_177 = |lzaStrReg[106:18]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_179 = |lzaStrReg[106:17]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_181 = |lzaStrReg[106:16]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_183 = |lzaStrReg[106:15]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_185 = |lzaStrReg[106:14]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_187 = |lzaStrReg[106:13]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_189 = |lzaStrReg[106:12]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_191 = |lzaStrReg[106:11]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_193 = |lzaStrReg[106:10]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_195 = |lzaStrReg[106:9]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_197 = |lzaStrReg[106:8]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_199 = |lzaStrReg[106:7]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_201 = |lzaStrReg[106:6]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_203 = |lzaStrReg[106:5]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_205 = |lzaStrReg[106:4]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_207 = |lzaStrReg[106:3]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_209 = |lzaStrReg[106:2]; // @[FADD.scala 140:66]
+  wire  _exceed_lim_mask_T_211 = |lzaStrReg[106:1]; // @[FADD.scala 140:66]
   wire [5:0] exceed_lim_mask_lo_lo_lo_lo = {_exceed_lim_mask_T_201,_exceed_lim_mask_T_203,_exceed_lim_mask_T_205,
     _exceed_lim_mask_T_207,_exceed_lim_mask_T_209,_exceed_lim_mask_T_211}; // @[Cat.scala 33:92]
   wire [12:0] exceed_lim_mask_lo_lo_lo = {_exceed_lim_mask_T_187,_exceed_lim_mask_T_189,_exceed_lim_mask_T_191,
@@ -1833,20 +2015,20 @@ module NearPath(
     _exceed_lim_mask_T_7,_exceed_lim_mask_T_9,_exceed_lim_mask_T_11,exceed_lim_mask_hi_hi_hi_lo,exceed_lim_mask_hi_hi_lo
     ,exceed_lim_mask_hi_lo}; // @[Cat.scala 33:92]
   wire [106:0] exceed_lim_mask = {exceed_lim_mask_hi,exceed_lim_mask_lo}; // @[Cat.scala 33:92]
-  wire [106:0] _exceed_lim_T = exceed_lim_mask & shift_lim_mask_raw; // @[FADD.scala 120:41]
-  wire  exceed_lim = need_shift_lim & ~(|_exceed_lim_T); // @[FADD.scala 120:20]
-  wire  int_bit = exceed_lim ? shift_lim_bit : int_bit_rshift_1 | int_bit_predicted; // @[FADD.scala 123:8]
-  wire  lza_error = ~int_bit_predicted & ~exceed_lim; // @[FADD.scala 125:38]
-  wire [10:0] _GEN_2 = {{4'd0}, lzc_clz_io_out}; // @[FADD.scala 126:22]
-  wire [10:0] exp_s1 = io_in_a_exp - _GEN_2; // @[FADD.scala 126:22]
-  wire [10:0] _GEN_3 = {{10'd0}, lza_error}; // @[FADD.scala 127:23]
-  wire [10:0] exp_s2 = exp_s1 - _GEN_3; // @[FADD.scala 127:23]
-  wire [233:0] _GEN_4 = {{127'd0}, sig_raw}; // @[FADD.scala 128:25]
-  wire [233:0] _sig_s1_T = _GEN_4 << lzc_clz_io_out; // @[FADD.scala 128:25]
-  wire [106:0] sig_s1 = _sig_s1_T[106:0]; // @[FADD.scala 128:32]
+  wire [106:0] _exceed_lim_T = exceed_lim_mask & shiftLimMaskRawReg; // @[FADD.scala 143:42]
+  wire  exceed_lim = needShiftLimReg & ~(|_exceed_lim_T); // @[FADD.scala 143:21]
+  wire  int_bit = exceed_lim ? shiftLimBitReg : int_bit_rshift_1 | int_bit_predicted; // @[FADD.scala 146:8]
+  wire  lza_error = ~int_bit_predicted & ~exceed_lim; // @[FADD.scala 148:38]
+  wire [10:0] _GEN_12 = {{4'd0}, lzc_clz_io_out}; // @[FADD.scala 149:24]
+  wire [10:0] exp_s1 = aExpReg - _GEN_12; // @[FADD.scala 149:24]
+  wire [10:0] _GEN_13 = {{10'd0}, lza_error}; // @[FADD.scala 150:23]
+  wire [10:0] exp_s2 = exp_s1 - _GEN_13; // @[FADD.scala 150:23]
+  wire [233:0] _GEN_0 = {{127'd0}, sigRawReg}; // @[FADD.scala 151:27]
+  wire [233:0] _sig_s1_T = _GEN_0 << lzc_clz_io_out; // @[FADD.scala 151:27]
+  wire [106:0] sig_s1 = _sig_s1_T[106:0]; // @[FADD.scala 151:34]
   wire [106:0] _sig_s2_T_1 = {sig_s1[105:0],1'h0}; // @[Cat.scala 33:92]
-  wire [106:0] near_path_sig = lza_error ? _sig_s2_T_1 : sig_s1; // @[FADD.scala 129:19]
-  LZA lza_ab ( // @[FADD.scala 87:22]
+  wire [106:0] near_path_sig = lza_error ? _sig_s2_T_1 : sig_s1; // @[FADD.scala 152:19]
+  LZA lza_ab ( // @[FADD.scala 98:22]
     .io_a(lza_ab_io_a),
     .io_b(lza_ab_io_b),
     .io_f(lza_ab_io_f)
@@ -1855,16 +2037,139 @@ module NearPath(
     .io_in(lzc_clz_io_in),
     .io_out(lzc_clz_io_out)
   );
-  assign io_out_result_sign = a_lt_b ? io_in_b_sign : io_in_a_sign; // @[FADD.scala 139:27]
-  assign io_out_result_exp = int_bit ? exp_s2 : 11'h0; // @[FADD.scala 138:26]
-  assign io_out_result_sig = {near_path_sig[106:52],|near_path_sig[51:0]}; // @[FADD.scala 144:47]
-  assign io_out_sig_is_zero = lza_str_zero & ~sig_raw[0]; // @[FADD.scala 146:38]
-  assign io_out_a_lt_b = a_minus_b[107]; // @[FADD.scala 85:30]
-  assign lza_ab_io_a = {io_in_a_sig,1'h0}; // @[Cat.scala 33:92]
-  assign lza_ab_io_b = ~b_sig; // @[FADD.scala 82:16]
-  assign lzc_clz_io_in = shift_lim_mask | lza_ab_io_f; // @[FADD.scala 102:32]
+  assign io_out_result_sign = aLtBReg ? bSignReg : aSignReg; // @[FADD.scala 162:27]
+  assign io_out_result_exp = int_bit ? exp_s2 : 11'h0; // @[FADD.scala 161:26]
+  assign io_out_result_sig = {near_path_sig[106:52],|near_path_sig[51:0]}; // @[FADD.scala 167:47]
+  assign io_out_sig_is_zero = lzaZeroReg & ~sigRawReg[0]; // @[FADD.scala 169:36]
+  assign io_out_a_lt_b = aLtBReg; // @[FADD.scala 170:17]
+  assign lza_ab_io_a = {inputReg_a_sig,1'h0}; // @[Cat.scala 33:92]
+  assign lza_ab_io_b = ~b_sig; // @[FADD.scala 93:16]
+  assign lzc_clz_io_in = shift_lim_mask_reg | lzaStrReg; // @[FADD.scala 125:36]
+  always @(posedge clock) begin
+    inputReg_a_sign <= io_in_a_sign; // @[FADD.scala 87:25]
+    inputReg_a_exp <= io_in_a_exp; // @[FADD.scala 87:25]
+    inputReg_a_sig <= io_in_a_sig; // @[FADD.scala 87:25]
+    inputReg_b_sign <= io_in_b_sign; // @[FADD.scala 87:25]
+    inputReg_b_sig <= io_in_b_sig; // @[FADD.scala 87:25]
+    inputReg_need_shift_b <= io_in_need_shift_b; // @[FADD.scala 87:25]
+    if (reset) begin // @[FADD.scala 88:28]
+      localEnable <= 1'h0; // @[FADD.scala 88:28]
+    end else begin
+      localEnable <= io_enable; // @[FADD.scala 88:28]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      sigRawReg <= sig_raw; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      lzaStrReg <= lza_ab_io_f; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      lzaZeroReg <= lza_str_zero; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      aExpReg <= inputReg_a_exp; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      aSignReg <= inputReg_a_sign; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      bSignReg <= inputReg_b_sign; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      aLtBReg <= a_lt_b; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      needShiftLimReg <= need_shift_lim; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      shiftLimMaskRawReg <= shift_lim_mask_raw; // @[Reg.scala 20:22]
+    end
+    if (localEnable) begin // @[Reg.scala 20:18]
+      shiftLimBitReg <= shift_lim_bit; // @[Reg.scala 20:22]
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  inputReg_a_sign = _RAND_0[0:0];
+  _RAND_1 = {1{`RANDOM}};
+  inputReg_a_exp = _RAND_1[10:0];
+  _RAND_2 = {4{`RANDOM}};
+  inputReg_a_sig = _RAND_2[105:0];
+  _RAND_3 = {1{`RANDOM}};
+  inputReg_b_sign = _RAND_3[0:0];
+  _RAND_4 = {4{`RANDOM}};
+  inputReg_b_sig = _RAND_4[105:0];
+  _RAND_5 = {1{`RANDOM}};
+  inputReg_need_shift_b = _RAND_5[0:0];
+  _RAND_6 = {1{`RANDOM}};
+  localEnable = _RAND_6[0:0];
+  _RAND_7 = {4{`RANDOM}};
+  sigRawReg = _RAND_7[106:0];
+  _RAND_8 = {4{`RANDOM}};
+  lzaStrReg = _RAND_8[106:0];
+  _RAND_9 = {1{`RANDOM}};
+  lzaZeroReg = _RAND_9[0:0];
+  _RAND_10 = {1{`RANDOM}};
+  aExpReg = _RAND_10[10:0];
+  _RAND_11 = {1{`RANDOM}};
+  aSignReg = _RAND_11[0:0];
+  _RAND_12 = {1{`RANDOM}};
+  bSignReg = _RAND_12[0:0];
+  _RAND_13 = {1{`RANDOM}};
+  aLtBReg = _RAND_13[0:0];
+  _RAND_14 = {1{`RANDOM}};
+  needShiftLimReg = _RAND_14[0:0];
+  _RAND_15 = {4{`RANDOM}};
+  shiftLimMaskRawReg = _RAND_15[106:0];
+  _RAND_16 = {1{`RANDOM}};
+  shiftLimBitReg = _RAND_16[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
 endmodule
 module FCMA_ADD_s1(
+  input          clock,
+  input          reset,
+  input          io_enable,
   input  [116:0] io_a,
   input  [116:0] io_b,
   input          io_b_inter_valid,
@@ -1891,38 +2196,72 @@ module FCMA_ADD_s1(
   output         io_out_near_path_sig_is_zero,
   output         io_out_sel_far_path
 );
-  wire  far_path_mods_0_io_in_a_sign; // @[FADD.scala 208:26]
-  wire [10:0] far_path_mods_0_io_in_a_exp; // @[FADD.scala 208:26]
-  wire [105:0] far_path_mods_0_io_in_a_sig; // @[FADD.scala 208:26]
-  wire [105:0] far_path_mods_0_io_in_b_sig; // @[FADD.scala 208:26]
-  wire [10:0] far_path_mods_0_io_in_expDiff; // @[FADD.scala 208:26]
-  wire  far_path_mods_0_io_in_effSub; // @[FADD.scala 208:26]
-  wire  far_path_mods_0_io_in_smallAdd; // @[FADD.scala 208:26]
-  wire  far_path_mods_0_io_out_result_sign; // @[FADD.scala 208:26]
-  wire [10:0] far_path_mods_0_io_out_result_exp; // @[FADD.scala 208:26]
-  wire [55:0] far_path_mods_0_io_out_result_sig; // @[FADD.scala 208:26]
-  wire  near_path_mods_0_io_in_a_sign; // @[FADD.scala 232:27]
-  wire [10:0] near_path_mods_0_io_in_a_exp; // @[FADD.scala 232:27]
-  wire [105:0] near_path_mods_0_io_in_a_sig; // @[FADD.scala 232:27]
-  wire  near_path_mods_0_io_in_b_sign; // @[FADD.scala 232:27]
-  wire [105:0] near_path_mods_0_io_in_b_sig; // @[FADD.scala 232:27]
-  wire  near_path_mods_0_io_in_need_shift_b; // @[FADD.scala 232:27]
-  wire  near_path_mods_0_io_out_result_sign; // @[FADD.scala 232:27]
-  wire [10:0] near_path_mods_0_io_out_result_exp; // @[FADD.scala 232:27]
-  wire [55:0] near_path_mods_0_io_out_result_sig; // @[FADD.scala 232:27]
-  wire  near_path_mods_0_io_out_sig_is_zero; // @[FADD.scala 232:27]
-  wire  near_path_mods_0_io_out_a_lt_b; // @[FADD.scala 232:27]
-  wire  near_path_mods_1_io_in_a_sign; // @[FADD.scala 232:27]
-  wire [10:0] near_path_mods_1_io_in_a_exp; // @[FADD.scala 232:27]
-  wire [105:0] near_path_mods_1_io_in_a_sig; // @[FADD.scala 232:27]
-  wire  near_path_mods_1_io_in_b_sign; // @[FADD.scala 232:27]
-  wire [105:0] near_path_mods_1_io_in_b_sig; // @[FADD.scala 232:27]
-  wire  near_path_mods_1_io_in_need_shift_b; // @[FADD.scala 232:27]
-  wire  near_path_mods_1_io_out_result_sign; // @[FADD.scala 232:27]
-  wire [10:0] near_path_mods_1_io_out_result_exp; // @[FADD.scala 232:27]
-  wire [55:0] near_path_mods_1_io_out_result_sig; // @[FADD.scala 232:27]
-  wire  near_path_mods_1_io_out_sig_is_zero; // @[FADD.scala 232:27]
-  wire  near_path_mods_1_io_out_a_lt_b; // @[FADD.scala 232:27]
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+  reg [31:0] _RAND_2;
+  reg [31:0] _RAND_3;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_8;
+  reg [31:0] _RAND_9;
+  reg [31:0] _RAND_10;
+  reg [31:0] _RAND_11;
+  reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [31:0] _RAND_15;
+  reg [31:0] _RAND_16;
+  reg [31:0] _RAND_17;
+  reg [31:0] _RAND_18;
+  reg [31:0] _RAND_19;
+  reg [31:0] _RAND_20;
+  reg [31:0] _RAND_21;
+  reg [31:0] _RAND_22;
+`endif // RANDOMIZE_REG_INIT
+  wire  far_path_mods_0_clock; // @[FADD.scala 232:26]
+  wire  far_path_mods_0_reset; // @[FADD.scala 232:26]
+  wire  far_path_mods_0_io_enable; // @[FADD.scala 232:26]
+  wire  far_path_mods_0_io_in_a_sign; // @[FADD.scala 232:26]
+  wire [10:0] far_path_mods_0_io_in_a_exp; // @[FADD.scala 232:26]
+  wire [105:0] far_path_mods_0_io_in_a_sig; // @[FADD.scala 232:26]
+  wire [105:0] far_path_mods_0_io_in_b_sig; // @[FADD.scala 232:26]
+  wire [10:0] far_path_mods_0_io_in_expDiff; // @[FADD.scala 232:26]
+  wire  far_path_mods_0_io_in_effSub; // @[FADD.scala 232:26]
+  wire  far_path_mods_0_io_in_smallAdd; // @[FADD.scala 232:26]
+  wire  far_path_mods_0_io_out_result_sign; // @[FADD.scala 232:26]
+  wire [10:0] far_path_mods_0_io_out_result_exp; // @[FADD.scala 232:26]
+  wire [55:0] far_path_mods_0_io_out_result_sig; // @[FADD.scala 232:26]
+  wire  near_path_mods_0_clock; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_reset; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_io_enable; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_io_in_a_sign; // @[FADD.scala 257:27]
+  wire [10:0] near_path_mods_0_io_in_a_exp; // @[FADD.scala 257:27]
+  wire [105:0] near_path_mods_0_io_in_a_sig; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_io_in_b_sign; // @[FADD.scala 257:27]
+  wire [105:0] near_path_mods_0_io_in_b_sig; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_io_in_need_shift_b; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_io_out_result_sign; // @[FADD.scala 257:27]
+  wire [10:0] near_path_mods_0_io_out_result_exp; // @[FADD.scala 257:27]
+  wire [55:0] near_path_mods_0_io_out_result_sig; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_io_out_sig_is_zero; // @[FADD.scala 257:27]
+  wire  near_path_mods_0_io_out_a_lt_b; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_clock; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_reset; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_io_enable; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_io_in_a_sign; // @[FADD.scala 257:27]
+  wire [10:0] near_path_mods_1_io_in_a_exp; // @[FADD.scala 257:27]
+  wire [105:0] near_path_mods_1_io_in_a_sig; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_io_in_b_sign; // @[FADD.scala 257:27]
+  wire [105:0] near_path_mods_1_io_in_b_sig; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_io_in_need_shift_b; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_io_out_result_sign; // @[FADD.scala 257:27]
+  wire [10:0] near_path_mods_1_io_out_result_exp; // @[FADD.scala 257:27]
+  wire [55:0] near_path_mods_1_io_out_result_sig; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_io_out_sig_is_zero; // @[FADD.scala 257:27]
+  wire  near_path_mods_1_io_out_a_lt_b; // @[FADD.scala 257:27]
   wire  fp_a_sign = io_a[116]; // @[package.scala 59:19]
   wire [10:0] fp_a_exp = io_a[115:105]; // @[package.scala 60:18]
   wire [104:0] fp_a_sig = io_a[104:0]; // @[package.scala 61:18]
@@ -1945,33 +2284,64 @@ module FCMA_ADD_s1(
   wire  decode_b__isInf = decode_b_expIsOnes & decode_b__sigIsZero; // @[package.scala 42:40]
   wire  decode_b__isNaN = decode_b_expIsOnes & decode_b_sigNotZero; // @[package.scala 44:40]
   wire  decode_b__isSNaN = decode_b__isNaN & ~fp_b_sig[104]; // @[package.scala 45:37]
-  wire [10:0] _GEN_0 = {{10'd0}, decode_a__expIsZero}; // @[package.scala 83:27]
-  wire [10:0] raw_a_exp = fp_a_exp | _GEN_0; // @[package.scala 83:27]
+  wire [10:0] _GEN_22 = {{10'd0}, decode_a__expIsZero}; // @[package.scala 83:27]
+  wire [10:0] raw_a_exp = fp_a_exp | _GEN_22; // @[package.scala 83:27]
   wire [105:0] raw_a_sig = {decode_a_expNotZero,fp_a_sig}; // @[Cat.scala 33:92]
-  wire [10:0] _GEN_1 = {{10'd0}, decode_b__expIsZero}; // @[package.scala 83:27]
-  wire [10:0] raw_b_exp = fp_b_exp | _GEN_1; // @[package.scala 83:27]
+  wire [10:0] _GEN_23 = {{10'd0}, decode_b__expIsZero}; // @[package.scala 83:27]
+  wire [10:0] raw_b_exp = fp_b_exp | _GEN_23; // @[package.scala 83:27]
   wire [105:0] raw_b_sig = {decode_b_expNotZero,fp_b_sig}; // @[Cat.scala 33:92]
-  wire  eff_sub = fp_a_sign ^ fp_b_sign; // @[FADD.scala 168:28]
-  wire  b_isNaN = io_b_inter_valid ? io_b_inter_flags_isNaN : decode_b__isNaN; // @[FADD.scala 175:20]
-  wire  b_isSNaN = io_b_inter_valid ? io_b_inter_flags_isInv : decode_b__isSNaN; // @[FADD.scala 176:21]
-  wire  b_isInf = io_b_inter_valid ? io_b_inter_flags_isInf : decode_b__isInf; // @[FADD.scala 177:20]
-  wire  special_path_hasNaN = decode_a__isNaN | b_isNaN; // @[FADD.scala 179:44]
-  wire  special_path_hasSNaN = decode_a__isSNaN | b_isSNaN; // @[FADD.scala 180:46]
-  wire  special_path_hasInf = decode_a__isInf | b_isInf; // @[FADD.scala 181:44]
-  wire  special_path_inf_iv = decode_a__isInf & b_isInf & eff_sub; // @[FADD.scala 182:55]
+  wire  eff_sub = fp_a_sign ^ fp_b_sign; // @[FADD.scala 192:28]
+  wire  small_add = decode_a__expIsZero & decode_b__expIsZero; // @[FADD.scala 194:38]
+  wire  b_isNaN = io_b_inter_valid ? io_b_inter_flags_isNaN : decode_b__isNaN; // @[FADD.scala 199:20]
+  wire  b_isSNaN = io_b_inter_valid ? io_b_inter_flags_isInv : decode_b__isSNaN; // @[FADD.scala 200:21]
+  wire  b_isInf = io_b_inter_valid ? io_b_inter_flags_isInf : decode_b__isInf; // @[FADD.scala 201:20]
+  wire  special_path_hasNaN = decode_a__isNaN | b_isNaN; // @[FADD.scala 203:44]
+  wire  special_path_hasSNaN = decode_a__isSNaN | b_isSNaN; // @[FADD.scala 204:46]
+  wire  special_path_hasInf = decode_a__isInf | b_isInf; // @[FADD.scala 205:44]
+  wire  special_path_inf_iv = decode_a__isInf & b_isInf & eff_sub; // @[FADD.scala 206:55]
+  wire  special_case_happen = special_path_hasNaN | special_path_hasInf; // @[FADD.scala 208:49]
+  wire  special_path_iv = special_path_hasSNaN | special_path_inf_iv; // @[FADD.scala 209:46]
   wire [11:0] _exp_diff_a_b_T = {1'h0,raw_a_exp}; // @[Cat.scala 33:92]
   wire [11:0] _exp_diff_a_b_T_1 = {1'h0,raw_b_exp}; // @[Cat.scala 33:92]
-  wire [11:0] exp_diff_a_b = _exp_diff_a_b_T - _exp_diff_a_b_T_1; // @[FADD.scala 187:47]
-  wire [11:0] exp_diff_b_a = _exp_diff_a_b_T_1 - _exp_diff_a_b_T; // @[FADD.scala 188:47]
-  wire  need_swap = exp_diff_a_b[11] | io_b_inter_flags_overflow; // @[FADD.scala 190:47]
-  wire [10:0] ea_minus_eb = need_swap ? exp_diff_b_a[10:0] : exp_diff_a_b[10:0]; // @[FADD.scala 192:24]
-  wire  _sel_far_path_T = ~eff_sub; // @[FADD.scala 193:22]
-  wire  _T = ~need_swap; // @[FADD.scala 201:11]
-  wire [11:0] _T_5 = _T ? exp_diff_a_b : exp_diff_b_a; // @[FADD.scala 203:10]
-  wire  near_path_exp_neq = raw_a_exp[1:0] != raw_b_exp[1:0]; // @[FADD.scala 225:43]
-  wire  _near_path_out_T_2 = need_swap | ~near_path_exp_neq & near_path_mods_0_io_out_a_lt_b; // @[FADD.scala 242:15]
-  wire  _io_out_special_case_bits_inf_sign_T_1 = decode_a__isInf ? fp_a_sign : fp_b_sign; // @[FADD.scala 263:27]
-  FarPath far_path_mods_0 ( // @[FADD.scala 208:26]
+  wire [11:0] exp_diff_a_b = _exp_diff_a_b_T - _exp_diff_a_b_T_1; // @[FADD.scala 211:47]
+  wire [11:0] exp_diff_b_a = _exp_diff_a_b_T_1 - _exp_diff_a_b_T; // @[FADD.scala 212:47]
+  wire  need_swap = exp_diff_a_b[11] | io_b_inter_flags_overflow; // @[FADD.scala 214:47]
+  wire [10:0] ea_minus_eb = need_swap ? exp_diff_b_a[10:0] : exp_diff_a_b[10:0]; // @[FADD.scala 216:24]
+  wire  _sel_far_path_T = ~eff_sub; // @[FADD.scala 217:22]
+  wire  sel_far_path = ~eff_sub | ea_minus_eb > 11'h1 | io_b_inter_flags_overflow; // @[FADD.scala 217:52]
+  wire  _T = ~need_swap; // @[FADD.scala 225:11]
+  wire [11:0] _T_5 = _T ? exp_diff_a_b : exp_diff_b_a; // @[FADD.scala 227:10]
+  wire  near_path_exp_neq = raw_a_exp[1:0] != raw_b_exp[1:0]; // @[FADD.scala 250:43]
+  reg  metaEnable; // @[FADD.scala 267:27]
+  reg  needSwapReg_r; // @[Reg.scala 19:16]
+  reg  needSwapReg; // @[Reg.scala 19:16]
+  reg  nearExpNeqReg_r; // @[Reg.scala 19:16]
+  reg  nearExpNeqReg; // @[Reg.scala 19:16]
+  reg [2:0] rmReg_r; // @[Reg.scala 19:16]
+  reg [2:0] rmReg; // @[Reg.scala 19:16]
+  reg  smallAddReg_r; // @[Reg.scala 19:16]
+  reg  smallAddReg; // @[Reg.scala 19:16]
+  reg  selFarReg_r; // @[Reg.scala 19:16]
+  reg  selFarReg; // @[Reg.scala 19:16]
+  wire  _farMulOfReg_T_2 = io_b_inter_flags_overflow | decode_b_expIsOnes & _sel_far_path_T; // @[FADD.scala 274:47]
+  reg  farMulOfReg_r; // @[Reg.scala 19:16]
+  reg  farMulOfReg; // @[Reg.scala 19:16]
+  reg  farOverflowSignReg_r; // @[Reg.scala 19:16]
+  reg  farOverflowSignReg; // @[Reg.scala 19:16]
+  reg  specialValidReg_r; // @[Reg.scala 19:16]
+  reg  specialValidReg; // @[Reg.scala 19:16]
+  reg  specialIvReg_r; // @[Reg.scala 19:16]
+  reg  specialIvReg; // @[Reg.scala 19:16]
+  wire  _specialNanReg_T = special_path_hasNaN | special_path_inf_iv; // @[FADD.scala 279:52]
+  reg  specialNanReg_r; // @[Reg.scala 19:16]
+  reg  specialNanReg; // @[Reg.scala 19:16]
+  reg  specialInfSignReg_r; // @[Reg.scala 19:16]
+  reg  specialInfSignReg; // @[Reg.scala 19:16]
+  wire  _near_path_out_T_2 = needSwapReg | ~nearExpNeqReg & near_path_mods_0_io_out_a_lt_b; // @[FADD.scala 284:17]
+  FarPath far_path_mods_0 ( // @[FADD.scala 232:26]
+    .clock(far_path_mods_0_clock),
+    .reset(far_path_mods_0_reset),
+    .io_enable(far_path_mods_0_io_enable),
     .io_in_a_sign(far_path_mods_0_io_in_a_sign),
     .io_in_a_exp(far_path_mods_0_io_in_a_exp),
     .io_in_a_sig(far_path_mods_0_io_in_a_sig),
@@ -1983,7 +2353,10 @@ module FCMA_ADD_s1(
     .io_out_result_exp(far_path_mods_0_io_out_result_exp),
     .io_out_result_sig(far_path_mods_0_io_out_result_sig)
   );
-  NearPath near_path_mods_0 ( // @[FADD.scala 232:27]
+  NearPath near_path_mods_0 ( // @[FADD.scala 257:27]
+    .clock(near_path_mods_0_clock),
+    .reset(near_path_mods_0_reset),
+    .io_enable(near_path_mods_0_io_enable),
     .io_in_a_sign(near_path_mods_0_io_in_a_sign),
     .io_in_a_exp(near_path_mods_0_io_in_a_exp),
     .io_in_a_sig(near_path_mods_0_io_in_a_sig),
@@ -1996,7 +2369,10 @@ module FCMA_ADD_s1(
     .io_out_sig_is_zero(near_path_mods_0_io_out_sig_is_zero),
     .io_out_a_lt_b(near_path_mods_0_io_out_a_lt_b)
   );
-  NearPath near_path_mods_1 ( // @[FADD.scala 232:27]
+  NearPath near_path_mods_1 ( // @[FADD.scala 257:27]
+    .clock(near_path_mods_1_clock),
+    .reset(near_path_mods_1_reset),
+    .io_enable(near_path_mods_1_io_enable),
     .io_in_a_sign(near_path_mods_1_io_in_a_sign),
     .io_in_a_exp(near_path_mods_1_io_in_a_exp),
     .io_in_a_sig(near_path_mods_1_io_in_a_sig),
@@ -2009,47 +2385,228 @@ module FCMA_ADD_s1(
     .io_out_sig_is_zero(near_path_mods_1_io_out_sig_is_zero),
     .io_out_a_lt_b(near_path_mods_1_io_out_a_lt_b)
   );
-  assign io_out_rm = io_rm; // @[FADD.scala 247:13]
-  assign io_out_far_path_out_sign = far_path_mods_0_io_out_result_sign; // @[FADD.scala 251:23]
-  assign io_out_far_path_out_exp = far_path_mods_0_io_out_result_exp; // @[FADD.scala 251:23]
-  assign io_out_far_path_out_sig = far_path_mods_0_io_out_result_sig; // @[FADD.scala 251:23]
+  assign io_out_rm = rmReg; // @[FADD.scala 289:13]
+  assign io_out_far_path_out_sign = far_path_mods_0_io_out_result_sign; // @[FADD.scala 293:23]
+  assign io_out_far_path_out_exp = far_path_mods_0_io_out_result_exp; // @[FADD.scala 293:23]
+  assign io_out_far_path_out_sig = far_path_mods_0_io_out_result_sig; // @[FADD.scala 293:23]
   assign io_out_near_path_out_sign = _near_path_out_T_2 ? near_path_mods_1_io_out_result_sign :
-    near_path_mods_0_io_out_result_sign; // @[FADD.scala 241:26]
+    near_path_mods_0_io_out_result_sign; // @[FADD.scala 283:26]
   assign io_out_near_path_out_exp = _near_path_out_T_2 ? near_path_mods_1_io_out_result_exp :
-    near_path_mods_0_io_out_result_exp; // @[FADD.scala 241:26]
+    near_path_mods_0_io_out_result_exp; // @[FADD.scala 283:26]
   assign io_out_near_path_out_sig = _near_path_out_T_2 ? near_path_mods_1_io_out_result_sig :
-    near_path_mods_0_io_out_result_sig; // @[FADD.scala 241:26]
-  assign io_out_special_case_valid = special_path_hasNaN | special_path_hasInf; // @[FADD.scala 184:49]
-  assign io_out_special_case_bits_iv = special_path_hasSNaN | special_path_inf_iv; // @[FADD.scala 185:46]
-  assign io_out_special_case_bits_nan = special_path_hasNaN | special_path_inf_iv; // @[FADD.scala 261:55]
-  assign io_out_special_case_bits_inf_sign = io_b_inter_valid & io_b_inter_flags_isInf ? io_b_inter_flags_prod_sign :
-    _io_out_special_case_bits_inf_sign_T_1; // @[FADD.scala 262:43]
-  assign io_out_small_add = decode_a__expIsZero & decode_b__expIsZero; // @[FADD.scala 170:38]
-  assign io_out_far_path_mul_of = io_b_inter_flags_overflow | decode_b_expIsOnes & _sel_far_path_T; // @[FADD.scala 252:46]
-  assign io_out_far_path_overflow_sign = io_b_inter_valid & io_b_inter_flags_overflow ? io_b_inter_flags_prod_sign :
-    far_path_mods_0_io_out_result_sign; // @[FADD.scala 253:39]
+    near_path_mods_0_io_out_result_sig; // @[FADD.scala 283:26]
+  assign io_out_special_case_valid = specialValidReg; // @[FADD.scala 300:29]
+  assign io_out_special_case_bits_iv = specialIvReg; // @[FADD.scala 301:31]
+  assign io_out_special_case_bits_nan = specialNanReg; // @[FADD.scala 302:32]
+  assign io_out_special_case_bits_inf_sign = specialInfSignReg; // @[FADD.scala 303:37]
+  assign io_out_small_add = smallAddReg; // @[FADD.scala 290:20]
+  assign io_out_far_path_mul_of = farMulOfReg; // @[FADD.scala 294:26]
+  assign io_out_far_path_overflow_sign = farOverflowSignReg; // @[FADD.scala 295:33]
   assign io_out_near_path_sig_is_zero = _near_path_out_T_2 ? near_path_mods_1_io_out_sig_is_zero :
-    near_path_mods_0_io_out_sig_is_zero; // @[FADD.scala 241:26]
-  assign io_out_sel_far_path = ~eff_sub | ea_minus_eb > 11'h1 | io_b_inter_flags_overflow; // @[FADD.scala 193:52]
-  assign far_path_mods_0_io_in_a_sign = ~need_swap ? fp_a_sign : fp_b_sign; // @[FADD.scala 201:10]
-  assign far_path_mods_0_io_in_a_exp = ~need_swap ? raw_a_exp : raw_b_exp; // @[FADD.scala 201:10]
-  assign far_path_mods_0_io_in_a_sig = ~need_swap ? raw_a_sig : raw_b_sig; // @[FADD.scala 201:10]
-  assign far_path_mods_0_io_in_b_sig = _T ? raw_b_sig : raw_a_sig; // @[FADD.scala 202:10]
-  assign far_path_mods_0_io_in_expDiff = _T_5[10:0]; // @[FADD.scala 211:28]
-  assign far_path_mods_0_io_in_effSub = fp_a_sign ^ fp_b_sign; // @[FADD.scala 168:28]
-  assign far_path_mods_0_io_in_smallAdd = decode_a__expIsZero & decode_b__expIsZero; // @[FADD.scala 170:38]
+    near_path_mods_0_io_out_sig_is_zero; // @[FADD.scala 283:26]
+  assign io_out_sel_far_path = selFarReg; // @[FADD.scala 291:23]
+  assign far_path_mods_0_clock = clock;
+  assign far_path_mods_0_reset = reset;
+  assign far_path_mods_0_io_enable = io_enable; // @[FADD.scala 239:24]
+  assign far_path_mods_0_io_in_a_sign = ~need_swap ? fp_a_sign : fp_b_sign; // @[FADD.scala 225:10]
+  assign far_path_mods_0_io_in_a_exp = ~need_swap ? raw_a_exp : raw_b_exp; // @[FADD.scala 225:10]
+  assign far_path_mods_0_io_in_a_sig = ~need_swap ? raw_a_sig : raw_b_sig; // @[FADD.scala 225:10]
+  assign far_path_mods_0_io_in_b_sig = _T ? raw_b_sig : raw_a_sig; // @[FADD.scala 226:10]
+  assign far_path_mods_0_io_in_expDiff = _T_5[10:0]; // @[FADD.scala 235:28]
+  assign far_path_mods_0_io_in_effSub = fp_a_sign ^ fp_b_sign; // @[FADD.scala 192:28]
+  assign far_path_mods_0_io_in_smallAdd = decode_a__expIsZero & decode_b__expIsZero; // @[FADD.scala 194:38]
+  assign near_path_mods_0_clock = clock;
+  assign near_path_mods_0_reset = reset;
+  assign near_path_mods_0_io_enable = io_enable; // @[FADD.scala 262:25]
   assign near_path_mods_0_io_in_a_sign = io_a[116]; // @[package.scala 59:19]
-  assign near_path_mods_0_io_in_a_exp = fp_a_exp | _GEN_0; // @[package.scala 83:27]
+  assign near_path_mods_0_io_in_a_exp = fp_a_exp | _GEN_22; // @[package.scala 83:27]
   assign near_path_mods_0_io_in_a_sig = {decode_a_expNotZero,fp_a_sig}; // @[Cat.scala 33:92]
   assign near_path_mods_0_io_in_b_sign = io_b[116]; // @[package.scala 59:19]
   assign near_path_mods_0_io_in_b_sig = {decode_b_expNotZero,fp_b_sig}; // @[Cat.scala 33:92]
-  assign near_path_mods_0_io_in_need_shift_b = raw_a_exp[1:0] != raw_b_exp[1:0]; // @[FADD.scala 225:43]
+  assign near_path_mods_0_io_in_need_shift_b = raw_a_exp[1:0] != raw_b_exp[1:0]; // @[FADD.scala 250:43]
+  assign near_path_mods_1_clock = clock;
+  assign near_path_mods_1_reset = reset;
+  assign near_path_mods_1_io_enable = io_enable; // @[FADD.scala 262:25]
   assign near_path_mods_1_io_in_a_sign = io_b[116]; // @[package.scala 59:19]
-  assign near_path_mods_1_io_in_a_exp = fp_b_exp | _GEN_1; // @[package.scala 83:27]
+  assign near_path_mods_1_io_in_a_exp = fp_b_exp | _GEN_23; // @[package.scala 83:27]
   assign near_path_mods_1_io_in_a_sig = {decode_b_expNotZero,fp_b_sig}; // @[Cat.scala 33:92]
   assign near_path_mods_1_io_in_b_sign = io_a[116]; // @[package.scala 59:19]
   assign near_path_mods_1_io_in_b_sig = {decode_a_expNotZero,fp_a_sig}; // @[Cat.scala 33:92]
-  assign near_path_mods_1_io_in_need_shift_b = raw_a_exp[1:0] != raw_b_exp[1:0]; // @[FADD.scala 225:43]
+  assign near_path_mods_1_io_in_need_shift_b = raw_a_exp[1:0] != raw_b_exp[1:0]; // @[FADD.scala 250:43]
+  always @(posedge clock) begin
+    if (reset) begin // @[FADD.scala 267:27]
+      metaEnable <= 1'h0; // @[FADD.scala 267:27]
+    end else begin
+      metaEnable <= io_enable; // @[FADD.scala 267:27]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      needSwapReg_r <= need_swap; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      needSwapReg <= needSwapReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      nearExpNeqReg_r <= near_path_exp_neq; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      nearExpNeqReg <= nearExpNeqReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      rmReg_r <= io_rm; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      rmReg <= rmReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      smallAddReg_r <= small_add; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      smallAddReg <= smallAddReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      selFarReg_r <= sel_far_path; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      selFarReg <= selFarReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      farMulOfReg_r <= _farMulOfReg_T_2; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      farMulOfReg <= farMulOfReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      if (io_b_inter_valid & io_b_inter_flags_overflow) begin // @[FADD.scala 275:40]
+        farOverflowSignReg_r <= io_b_inter_flags_prod_sign;
+      end else if (~need_swap) begin // @[FADD.scala 225:10]
+        farOverflowSignReg_r <= fp_a_sign;
+      end else begin
+        farOverflowSignReg_r <= fp_b_sign;
+      end
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      farOverflowSignReg <= farOverflowSignReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      specialValidReg_r <= special_case_happen; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      specialValidReg <= specialValidReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      specialIvReg_r <= special_path_iv; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      specialIvReg <= specialIvReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      specialNanReg_r <= _specialNanReg_T; // @[Reg.scala 20:22]
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      specialNanReg <= specialNanReg_r; // @[Reg.scala 20:22]
+    end
+    if (io_enable) begin // @[Reg.scala 20:18]
+      if (io_b_inter_valid & io_b_inter_flags_isInf) begin // @[FADD.scala 280:39]
+        specialInfSignReg_r <= io_b_inter_flags_prod_sign;
+      end else if (decode_a__isInf) begin // @[FADD.scala 281:27]
+        specialInfSignReg_r <= fp_a_sign;
+      end else begin
+        specialInfSignReg_r <= fp_b_sign;
+      end
+    end
+    if (metaEnable) begin // @[Reg.scala 20:18]
+      specialInfSignReg <= specialInfSignReg_r; // @[Reg.scala 20:22]
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  metaEnable = _RAND_0[0:0];
+  _RAND_1 = {1{`RANDOM}};
+  needSwapReg_r = _RAND_1[0:0];
+  _RAND_2 = {1{`RANDOM}};
+  needSwapReg = _RAND_2[0:0];
+  _RAND_3 = {1{`RANDOM}};
+  nearExpNeqReg_r = _RAND_3[0:0];
+  _RAND_4 = {1{`RANDOM}};
+  nearExpNeqReg = _RAND_4[0:0];
+  _RAND_5 = {1{`RANDOM}};
+  rmReg_r = _RAND_5[2:0];
+  _RAND_6 = {1{`RANDOM}};
+  rmReg = _RAND_6[2:0];
+  _RAND_7 = {1{`RANDOM}};
+  smallAddReg_r = _RAND_7[0:0];
+  _RAND_8 = {1{`RANDOM}};
+  smallAddReg = _RAND_8[0:0];
+  _RAND_9 = {1{`RANDOM}};
+  selFarReg_r = _RAND_9[0:0];
+  _RAND_10 = {1{`RANDOM}};
+  selFarReg = _RAND_10[0:0];
+  _RAND_11 = {1{`RANDOM}};
+  farMulOfReg_r = _RAND_11[0:0];
+  _RAND_12 = {1{`RANDOM}};
+  farMulOfReg = _RAND_12[0:0];
+  _RAND_13 = {1{`RANDOM}};
+  farOverflowSignReg_r = _RAND_13[0:0];
+  _RAND_14 = {1{`RANDOM}};
+  farOverflowSignReg = _RAND_14[0:0];
+  _RAND_15 = {1{`RANDOM}};
+  specialValidReg_r = _RAND_15[0:0];
+  _RAND_16 = {1{`RANDOM}};
+  specialValidReg = _RAND_16[0:0];
+  _RAND_17 = {1{`RANDOM}};
+  specialIvReg_r = _RAND_17[0:0];
+  _RAND_18 = {1{`RANDOM}};
+  specialIvReg = _RAND_18[0:0];
+  _RAND_19 = {1{`RANDOM}};
+  specialNanReg_r = _RAND_19[0:0];
+  _RAND_20 = {1{`RANDOM}};
+  specialNanReg = _RAND_20[0:0];
+  _RAND_21 = {1{`RANDOM}};
+  specialInfSignReg_r = _RAND_21[0:0];
+  _RAND_22 = {1{`RANDOM}};
+  specialInfSignReg = _RAND_22[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
 endmodule
 module FCMA_ADD_s2(
   input  [2:0]  io_in_rm,
@@ -2071,10 +2628,10 @@ module FCMA_ADD_s2(
   output [63:0] io_result,
   output [4:0]  io_fflags
 );
-  wire  far_path_tininess_rounder_io_in_sign; // @[FADD.scala 317:41]
-  wire [55:0] far_path_tininess_rounder_io_in_sig; // @[FADD.scala 317:41]
-  wire [2:0] far_path_tininess_rounder_io_rm; // @[FADD.scala 317:41]
-  wire  far_path_tininess_rounder_io_tininess; // @[FADD.scala 317:41]
+  wire  far_path_tininess_rounder_io_in_sign; // @[FADD.scala 357:41]
+  wire [55:0] far_path_tininess_rounder_io_in_sig; // @[FADD.scala 357:41]
+  wire [2:0] far_path_tininess_rounder_io_rm; // @[FADD.scala 357:41]
+  wire  far_path_tininess_rounder_io_tininess; // @[FADD.scala 357:41]
   wire [51:0] far_path_rounder_io_in; // @[RoundingUnit.scala 44:25]
   wire  far_path_rounder_io_roundIn; // @[RoundingUnit.scala 44:25]
   wire  far_path_rounder_io_stickyIn; // @[RoundingUnit.scala 44:25]
@@ -2083,10 +2640,10 @@ module FCMA_ADD_s2(
   wire [51:0] far_path_rounder_io_out; // @[RoundingUnit.scala 44:25]
   wire  far_path_rounder_io_inexact; // @[RoundingUnit.scala 44:25]
   wire  far_path_rounder_io_cout; // @[RoundingUnit.scala 44:25]
-  wire  near_path_tininess_rounder_io_in_sign; // @[FADD.scala 356:42]
-  wire [55:0] near_path_tininess_rounder_io_in_sig; // @[FADD.scala 356:42]
-  wire [2:0] near_path_tininess_rounder_io_rm; // @[FADD.scala 356:42]
-  wire  near_path_tininess_rounder_io_tininess; // @[FADD.scala 356:42]
+  wire  near_path_tininess_rounder_io_in_sign; // @[FADD.scala 396:42]
+  wire [55:0] near_path_tininess_rounder_io_in_sig; // @[FADD.scala 396:42]
+  wire [2:0] near_path_tininess_rounder_io_rm; // @[FADD.scala 396:42]
+  wire  near_path_tininess_rounder_io_tininess; // @[FADD.scala 396:42]
   wire [51:0] near_path_rounder_io_in; // @[RoundingUnit.scala 44:25]
   wire  near_path_rounder_io_roundIn; // @[RoundingUnit.scala 44:25]
   wire  near_path_rounder_io_stickyIn; // @[RoundingUnit.scala 44:25]
@@ -2096,42 +2653,42 @@ module FCMA_ADD_s2(
   wire  near_path_rounder_io_inexact; // @[RoundingUnit.scala 44:25]
   wire  near_path_rounder_io_cout; // @[RoundingUnit.scala 44:25]
   wire [63:0] _special_path_result_T_3 = {io_in_special_case_bits_inf_sign,11'h7ff,52'h0}; // @[Cat.scala 33:92]
-  wire [63:0] special_path_result = io_in_special_case_bits_nan ? 64'h7ff8000000000000 : _special_path_result_T_3; // @[FADD.scala 299:32]
+  wire [63:0] special_path_result = io_in_special_case_bits_nan ? 64'h7ff8000000000000 : _special_path_result_T_3; // @[FADD.scala 339:32]
   wire [4:0] special_path_fflags = {io_in_special_case_bits_iv,4'h0}; // @[Cat.scala 33:92]
-  wire  far_path_tininess = io_in_small_add & far_path_tininess_rounder_io_tininess; // @[FADD.scala 320:37]
-  wire [10:0] _GEN_0 = {{10'd0}, far_path_rounder_io_cout}; // @[FADD.scala 329:55]
-  wire [10:0] far_path_exp_rounded = _GEN_0 + io_in_far_path_out_exp; // @[FADD.scala 329:55]
-  wire  far_path_may_uf = far_path_tininess & ~io_in_far_path_mul_of; // @[FADD.scala 334:43]
-  wire  far_path_of_before_round = io_in_far_path_out_exp == 11'h7ff; // @[FADD.scala 337:18]
-  wire  _far_path_of_after_round_T = io_in_far_path_out_exp == 11'h7fe; // @[FADD.scala 339:18]
-  wire  far_path_of_after_round = far_path_rounder_io_cout & _far_path_of_after_round_T; // @[FADD.scala 338:58]
-  wire  far_path_of = far_path_of_before_round | far_path_of_after_round | io_in_far_path_mul_of; // @[FADD.scala 342:57]
-  wire  far_path_ix = far_path_rounder_io_inexact | far_path_of; // @[FADD.scala 343:49]
-  wire  far_path_uf = far_path_may_uf & far_path_ix; // @[FADD.scala 344:37]
+  wire  far_path_tininess = io_in_small_add & far_path_tininess_rounder_io_tininess; // @[FADD.scala 360:37]
+  wire [10:0] _GEN_0 = {{10'd0}, far_path_rounder_io_cout}; // @[FADD.scala 369:55]
+  wire [10:0] far_path_exp_rounded = _GEN_0 + io_in_far_path_out_exp; // @[FADD.scala 369:55]
+  wire  far_path_may_uf = far_path_tininess & ~io_in_far_path_mul_of; // @[FADD.scala 374:43]
+  wire  far_path_of_before_round = io_in_far_path_out_exp == 11'h7ff; // @[FADD.scala 377:18]
+  wire  _far_path_of_after_round_T = io_in_far_path_out_exp == 11'h7fe; // @[FADD.scala 379:18]
+  wire  far_path_of_after_round = far_path_rounder_io_cout & _far_path_of_after_round_T; // @[FADD.scala 378:58]
+  wire  far_path_of = far_path_of_before_round | far_path_of_after_round | io_in_far_path_mul_of; // @[FADD.scala 382:57]
+  wire  far_path_ix = far_path_rounder_io_inexact | far_path_of; // @[FADD.scala 383:49]
+  wire  far_path_uf = far_path_may_uf & far_path_ix; // @[FADD.scala 384:37]
   wire [63:0] far_path_result = {io_in_far_path_out_sign,far_path_exp_rounded,far_path_rounder_io_out}; // @[Cat.scala 33:92]
-  wire  near_path_is_zero = io_in_near_path_out_exp == 11'h0 & io_in_near_path_sig_is_zero; // @[FADD.scala 354:49]
-  wire [10:0] _GEN_1 = {{10'd0}, near_path_rounder_io_cout}; // @[FADD.scala 368:57]
-  wire [10:0] near_path_exp_rounded = _GEN_1 + io_in_near_path_out_exp; // @[FADD.scala 368:57]
-  wire  near_path_zero_sign = io_in_rm == 3'h2; // @[FADD.scala 370:38]
-  wire  _near_path_result_T_3 = io_in_near_path_out_sign & ~near_path_is_zero | near_path_zero_sign & near_path_is_zero; // @[FADD.scala 372:44]
+  wire  near_path_is_zero = io_in_near_path_out_exp == 11'h0 & io_in_near_path_sig_is_zero; // @[FADD.scala 394:49]
+  wire [10:0] _GEN_1 = {{10'd0}, near_path_rounder_io_cout}; // @[FADD.scala 408:57]
+  wire [10:0] near_path_exp_rounded = _GEN_1 + io_in_near_path_out_exp; // @[FADD.scala 408:57]
+  wire  near_path_zero_sign = io_in_rm == 3'h2; // @[FADD.scala 410:38]
+  wire  _near_path_result_T_3 = io_in_near_path_out_sign & ~near_path_is_zero | near_path_zero_sign & near_path_is_zero; // @[FADD.scala 412:44]
   wire [63:0] near_path_result = {_near_path_result_T_3,near_path_exp_rounded,near_path_rounder_io_out}; // @[Cat.scala 33:92]
-  wire  near_path_of = near_path_exp_rounded == 11'h7ff; // @[FADD.scala 377:44]
-  wire  near_path_ix = near_path_rounder_io_inexact | near_path_of; // @[FADD.scala 378:51]
-  wire  near_path_uf = near_path_tininess_rounder_io_tininess & near_path_ix; // @[FADD.scala 379:41]
-  wire  _common_overflow_T_1 = ~io_in_sel_far_path; // @[FADD.scala 383:36]
-  wire  common_overflow = io_in_sel_far_path & far_path_of | ~io_in_sel_far_path & near_path_of; // @[FADD.scala 383:33]
-  wire  common_overflow_sign = io_in_sel_far_path ? io_in_far_path_overflow_sign : io_in_near_path_out_sign; // @[FADD.scala 385:8]
+  wire  near_path_of = near_path_exp_rounded == 11'h7ff; // @[FADD.scala 417:44]
+  wire  near_path_ix = near_path_rounder_io_inexact | near_path_of; // @[FADD.scala 418:51]
+  wire  near_path_uf = near_path_tininess_rounder_io_tininess & near_path_ix; // @[FADD.scala 419:41]
+  wire  _common_overflow_T_1 = ~io_in_sel_far_path; // @[FADD.scala 423:36]
+  wire  common_overflow = io_in_sel_far_path & far_path_of | ~io_in_sel_far_path & near_path_of; // @[FADD.scala 423:33]
+  wire  common_overflow_sign = io_in_sel_far_path ? io_in_far_path_overflow_sign : io_in_near_path_out_sign; // @[FADD.scala 425:8]
   wire  rmin = io_in_rm == 3'h1 | near_path_zero_sign & ~io_in_far_path_out_sign | io_in_rm == 3'h3 &
     io_in_far_path_out_sign; // @[RoundingUnit.scala 54:41]
-  wire [10:0] common_overflow_exp = rmin ? 11'h7fe : 11'h7ff; // @[FADD.scala 387:32]
-  wire [51:0] common_overflow_sig = rmin ? 52'hfffffffffffff : 52'h0; // @[FADD.scala 393:8]
-  wire  common_underflow = io_in_sel_far_path & far_path_uf | _common_overflow_T_1 & near_path_uf; // @[FADD.scala 395:33]
-  wire  common_inexact = io_in_sel_far_path & far_path_ix | _common_overflow_T_1 & near_path_ix; // @[FADD.scala 397:33]
+  wire [10:0] common_overflow_exp = rmin ? 11'h7fe : 11'h7ff; // @[FADD.scala 427:32]
+  wire [51:0] common_overflow_sig = rmin ? 52'hfffffffffffff : 52'h0; // @[FADD.scala 433:8]
+  wire  common_underflow = io_in_sel_far_path & far_path_uf | _common_overflow_T_1 & near_path_uf; // @[FADD.scala 435:33]
+  wire  common_inexact = io_in_sel_far_path & far_path_ix | _common_overflow_T_1 & near_path_ix; // @[FADD.scala 437:33]
   wire [4:0] common_fflags = {2'h0,common_overflow,common_underflow,common_inexact}; // @[Cat.scala 33:92]
   wire [63:0] _io_result_T = {common_overflow_sign,common_overflow_exp,common_overflow_sig}; // @[Cat.scala 33:92]
-  wire [63:0] _io_result_T_1 = io_in_sel_far_path ? far_path_result : near_path_result; // @[FADD.scala 412:10]
-  wire [63:0] _io_result_T_2 = common_overflow ? _io_result_T : _io_result_T_1; // @[FADD.scala 409:8]
-  TininessRounder far_path_tininess_rounder ( // @[FADD.scala 317:41]
+  wire [63:0] _io_result_T_1 = io_in_sel_far_path ? far_path_result : near_path_result; // @[FADD.scala 452:10]
+  wire [63:0] _io_result_T_2 = common_overflow ? _io_result_T : _io_result_T_1; // @[FADD.scala 449:8]
+  TininessRounder far_path_tininess_rounder ( // @[FADD.scala 357:41]
     .io_in_sign(far_path_tininess_rounder_io_in_sign),
     .io_in_sig(far_path_tininess_rounder_io_in_sig),
     .io_rm(far_path_tininess_rounder_io_rm),
@@ -2147,7 +2704,7 @@ module FCMA_ADD_s2(
     .io_inexact(far_path_rounder_io_inexact),
     .io_cout(far_path_rounder_io_cout)
   );
-  TininessRounder near_path_tininess_rounder ( // @[FADD.scala 356:42]
+  TininessRounder near_path_tininess_rounder ( // @[FADD.scala 396:42]
     .io_in_sign(near_path_tininess_rounder_io_in_sign),
     .io_in_sig(near_path_tininess_rounder_io_in_sig),
     .io_rm(near_path_tininess_rounder_io_rm),
@@ -2163,19 +2720,19 @@ module FCMA_ADD_s2(
     .io_inexact(near_path_rounder_io_inexact),
     .io_cout(near_path_rounder_io_cout)
   );
-  assign io_result = io_in_special_case_valid ? special_path_result : _io_result_T_2; // @[FADD.scala 406:19]
-  assign io_fflags = io_in_special_case_valid ? special_path_fflags : common_fflags; // @[FADD.scala 415:19]
-  assign far_path_tininess_rounder_io_in_sign = io_in_far_path_out_sign; // @[FADD.scala 318:35]
-  assign far_path_tininess_rounder_io_in_sig = io_in_far_path_out_sig; // @[FADD.scala 318:35]
-  assign far_path_tininess_rounder_io_rm = io_in_rm; // @[FADD.scala 319:35]
+  assign io_result = io_in_special_case_valid ? special_path_result : _io_result_T_2; // @[FADD.scala 446:19]
+  assign io_fflags = io_in_special_case_valid ? special_path_fflags : common_fflags; // @[FADD.scala 455:19]
+  assign far_path_tininess_rounder_io_in_sign = io_in_far_path_out_sign; // @[FADD.scala 358:35]
+  assign far_path_tininess_rounder_io_in_sig = io_in_far_path_out_sig; // @[FADD.scala 358:35]
+  assign far_path_tininess_rounder_io_rm = io_in_rm; // @[FADD.scala 359:35]
   assign far_path_rounder_io_in = io_in_far_path_out_sig[54:3]; // @[RoundingUnit.scala 45:33]
   assign far_path_rounder_io_roundIn = io_in_far_path_out_sig[2]; // @[RoundingUnit.scala 46:50]
   assign far_path_rounder_io_stickyIn = |io_in_far_path_out_sig[1:0]; // @[RoundingUnit.scala 47:54]
   assign far_path_rounder_io_signIn = io_in_far_path_out_sign; // @[RoundingUnit.scala 49:23]
   assign far_path_rounder_io_rm = io_in_rm; // @[RoundingUnit.scala 48:19]
-  assign near_path_tininess_rounder_io_in_sign = io_in_near_path_out_sign; // @[FADD.scala 357:36]
-  assign near_path_tininess_rounder_io_in_sig = io_in_near_path_out_sig; // @[FADD.scala 357:36]
-  assign near_path_tininess_rounder_io_rm = io_in_rm; // @[FADD.scala 358:36]
+  assign near_path_tininess_rounder_io_in_sign = io_in_near_path_out_sign; // @[FADD.scala 397:36]
+  assign near_path_tininess_rounder_io_in_sig = io_in_near_path_out_sig; // @[FADD.scala 397:36]
+  assign near_path_tininess_rounder_io_rm = io_in_rm; // @[FADD.scala 398:36]
   assign near_path_rounder_io_in = io_in_near_path_out_sig[54:3]; // @[RoundingUnit.scala 45:33]
   assign near_path_rounder_io_roundIn = io_in_near_path_out_sig[2]; // @[RoundingUnit.scala 46:50]
   assign near_path_rounder_io_stickyIn = |io_in_near_path_out_sig[1:0]; // @[RoundingUnit.scala 47:54]
@@ -2219,12 +2776,12 @@ module FADDPipe(
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
-  reg [63:0] _RAND_4;
+  reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
-  reg [31:0] _RAND_6;
-  reg [63:0] _RAND_7;
+  reg [63:0] _RAND_6;
+  reg [31:0] _RAND_7;
   reg [31:0] _RAND_8;
-  reg [31:0] _RAND_9;
+  reg [63:0] _RAND_9;
   reg [31:0] _RAND_10;
   reg [31:0] _RAND_11;
   reg [31:0] _RAND_12;
@@ -2236,7 +2793,12 @@ module FADDPipe(
   reg [31:0] _RAND_18;
   reg [31:0] _RAND_19;
   reg [31:0] _RAND_20;
+  reg [31:0] _RAND_21;
+  reg [31:0] _RAND_22;
 `endif // RANDOMIZE_REG_INIT
+  wire  s1_clock; // @[FMA.scala 80:18]
+  wire  s1_reset; // @[FMA.scala 80:18]
+  wire  s1_io_enable; // @[FMA.scala 80:18]
   wire [116:0] s1_io_a; // @[FMA.scala 80:18]
   wire [116:0] s1_io_b; // @[FMA.scala 80:18]
   wire  s1_io_b_inter_valid; // @[FMA.scala 80:18]
@@ -2281,17 +2843,20 @@ module FADDPipe(
   wire [63:0] s2_io_result; // @[FMA.scala 81:18]
   wire [4:0] s2_io_fflags; // @[FMA.scala 81:18]
   reg  REG; // @[HasPipelineReg.scala 16:58]
-  wire  _T_1 = ~io_out_ready & REG; // @[HasPipelineReg.scala 18:26]
-  wire  _T_2 = ~(~io_out_ready & REG); // @[HasPipelineReg.scala 18:10]
+  reg  REG_1; // @[HasPipelineReg.scala 16:58]
+  reg  REG_2; // @[HasPipelineReg.scala 16:58]
+  wire  _T_3 = ~io_out_ready & (REG & REG_1 & REG_2); // @[HasPipelineReg.scala 18:26]
+  wire  _T_4 = ~(~io_out_ready & (REG & REG_1 & REG_2)); // @[HasPipelineReg.scala 18:10]
+  wire  _T_11 = ~(~io_out_ready & REG_2); // @[HasPipelineReg.scala 18:10]
   wire  isFMA = io_in_bits_op[2]; // @[FPUOps.scala 72:9]
-  wire [63:0] srcB = isFMA ? fromMul_addAnother : io_in_bits_b; // @[FMA.scala 88:17]
+  wire [63:0] srcB = isFMA ? fromMul_addAnother : io_in_bits_b; // @[FMA.scala 89:17]
   wire  invAdd = io_in_bits_op[0]; // @[FPUOps.scala 89:7]
-  wire [116:0] _add1_T = {fromMul_mulOutput_fp_prod_sign,fromMul_mulOutput_fp_prod_exp,fromMul_mulOutput_fp_prod_sig}; // @[FMA.scala 93:31]
+  wire [116:0] _add1_T = {fromMul_mulOutput_fp_prod_sign,fromMul_mulOutput_fp_prod_exp,fromMul_mulOutput_fp_prod_sig}; // @[FMA.scala 94:31]
   wire [116:0] _add1_T_2 = {io_in_bits_a,53'h0}; // @[Cat.scala 33:92]
   wire  _add2_T_1 = ~srcB[63]; // @[FPUSubModule.scala 76:9]
   wire [63:0] _add2_T_3 = {_add2_T_1,srcB[62:0]}; // @[Cat.scala 33:92]
-  wire [63:0] _add2_T_4 = invAdd ? _add2_T_3 : srcB; // @[FMA.scala 97:8]
-  wire  _s2_io_in_T_3 = io_in_valid & _T_2; // @[HasPipelineReg.scala 26:79]
+  wire [63:0] _add2_T_4 = invAdd ? _add2_T_3 : srcB; // @[FMA.scala 98:8]
+  wire  _s2_io_in_T_3 = REG_1 & _T_11; // @[HasPipelineReg.scala 26:79]
   reg [2:0] s2_io_in_r_rm; // @[Reg.scala 19:16]
   reg  s2_io_in_r_far_path_out_sign; // @[Reg.scala 19:16]
   reg [10:0] s2_io_in_r_far_path_out_exp; // @[Reg.scala 19:16]
@@ -2313,6 +2878,9 @@ module FADDPipe(
   reg  io_out_bits_ctrl_r_finite_fma; // @[Reg.scala 19:16]
   reg  io_out_bits_ctrl_r_fma_sign; // @[Reg.scala 19:16]
   FCMA_ADD_s1 s1 ( // @[FMA.scala 80:18]
+    .clock(s1_clock),
+    .reset(s1_reset),
+    .io_enable(s1_io_enable),
     .io_a(s1_io_a),
     .io_b(s1_io_b),
     .io_b_inter_valid(s1_io_b_inter_valid),
@@ -2359,44 +2927,57 @@ module FADDPipe(
     .io_result(s2_io_result),
     .io_fflags(s2_io_fflags)
   );
-  assign io_in_ready = ~_T_1; // @[HasPipelineReg.scala 38:18]
-  assign io_out_valid = REG; // @[HasPipelineReg.scala 39:16]
-  assign io_out_bits_result = s2_io_result; // @[FMA.scala 110:22]
-  assign io_out_bits_fflags = s2_io_fflags; // @[FMA.scala 111:22]
-  assign io_out_bits_ctrl_seq = io_out_bits_ctrl_r_seq; // @[FMA.scala 112:31]
-  assign io_out_bits_ctrl_dtype = io_out_bits_ctrl_r_dtype; // @[FMA.scala 112:31]
-  assign io_out_bits_ctrl_finite_fma = io_out_bits_ctrl_r_finite_fma; // @[FMA.scala 112:31]
-  assign io_out_bits_ctrl_fma_sign = io_out_bits_ctrl_r_fma_sign; // @[FMA.scala 112:31]
-  assign s1_io_a = isFMA ? _add1_T : _add1_T_2; // @[FMA.scala 92:17]
+  assign io_in_ready = ~_T_3; // @[HasPipelineReg.scala 38:18]
+  assign io_out_valid = REG_2; // @[HasPipelineReg.scala 39:16]
+  assign io_out_bits_result = s2_io_result; // @[FMA.scala 111:22]
+  assign io_out_bits_fflags = s2_io_fflags; // @[FMA.scala 112:22]
+  assign io_out_bits_ctrl_seq = io_out_bits_ctrl_r_seq; // @[FMA.scala 113:31]
+  assign io_out_bits_ctrl_dtype = io_out_bits_ctrl_r_dtype; // @[FMA.scala 113:31]
+  assign io_out_bits_ctrl_finite_fma = io_out_bits_ctrl_r_finite_fma; // @[FMA.scala 113:31]
+  assign io_out_bits_ctrl_fma_sign = io_out_bits_ctrl_r_fma_sign; // @[FMA.scala 113:31]
+  assign s1_clock = clock;
+  assign s1_reset = reset;
+  assign s1_io_enable = io_in_valid & _T_4; // @[HasPipelineReg.scala 23:47]
+  assign s1_io_a = isFMA ? _add1_T : _add1_T_2; // @[FMA.scala 93:17]
   assign s1_io_b = {_add2_T_4,53'h0}; // @[Cat.scala 33:92]
   assign s1_io_b_inter_valid = io_in_bits_op[2]; // @[FPUOps.scala 72:9]
-  assign s1_io_b_inter_flags_isNaN = isFMA & fromMul_mulOutput_inter_flags_isNaN; // @[FMA.scala 103:29]
-  assign s1_io_b_inter_flags_isInf = isFMA & fromMul_mulOutput_inter_flags_isInf; // @[FMA.scala 103:29]
-  assign s1_io_b_inter_flags_isInv = isFMA & fromMul_mulOutput_inter_flags_isInv; // @[FMA.scala 103:29]
-  assign s1_io_b_inter_flags_overflow = isFMA & fromMul_mulOutput_inter_flags_overflow; // @[FMA.scala 103:29]
-  assign s1_io_b_inter_flags_prod_sign = isFMA & fromMul_mulOutput_inter_flags_prod_sign; // @[FMA.scala 103:29]
-  assign s1_io_rm = isFMA ? fromMul_rm : io_in_bits_rm; // @[FMA.scala 107:18]
-  assign s2_io_in_rm = s2_io_in_r_rm; // @[FMA.scala 108:12]
-  assign s2_io_in_far_path_out_sign = s2_io_in_r_far_path_out_sign; // @[FMA.scala 108:12]
-  assign s2_io_in_far_path_out_exp = s2_io_in_r_far_path_out_exp; // @[FMA.scala 108:12]
-  assign s2_io_in_far_path_out_sig = s2_io_in_r_far_path_out_sig; // @[FMA.scala 108:12]
-  assign s2_io_in_near_path_out_sign = s2_io_in_r_near_path_out_sign; // @[FMA.scala 108:12]
-  assign s2_io_in_near_path_out_exp = s2_io_in_r_near_path_out_exp; // @[FMA.scala 108:12]
-  assign s2_io_in_near_path_out_sig = s2_io_in_r_near_path_out_sig; // @[FMA.scala 108:12]
-  assign s2_io_in_special_case_valid = s2_io_in_r_special_case_valid; // @[FMA.scala 108:12]
-  assign s2_io_in_special_case_bits_iv = s2_io_in_r_special_case_bits_iv; // @[FMA.scala 108:12]
-  assign s2_io_in_special_case_bits_nan = s2_io_in_r_special_case_bits_nan; // @[FMA.scala 108:12]
-  assign s2_io_in_special_case_bits_inf_sign = s2_io_in_r_special_case_bits_inf_sign; // @[FMA.scala 108:12]
-  assign s2_io_in_small_add = s2_io_in_r_small_add; // @[FMA.scala 108:12]
-  assign s2_io_in_far_path_mul_of = s2_io_in_r_far_path_mul_of; // @[FMA.scala 108:12]
-  assign s2_io_in_far_path_overflow_sign = s2_io_in_r_far_path_overflow_sign; // @[FMA.scala 108:12]
-  assign s2_io_in_near_path_sig_is_zero = s2_io_in_r_near_path_sig_is_zero; // @[FMA.scala 108:12]
-  assign s2_io_in_sel_far_path = s2_io_in_r_sel_far_path; // @[FMA.scala 108:12]
+  assign s1_io_b_inter_flags_isNaN = isFMA & fromMul_mulOutput_inter_flags_isNaN; // @[FMA.scala 104:29]
+  assign s1_io_b_inter_flags_isInf = isFMA & fromMul_mulOutput_inter_flags_isInf; // @[FMA.scala 104:29]
+  assign s1_io_b_inter_flags_isInv = isFMA & fromMul_mulOutput_inter_flags_isInv; // @[FMA.scala 104:29]
+  assign s1_io_b_inter_flags_overflow = isFMA & fromMul_mulOutput_inter_flags_overflow; // @[FMA.scala 104:29]
+  assign s1_io_b_inter_flags_prod_sign = isFMA & fromMul_mulOutput_inter_flags_prod_sign; // @[FMA.scala 104:29]
+  assign s1_io_rm = isFMA ? fromMul_rm : io_in_bits_rm; // @[FMA.scala 108:18]
+  assign s2_io_in_rm = s2_io_in_r_rm; // @[FMA.scala 109:12]
+  assign s2_io_in_far_path_out_sign = s2_io_in_r_far_path_out_sign; // @[FMA.scala 109:12]
+  assign s2_io_in_far_path_out_exp = s2_io_in_r_far_path_out_exp; // @[FMA.scala 109:12]
+  assign s2_io_in_far_path_out_sig = s2_io_in_r_far_path_out_sig; // @[FMA.scala 109:12]
+  assign s2_io_in_near_path_out_sign = s2_io_in_r_near_path_out_sign; // @[FMA.scala 109:12]
+  assign s2_io_in_near_path_out_exp = s2_io_in_r_near_path_out_exp; // @[FMA.scala 109:12]
+  assign s2_io_in_near_path_out_sig = s2_io_in_r_near_path_out_sig; // @[FMA.scala 109:12]
+  assign s2_io_in_special_case_valid = s2_io_in_r_special_case_valid; // @[FMA.scala 109:12]
+  assign s2_io_in_special_case_bits_iv = s2_io_in_r_special_case_bits_iv; // @[FMA.scala 109:12]
+  assign s2_io_in_special_case_bits_nan = s2_io_in_r_special_case_bits_nan; // @[FMA.scala 109:12]
+  assign s2_io_in_special_case_bits_inf_sign = s2_io_in_r_special_case_bits_inf_sign; // @[FMA.scala 109:12]
+  assign s2_io_in_small_add = s2_io_in_r_small_add; // @[FMA.scala 109:12]
+  assign s2_io_in_far_path_mul_of = s2_io_in_r_far_path_mul_of; // @[FMA.scala 109:12]
+  assign s2_io_in_far_path_overflow_sign = s2_io_in_r_far_path_overflow_sign; // @[FMA.scala 109:12]
+  assign s2_io_in_near_path_sig_is_zero = s2_io_in_r_near_path_sig_is_zero; // @[FMA.scala 109:12]
+  assign s2_io_in_sel_far_path = s2_io_in_r_sel_far_path; // @[FMA.scala 109:12]
   always @(posedge clock) begin
     if (reset) begin // @[HasPipelineReg.scala 16:58]
       REG <= 1'h0; // @[HasPipelineReg.scala 16:58]
-    end else if (~(~io_out_ready & REG)) begin // @[HasPipelineReg.scala 18:61]
+    end else if (~(~io_out_ready & (REG & REG_1 & REG_2))) begin // @[HasPipelineReg.scala 18:61]
       REG <= io_in_valid; // @[HasPipelineReg.scala 19:17]
+    end
+    if (reset) begin // @[HasPipelineReg.scala 16:58]
+      REG_1 <= 1'h0; // @[HasPipelineReg.scala 16:58]
+    end else if (~(~io_out_ready & (REG_1 & REG_2))) begin // @[HasPipelineReg.scala 18:61]
+      REG_1 <= REG; // @[HasPipelineReg.scala 19:17]
+    end
+    if (reset) begin // @[HasPipelineReg.scala 16:58]
+      REG_2 <= 1'h0; // @[HasPipelineReg.scala 16:58]
+    end else if (~(~io_out_ready & REG_2)) begin // @[HasPipelineReg.scala 18:61]
+      REG_2 <= REG_1; // @[HasPipelineReg.scala 19:17]
     end
     if (_s2_io_in_T_3) begin // @[Reg.scala 20:18]
       s2_io_in_r_rm <= s1_io_out_rm; // @[Reg.scala 20:22]
@@ -2498,45 +3079,49 @@ initial begin
   _RAND_0 = {1{`RANDOM}};
   REG = _RAND_0[0:0];
   _RAND_1 = {1{`RANDOM}};
-  s2_io_in_r_rm = _RAND_1[2:0];
+  REG_1 = _RAND_1[0:0];
   _RAND_2 = {1{`RANDOM}};
-  s2_io_in_r_far_path_out_sign = _RAND_2[0:0];
+  REG_2 = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
-  s2_io_in_r_far_path_out_exp = _RAND_3[10:0];
-  _RAND_4 = {2{`RANDOM}};
-  s2_io_in_r_far_path_out_sig = _RAND_4[55:0];
+  s2_io_in_r_rm = _RAND_3[2:0];
+  _RAND_4 = {1{`RANDOM}};
+  s2_io_in_r_far_path_out_sign = _RAND_4[0:0];
   _RAND_5 = {1{`RANDOM}};
-  s2_io_in_r_near_path_out_sign = _RAND_5[0:0];
-  _RAND_6 = {1{`RANDOM}};
-  s2_io_in_r_near_path_out_exp = _RAND_6[10:0];
-  _RAND_7 = {2{`RANDOM}};
-  s2_io_in_r_near_path_out_sig = _RAND_7[55:0];
+  s2_io_in_r_far_path_out_exp = _RAND_5[10:0];
+  _RAND_6 = {2{`RANDOM}};
+  s2_io_in_r_far_path_out_sig = _RAND_6[55:0];
+  _RAND_7 = {1{`RANDOM}};
+  s2_io_in_r_near_path_out_sign = _RAND_7[0:0];
   _RAND_8 = {1{`RANDOM}};
-  s2_io_in_r_special_case_valid = _RAND_8[0:0];
-  _RAND_9 = {1{`RANDOM}};
-  s2_io_in_r_special_case_bits_iv = _RAND_9[0:0];
+  s2_io_in_r_near_path_out_exp = _RAND_8[10:0];
+  _RAND_9 = {2{`RANDOM}};
+  s2_io_in_r_near_path_out_sig = _RAND_9[55:0];
   _RAND_10 = {1{`RANDOM}};
-  s2_io_in_r_special_case_bits_nan = _RAND_10[0:0];
+  s2_io_in_r_special_case_valid = _RAND_10[0:0];
   _RAND_11 = {1{`RANDOM}};
-  s2_io_in_r_special_case_bits_inf_sign = _RAND_11[0:0];
+  s2_io_in_r_special_case_bits_iv = _RAND_11[0:0];
   _RAND_12 = {1{`RANDOM}};
-  s2_io_in_r_small_add = _RAND_12[0:0];
+  s2_io_in_r_special_case_bits_nan = _RAND_12[0:0];
   _RAND_13 = {1{`RANDOM}};
-  s2_io_in_r_far_path_mul_of = _RAND_13[0:0];
+  s2_io_in_r_special_case_bits_inf_sign = _RAND_13[0:0];
   _RAND_14 = {1{`RANDOM}};
-  s2_io_in_r_far_path_overflow_sign = _RAND_14[0:0];
+  s2_io_in_r_small_add = _RAND_14[0:0];
   _RAND_15 = {1{`RANDOM}};
-  s2_io_in_r_near_path_sig_is_zero = _RAND_15[0:0];
+  s2_io_in_r_far_path_mul_of = _RAND_15[0:0];
   _RAND_16 = {1{`RANDOM}};
-  s2_io_in_r_sel_far_path = _RAND_16[0:0];
+  s2_io_in_r_far_path_overflow_sign = _RAND_16[0:0];
   _RAND_17 = {1{`RANDOM}};
-  io_out_bits_ctrl_r_seq = _RAND_17[5:0];
+  s2_io_in_r_near_path_sig_is_zero = _RAND_17[0:0];
   _RAND_18 = {1{`RANDOM}};
-  io_out_bits_ctrl_r_dtype = _RAND_18[3:0];
+  s2_io_in_r_sel_far_path = _RAND_18[0:0];
   _RAND_19 = {1{`RANDOM}};
-  io_out_bits_ctrl_r_finite_fma = _RAND_19[0:0];
+  io_out_bits_ctrl_r_seq = _RAND_19[5:0];
   _RAND_20 = {1{`RANDOM}};
-  io_out_bits_ctrl_r_fma_sign = _RAND_20[0:0];
+  io_out_bits_ctrl_r_dtype = _RAND_20[3:0];
+  _RAND_21 = {1{`RANDOM}};
+  io_out_bits_ctrl_r_finite_fma = _RAND_21[0:0];
+  _RAND_22 = {1{`RANDOM}};
+  io_out_bits_ctrl_r_fma_sign = _RAND_22[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -2685,7 +3270,7 @@ module Queue(
   assign ram_op_MPORT_addr = 1'h0;
   assign ram_op_MPORT_mask = 1'h1;
   assign ram_op_MPORT_en = io_enq_ready & io_enq_valid;
-  assign io_enq_ready = io_deq_ready | empty; // @[Decoupled.scala 303:16 323:{24,39}]
+  assign io_enq_ready = ~maybe_full; // @[Decoupled.scala 303:19]
   assign io_deq_valid = ~empty; // @[Decoupled.scala 302:19]
   assign io_deq_bits_ctrl_seq = ram_ctrl_seq_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
   assign io_deq_bits_ctrl_dtype = ram_ctrl_dtype_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
@@ -2938,7 +3523,7 @@ module Queue_2(
   assign ram_ctrl_fma_sign_MPORT_addr = 1'h0;
   assign ram_ctrl_fma_sign_MPORT_mask = 1'h1;
   assign ram_ctrl_fma_sign_MPORT_en = io_enq_ready & io_enq_valid;
-  assign io_enq_ready = io_deq_ready | empty; // @[Decoupled.scala 303:16 323:{24,39}]
+  assign io_enq_ready = ~maybe_full; // @[Decoupled.scala 303:19]
   assign io_deq_valid = ~empty; // @[Decoupled.scala 302:19]
   assign io_deq_bits_op = ram_op_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
   assign io_deq_bits_a = ram_a_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
@@ -3256,7 +3841,7 @@ module Queue_3(
   assign ram_rm_MPORT_addr = 1'h0;
   assign ram_rm_MPORT_mask = 1'h1;
   assign ram_rm_MPORT_en = io_enq_ready & io_enq_valid;
-  assign io_enq_ready = io_deq_ready | empty; // @[Decoupled.scala 303:16 323:{24,39}]
+  assign io_enq_ready = ~maybe_full; // @[Decoupled.scala 303:19]
   assign io_deq_valid = ~empty; // @[Decoupled.scala 302:19]
   assign io_deq_bits_mulOutput_fp_prod_sign = ram_mulOutput_fp_prod_sign_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
   assign io_deq_bits_mulOutput_fp_prod_exp = ram_mulOutput_fp_prod_exp_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
@@ -3513,7 +4098,7 @@ module Queue_6(
   assign ram_ctrl_fma_sign_MPORT_addr = 1'h0;
   assign ram_ctrl_fma_sign_MPORT_mask = 1'h1;
   assign ram_ctrl_fma_sign_MPORT_en = io_enq_ready & io_enq_valid;
-  assign io_enq_ready = io_deq_ready | empty; // @[Decoupled.scala 303:16 323:{24,39}]
+  assign io_enq_ready = ~maybe_full; // @[Decoupled.scala 303:19]
   assign io_deq_valid = ~empty; // @[Decoupled.scala 302:19]
   assign io_deq_bits_result = ram_result_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
   assign io_deq_bits_fflags = ram_fflags_io_deq_bits_MPORT_data; // @[Decoupled.scala 310:17]
@@ -3671,284 +4256,284 @@ module FMA(
   output        io_out_bits_ctrl_finite_fma,
   output        io_out_bits_ctrl_fma_sign
 );
-  wire  mulPipe_clock; // @[FMA.scala 118:23]
-  wire  mulPipe_reset; // @[FMA.scala 118:23]
-  wire  mulPipe_io_in_ready; // @[FMA.scala 118:23]
-  wire  mulPipe_io_in_valid; // @[FMA.scala 118:23]
-  wire [2:0] mulPipe_io_in_bits_op; // @[FMA.scala 118:23]
-  wire [63:0] mulPipe_io_in_bits_a; // @[FMA.scala 118:23]
-  wire [63:0] mulPipe_io_in_bits_b; // @[FMA.scala 118:23]
-  wire [63:0] mulPipe_io_in_bits_c; // @[FMA.scala 118:23]
-  wire [5:0] mulPipe_io_in_bits_ctrl_seq; // @[FMA.scala 118:23]
-  wire [3:0] mulPipe_io_in_bits_ctrl_dtype; // @[FMA.scala 118:23]
-  wire  mulPipe_io_in_bits_ctrl_finite_fma; // @[FMA.scala 118:23]
-  wire  mulPipe_io_in_bits_ctrl_fma_sign; // @[FMA.scala 118:23]
-  wire  mulPipe_io_out_ready; // @[FMA.scala 118:23]
-  wire  mulPipe_io_out_valid; // @[FMA.scala 118:23]
-  wire [63:0] mulPipe_io_out_bits_result; // @[FMA.scala 118:23]
-  wire [4:0] mulPipe_io_out_bits_fflags; // @[FMA.scala 118:23]
-  wire [5:0] mulPipe_io_out_bits_ctrl_seq; // @[FMA.scala 118:23]
-  wire [3:0] mulPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 118:23]
-  wire  mulPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 118:23]
-  wire  mulPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_mulOutput_fp_prod_sign; // @[FMA.scala 118:23]
-  wire [10:0] mulPipe_toAdd_mulOutput_fp_prod_exp; // @[FMA.scala 118:23]
-  wire [104:0] mulPipe_toAdd_mulOutput_fp_prod_sig; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_mulOutput_inter_flags_isNaN; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_mulOutput_inter_flags_isInf; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_mulOutput_inter_flags_isInv; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_mulOutput_inter_flags_overflow; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_mulOutput_inter_flags_prod_sign; // @[FMA.scala 118:23]
-  wire [63:0] mulPipe_toAdd_addAnother; // @[FMA.scala 118:23]
-  wire [2:0] mulPipe_toAdd_op; // @[FMA.scala 118:23]
-  wire [5:0] mulPipe_toAdd_ctrl_seq; // @[FMA.scala 118:23]
-  wire [3:0] mulPipe_toAdd_ctrl_dtype; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_ctrl_finite_fma; // @[FMA.scala 118:23]
-  wire  mulPipe_toAdd_ctrl_fma_sign; // @[FMA.scala 118:23]
-  wire  addPipe_clock; // @[FMA.scala 119:23]
-  wire  addPipe_reset; // @[FMA.scala 119:23]
-  wire  addPipe_io_in_ready; // @[FMA.scala 119:23]
-  wire  addPipe_io_in_valid; // @[FMA.scala 119:23]
-  wire [2:0] addPipe_io_in_bits_op; // @[FMA.scala 119:23]
-  wire [63:0] addPipe_io_in_bits_a; // @[FMA.scala 119:23]
-  wire [63:0] addPipe_io_in_bits_b; // @[FMA.scala 119:23]
-  wire [2:0] addPipe_io_in_bits_rm; // @[FMA.scala 119:23]
-  wire [5:0] addPipe_io_in_bits_ctrl_seq; // @[FMA.scala 119:23]
-  wire [3:0] addPipe_io_in_bits_ctrl_dtype; // @[FMA.scala 119:23]
-  wire  addPipe_io_in_bits_ctrl_finite_fma; // @[FMA.scala 119:23]
-  wire  addPipe_io_in_bits_ctrl_fma_sign; // @[FMA.scala 119:23]
-  wire  addPipe_io_out_ready; // @[FMA.scala 119:23]
-  wire  addPipe_io_out_valid; // @[FMA.scala 119:23]
-  wire [63:0] addPipe_io_out_bits_result; // @[FMA.scala 119:23]
-  wire [4:0] addPipe_io_out_bits_fflags; // @[FMA.scala 119:23]
-  wire [5:0] addPipe_io_out_bits_ctrl_seq; // @[FMA.scala 119:23]
-  wire [3:0] addPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 119:23]
-  wire  addPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 119:23]
-  wire  addPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 119:23]
-  wire  addPipe_fromMul_mulOutput_fp_prod_sign; // @[FMA.scala 119:23]
-  wire [10:0] addPipe_fromMul_mulOutput_fp_prod_exp; // @[FMA.scala 119:23]
-  wire [104:0] addPipe_fromMul_mulOutput_fp_prod_sig; // @[FMA.scala 119:23]
-  wire  addPipe_fromMul_mulOutput_inter_flags_isNaN; // @[FMA.scala 119:23]
-  wire  addPipe_fromMul_mulOutput_inter_flags_isInf; // @[FMA.scala 119:23]
-  wire  addPipe_fromMul_mulOutput_inter_flags_isInv; // @[FMA.scala 119:23]
-  wire  addPipe_fromMul_mulOutput_inter_flags_overflow; // @[FMA.scala 119:23]
-  wire  addPipe_fromMul_mulOutput_inter_flags_prod_sign; // @[FMA.scala 119:23]
-  wire [63:0] addPipe_fromMul_addAnother; // @[FMA.scala 119:23]
-  wire [2:0] addPipe_fromMul_rm; // @[FMA.scala 119:23]
-  wire  toAddArbiter_io_in_0_ready; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_in_0_valid; // @[FMA.scala 133:28]
-  wire [5:0] toAddArbiter_io_in_0_bits_ctrl_seq; // @[FMA.scala 133:28]
-  wire [3:0] toAddArbiter_io_in_0_bits_ctrl_dtype; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_in_0_bits_ctrl_finite_fma; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_in_0_bits_ctrl_fma_sign; // @[FMA.scala 133:28]
-  wire [2:0] toAddArbiter_io_in_0_bits_op; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_in_1_ready; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_in_1_valid; // @[FMA.scala 133:28]
-  wire [5:0] toAddArbiter_io_in_1_bits_ctrl_seq; // @[FMA.scala 133:28]
-  wire [3:0] toAddArbiter_io_in_1_bits_ctrl_dtype; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_in_1_bits_ctrl_finite_fma; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_in_1_bits_ctrl_fma_sign; // @[FMA.scala 133:28]
-  wire [2:0] toAddArbiter_io_in_1_bits_op; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_out_ready; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_out_valid; // @[FMA.scala 133:28]
-  wire [5:0] toAddArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 133:28]
-  wire [3:0] toAddArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 133:28]
-  wire  toAddArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 133:28]
-  wire [2:0] toAddArbiter_io_out_bits_op; // @[FMA.scala 133:28]
-  wire  toAddArbiterFIFO_0_clock; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_reset; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_enq_ready; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_enq_valid; // @[FMA.scala 134:44]
-  wire [5:0] toAddArbiterFIFO_0_io_enq_bits_ctrl_seq; // @[FMA.scala 134:44]
-  wire [3:0] toAddArbiterFIFO_0_io_enq_bits_ctrl_dtype; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 134:44]
-  wire [2:0] toAddArbiterFIFO_0_io_enq_bits_op; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_deq_ready; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_deq_valid; // @[FMA.scala 134:44]
-  wire [5:0] toAddArbiterFIFO_0_io_deq_bits_ctrl_seq; // @[FMA.scala 134:44]
-  wire [3:0] toAddArbiterFIFO_0_io_deq_bits_ctrl_dtype; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_0_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 134:44]
-  wire [2:0] toAddArbiterFIFO_0_io_deq_bits_op; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_clock; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_reset; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_enq_ready; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_enq_valid; // @[FMA.scala 134:44]
-  wire [5:0] toAddArbiterFIFO_1_io_enq_bits_ctrl_seq; // @[FMA.scala 134:44]
-  wire [3:0] toAddArbiterFIFO_1_io_enq_bits_ctrl_dtype; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 134:44]
-  wire [2:0] toAddArbiterFIFO_1_io_enq_bits_op; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_deq_ready; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_deq_valid; // @[FMA.scala 134:44]
-  wire [5:0] toAddArbiterFIFO_1_io_deq_bits_ctrl_seq; // @[FMA.scala 134:44]
-  wire [3:0] toAddArbiterFIFO_1_io_deq_bits_ctrl_dtype; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 134:44]
-  wire  toAddArbiterFIFO_1_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 134:44]
-  wire [2:0] toAddArbiterFIFO_1_io_deq_bits_op; // @[FMA.scala 134:44]
-  wire  inToAddFIFO_clock; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_reset; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_enq_ready; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_enq_valid; // @[FMA.scala 144:27]
-  wire [2:0] inToAddFIFO_io_enq_bits_op; // @[FMA.scala 144:27]
-  wire [63:0] inToAddFIFO_io_enq_bits_a; // @[FMA.scala 144:27]
-  wire [63:0] inToAddFIFO_io_enq_bits_b; // @[FMA.scala 144:27]
-  wire [2:0] inToAddFIFO_io_enq_bits_rm; // @[FMA.scala 144:27]
-  wire [5:0] inToAddFIFO_io_enq_bits_ctrl_seq; // @[FMA.scala 144:27]
-  wire [3:0] inToAddFIFO_io_enq_bits_ctrl_dtype; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_deq_ready; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_deq_valid; // @[FMA.scala 144:27]
-  wire [2:0] inToAddFIFO_io_deq_bits_op; // @[FMA.scala 144:27]
-  wire [63:0] inToAddFIFO_io_deq_bits_a; // @[FMA.scala 144:27]
-  wire [63:0] inToAddFIFO_io_deq_bits_b; // @[FMA.scala 144:27]
-  wire [2:0] inToAddFIFO_io_deq_bits_rm; // @[FMA.scala 144:27]
-  wire [5:0] inToAddFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 144:27]
-  wire [3:0] inToAddFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 144:27]
-  wire  inToAddFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 144:27]
-  wire  mulToAddFIFO_clock; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_reset; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_ready; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_valid; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 149:28]
-  wire [10:0] mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 149:28]
-  wire [104:0] mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 149:28]
-  wire [63:0] mulToAddFIFO_io_enq_bits_addAnother; // @[FMA.scala 149:28]
-  wire [2:0] mulToAddFIFO_io_enq_bits_rm; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_ready; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_valid; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 149:28]
-  wire [10:0] mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 149:28]
-  wire [104:0] mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 149:28]
-  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 149:28]
-  wire [63:0] mulToAddFIFO_io_deq_bits_addAnother; // @[FMA.scala 149:28]
-  wire [2:0] mulToAddFIFO_io_deq_bits_rm; // @[FMA.scala 149:28]
-  wire  addInputStage_clock; // @[FMA.scala 158:29]
-  wire  addInputStage_reset; // @[FMA.scala 158:29]
-  wire  addInputStage_io_enq_ready; // @[FMA.scala 158:29]
-  wire  addInputStage_io_enq_valid; // @[FMA.scala 158:29]
-  wire [2:0] addInputStage_io_enq_bits_op; // @[FMA.scala 158:29]
-  wire [63:0] addInputStage_io_enq_bits_a; // @[FMA.scala 158:29]
-  wire [63:0] addInputStage_io_enq_bits_b; // @[FMA.scala 158:29]
-  wire [2:0] addInputStage_io_enq_bits_rm; // @[FMA.scala 158:29]
-  wire [5:0] addInputStage_io_enq_bits_ctrl_seq; // @[FMA.scala 158:29]
-  wire [3:0] addInputStage_io_enq_bits_ctrl_dtype; // @[FMA.scala 158:29]
-  wire  addInputStage_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 158:29]
-  wire  addInputStage_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 158:29]
-  wire  addInputStage_io_deq_ready; // @[FMA.scala 158:29]
-  wire  addInputStage_io_deq_valid; // @[FMA.scala 158:29]
-  wire [2:0] addInputStage_io_deq_bits_op; // @[FMA.scala 158:29]
-  wire [63:0] addInputStage_io_deq_bits_a; // @[FMA.scala 158:29]
-  wire [63:0] addInputStage_io_deq_bits_b; // @[FMA.scala 158:29]
-  wire [2:0] addInputStage_io_deq_bits_rm; // @[FMA.scala 158:29]
-  wire [5:0] addInputStage_io_deq_bits_ctrl_seq; // @[FMA.scala 158:29]
-  wire [3:0] addInputStage_io_deq_bits_ctrl_dtype; // @[FMA.scala 158:29]
-  wire  addInputStage_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 158:29]
-  wire  addInputStage_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 158:29]
-  wire  addMulStage_clock; // @[FMA.scala 159:27]
-  wire  addMulStage_reset; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_ready; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_valid; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 159:27]
-  wire [10:0] addMulStage_io_enq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 159:27]
-  wire [104:0] addMulStage_io_enq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 159:27]
-  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 159:27]
-  wire [63:0] addMulStage_io_enq_bits_addAnother; // @[FMA.scala 159:27]
-  wire [2:0] addMulStage_io_enq_bits_rm; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_ready; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_valid; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 159:27]
-  wire [10:0] addMulStage_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 159:27]
-  wire [104:0] addMulStage_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 159:27]
-  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 159:27]
-  wire [63:0] addMulStage_io_deq_bits_addAnother; // @[FMA.scala 159:27]
-  wire [2:0] addMulStage_io_deq_bits_rm; // @[FMA.scala 159:27]
-  wire  mulFIFO_clock; // @[FMA.scala 180:23]
-  wire  mulFIFO_reset; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_enq_ready; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_enq_valid; // @[FMA.scala 180:23]
-  wire [63:0] mulFIFO_io_enq_bits_result; // @[FMA.scala 180:23]
-  wire [4:0] mulFIFO_io_enq_bits_fflags; // @[FMA.scala 180:23]
-  wire [5:0] mulFIFO_io_enq_bits_ctrl_seq; // @[FMA.scala 180:23]
-  wire [3:0] mulFIFO_io_enq_bits_ctrl_dtype; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_deq_ready; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_deq_valid; // @[FMA.scala 180:23]
-  wire [63:0] mulFIFO_io_deq_bits_result; // @[FMA.scala 180:23]
-  wire [4:0] mulFIFO_io_deq_bits_fflags; // @[FMA.scala 180:23]
-  wire [5:0] mulFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 180:23]
-  wire [3:0] mulFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 180:23]
-  wire  mulFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 180:23]
-  wire  addFIFO_clock; // @[FMA.scala 181:23]
-  wire  addFIFO_reset; // @[FMA.scala 181:23]
-  wire  addFIFO_io_enq_ready; // @[FMA.scala 181:23]
-  wire  addFIFO_io_enq_valid; // @[FMA.scala 181:23]
-  wire [63:0] addFIFO_io_enq_bits_result; // @[FMA.scala 181:23]
-  wire [4:0] addFIFO_io_enq_bits_fflags; // @[FMA.scala 181:23]
-  wire [5:0] addFIFO_io_enq_bits_ctrl_seq; // @[FMA.scala 181:23]
-  wire [3:0] addFIFO_io_enq_bits_ctrl_dtype; // @[FMA.scala 181:23]
-  wire  addFIFO_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 181:23]
-  wire  addFIFO_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 181:23]
-  wire  addFIFO_io_deq_ready; // @[FMA.scala 181:23]
-  wire  addFIFO_io_deq_valid; // @[FMA.scala 181:23]
-  wire [63:0] addFIFO_io_deq_bits_result; // @[FMA.scala 181:23]
-  wire [4:0] addFIFO_io_deq_bits_fflags; // @[FMA.scala 181:23]
-  wire [5:0] addFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 181:23]
-  wire [3:0] addFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 181:23]
-  wire  addFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 181:23]
-  wire  addFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 181:23]
-  wire  toOutArbiter_io_in_0_ready; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_in_0_valid; // @[FMA.scala 190:28]
-  wire [63:0] toOutArbiter_io_in_0_bits_result; // @[FMA.scala 190:28]
-  wire [4:0] toOutArbiter_io_in_0_bits_fflags; // @[FMA.scala 190:28]
-  wire [5:0] toOutArbiter_io_in_0_bits_ctrl_seq; // @[FMA.scala 190:28]
-  wire [3:0] toOutArbiter_io_in_0_bits_ctrl_dtype; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_in_0_bits_ctrl_finite_fma; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_in_0_bits_ctrl_fma_sign; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_in_1_ready; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_in_1_valid; // @[FMA.scala 190:28]
-  wire [63:0] toOutArbiter_io_in_1_bits_result; // @[FMA.scala 190:28]
-  wire [4:0] toOutArbiter_io_in_1_bits_fflags; // @[FMA.scala 190:28]
-  wire [5:0] toOutArbiter_io_in_1_bits_ctrl_seq; // @[FMA.scala 190:28]
-  wire [3:0] toOutArbiter_io_in_1_bits_ctrl_dtype; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_in_1_bits_ctrl_finite_fma; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_in_1_bits_ctrl_fma_sign; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_out_ready; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_out_valid; // @[FMA.scala 190:28]
-  wire [63:0] toOutArbiter_io_out_bits_result; // @[FMA.scala 190:28]
-  wire [4:0] toOutArbiter_io_out_bits_fflags; // @[FMA.scala 190:28]
-  wire [5:0] toOutArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 190:28]
-  wire [3:0] toOutArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 190:28]
-  wire  toOutArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 190:28]
+  wire  mulPipe_clock; // @[FMA.scala 119:23]
+  wire  mulPipe_reset; // @[FMA.scala 119:23]
+  wire  mulPipe_io_in_ready; // @[FMA.scala 119:23]
+  wire  mulPipe_io_in_valid; // @[FMA.scala 119:23]
+  wire [2:0] mulPipe_io_in_bits_op; // @[FMA.scala 119:23]
+  wire [63:0] mulPipe_io_in_bits_a; // @[FMA.scala 119:23]
+  wire [63:0] mulPipe_io_in_bits_b; // @[FMA.scala 119:23]
+  wire [63:0] mulPipe_io_in_bits_c; // @[FMA.scala 119:23]
+  wire [5:0] mulPipe_io_in_bits_ctrl_seq; // @[FMA.scala 119:23]
+  wire [3:0] mulPipe_io_in_bits_ctrl_dtype; // @[FMA.scala 119:23]
+  wire  mulPipe_io_in_bits_ctrl_finite_fma; // @[FMA.scala 119:23]
+  wire  mulPipe_io_in_bits_ctrl_fma_sign; // @[FMA.scala 119:23]
+  wire  mulPipe_io_out_ready; // @[FMA.scala 119:23]
+  wire  mulPipe_io_out_valid; // @[FMA.scala 119:23]
+  wire [63:0] mulPipe_io_out_bits_result; // @[FMA.scala 119:23]
+  wire [4:0] mulPipe_io_out_bits_fflags; // @[FMA.scala 119:23]
+  wire [5:0] mulPipe_io_out_bits_ctrl_seq; // @[FMA.scala 119:23]
+  wire [3:0] mulPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 119:23]
+  wire  mulPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 119:23]
+  wire  mulPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_mulOutput_fp_prod_sign; // @[FMA.scala 119:23]
+  wire [10:0] mulPipe_toAdd_mulOutput_fp_prod_exp; // @[FMA.scala 119:23]
+  wire [104:0] mulPipe_toAdd_mulOutput_fp_prod_sig; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_mulOutput_inter_flags_isNaN; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_mulOutput_inter_flags_isInf; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_mulOutput_inter_flags_isInv; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_mulOutput_inter_flags_overflow; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_mulOutput_inter_flags_prod_sign; // @[FMA.scala 119:23]
+  wire [63:0] mulPipe_toAdd_addAnother; // @[FMA.scala 119:23]
+  wire [2:0] mulPipe_toAdd_op; // @[FMA.scala 119:23]
+  wire [5:0] mulPipe_toAdd_ctrl_seq; // @[FMA.scala 119:23]
+  wire [3:0] mulPipe_toAdd_ctrl_dtype; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_ctrl_finite_fma; // @[FMA.scala 119:23]
+  wire  mulPipe_toAdd_ctrl_fma_sign; // @[FMA.scala 119:23]
+  wire  addPipe_clock; // @[FMA.scala 120:23]
+  wire  addPipe_reset; // @[FMA.scala 120:23]
+  wire  addPipe_io_in_ready; // @[FMA.scala 120:23]
+  wire  addPipe_io_in_valid; // @[FMA.scala 120:23]
+  wire [2:0] addPipe_io_in_bits_op; // @[FMA.scala 120:23]
+  wire [63:0] addPipe_io_in_bits_a; // @[FMA.scala 120:23]
+  wire [63:0] addPipe_io_in_bits_b; // @[FMA.scala 120:23]
+  wire [2:0] addPipe_io_in_bits_rm; // @[FMA.scala 120:23]
+  wire [5:0] addPipe_io_in_bits_ctrl_seq; // @[FMA.scala 120:23]
+  wire [3:0] addPipe_io_in_bits_ctrl_dtype; // @[FMA.scala 120:23]
+  wire  addPipe_io_in_bits_ctrl_finite_fma; // @[FMA.scala 120:23]
+  wire  addPipe_io_in_bits_ctrl_fma_sign; // @[FMA.scala 120:23]
+  wire  addPipe_io_out_ready; // @[FMA.scala 120:23]
+  wire  addPipe_io_out_valid; // @[FMA.scala 120:23]
+  wire [63:0] addPipe_io_out_bits_result; // @[FMA.scala 120:23]
+  wire [4:0] addPipe_io_out_bits_fflags; // @[FMA.scala 120:23]
+  wire [5:0] addPipe_io_out_bits_ctrl_seq; // @[FMA.scala 120:23]
+  wire [3:0] addPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 120:23]
+  wire  addPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 120:23]
+  wire  addPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 120:23]
+  wire  addPipe_fromMul_mulOutput_fp_prod_sign; // @[FMA.scala 120:23]
+  wire [10:0] addPipe_fromMul_mulOutput_fp_prod_exp; // @[FMA.scala 120:23]
+  wire [104:0] addPipe_fromMul_mulOutput_fp_prod_sig; // @[FMA.scala 120:23]
+  wire  addPipe_fromMul_mulOutput_inter_flags_isNaN; // @[FMA.scala 120:23]
+  wire  addPipe_fromMul_mulOutput_inter_flags_isInf; // @[FMA.scala 120:23]
+  wire  addPipe_fromMul_mulOutput_inter_flags_isInv; // @[FMA.scala 120:23]
+  wire  addPipe_fromMul_mulOutput_inter_flags_overflow; // @[FMA.scala 120:23]
+  wire  addPipe_fromMul_mulOutput_inter_flags_prod_sign; // @[FMA.scala 120:23]
+  wire [63:0] addPipe_fromMul_addAnother; // @[FMA.scala 120:23]
+  wire [2:0] addPipe_fromMul_rm; // @[FMA.scala 120:23]
+  wire  toAddArbiter_io_in_0_ready; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_in_0_valid; // @[FMA.scala 134:28]
+  wire [5:0] toAddArbiter_io_in_0_bits_ctrl_seq; // @[FMA.scala 134:28]
+  wire [3:0] toAddArbiter_io_in_0_bits_ctrl_dtype; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_in_0_bits_ctrl_finite_fma; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_in_0_bits_ctrl_fma_sign; // @[FMA.scala 134:28]
+  wire [2:0] toAddArbiter_io_in_0_bits_op; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_in_1_ready; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_in_1_valid; // @[FMA.scala 134:28]
+  wire [5:0] toAddArbiter_io_in_1_bits_ctrl_seq; // @[FMA.scala 134:28]
+  wire [3:0] toAddArbiter_io_in_1_bits_ctrl_dtype; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_in_1_bits_ctrl_finite_fma; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_in_1_bits_ctrl_fma_sign; // @[FMA.scala 134:28]
+  wire [2:0] toAddArbiter_io_in_1_bits_op; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_out_ready; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_out_valid; // @[FMA.scala 134:28]
+  wire [5:0] toAddArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 134:28]
+  wire [3:0] toAddArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 134:28]
+  wire  toAddArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 134:28]
+  wire [2:0] toAddArbiter_io_out_bits_op; // @[FMA.scala 134:28]
+  wire  toAddArbiterFIFO_0_clock; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_reset; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_enq_ready; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_enq_valid; // @[FMA.scala 139:44]
+  wire [5:0] toAddArbiterFIFO_0_io_enq_bits_ctrl_seq; // @[FMA.scala 139:44]
+  wire [3:0] toAddArbiterFIFO_0_io_enq_bits_ctrl_dtype; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 139:44]
+  wire [2:0] toAddArbiterFIFO_0_io_enq_bits_op; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_deq_ready; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_deq_valid; // @[FMA.scala 139:44]
+  wire [5:0] toAddArbiterFIFO_0_io_deq_bits_ctrl_seq; // @[FMA.scala 139:44]
+  wire [3:0] toAddArbiterFIFO_0_io_deq_bits_ctrl_dtype; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_0_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 139:44]
+  wire [2:0] toAddArbiterFIFO_0_io_deq_bits_op; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_clock; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_reset; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_enq_ready; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_enq_valid; // @[FMA.scala 139:44]
+  wire [5:0] toAddArbiterFIFO_1_io_enq_bits_ctrl_seq; // @[FMA.scala 139:44]
+  wire [3:0] toAddArbiterFIFO_1_io_enq_bits_ctrl_dtype; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 139:44]
+  wire [2:0] toAddArbiterFIFO_1_io_enq_bits_op; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_deq_ready; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_deq_valid; // @[FMA.scala 139:44]
+  wire [5:0] toAddArbiterFIFO_1_io_deq_bits_ctrl_seq; // @[FMA.scala 139:44]
+  wire [3:0] toAddArbiterFIFO_1_io_deq_bits_ctrl_dtype; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 139:44]
+  wire  toAddArbiterFIFO_1_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 139:44]
+  wire [2:0] toAddArbiterFIFO_1_io_deq_bits_op; // @[FMA.scala 139:44]
+  wire  inToAddFIFO_clock; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_reset; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_enq_ready; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_enq_valid; // @[FMA.scala 149:27]
+  wire [2:0] inToAddFIFO_io_enq_bits_op; // @[FMA.scala 149:27]
+  wire [63:0] inToAddFIFO_io_enq_bits_a; // @[FMA.scala 149:27]
+  wire [63:0] inToAddFIFO_io_enq_bits_b; // @[FMA.scala 149:27]
+  wire [2:0] inToAddFIFO_io_enq_bits_rm; // @[FMA.scala 149:27]
+  wire [5:0] inToAddFIFO_io_enq_bits_ctrl_seq; // @[FMA.scala 149:27]
+  wire [3:0] inToAddFIFO_io_enq_bits_ctrl_dtype; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_deq_ready; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_deq_valid; // @[FMA.scala 149:27]
+  wire [2:0] inToAddFIFO_io_deq_bits_op; // @[FMA.scala 149:27]
+  wire [63:0] inToAddFIFO_io_deq_bits_a; // @[FMA.scala 149:27]
+  wire [63:0] inToAddFIFO_io_deq_bits_b; // @[FMA.scala 149:27]
+  wire [2:0] inToAddFIFO_io_deq_bits_rm; // @[FMA.scala 149:27]
+  wire [5:0] inToAddFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 149:27]
+  wire [3:0] inToAddFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 149:27]
+  wire  inToAddFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 149:27]
+  wire  mulToAddFIFO_clock; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_reset; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_ready; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_valid; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 154:28]
+  wire [10:0] mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 154:28]
+  wire [104:0] mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 154:28]
+  wire [63:0] mulToAddFIFO_io_enq_bits_addAnother; // @[FMA.scala 154:28]
+  wire [2:0] mulToAddFIFO_io_enq_bits_rm; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_ready; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_valid; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 154:28]
+  wire [10:0] mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 154:28]
+  wire [104:0] mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 154:28]
+  wire  mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 154:28]
+  wire [63:0] mulToAddFIFO_io_deq_bits_addAnother; // @[FMA.scala 154:28]
+  wire [2:0] mulToAddFIFO_io_deq_bits_rm; // @[FMA.scala 154:28]
+  wire  addInputStage_clock; // @[FMA.scala 163:29]
+  wire  addInputStage_reset; // @[FMA.scala 163:29]
+  wire  addInputStage_io_enq_ready; // @[FMA.scala 163:29]
+  wire  addInputStage_io_enq_valid; // @[FMA.scala 163:29]
+  wire [2:0] addInputStage_io_enq_bits_op; // @[FMA.scala 163:29]
+  wire [63:0] addInputStage_io_enq_bits_a; // @[FMA.scala 163:29]
+  wire [63:0] addInputStage_io_enq_bits_b; // @[FMA.scala 163:29]
+  wire [2:0] addInputStage_io_enq_bits_rm; // @[FMA.scala 163:29]
+  wire [5:0] addInputStage_io_enq_bits_ctrl_seq; // @[FMA.scala 163:29]
+  wire [3:0] addInputStage_io_enq_bits_ctrl_dtype; // @[FMA.scala 163:29]
+  wire  addInputStage_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 163:29]
+  wire  addInputStage_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 163:29]
+  wire  addInputStage_io_deq_ready; // @[FMA.scala 163:29]
+  wire  addInputStage_io_deq_valid; // @[FMA.scala 163:29]
+  wire [2:0] addInputStage_io_deq_bits_op; // @[FMA.scala 163:29]
+  wire [63:0] addInputStage_io_deq_bits_a; // @[FMA.scala 163:29]
+  wire [63:0] addInputStage_io_deq_bits_b; // @[FMA.scala 163:29]
+  wire [2:0] addInputStage_io_deq_bits_rm; // @[FMA.scala 163:29]
+  wire [5:0] addInputStage_io_deq_bits_ctrl_seq; // @[FMA.scala 163:29]
+  wire [3:0] addInputStage_io_deq_bits_ctrl_dtype; // @[FMA.scala 163:29]
+  wire  addInputStage_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 163:29]
+  wire  addInputStage_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 163:29]
+  wire  addMulStage_clock; // @[FMA.scala 164:27]
+  wire  addMulStage_reset; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_ready; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_valid; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 164:27]
+  wire [10:0] addMulStage_io_enq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 164:27]
+  wire [104:0] addMulStage_io_enq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 164:27]
+  wire  addMulStage_io_enq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 164:27]
+  wire [63:0] addMulStage_io_enq_bits_addAnother; // @[FMA.scala 164:27]
+  wire [2:0] addMulStage_io_enq_bits_rm; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_ready; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_valid; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 164:27]
+  wire [10:0] addMulStage_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 164:27]
+  wire [104:0] addMulStage_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 164:27]
+  wire  addMulStage_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 164:27]
+  wire [63:0] addMulStage_io_deq_bits_addAnother; // @[FMA.scala 164:27]
+  wire [2:0] addMulStage_io_deq_bits_rm; // @[FMA.scala 164:27]
+  wire  mulFIFO_clock; // @[FMA.scala 185:23]
+  wire  mulFIFO_reset; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_enq_ready; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_enq_valid; // @[FMA.scala 185:23]
+  wire [63:0] mulFIFO_io_enq_bits_result; // @[FMA.scala 185:23]
+  wire [4:0] mulFIFO_io_enq_bits_fflags; // @[FMA.scala 185:23]
+  wire [5:0] mulFIFO_io_enq_bits_ctrl_seq; // @[FMA.scala 185:23]
+  wire [3:0] mulFIFO_io_enq_bits_ctrl_dtype; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_deq_ready; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_deq_valid; // @[FMA.scala 185:23]
+  wire [63:0] mulFIFO_io_deq_bits_result; // @[FMA.scala 185:23]
+  wire [4:0] mulFIFO_io_deq_bits_fflags; // @[FMA.scala 185:23]
+  wire [5:0] mulFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 185:23]
+  wire [3:0] mulFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 185:23]
+  wire  mulFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 185:23]
+  wire  addFIFO_clock; // @[FMA.scala 186:23]
+  wire  addFIFO_reset; // @[FMA.scala 186:23]
+  wire  addFIFO_io_enq_ready; // @[FMA.scala 186:23]
+  wire  addFIFO_io_enq_valid; // @[FMA.scala 186:23]
+  wire [63:0] addFIFO_io_enq_bits_result; // @[FMA.scala 186:23]
+  wire [4:0] addFIFO_io_enq_bits_fflags; // @[FMA.scala 186:23]
+  wire [5:0] addFIFO_io_enq_bits_ctrl_seq; // @[FMA.scala 186:23]
+  wire [3:0] addFIFO_io_enq_bits_ctrl_dtype; // @[FMA.scala 186:23]
+  wire  addFIFO_io_enq_bits_ctrl_finite_fma; // @[FMA.scala 186:23]
+  wire  addFIFO_io_enq_bits_ctrl_fma_sign; // @[FMA.scala 186:23]
+  wire  addFIFO_io_deq_ready; // @[FMA.scala 186:23]
+  wire  addFIFO_io_deq_valid; // @[FMA.scala 186:23]
+  wire [63:0] addFIFO_io_deq_bits_result; // @[FMA.scala 186:23]
+  wire [4:0] addFIFO_io_deq_bits_fflags; // @[FMA.scala 186:23]
+  wire [5:0] addFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 186:23]
+  wire [3:0] addFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 186:23]
+  wire  addFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 186:23]
+  wire  addFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 186:23]
+  wire  toOutArbiter_io_in_0_ready; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_in_0_valid; // @[FMA.scala 195:28]
+  wire [63:0] toOutArbiter_io_in_0_bits_result; // @[FMA.scala 195:28]
+  wire [4:0] toOutArbiter_io_in_0_bits_fflags; // @[FMA.scala 195:28]
+  wire [5:0] toOutArbiter_io_in_0_bits_ctrl_seq; // @[FMA.scala 195:28]
+  wire [3:0] toOutArbiter_io_in_0_bits_ctrl_dtype; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_in_0_bits_ctrl_finite_fma; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_in_0_bits_ctrl_fma_sign; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_in_1_ready; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_in_1_valid; // @[FMA.scala 195:28]
+  wire [63:0] toOutArbiter_io_in_1_bits_result; // @[FMA.scala 195:28]
+  wire [4:0] toOutArbiter_io_in_1_bits_fflags; // @[FMA.scala 195:28]
+  wire [5:0] toOutArbiter_io_in_1_bits_ctrl_seq; // @[FMA.scala 195:28]
+  wire [3:0] toOutArbiter_io_in_1_bits_ctrl_dtype; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_in_1_bits_ctrl_finite_fma; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_in_1_bits_ctrl_fma_sign; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_out_ready; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_out_valid; // @[FMA.scala 195:28]
+  wire [63:0] toOutArbiter_io_out_bits_result; // @[FMA.scala 195:28]
+  wire [4:0] toOutArbiter_io_out_bits_fflags; // @[FMA.scala 195:28]
+  wire [5:0] toOutArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 195:28]
+  wire [3:0] toOutArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 195:28]
+  wire  toOutArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 195:28]
   wire  _mulPipe_io_in_valid_T_2 = io_in_bits_op == 3'h2; // @[FPUOps.scala 81:10]
   wire  _toAddArbiterFIFO_1_io_enq_valid_T_1 = io_in_bits_op[2:1] == 2'h0; // @[FPUOps.scala 63:16]
   wire  _mulFIFO_io_enq_valid_T = mulPipe_toAdd_op == 3'h2; // @[FPUOps.scala 81:10]
-  wire  _mulPipe_io_out_ready_T_4 = mulFIFO_io_enq_ready & _mulFIFO_io_enq_valid_T; // @[FMA.scala 187:27]
-  FMULPipe mulPipe ( // @[FMA.scala 118:23]
+  wire  _mulPipe_io_out_ready_T_4 = mulFIFO_io_enq_ready & _mulFIFO_io_enq_valid_T; // @[FMA.scala 192:27]
+  FMULPipe mulPipe ( // @[FMA.scala 119:23]
     .clock(mulPipe_clock),
     .reset(mulPipe_reset),
     .io_in_ready(mulPipe_io_in_ready),
@@ -3984,7 +4569,7 @@ module FMA(
     .toAdd_ctrl_finite_fma(mulPipe_toAdd_ctrl_finite_fma),
     .toAdd_ctrl_fma_sign(mulPipe_toAdd_ctrl_fma_sign)
   );
-  FADDPipe addPipe ( // @[FMA.scala 119:23]
+  FADDPipe addPipe ( // @[FMA.scala 120:23]
     .clock(addPipe_clock),
     .reset(addPipe_reset),
     .io_in_ready(addPipe_io_in_ready),
@@ -4016,7 +4601,7 @@ module FMA(
     .fromMul_addAnother(addPipe_fromMul_addAnother),
     .fromMul_rm(addPipe_fromMul_rm)
   );
-  Arbiter toAddArbiter ( // @[FMA.scala 133:28]
+  Arbiter toAddArbiter ( // @[FMA.scala 134:28]
     .io_in_0_ready(toAddArbiter_io_in_0_ready),
     .io_in_0_valid(toAddArbiter_io_in_0_valid),
     .io_in_0_bits_ctrl_seq(toAddArbiter_io_in_0_bits_ctrl_seq),
@@ -4039,7 +4624,7 @@ module FMA(
     .io_out_bits_ctrl_fma_sign(toAddArbiter_io_out_bits_ctrl_fma_sign),
     .io_out_bits_op(toAddArbiter_io_out_bits_op)
   );
-  Queue toAddArbiterFIFO_0 ( // @[FMA.scala 134:44]
+  Queue toAddArbiterFIFO_0 ( // @[FMA.scala 139:44]
     .clock(toAddArbiterFIFO_0_clock),
     .reset(toAddArbiterFIFO_0_reset),
     .io_enq_ready(toAddArbiterFIFO_0_io_enq_ready),
@@ -4057,7 +4642,7 @@ module FMA(
     .io_deq_bits_ctrl_fma_sign(toAddArbiterFIFO_0_io_deq_bits_ctrl_fma_sign),
     .io_deq_bits_op(toAddArbiterFIFO_0_io_deq_bits_op)
   );
-  Queue toAddArbiterFIFO_1 ( // @[FMA.scala 134:44]
+  Queue toAddArbiterFIFO_1 ( // @[FMA.scala 139:44]
     .clock(toAddArbiterFIFO_1_clock),
     .reset(toAddArbiterFIFO_1_reset),
     .io_enq_ready(toAddArbiterFIFO_1_io_enq_ready),
@@ -4075,7 +4660,7 @@ module FMA(
     .io_deq_bits_ctrl_fma_sign(toAddArbiterFIFO_1_io_deq_bits_ctrl_fma_sign),
     .io_deq_bits_op(toAddArbiterFIFO_1_io_deq_bits_op)
   );
-  Queue_2 inToAddFIFO ( // @[FMA.scala 144:27]
+  Queue_2 inToAddFIFO ( // @[FMA.scala 149:27]
     .clock(inToAddFIFO_clock),
     .reset(inToAddFIFO_reset),
     .io_enq_ready(inToAddFIFO_io_enq_ready),
@@ -4099,7 +4684,7 @@ module FMA(
     .io_deq_bits_ctrl_finite_fma(inToAddFIFO_io_deq_bits_ctrl_finite_fma),
     .io_deq_bits_ctrl_fma_sign(inToAddFIFO_io_deq_bits_ctrl_fma_sign)
   );
-  Queue_3 mulToAddFIFO ( // @[FMA.scala 149:28]
+  Queue_3 mulToAddFIFO ( // @[FMA.scala 154:28]
     .clock(mulToAddFIFO_clock),
     .reset(mulToAddFIFO_reset),
     .io_enq_ready(mulToAddFIFO_io_enq_ready),
@@ -4127,7 +4712,7 @@ module FMA(
     .io_deq_bits_addAnother(mulToAddFIFO_io_deq_bits_addAnother),
     .io_deq_bits_rm(mulToAddFIFO_io_deq_bits_rm)
   );
-  Queue_2 addInputStage ( // @[FMA.scala 158:29]
+  Queue_2 addInputStage ( // @[FMA.scala 163:29]
     .clock(addInputStage_clock),
     .reset(addInputStage_reset),
     .io_enq_ready(addInputStage_io_enq_ready),
@@ -4151,7 +4736,7 @@ module FMA(
     .io_deq_bits_ctrl_finite_fma(addInputStage_io_deq_bits_ctrl_finite_fma),
     .io_deq_bits_ctrl_fma_sign(addInputStage_io_deq_bits_ctrl_fma_sign)
   );
-  Queue_3 addMulStage ( // @[FMA.scala 159:27]
+  Queue_3 addMulStage ( // @[FMA.scala 164:27]
     .clock(addMulStage_clock),
     .reset(addMulStage_reset),
     .io_enq_ready(addMulStage_io_enq_ready),
@@ -4179,7 +4764,7 @@ module FMA(
     .io_deq_bits_addAnother(addMulStage_io_deq_bits_addAnother),
     .io_deq_bits_rm(addMulStage_io_deq_bits_rm)
   );
-  Queue_6 mulFIFO ( // @[FMA.scala 180:23]
+  Queue_6 mulFIFO ( // @[FMA.scala 185:23]
     .clock(mulFIFO_clock),
     .reset(mulFIFO_reset),
     .io_enq_ready(mulFIFO_io_enq_ready),
@@ -4199,7 +4784,7 @@ module FMA(
     .io_deq_bits_ctrl_finite_fma(mulFIFO_io_deq_bits_ctrl_finite_fma),
     .io_deq_bits_ctrl_fma_sign(mulFIFO_io_deq_bits_ctrl_fma_sign)
   );
-  Queue_6 addFIFO ( // @[FMA.scala 181:23]
+  Queue_6 addFIFO ( // @[FMA.scala 186:23]
     .clock(addFIFO_clock),
     .reset(addFIFO_reset),
     .io_enq_ready(addFIFO_io_enq_ready),
@@ -4219,7 +4804,7 @@ module FMA(
     .io_deq_bits_ctrl_finite_fma(addFIFO_io_deq_bits_ctrl_finite_fma),
     .io_deq_bits_ctrl_fma_sign(addFIFO_io_deq_bits_ctrl_fma_sign)
   );
-  Arbiter_1 toOutArbiter ( // @[FMA.scala 190:28]
+  Arbiter_1 toOutArbiter ( // @[FMA.scala 195:28]
     .io_in_0_ready(toOutArbiter_io_in_0_ready),
     .io_in_0_valid(toOutArbiter_io_in_0_valid),
     .io_in_0_bits_result(toOutArbiter_io_in_0_bits_result),
@@ -4245,168 +4830,168 @@ module FMA(
     .io_out_bits_ctrl_finite_fma(toOutArbiter_io_out_bits_ctrl_finite_fma),
     .io_out_bits_ctrl_fma_sign(toOutArbiter_io_out_bits_ctrl_fma_sign)
   );
-  assign io_in_ready = _toAddArbiterFIFO_1_io_enq_valid_T_1 ? toAddArbiterFIFO_1_io_enq_ready : mulPipe_io_in_ready; // @[FMA.scala 179:21]
-  assign io_out_valid = toOutArbiter_io_out_valid; // @[FMA.scala 193:10]
-  assign io_out_bits_result = toOutArbiter_io_out_bits_result; // @[FMA.scala 193:10]
-  assign io_out_bits_fflags = toOutArbiter_io_out_bits_fflags; // @[FMA.scala 193:10]
-  assign io_out_bits_ctrl_seq = toOutArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 193:10]
-  assign io_out_bits_ctrl_dtype = toOutArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 193:10]
-  assign io_out_bits_ctrl_finite_fma = toOutArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 193:10]
-  assign io_out_bits_ctrl_fma_sign = toOutArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 193:10]
+  assign io_in_ready = _toAddArbiterFIFO_1_io_enq_valid_T_1 ? toAddArbiterFIFO_1_io_enq_ready : mulPipe_io_in_ready; // @[FMA.scala 184:21]
+  assign io_out_valid = toOutArbiter_io_out_valid; // @[FMA.scala 198:10]
+  assign io_out_bits_result = toOutArbiter_io_out_bits_result; // @[FMA.scala 198:10]
+  assign io_out_bits_fflags = toOutArbiter_io_out_bits_fflags; // @[FMA.scala 198:10]
+  assign io_out_bits_ctrl_seq = toOutArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 198:10]
+  assign io_out_bits_ctrl_dtype = toOutArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 198:10]
+  assign io_out_bits_ctrl_finite_fma = toOutArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 198:10]
+  assign io_out_bits_ctrl_fma_sign = toOutArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 198:10]
   assign mulPipe_clock = clock;
   assign mulPipe_reset = reset;
-  assign mulPipe_io_in_valid = io_in_valid & (io_in_bits_op[2] | _mulPipe_io_in_valid_T_2); // @[FMA.scala 122:38]
-  assign mulPipe_io_in_bits_op = io_in_bits_op; // @[FMA.scala 121:22]
-  assign mulPipe_io_in_bits_a = io_in_bits_a; // @[FMA.scala 121:22]
-  assign mulPipe_io_in_bits_b = io_in_bits_b; // @[FMA.scala 121:22]
-  assign mulPipe_io_in_bits_c = io_in_bits_c; // @[FMA.scala 121:22]
-  assign mulPipe_io_in_bits_ctrl_seq = io_in_bits_ctrl_seq; // @[FMA.scala 121:22]
-  assign mulPipe_io_in_bits_ctrl_dtype = io_in_bits_ctrl_dtype; // @[FMA.scala 121:22]
-  assign mulPipe_io_in_bits_ctrl_finite_fma = io_in_bits_ctrl_finite_fma; // @[FMA.scala 121:22]
-  assign mulPipe_io_in_bits_ctrl_fma_sign = io_in_bits_ctrl_fma_sign; // @[FMA.scala 121:22]
-  assign mulPipe_io_out_ready = toAddArbiterFIFO_0_io_enq_ready & mulPipe_toAdd_op[2] | _mulPipe_io_out_ready_T_4; // @[FMA.scala 186:96]
+  assign mulPipe_io_in_valid = io_in_valid & (io_in_bits_op[2] | _mulPipe_io_in_valid_T_2); // @[FMA.scala 123:38]
+  assign mulPipe_io_in_bits_op = io_in_bits_op; // @[FMA.scala 122:22]
+  assign mulPipe_io_in_bits_a = io_in_bits_a; // @[FMA.scala 122:22]
+  assign mulPipe_io_in_bits_b = io_in_bits_b; // @[FMA.scala 122:22]
+  assign mulPipe_io_in_bits_c = io_in_bits_c; // @[FMA.scala 122:22]
+  assign mulPipe_io_in_bits_ctrl_seq = io_in_bits_ctrl_seq; // @[FMA.scala 122:22]
+  assign mulPipe_io_in_bits_ctrl_dtype = io_in_bits_ctrl_dtype; // @[FMA.scala 122:22]
+  assign mulPipe_io_in_bits_ctrl_finite_fma = io_in_bits_ctrl_finite_fma; // @[FMA.scala 122:22]
+  assign mulPipe_io_in_bits_ctrl_fma_sign = io_in_bits_ctrl_fma_sign; // @[FMA.scala 122:22]
+  assign mulPipe_io_out_ready = toAddArbiterFIFO_0_io_enq_ready & mulPipe_toAdd_op[2] | _mulPipe_io_out_ready_T_4; // @[FMA.scala 191:96]
   assign addPipe_clock = clock;
   assign addPipe_reset = reset;
-  assign addPipe_io_in_valid = addInputStage_io_deq_valid & addMulStage_io_deq_valid; // @[FMA.scala 171:53]
-  assign addPipe_io_in_bits_op = addInputStage_io_deq_bits_op; // @[FMA.scala 169:22]
-  assign addPipe_io_in_bits_a = addInputStage_io_deq_bits_a; // @[FMA.scala 169:22]
-  assign addPipe_io_in_bits_b = addInputStage_io_deq_bits_b; // @[FMA.scala 169:22]
-  assign addPipe_io_in_bits_rm = addInputStage_io_deq_bits_rm; // @[FMA.scala 169:22]
-  assign addPipe_io_in_bits_ctrl_seq = addInputStage_io_deq_bits_ctrl_seq; // @[FMA.scala 169:22]
-  assign addPipe_io_in_bits_ctrl_dtype = addInputStage_io_deq_bits_ctrl_dtype; // @[FMA.scala 169:22]
-  assign addPipe_io_in_bits_ctrl_finite_fma = addInputStage_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 169:22]
-  assign addPipe_io_in_bits_ctrl_fma_sign = addInputStage_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 169:22]
-  assign addPipe_io_out_ready = addFIFO_io_enq_ready; // @[FMA.scala 184:18]
-  assign addPipe_fromMul_mulOutput_fp_prod_sign = addMulStage_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_mulOutput_fp_prod_exp = addMulStage_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_mulOutput_fp_prod_sig = addMulStage_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_mulOutput_inter_flags_isNaN = addMulStage_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_mulOutput_inter_flags_isInf = addMulStage_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_mulOutput_inter_flags_isInv = addMulStage_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_mulOutput_inter_flags_overflow = addMulStage_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_mulOutput_inter_flags_prod_sign = addMulStage_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_addAnother = addMulStage_io_deq_bits_addAnother; // @[FMA.scala 170:19]
-  assign addPipe_fromMul_rm = addMulStage_io_deq_bits_rm; // @[FMA.scala 170:19]
-  assign toAddArbiter_io_in_0_valid = toAddArbiterFIFO_0_io_deq_valid; // @[FMA.scala 141:25]
-  assign toAddArbiter_io_in_0_bits_ctrl_seq = toAddArbiterFIFO_0_io_deq_bits_ctrl_seq; // @[FMA.scala 141:25]
-  assign toAddArbiter_io_in_0_bits_ctrl_dtype = toAddArbiterFIFO_0_io_deq_bits_ctrl_dtype; // @[FMA.scala 141:25]
-  assign toAddArbiter_io_in_0_bits_ctrl_finite_fma = toAddArbiterFIFO_0_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 141:25]
-  assign toAddArbiter_io_in_0_bits_ctrl_fma_sign = toAddArbiterFIFO_0_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 141:25]
-  assign toAddArbiter_io_in_0_bits_op = toAddArbiterFIFO_0_io_deq_bits_op; // @[FMA.scala 141:25]
-  assign toAddArbiter_io_in_1_valid = toAddArbiterFIFO_1_io_deq_valid; // @[FMA.scala 142:25]
-  assign toAddArbiter_io_in_1_bits_ctrl_seq = toAddArbiterFIFO_1_io_deq_bits_ctrl_seq; // @[FMA.scala 142:25]
-  assign toAddArbiter_io_in_1_bits_ctrl_dtype = toAddArbiterFIFO_1_io_deq_bits_ctrl_dtype; // @[FMA.scala 142:25]
-  assign toAddArbiter_io_in_1_bits_ctrl_finite_fma = toAddArbiterFIFO_1_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 142:25]
-  assign toAddArbiter_io_in_1_bits_ctrl_fma_sign = toAddArbiterFIFO_1_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 142:25]
-  assign toAddArbiter_io_in_1_bits_op = toAddArbiterFIFO_1_io_deq_bits_op; // @[FMA.scala 142:25]
-  assign toAddArbiter_io_out_ready = addInputStage_io_enq_ready & addMulStage_io_enq_ready; // @[FMA.scala 164:50]
+  assign addPipe_io_in_valid = addInputStage_io_deq_valid & addMulStage_io_deq_valid; // @[FMA.scala 176:53]
+  assign addPipe_io_in_bits_op = addInputStage_io_deq_bits_op; // @[FMA.scala 174:22]
+  assign addPipe_io_in_bits_a = addInputStage_io_deq_bits_a; // @[FMA.scala 174:22]
+  assign addPipe_io_in_bits_b = addInputStage_io_deq_bits_b; // @[FMA.scala 174:22]
+  assign addPipe_io_in_bits_rm = addInputStage_io_deq_bits_rm; // @[FMA.scala 174:22]
+  assign addPipe_io_in_bits_ctrl_seq = addInputStage_io_deq_bits_ctrl_seq; // @[FMA.scala 174:22]
+  assign addPipe_io_in_bits_ctrl_dtype = addInputStage_io_deq_bits_ctrl_dtype; // @[FMA.scala 174:22]
+  assign addPipe_io_in_bits_ctrl_finite_fma = addInputStage_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 174:22]
+  assign addPipe_io_in_bits_ctrl_fma_sign = addInputStage_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 174:22]
+  assign addPipe_io_out_ready = addFIFO_io_enq_ready; // @[FMA.scala 189:18]
+  assign addPipe_fromMul_mulOutput_fp_prod_sign = addMulStage_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_mulOutput_fp_prod_exp = addMulStage_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_mulOutput_fp_prod_sig = addMulStage_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_mulOutput_inter_flags_isNaN = addMulStage_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_mulOutput_inter_flags_isInf = addMulStage_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_mulOutput_inter_flags_isInv = addMulStage_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_mulOutput_inter_flags_overflow = addMulStage_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_mulOutput_inter_flags_prod_sign = addMulStage_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_addAnother = addMulStage_io_deq_bits_addAnother; // @[FMA.scala 175:19]
+  assign addPipe_fromMul_rm = addMulStage_io_deq_bits_rm; // @[FMA.scala 175:19]
+  assign toAddArbiter_io_in_0_valid = toAddArbiterFIFO_0_io_deq_valid; // @[FMA.scala 146:25]
+  assign toAddArbiter_io_in_0_bits_ctrl_seq = toAddArbiterFIFO_0_io_deq_bits_ctrl_seq; // @[FMA.scala 146:25]
+  assign toAddArbiter_io_in_0_bits_ctrl_dtype = toAddArbiterFIFO_0_io_deq_bits_ctrl_dtype; // @[FMA.scala 146:25]
+  assign toAddArbiter_io_in_0_bits_ctrl_finite_fma = toAddArbiterFIFO_0_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 146:25]
+  assign toAddArbiter_io_in_0_bits_ctrl_fma_sign = toAddArbiterFIFO_0_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 146:25]
+  assign toAddArbiter_io_in_0_bits_op = toAddArbiterFIFO_0_io_deq_bits_op; // @[FMA.scala 146:25]
+  assign toAddArbiter_io_in_1_valid = toAddArbiterFIFO_1_io_deq_valid; // @[FMA.scala 147:25]
+  assign toAddArbiter_io_in_1_bits_ctrl_seq = toAddArbiterFIFO_1_io_deq_bits_ctrl_seq; // @[FMA.scala 147:25]
+  assign toAddArbiter_io_in_1_bits_ctrl_dtype = toAddArbiterFIFO_1_io_deq_bits_ctrl_dtype; // @[FMA.scala 147:25]
+  assign toAddArbiter_io_in_1_bits_ctrl_finite_fma = toAddArbiterFIFO_1_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 147:25]
+  assign toAddArbiter_io_in_1_bits_ctrl_fma_sign = toAddArbiterFIFO_1_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 147:25]
+  assign toAddArbiter_io_in_1_bits_op = toAddArbiterFIFO_1_io_deq_bits_op; // @[FMA.scala 147:25]
+  assign toAddArbiter_io_out_ready = addInputStage_io_enq_ready & addMulStage_io_enq_ready; // @[FMA.scala 169:50]
   assign toAddArbiterFIFO_0_clock = clock;
   assign toAddArbiterFIFO_0_reset = reset;
-  assign toAddArbiterFIFO_0_io_enq_valid = mulPipe_toAdd_op[2] & mulPipe_io_out_valid; // @[FMA.scala 140:70]
-  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_seq = mulPipe_toAdd_ctrl_seq; // @[FMA.scala 138:51]
-  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_dtype = mulPipe_toAdd_ctrl_dtype; // @[FMA.scala 138:51]
-  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_finite_fma = mulPipe_toAdd_ctrl_finite_fma; // @[FMA.scala 138:51]
-  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_fma_sign = mulPipe_toAdd_ctrl_fma_sign; // @[FMA.scala 138:51]
-  assign toAddArbiterFIFO_0_io_enq_bits_op = mulPipe_toAdd_op; // @[FMA.scala 137:38]
-  assign toAddArbiterFIFO_0_io_deq_ready = toAddArbiter_io_in_0_ready; // @[FMA.scala 141:25]
+  assign toAddArbiterFIFO_0_io_enq_valid = mulPipe_toAdd_op[2] & mulPipe_io_out_valid; // @[FMA.scala 145:70]
+  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_seq = mulPipe_toAdd_ctrl_seq; // @[FMA.scala 143:51]
+  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_dtype = mulPipe_toAdd_ctrl_dtype; // @[FMA.scala 143:51]
+  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_finite_fma = mulPipe_toAdd_ctrl_finite_fma; // @[FMA.scala 143:51]
+  assign toAddArbiterFIFO_0_io_enq_bits_ctrl_fma_sign = mulPipe_toAdd_ctrl_fma_sign; // @[FMA.scala 143:51]
+  assign toAddArbiterFIFO_0_io_enq_bits_op = mulPipe_toAdd_op; // @[FMA.scala 142:38]
+  assign toAddArbiterFIFO_0_io_deq_ready = toAddArbiter_io_in_0_ready; // @[FMA.scala 146:25]
   assign toAddArbiterFIFO_1_clock = clock;
   assign toAddArbiterFIFO_1_reset = reset;
-  assign toAddArbiterFIFO_1_io_enq_valid = _toAddArbiterFIFO_1_io_enq_valid_T_1 & io_in_valid; // @[FMA.scala 139:70]
-  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_seq = io_in_bits_ctrl_seq; // @[FMA.scala 136:51]
-  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_dtype = io_in_bits_ctrl_dtype; // @[FMA.scala 136:51]
-  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_finite_fma = io_in_bits_ctrl_finite_fma; // @[FMA.scala 136:51]
-  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_fma_sign = io_in_bits_ctrl_fma_sign; // @[FMA.scala 136:51]
-  assign toAddArbiterFIFO_1_io_enq_bits_op = io_in_bits_op; // @[FMA.scala 135:54]
-  assign toAddArbiterFIFO_1_io_deq_ready = toAddArbiter_io_in_1_ready; // @[FMA.scala 142:25]
+  assign toAddArbiterFIFO_1_io_enq_valid = _toAddArbiterFIFO_1_io_enq_valid_T_1 & io_in_valid; // @[FMA.scala 144:70]
+  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_seq = io_in_bits_ctrl_seq; // @[FMA.scala 141:51]
+  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_dtype = io_in_bits_ctrl_dtype; // @[FMA.scala 141:51]
+  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_finite_fma = io_in_bits_ctrl_finite_fma; // @[FMA.scala 141:51]
+  assign toAddArbiterFIFO_1_io_enq_bits_ctrl_fma_sign = io_in_bits_ctrl_fma_sign; // @[FMA.scala 141:51]
+  assign toAddArbiterFIFO_1_io_enq_bits_op = io_in_bits_op; // @[FMA.scala 140:54]
+  assign toAddArbiterFIFO_1_io_deq_ready = toAddArbiter_io_in_1_ready; // @[FMA.scala 147:25]
   assign inToAddFIFO_clock = clock;
   assign inToAddFIFO_reset = reset;
-  assign inToAddFIFO_io_enq_valid = _toAddArbiterFIFO_1_io_enq_valid_T_1 & io_in_valid; // @[FMA.scala 146:62]
-  assign inToAddFIFO_io_enq_bits_op = io_in_bits_op; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_enq_bits_a = io_in_bits_a; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_enq_bits_b = io_in_bits_b; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_enq_bits_rm = 3'h0; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_enq_bits_ctrl_seq = io_in_bits_ctrl_seq; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_enq_bits_ctrl_dtype = io_in_bits_ctrl_dtype; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_enq_bits_ctrl_finite_fma = io_in_bits_ctrl_finite_fma; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_enq_bits_ctrl_fma_sign = io_in_bits_ctrl_fma_sign; // @[FMA.scala 145:27]
-  assign inToAddFIFO_io_deq_ready = toAddArbiter_io_in_1_ready; // @[FMA.scala 147:28]
+  assign inToAddFIFO_io_enq_valid = _toAddArbiterFIFO_1_io_enq_valid_T_1 & io_in_valid; // @[FMA.scala 151:62]
+  assign inToAddFIFO_io_enq_bits_op = io_in_bits_op; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_enq_bits_a = io_in_bits_a; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_enq_bits_b = io_in_bits_b; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_enq_bits_rm = 3'h0; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_enq_bits_ctrl_seq = io_in_bits_ctrl_seq; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_enq_bits_ctrl_dtype = io_in_bits_ctrl_dtype; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_enq_bits_ctrl_finite_fma = io_in_bits_ctrl_finite_fma; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_enq_bits_ctrl_fma_sign = io_in_bits_ctrl_fma_sign; // @[FMA.scala 150:27]
+  assign inToAddFIFO_io_deq_ready = toAddArbiter_io_in_1_ready; // @[FMA.scala 152:28]
   assign mulToAddFIFO_clock = clock;
   assign mulToAddFIFO_reset = reset;
   assign mulToAddFIFO_io_enq_valid = toAddArbiterFIFO_0_io_enq_ready & toAddArbiterFIFO_0_io_enq_valid; // @[Decoupled.scala 51:35]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sign = mulPipe_toAdd_mulOutput_fp_prod_sign; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_exp = mulPipe_toAdd_mulOutput_fp_prod_exp; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sig = mulPipe_toAdd_mulOutput_fp_prod_sig; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isNaN = mulPipe_toAdd_mulOutput_inter_flags_isNaN; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInf = mulPipe_toAdd_mulOutput_inter_flags_isInf; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInv = mulPipe_toAdd_mulOutput_inter_flags_isInv; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_overflow = mulPipe_toAdd_mulOutput_inter_flags_overflow; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_prod_sign = mulPipe_toAdd_mulOutput_inter_flags_prod_sign; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_addAnother = mulPipe_toAdd_addAnother; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_enq_bits_rm = 3'h0; // @[FMA.scala 150:28]
-  assign mulToAddFIFO_io_deq_ready = toAddArbiter_io_in_0_ready; // @[FMA.scala 152:29]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sign = mulPipe_toAdd_mulOutput_fp_prod_sign; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_exp = mulPipe_toAdd_mulOutput_fp_prod_exp; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_fp_prod_sig = mulPipe_toAdd_mulOutput_fp_prod_sig; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isNaN = mulPipe_toAdd_mulOutput_inter_flags_isNaN; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInf = mulPipe_toAdd_mulOutput_inter_flags_isInf; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_isInv = mulPipe_toAdd_mulOutput_inter_flags_isInv; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_overflow = mulPipe_toAdd_mulOutput_inter_flags_overflow; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_mulOutput_inter_flags_prod_sign = mulPipe_toAdd_mulOutput_inter_flags_prod_sign; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_addAnother = mulPipe_toAdd_addAnother; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_enq_bits_rm = 3'h0; // @[FMA.scala 155:28]
+  assign mulToAddFIFO_io_deq_ready = toAddArbiter_io_in_0_ready; // @[FMA.scala 157:29]
   assign addInputStage_clock = clock;
   assign addInputStage_reset = reset;
-  assign addInputStage_io_enq_valid = toAddArbiter_io_out_valid & addMulStage_io_enq_ready; // @[FMA.scala 165:59]
-  assign addInputStage_io_enq_bits_op = toAddArbiter_io_out_bits_op; // @[FMA.scala 161:32]
-  assign addInputStage_io_enq_bits_a = inToAddFIFO_io_deq_bits_a; // @[FMA.scala 160:29]
-  assign addInputStage_io_enq_bits_b = inToAddFIFO_io_deq_bits_b; // @[FMA.scala 160:29]
-  assign addInputStage_io_enq_bits_rm = inToAddFIFO_io_deq_bits_rm; // @[FMA.scala 160:29]
-  assign addInputStage_io_enq_bits_ctrl_seq = toAddArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 162:44]
-  assign addInputStage_io_enq_bits_ctrl_dtype = toAddArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 162:44]
-  assign addInputStage_io_enq_bits_ctrl_finite_fma = toAddArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 162:44]
-  assign addInputStage_io_enq_bits_ctrl_fma_sign = toAddArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 162:44]
-  assign addInputStage_io_deq_ready = addPipe_io_in_ready & addInputStage_io_deq_valid & addMulStage_io_deq_valid; // @[FMA.scala 172:75]
+  assign addInputStage_io_enq_valid = toAddArbiter_io_out_valid & addMulStage_io_enq_ready; // @[FMA.scala 170:59]
+  assign addInputStage_io_enq_bits_op = toAddArbiter_io_out_bits_op; // @[FMA.scala 166:32]
+  assign addInputStage_io_enq_bits_a = inToAddFIFO_io_deq_bits_a; // @[FMA.scala 165:29]
+  assign addInputStage_io_enq_bits_b = inToAddFIFO_io_deq_bits_b; // @[FMA.scala 165:29]
+  assign addInputStage_io_enq_bits_rm = inToAddFIFO_io_deq_bits_rm; // @[FMA.scala 165:29]
+  assign addInputStage_io_enq_bits_ctrl_seq = toAddArbiter_io_out_bits_ctrl_seq; // @[FMA.scala 167:44]
+  assign addInputStage_io_enq_bits_ctrl_dtype = toAddArbiter_io_out_bits_ctrl_dtype; // @[FMA.scala 167:44]
+  assign addInputStage_io_enq_bits_ctrl_finite_fma = toAddArbiter_io_out_bits_ctrl_finite_fma; // @[FMA.scala 167:44]
+  assign addInputStage_io_enq_bits_ctrl_fma_sign = toAddArbiter_io_out_bits_ctrl_fma_sign; // @[FMA.scala 167:44]
+  assign addInputStage_io_deq_ready = addPipe_io_in_ready & addInputStage_io_deq_valid & addMulStage_io_deq_valid; // @[FMA.scala 177:75]
   assign addMulStage_clock = clock;
   assign addMulStage_reset = reset;
-  assign addMulStage_io_enq_valid = toAddArbiter_io_out_valid & addInputStage_io_enq_ready; // @[FMA.scala 166:57]
-  assign addMulStage_io_enq_bits_mulOutput_fp_prod_sign = mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 163:27]
-  assign addMulStage_io_enq_bits_mulOutput_fp_prod_exp = mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 163:27]
-  assign addMulStage_io_enq_bits_mulOutput_fp_prod_sig = mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 163:27]
-  assign addMulStage_io_enq_bits_mulOutput_inter_flags_isNaN = mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 163:27]
-  assign addMulStage_io_enq_bits_mulOutput_inter_flags_isInf = mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 163:27]
-  assign addMulStage_io_enq_bits_mulOutput_inter_flags_isInv = mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 163:27]
+  assign addMulStage_io_enq_valid = toAddArbiter_io_out_valid & addInputStage_io_enq_ready; // @[FMA.scala 171:57]
+  assign addMulStage_io_enq_bits_mulOutput_fp_prod_sign = mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sign; // @[FMA.scala 168:27]
+  assign addMulStage_io_enq_bits_mulOutput_fp_prod_exp = mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_exp; // @[FMA.scala 168:27]
+  assign addMulStage_io_enq_bits_mulOutput_fp_prod_sig = mulToAddFIFO_io_deq_bits_mulOutput_fp_prod_sig; // @[FMA.scala 168:27]
+  assign addMulStage_io_enq_bits_mulOutput_inter_flags_isNaN = mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isNaN; // @[FMA.scala 168:27]
+  assign addMulStage_io_enq_bits_mulOutput_inter_flags_isInf = mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInf; // @[FMA.scala 168:27]
+  assign addMulStage_io_enq_bits_mulOutput_inter_flags_isInv = mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_isInv; // @[FMA.scala 168:27]
   assign addMulStage_io_enq_bits_mulOutput_inter_flags_overflow =
-    mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 163:27]
+    mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_overflow; // @[FMA.scala 168:27]
   assign addMulStage_io_enq_bits_mulOutput_inter_flags_prod_sign =
-    mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 163:27]
-  assign addMulStage_io_enq_bits_addAnother = mulToAddFIFO_io_deq_bits_addAnother; // @[FMA.scala 163:27]
-  assign addMulStage_io_enq_bits_rm = mulToAddFIFO_io_deq_bits_rm; // @[FMA.scala 163:27]
-  assign addMulStage_io_deq_ready = addPipe_io_in_ready & addInputStage_io_deq_valid & addMulStage_io_deq_valid; // @[FMA.scala 172:75]
+    mulToAddFIFO_io_deq_bits_mulOutput_inter_flags_prod_sign; // @[FMA.scala 168:27]
+  assign addMulStage_io_enq_bits_addAnother = mulToAddFIFO_io_deq_bits_addAnother; // @[FMA.scala 168:27]
+  assign addMulStage_io_enq_bits_rm = mulToAddFIFO_io_deq_bits_rm; // @[FMA.scala 168:27]
+  assign addMulStage_io_deq_ready = addPipe_io_in_ready & addInputStage_io_deq_valid & addMulStage_io_deq_valid; // @[FMA.scala 177:75]
   assign mulFIFO_clock = clock;
   assign mulFIFO_reset = reset;
-  assign mulFIFO_io_enq_valid = mulPipe_io_out_valid & _mulFIFO_io_enq_valid_T; // @[FMA.scala 183:48]
-  assign mulFIFO_io_enq_bits_result = mulPipe_io_out_bits_result; // @[FMA.scala 182:23]
-  assign mulFIFO_io_enq_bits_fflags = mulPipe_io_out_bits_fflags; // @[FMA.scala 182:23]
-  assign mulFIFO_io_enq_bits_ctrl_seq = mulPipe_io_out_bits_ctrl_seq; // @[FMA.scala 182:23]
-  assign mulFIFO_io_enq_bits_ctrl_dtype = mulPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 182:23]
-  assign mulFIFO_io_enq_bits_ctrl_finite_fma = mulPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 182:23]
-  assign mulFIFO_io_enq_bits_ctrl_fma_sign = mulPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 182:23]
-  assign mulFIFO_io_deq_ready = toOutArbiter_io_in_1_ready; // @[FMA.scala 192:25]
+  assign mulFIFO_io_enq_valid = mulPipe_io_out_valid & _mulFIFO_io_enq_valid_T; // @[FMA.scala 188:48]
+  assign mulFIFO_io_enq_bits_result = mulPipe_io_out_bits_result; // @[FMA.scala 187:23]
+  assign mulFIFO_io_enq_bits_fflags = mulPipe_io_out_bits_fflags; // @[FMA.scala 187:23]
+  assign mulFIFO_io_enq_bits_ctrl_seq = mulPipe_io_out_bits_ctrl_seq; // @[FMA.scala 187:23]
+  assign mulFIFO_io_enq_bits_ctrl_dtype = mulPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 187:23]
+  assign mulFIFO_io_enq_bits_ctrl_finite_fma = mulPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 187:23]
+  assign mulFIFO_io_enq_bits_ctrl_fma_sign = mulPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 187:23]
+  assign mulFIFO_io_deq_ready = toOutArbiter_io_in_1_ready; // @[FMA.scala 197:25]
   assign addFIFO_clock = clock;
   assign addFIFO_reset = reset;
-  assign addFIFO_io_enq_valid = addPipe_io_out_valid; // @[FMA.scala 184:18]
-  assign addFIFO_io_enq_bits_result = addPipe_io_out_bits_result; // @[FMA.scala 184:18]
-  assign addFIFO_io_enq_bits_fflags = addPipe_io_out_bits_fflags; // @[FMA.scala 184:18]
-  assign addFIFO_io_enq_bits_ctrl_seq = addPipe_io_out_bits_ctrl_seq; // @[FMA.scala 184:18]
-  assign addFIFO_io_enq_bits_ctrl_dtype = addPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 184:18]
-  assign addFIFO_io_enq_bits_ctrl_finite_fma = addPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 184:18]
-  assign addFIFO_io_enq_bits_ctrl_fma_sign = addPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 184:18]
-  assign addFIFO_io_deq_ready = toOutArbiter_io_in_0_ready; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_0_valid = addFIFO_io_deq_valid; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_0_bits_result = addFIFO_io_deq_bits_result; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_0_bits_fflags = addFIFO_io_deq_bits_fflags; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_0_bits_ctrl_seq = addFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_0_bits_ctrl_dtype = addFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_0_bits_ctrl_finite_fma = addFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_0_bits_ctrl_fma_sign = addFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 191:25]
-  assign toOutArbiter_io_in_1_valid = mulFIFO_io_deq_valid; // @[FMA.scala 192:25]
-  assign toOutArbiter_io_in_1_bits_result = mulFIFO_io_deq_bits_result; // @[FMA.scala 192:25]
-  assign toOutArbiter_io_in_1_bits_fflags = mulFIFO_io_deq_bits_fflags; // @[FMA.scala 192:25]
-  assign toOutArbiter_io_in_1_bits_ctrl_seq = mulFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 192:25]
-  assign toOutArbiter_io_in_1_bits_ctrl_dtype = mulFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 192:25]
-  assign toOutArbiter_io_in_1_bits_ctrl_finite_fma = mulFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 192:25]
-  assign toOutArbiter_io_in_1_bits_ctrl_fma_sign = mulFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 192:25]
-  assign toOutArbiter_io_out_ready = io_out_ready; // @[FMA.scala 193:10]
+  assign addFIFO_io_enq_valid = addPipe_io_out_valid; // @[FMA.scala 189:18]
+  assign addFIFO_io_enq_bits_result = addPipe_io_out_bits_result; // @[FMA.scala 189:18]
+  assign addFIFO_io_enq_bits_fflags = addPipe_io_out_bits_fflags; // @[FMA.scala 189:18]
+  assign addFIFO_io_enq_bits_ctrl_seq = addPipe_io_out_bits_ctrl_seq; // @[FMA.scala 189:18]
+  assign addFIFO_io_enq_bits_ctrl_dtype = addPipe_io_out_bits_ctrl_dtype; // @[FMA.scala 189:18]
+  assign addFIFO_io_enq_bits_ctrl_finite_fma = addPipe_io_out_bits_ctrl_finite_fma; // @[FMA.scala 189:18]
+  assign addFIFO_io_enq_bits_ctrl_fma_sign = addPipe_io_out_bits_ctrl_fma_sign; // @[FMA.scala 189:18]
+  assign addFIFO_io_deq_ready = toOutArbiter_io_in_0_ready; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_0_valid = addFIFO_io_deq_valid; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_0_bits_result = addFIFO_io_deq_bits_result; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_0_bits_fflags = addFIFO_io_deq_bits_fflags; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_0_bits_ctrl_seq = addFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_0_bits_ctrl_dtype = addFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_0_bits_ctrl_finite_fma = addFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_0_bits_ctrl_fma_sign = addFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 196:25]
+  assign toOutArbiter_io_in_1_valid = mulFIFO_io_deq_valid; // @[FMA.scala 197:25]
+  assign toOutArbiter_io_in_1_bits_result = mulFIFO_io_deq_bits_result; // @[FMA.scala 197:25]
+  assign toOutArbiter_io_in_1_bits_fflags = mulFIFO_io_deq_bits_fflags; // @[FMA.scala 197:25]
+  assign toOutArbiter_io_in_1_bits_ctrl_seq = mulFIFO_io_deq_bits_ctrl_seq; // @[FMA.scala 197:25]
+  assign toOutArbiter_io_in_1_bits_ctrl_dtype = mulFIFO_io_deq_bits_ctrl_dtype; // @[FMA.scala 197:25]
+  assign toOutArbiter_io_in_1_bits_ctrl_finite_fma = mulFIFO_io_deq_bits_ctrl_finite_fma; // @[FMA.scala 197:25]
+  assign toOutArbiter_io_in_1_bits_ctrl_fma_sign = mulFIFO_io_deq_bits_ctrl_fma_sign; // @[FMA.scala 197:25]
+  assign toOutArbiter_io_out_ready = io_out_ready; // @[FMA.scala 198:10]
 endmodule
 module Queue_8(
   input        clock,
@@ -5070,81 +5655,81 @@ module AecFp64PipeUnit(
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
 `endif // RANDOMIZE_REG_INIT
-  wire  f64Pipe_clock; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_reset; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_in_ready; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_in_valid; // @[AecFpUnit.scala 98:23]
-  wire [2:0] f64Pipe_io_in_bits_op; // @[AecFpUnit.scala 98:23]
-  wire [63:0] f64Pipe_io_in_bits_a; // @[AecFpUnit.scala 98:23]
-  wire [63:0] f64Pipe_io_in_bits_b; // @[AecFpUnit.scala 98:23]
-  wire [63:0] f64Pipe_io_in_bits_c; // @[AecFpUnit.scala 98:23]
-  wire [5:0] f64Pipe_io_in_bits_ctrl_seq; // @[AecFpUnit.scala 98:23]
-  wire [3:0] f64Pipe_io_in_bits_ctrl_dtype; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_in_bits_ctrl_finite_fma; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_in_bits_ctrl_fma_sign; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_out_ready; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_out_valid; // @[AecFpUnit.scala 98:23]
-  wire [63:0] f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 98:23]
-  wire [4:0] f64Pipe_io_out_bits_fflags; // @[AecFpUnit.scala 98:23]
-  wire [5:0] f64Pipe_io_out_bits_ctrl_seq; // @[AecFpUnit.scala 98:23]
-  wire [3:0] f64Pipe_io_out_bits_ctrl_dtype; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_out_bits_ctrl_finite_fma; // @[AecFpUnit.scala 98:23]
-  wire  f64Pipe_io_out_bits_ctrl_fma_sign; // @[AecFpUnit.scala 98:23]
-  wire  issueQ_clock; // @[AecFpUnit.scala 99:22]
-  wire  issueQ_reset; // @[AecFpUnit.scala 99:22]
-  wire  issueQ_io_enq_ready; // @[AecFpUnit.scala 99:22]
-  wire  issueQ_io_enq_valid; // @[AecFpUnit.scala 99:22]
-  wire [5:0] issueQ_io_enq_bits; // @[AecFpUnit.scala 99:22]
-  wire  issueQ_io_deq_ready; // @[AecFpUnit.scala 99:22]
-  wire  issueQ_io_deq_valid; // @[AecFpUnit.scala 99:22]
-  wire [5:0] issueQ_io_deq_bits; // @[AecFpUnit.scala 99:22]
-  wire [16:0] cmp16_io_a; // @[AecFpUnit.scala 156:21]
-  wire [16:0] cmp16_io_b; // @[AecFpUnit.scala 156:21]
-  wire  cmp16_io_lt; // @[AecFpUnit.scala 156:21]
-  wire  cmp16_io_eq; // @[AecFpUnit.scala 156:21]
-  wire  cmp16_io_gt; // @[AecFpUnit.scala 156:21]
-  wire [32:0] cmp32_io_a; // @[AecFpUnit.scala 156:66]
-  wire [32:0] cmp32_io_b; // @[AecFpUnit.scala 156:66]
-  wire  cmp32_io_lt; // @[AecFpUnit.scala 156:66]
-  wire  cmp32_io_eq; // @[AecFpUnit.scala 156:66]
-  wire  cmp32_io_gt; // @[AecFpUnit.scala 156:66]
-  wire [64:0] cmp64_io_a; // @[AecFpUnit.scala 156:111]
-  wire [64:0] cmp64_io_b; // @[AecFpUnit.scala 156:111]
-  wire  cmp64_io_lt; // @[AecFpUnit.scala 156:111]
-  wire  cmp64_io_eq; // @[AecFpUnit.scala 156:111]
-  wire  cmp64_io_gt; // @[AecFpUnit.scala 156:111]
-  wire [63:0] f64DownF16_io_in; // @[AecFpUnit.scala 197:26]
-  wire [15:0] f64DownF16_io_result; // @[AecFpUnit.scala 197:26]
-  wire [63:0] f64DownBf16_io_in; // @[AecFpUnit.scala 198:27]
-  wire [15:0] f64DownBf16_io_result; // @[AecFpUnit.scala 198:27]
-  wire [63:0] f64DownF32_io_in; // @[AecFpUnit.scala 199:26]
-  wire [31:0] f64DownF32_io_result; // @[AecFpUnit.scala 199:26]
-  reg [6:0] held_op; // @[AecFpUnit.scala 93:17]
-  reg [3:0] held_dtype; // @[AecFpUnit.scala 93:17]
-  reg [63:0] held_a; // @[AecFpUnit.scala 93:17]
-  reg [63:0] held_b; // @[AecFpUnit.scala 93:17]
-  reg  busy; // @[AecFpUnit.scala 94:21]
-  wire  _reqPipe_T_3 = io_req_bits_op == 7'h3; // @[AecFpUnit.scala 97:22]
-  wire  _reqPipe_T_4 = io_req_bits_op == 7'h1 | io_req_bits_op == 7'h2 | _reqPipe_T_3; // @[AecFpUnit.scala 96:71]
-  wire  _reqPipe_T_5 = io_req_bits_op == 7'h5; // @[AecFpUnit.scala 97:56]
-  wire  reqPipe = _reqPipe_T_4 | io_req_bits_op == 7'h5; // @[AecFpUnit.scala 97:38]
-  reg [5:0] issueSeq; // @[AecFpUnit.scala 100:25]
+  wire  f64Pipe_clock; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_reset; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_in_ready; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_in_valid; // @[AecFpUnit.scala 122:23]
+  wire [2:0] f64Pipe_io_in_bits_op; // @[AecFpUnit.scala 122:23]
+  wire [63:0] f64Pipe_io_in_bits_a; // @[AecFpUnit.scala 122:23]
+  wire [63:0] f64Pipe_io_in_bits_b; // @[AecFpUnit.scala 122:23]
+  wire [63:0] f64Pipe_io_in_bits_c; // @[AecFpUnit.scala 122:23]
+  wire [5:0] f64Pipe_io_in_bits_ctrl_seq; // @[AecFpUnit.scala 122:23]
+  wire [3:0] f64Pipe_io_in_bits_ctrl_dtype; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_in_bits_ctrl_finite_fma; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_in_bits_ctrl_fma_sign; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_out_ready; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_out_valid; // @[AecFpUnit.scala 122:23]
+  wire [63:0] f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 122:23]
+  wire [4:0] f64Pipe_io_out_bits_fflags; // @[AecFpUnit.scala 122:23]
+  wire [5:0] f64Pipe_io_out_bits_ctrl_seq; // @[AecFpUnit.scala 122:23]
+  wire [3:0] f64Pipe_io_out_bits_ctrl_dtype; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_out_bits_ctrl_finite_fma; // @[AecFpUnit.scala 122:23]
+  wire  f64Pipe_io_out_bits_ctrl_fma_sign; // @[AecFpUnit.scala 122:23]
+  wire  issueQ_clock; // @[AecFpUnit.scala 123:22]
+  wire  issueQ_reset; // @[AecFpUnit.scala 123:22]
+  wire  issueQ_io_enq_ready; // @[AecFpUnit.scala 123:22]
+  wire  issueQ_io_enq_valid; // @[AecFpUnit.scala 123:22]
+  wire [5:0] issueQ_io_enq_bits; // @[AecFpUnit.scala 123:22]
+  wire  issueQ_io_deq_ready; // @[AecFpUnit.scala 123:22]
+  wire  issueQ_io_deq_valid; // @[AecFpUnit.scala 123:22]
+  wire [5:0] issueQ_io_deq_bits; // @[AecFpUnit.scala 123:22]
+  wire [16:0] cmp16_io_a; // @[AecFpUnit.scala 180:21]
+  wire [16:0] cmp16_io_b; // @[AecFpUnit.scala 180:21]
+  wire  cmp16_io_lt; // @[AecFpUnit.scala 180:21]
+  wire  cmp16_io_eq; // @[AecFpUnit.scala 180:21]
+  wire  cmp16_io_gt; // @[AecFpUnit.scala 180:21]
+  wire [32:0] cmp32_io_a; // @[AecFpUnit.scala 180:66]
+  wire [32:0] cmp32_io_b; // @[AecFpUnit.scala 180:66]
+  wire  cmp32_io_lt; // @[AecFpUnit.scala 180:66]
+  wire  cmp32_io_eq; // @[AecFpUnit.scala 180:66]
+  wire  cmp32_io_gt; // @[AecFpUnit.scala 180:66]
+  wire [64:0] cmp64_io_a; // @[AecFpUnit.scala 180:111]
+  wire [64:0] cmp64_io_b; // @[AecFpUnit.scala 180:111]
+  wire  cmp64_io_lt; // @[AecFpUnit.scala 180:111]
+  wire  cmp64_io_eq; // @[AecFpUnit.scala 180:111]
+  wire  cmp64_io_gt; // @[AecFpUnit.scala 180:111]
+  wire [63:0] f64DownF16_io_in; // @[AecFpUnit.scala 221:26]
+  wire [15:0] f64DownF16_io_result; // @[AecFpUnit.scala 221:26]
+  wire [63:0] f64DownBf16_io_in; // @[AecFpUnit.scala 222:27]
+  wire [15:0] f64DownBf16_io_result; // @[AecFpUnit.scala 222:27]
+  wire [63:0] f64DownF32_io_in; // @[AecFpUnit.scala 223:26]
+  wire [31:0] f64DownF32_io_result; // @[AecFpUnit.scala 223:26]
+  reg [6:0] held_op; // @[AecFpUnit.scala 117:17]
+  reg [3:0] held_dtype; // @[AecFpUnit.scala 117:17]
+  reg [63:0] held_a; // @[AecFpUnit.scala 117:17]
+  reg [63:0] held_b; // @[AecFpUnit.scala 117:17]
+  reg  busy; // @[AecFpUnit.scala 118:21]
+  wire  _reqPipe_T_3 = io_req_bits_op == 7'h3; // @[AecFpUnit.scala 121:22]
+  wire  _reqPipe_T_4 = io_req_bits_op == 7'h1 | io_req_bits_op == 7'h2 | _reqPipe_T_3; // @[AecFpUnit.scala 120:71]
+  wire  _reqPipe_T_5 = io_req_bits_op == 7'h5; // @[AecFpUnit.scala 121:56]
+  wire  reqPipe = _reqPipe_T_4 | io_req_bits_op == 7'h5; // @[AecFpUnit.scala 121:38]
+  reg [5:0] issueSeq; // @[AecFpUnit.scala 124:25]
   wire [2:0] _pipeOp_T_3 = 7'h2 == io_req_bits_op ? 3'h1 : 3'h0; // @[Mux.scala 81:58]
   wire [2:0] _pipeOp_T_5 = 7'h3 == io_req_bits_op ? 3'h2 : _pipeOp_T_3; // @[Mux.scala 81:58]
-  wire  _f64Pipe_io_in_bits_ctrl_finite_fma_T_2 = io_req_bits_a[62:52] != 11'h7ff; // @[AecFpUnit.scala 134:30]
-  wire  _f64Pipe_io_in_bits_ctrl_finite_fma_T_3 = _reqPipe_T_5 & _f64Pipe_io_in_bits_ctrl_finite_fma_T_2; // @[AecFpUnit.scala 133:55]
-  wire  _f64Pipe_io_in_valid_T = ~busy; // @[AecFpUnit.scala 136:41]
+  wire  _f64Pipe_io_in_bits_ctrl_finite_fma_T_2 = io_req_bits_a[62:52] != 11'h7ff; // @[AecFpUnit.scala 158:30]
+  wire  _f64Pipe_io_in_bits_ctrl_finite_fma_T_3 = _reqPipe_T_5 & _f64Pipe_io_in_bits_ctrl_finite_fma_T_2; // @[AecFpUnit.scala 157:55]
+  wire  _f64Pipe_io_in_valid_T = ~busy; // @[AecFpUnit.scala 160:41]
   wire  _selectedPipeReady_T_3 = 4'hb == io_req_bits_dtype ? f64Pipe_io_in_ready : 4'ha == io_req_bits_dtype &
     f64Pipe_io_in_ready; // @[Mux.scala 81:58]
   wire  _selectedPipeReady_T_5 = 4'h8 == io_req_bits_dtype ? f64Pipe_io_in_ready : _selectedPipeReady_T_3; // @[Mux.scala 81:58]
   wire  selectedPipeReady = 4'h9 == io_req_bits_dtype ? f64Pipe_io_in_ready : _selectedPipeReady_T_5; // @[Mux.scala 81:58]
-  wire  reqDtypeSupported = io_req_bits_dtype == 4'h9; // @[AecFpUnit.scala 142:75]
-  wire  _io_req_ready_T_3 = reqPipe ? selectedPipeReady & issueQ_io_enq_ready : 1'h1; // @[AecFpUnit.scala 143:52]
+  wire  reqDtypeSupported = io_req_bits_dtype == 4'h9; // @[AecFpUnit.scala 166:75]
+  wire  _io_req_ready_T_3 = reqPipe ? selectedPipeReady & issueQ_io_enq_ready : 1'h1; // @[AecFpUnit.scala 167:52]
   wire  _issueQ_io_enq_valid_T = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
-  wire [5:0] _issueSeq_T_1 = issueSeq + 6'h1; // @[AecFpUnit.scala 146:45]
-  wire  _GEN_7 = _issueQ_io_enq_valid_T & ~reqPipe | busy; // @[AecFpUnit.scala 147:{34,62} 94:21]
-  wire  isF32 = held_dtype == 4'h8; // @[AecFpUnit.scala 151:26]
-  wire  isF64 = held_dtype == 4'h9; // @[AecFpUnit.scala 151:58]
+  wire [5:0] _issueSeq_T_1 = issueSeq + 6'h1; // @[AecFpUnit.scala 170:45]
+  wire  _GEN_7 = _issueQ_io_enq_valid_T & ~reqPipe | busy; // @[AecFpUnit.scala 118:21 171:{34,62}]
+  wire  isF32 = held_dtype == 4'h8; // @[AecFpUnit.scala 175:26]
+  wire  isF64 = held_dtype == 4'h9; // @[AecFpUnit.scala 175:58]
   wire [31:0] _cmp16_io_a_T_3 = {held_a[15:0],16'h0}; // @[Cat.scala 33:92]
   wire [31:0] _cmp16_io_a_T_7 = 4'ha == held_dtype ? {{16'd0}, held_a[15:0]} : held_a[31:0]; // @[Mux.scala 81:58]
   wire [31:0] _cmp16_io_a_T_9 = 4'hb == held_dtype ? _cmp16_io_a_T_3 : _cmp16_io_a_T_7; // @[Mux.scala 81:58]
@@ -5493,38 +6078,38 @@ module AecFp64PipeUnit(
   wire [2:0] _GEN_32 = {{2'd0}, cmp64_io_b_rawIn__isNaN}; // @[recFNFromFN.scala 48:76]
   wire [2:0] _cmp64_io_b_T_3 = _cmp64_io_b_T_1 | _GEN_32; // @[recFNFromFN.scala 48:76]
   wire [12:0] _cmp64_io_b_T_6 = {cmp64_io_b_rawIn_sign,_cmp64_io_b_T_3,cmp64_io_b_rawIn__sExp[8:0]}; // @[recFNFromFN.scala 49:45]
-  wire  f64AtHead = f64Pipe_io_out_valid & issueQ_io_deq_valid & f64Pipe_io_out_bits_ctrl_seq == issueQ_io_deq_bits; // @[AecFpUnit.scala 166:63]
-  wire  oldAtHead = busy & issueQ_io_deq_valid; // @[AecFpUnit.scala 167:32]
+  wire  f64AtHead = f64Pipe_io_out_valid & issueQ_io_deq_valid & f64Pipe_io_out_bits_ctrl_seq == issueQ_io_deq_bits; // @[AecFpUnit.scala 190:63]
+  wire  oldAtHead = busy & issueQ_io_deq_valid; // @[AecFpUnit.scala 191:32]
   wire  _issueQ_io_deq_ready_T = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
-  wire  isCmp = held_op >= 7'h20 & held_op < 7'h26; // @[AecFpUnit.scala 173:42]
-  wire  isCmpP = held_op >= 7'h28 & held_op < 7'h2e; // @[AecFpUnit.scala 174:44]
-  wire [6:0] _cmpMode_T_1 = held_op - 7'h28; // @[AecFpUnit.scala 175:37]
-  wire [6:0] _cmpMode_T_3 = held_op - 7'h20; // @[AecFpUnit.scala 175:65]
-  wire [6:0] cmpMode = isCmpP ? _cmpMode_T_1 : _cmpMode_T_3; // @[AecFpUnit.scala 175:20]
+  wire  isCmp = held_op >= 7'h20 & held_op < 7'h26; // @[AecFpUnit.scala 197:42]
+  wire  isCmpP = held_op >= 7'h28 & held_op < 7'h2e; // @[AecFpUnit.scala 198:44]
+  wire [6:0] _cmpMode_T_1 = held_op - 7'h28; // @[AecFpUnit.scala 199:37]
+  wire [6:0] _cmpMode_T_3 = held_op - 7'h20; // @[AecFpUnit.scala 199:65]
+  wire [6:0] cmpMode = isCmpP ? _cmpMode_T_1 : _cmpMode_T_3; // @[AecFpUnit.scala 199:20]
   wire  _cmpTrue_T_1 = 4'ha == held_dtype ? cmp16_io_eq : cmp32_io_eq; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_3 = 4'hb == held_dtype ? cmp32_io_eq : _cmpTrue_T_1; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_5 = 4'h9 == held_dtype ? cmp64_io_eq : _cmpTrue_T_3; // @[Mux.scala 81:58]
-  wire  _cmpTrue_T_6 = ~cmp32_io_eq; // @[AecFpUnit.scala 178:34]
-  wire  _cmpTrue_T_7 = ~cmp16_io_eq; // @[AecFpUnit.scala 178:62]
-  wire  _cmpTrue_T_9 = ~cmp64_io_eq; // @[AecFpUnit.scala 178:109]
+  wire  _cmpTrue_T_6 = ~cmp32_io_eq; // @[AecFpUnit.scala 202:34]
+  wire  _cmpTrue_T_7 = ~cmp16_io_eq; // @[AecFpUnit.scala 202:62]
+  wire  _cmpTrue_T_9 = ~cmp64_io_eq; // @[AecFpUnit.scala 202:109]
   wire  _cmpTrue_T_11 = 4'ha == held_dtype ? _cmpTrue_T_7 : _cmpTrue_T_6; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_13 = 4'hb == held_dtype ? _cmpTrue_T_6 : _cmpTrue_T_11; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_15 = 4'h9 == held_dtype ? _cmpTrue_T_9 : _cmpTrue_T_13; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_17 = 4'ha == held_dtype ? cmp16_io_lt : cmp32_io_lt; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_19 = 4'hb == held_dtype ? cmp32_io_lt : _cmpTrue_T_17; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_21 = 4'h9 == held_dtype ? cmp64_io_lt : _cmpTrue_T_19; // @[Mux.scala 81:58]
-  wire  _cmpTrue_T_22 = cmp32_io_lt | cmp32_io_eq; // @[AecFpUnit.scala 180:46]
-  wire  _cmpTrue_T_23 = cmp16_io_lt | cmp16_io_eq; // @[AecFpUnit.scala 180:87]
-  wire  _cmpTrue_T_25 = cmp64_io_lt | cmp64_io_eq; // @[AecFpUnit.scala 180:162]
+  wire  _cmpTrue_T_22 = cmp32_io_lt | cmp32_io_eq; // @[AecFpUnit.scala 204:46]
+  wire  _cmpTrue_T_23 = cmp16_io_lt | cmp16_io_eq; // @[AecFpUnit.scala 204:87]
+  wire  _cmpTrue_T_25 = cmp64_io_lt | cmp64_io_eq; // @[AecFpUnit.scala 204:162]
   wire  _cmpTrue_T_27 = 4'ha == held_dtype ? _cmpTrue_T_23 : _cmpTrue_T_22; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_29 = 4'hb == held_dtype ? _cmpTrue_T_22 : _cmpTrue_T_27; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_31 = 4'h9 == held_dtype ? _cmpTrue_T_25 : _cmpTrue_T_29; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_33 = 4'ha == held_dtype ? cmp16_io_gt : cmp32_io_gt; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_35 = 4'hb == held_dtype ? cmp32_io_gt : _cmpTrue_T_33; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_37 = 4'h9 == held_dtype ? cmp64_io_gt : _cmpTrue_T_35; // @[Mux.scala 81:58]
-  wire  _cmpTrue_T_38 = cmp32_io_gt | cmp32_io_eq; // @[AecFpUnit.scala 182:46]
-  wire  _cmpTrue_T_39 = cmp16_io_gt | cmp16_io_eq; // @[AecFpUnit.scala 182:87]
-  wire  _cmpTrue_T_41 = cmp64_io_gt | cmp64_io_eq; // @[AecFpUnit.scala 182:162]
+  wire  _cmpTrue_T_38 = cmp32_io_gt | cmp32_io_eq; // @[AecFpUnit.scala 206:46]
+  wire  _cmpTrue_T_39 = cmp16_io_gt | cmp16_io_eq; // @[AecFpUnit.scala 206:87]
+  wire  _cmpTrue_T_41 = cmp64_io_gt | cmp64_io_eq; // @[AecFpUnit.scala 206:162]
   wire  _cmpTrue_T_43 = 4'ha == held_dtype ? _cmpTrue_T_39 : _cmpTrue_T_38; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_45 = 4'hb == held_dtype ? _cmpTrue_T_38 : _cmpTrue_T_43; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_47 = 4'h9 == held_dtype ? _cmpTrue_T_41 : _cmpTrue_T_45; // @[Mux.scala 81:58]
@@ -5533,61 +6118,61 @@ module AecFp64PipeUnit(
   wire  _cmpTrue_T_55 = 7'h3 == cmpMode ? _cmpTrue_T_31 : _cmpTrue_T_53; // @[Mux.scala 81:58]
   wire  _cmpTrue_T_57 = 7'h4 == cmpMode ? _cmpTrue_T_37 : _cmpTrue_T_55; // @[Mux.scala 81:58]
   wire  cmpTrue = 7'h5 == cmpMode ? _cmpTrue_T_47 : _cmpTrue_T_57; // @[Mux.scala 81:58]
-  wire  aNaN32 = &held_a[30:23] & |held_a[22:0]; // @[AecFpUnit.scala 184:33]
-  wire  bNaN32 = &held_b[30:23] & |held_b[22:0]; // @[AecFpUnit.scala 185:33]
-  wire  bothZero32 = held_a[30:0] == 31'h0 & held_b[30:0] == 31'h0; // @[AecFpUnit.scala 186:39]
-  wire  _minNumeric32_T_2 = held_a[31] | held_b[31]; // @[AecFpUnit.scala 187:50]
+  wire  aNaN32 = &held_a[30:23] & |held_a[22:0]; // @[AecFpUnit.scala 208:33]
+  wire  bNaN32 = &held_b[30:23] & |held_b[22:0]; // @[AecFpUnit.scala 209:33]
+  wire  bothZero32 = held_a[30:0] == 31'h0 & held_b[30:0] == 31'h0; // @[AecFpUnit.scala 210:39]
+  wire  _minNumeric32_T_2 = held_a[31] | held_b[31]; // @[AecFpUnit.scala 211:50]
   wire [31:0] _minNumeric32_T_3 = {_minNumeric32_T_2,31'h0}; // @[Cat.scala 33:92]
-  wire [31:0] _minNumeric32_T_4 = cmp32_io_lt ? held_a[31:0] : held_b[31:0]; // @[AecFpUnit.scala 187:76]
-  wire [31:0] minNumeric32 = bothZero32 ? _minNumeric32_T_3 : _minNumeric32_T_4; // @[AecFpUnit.scala 187:25]
-  wire  _maxNumeric32_T_2 = held_a[31] & held_b[31]; // @[AecFpUnit.scala 188:50]
+  wire [31:0] _minNumeric32_T_4 = cmp32_io_lt ? held_a[31:0] : held_b[31:0]; // @[AecFpUnit.scala 211:76]
+  wire [31:0] minNumeric32 = bothZero32 ? _minNumeric32_T_3 : _minNumeric32_T_4; // @[AecFpUnit.scala 211:25]
+  wire  _maxNumeric32_T_2 = held_a[31] & held_b[31]; // @[AecFpUnit.scala 212:50]
   wire [31:0] _maxNumeric32_T_3 = {_maxNumeric32_T_2,31'h0}; // @[Cat.scala 33:92]
-  wire [31:0] _maxNumeric32_T_4 = cmp32_io_gt ? held_a[31:0] : held_b[31:0]; // @[AecFpUnit.scala 188:76]
-  wire [31:0] maxNumeric32 = bothZero32 ? _maxNumeric32_T_3 : _maxNumeric32_T_4; // @[AecFpUnit.scala 188:25]
-  wire  _minMax32_T_1 = held_op == 7'h9; // @[AecFpUnit.scala 190:51]
-  wire [31:0] _minMax32_T_2 = held_op == 7'h9 ? minNumeric32 : maxNumeric32; // @[AecFpUnit.scala 190:42]
-  wire [31:0] _minMax32_T_3 = bNaN32 ? held_a[31:0] : _minMax32_T_2; // @[AecFpUnit.scala 190:25]
-  wire [31:0] _minMax32_T_4 = aNaN32 ? held_b[31:0] : _minMax32_T_3; // @[AecFpUnit.scala 190:8]
-  wire [31:0] minMax32 = aNaN32 & bNaN32 ? 32'h7fc00000 : _minMax32_T_4; // @[AecFpUnit.scala 189:21]
-  wire [94:0] _unarySign_T_3 = isF32 ? 95'h80000000 : 95'h8000; // @[AecFpUnit.scala 191:52]
-  wire [126:0] unarySign = isF64 ? 127'h8000000000000000 : {{32'd0}, _unarySign_T_3}; // @[AecFpUnit.scala 191:22]
-  wire  _unaryRaw_T = held_op == 7'h8; // @[AecFpUnit.scala 192:30]
-  wire [126:0] _unaryRaw_T_1 = ~unarySign; // @[AecFpUnit.scala 192:56]
-  wire [126:0] _GEN_33 = {{63'd0}, held_a}; // @[AecFpUnit.scala 192:54]
-  wire [126:0] _unaryRaw_T_2 = _GEN_33 & _unaryRaw_T_1; // @[AecFpUnit.scala 192:54]
-  wire  _unaryRaw_T_3 = held_op == 7'h7; // @[AecFpUnit.scala 192:80]
-  wire [126:0] _unaryRaw_T_4 = _GEN_33 ^ unarySign; // @[AecFpUnit.scala 192:104]
-  wire [126:0] _unaryRaw_T_5 = held_op == 7'h7 ? _unaryRaw_T_4 : {{63'd0}, held_a}; // @[AecFpUnit.scala 192:71]
-  wire [126:0] unaryRaw = held_op == 7'h8 ? _unaryRaw_T_2 : _unaryRaw_T_5; // @[AecFpUnit.scala 192:21]
+  wire [31:0] _maxNumeric32_T_4 = cmp32_io_gt ? held_a[31:0] : held_b[31:0]; // @[AecFpUnit.scala 212:76]
+  wire [31:0] maxNumeric32 = bothZero32 ? _maxNumeric32_T_3 : _maxNumeric32_T_4; // @[AecFpUnit.scala 212:25]
+  wire  _minMax32_T_1 = held_op == 7'h9; // @[AecFpUnit.scala 214:51]
+  wire [31:0] _minMax32_T_2 = held_op == 7'h9 ? minNumeric32 : maxNumeric32; // @[AecFpUnit.scala 214:42]
+  wire [31:0] _minMax32_T_3 = bNaN32 ? held_a[31:0] : _minMax32_T_2; // @[AecFpUnit.scala 214:25]
+  wire [31:0] _minMax32_T_4 = aNaN32 ? held_b[31:0] : _minMax32_T_3; // @[AecFpUnit.scala 214:8]
+  wire [31:0] minMax32 = aNaN32 & bNaN32 ? 32'h7fc00000 : _minMax32_T_4; // @[AecFpUnit.scala 213:21]
+  wire [94:0] _unarySign_T_3 = isF32 ? 95'h80000000 : 95'h8000; // @[AecFpUnit.scala 215:52]
+  wire [126:0] unarySign = isF64 ? 127'h8000000000000000 : {{32'd0}, _unarySign_T_3}; // @[AecFpUnit.scala 215:22]
+  wire  _unaryRaw_T = held_op == 7'h8; // @[AecFpUnit.scala 216:30]
+  wire [126:0] _unaryRaw_T_1 = ~unarySign; // @[AecFpUnit.scala 216:56]
+  wire [126:0] _GEN_33 = {{63'd0}, held_a}; // @[AecFpUnit.scala 216:54]
+  wire [126:0] _unaryRaw_T_2 = _GEN_33 & _unaryRaw_T_1; // @[AecFpUnit.scala 216:54]
+  wire  _unaryRaw_T_3 = held_op == 7'h7; // @[AecFpUnit.scala 216:80]
+  wire [126:0] _unaryRaw_T_4 = _GEN_33 ^ unarySign; // @[AecFpUnit.scala 216:104]
+  wire [126:0] _unaryRaw_T_5 = held_op == 7'h7 ? _unaryRaw_T_4 : {{63'd0}, held_a}; // @[AecFpUnit.scala 216:71]
+  wire [126:0] unaryRaw = held_op == 7'h8 ? _unaryRaw_T_2 : _unaryRaw_T_5; // @[AecFpUnit.scala 216:21]
   wire [63:0] _unary_T_1 = {32'h0,unaryRaw[31:0]}; // @[Cat.scala 33:92]
   wire [63:0] _unary_T_3 = {48'h0,unaryRaw[15:0]}; // @[Cat.scala 33:92]
-  wire [63:0] _unary_T_4 = isF32 ? _unary_T_1 : _unary_T_3; // @[AecFpUnit.scala 193:39]
-  wire [126:0] unary = isF64 ? unaryRaw : {{63'd0}, _unary_T_4}; // @[AecFpUnit.scala 193:18]
-  wire  isMinMax = _minMax32_T_1 | held_op == 7'ha; // @[AecFpUnit.scala 194:42]
-  wire  _oldResult_T = isCmp | isCmpP; // @[AecFpUnit.scala 195:29]
+  wire [63:0] _unary_T_4 = isF32 ? _unary_T_1 : _unary_T_3; // @[AecFpUnit.scala 217:39]
+  wire [126:0] unary = isF64 ? unaryRaw : {{63'd0}, _unary_T_4}; // @[AecFpUnit.scala 217:18]
+  wire  isMinMax = _minMax32_T_1 | held_op == 7'ha; // @[AecFpUnit.scala 218:42]
+  wire  _oldResult_T = isCmp | isCmpP; // @[AecFpUnit.scala 219:29]
   wire [63:0] _oldResult_T_1 = {63'h0,cmpTrue}; // @[Cat.scala 33:92]
   wire [63:0] _oldResult_T_2 = {32'h0,minMax32}; // @[Cat.scala 33:92]
-  wire [126:0] _oldResult_T_3 = isMinMax ? {{63'd0}, _oldResult_T_2} : unary; // @[AecFpUnit.scala 196:8]
-  wire [126:0] oldResult = isCmp | isCmpP ? {{63'd0}, _oldResult_T_1} : _oldResult_T_3; // @[AecFpUnit.scala 195:22]
-  wire  pipeF64NaNRaw = f64Pipe_io_out_bits_result[62:52] == 11'h7ff & |f64Pipe_io_out_bits_result[51:0]; // @[AecFpUnit.scala 201:52]
-  wire  _pipeF64Fixed_T = pipeF64NaNRaw & f64Pipe_io_out_bits_ctrl_finite_fma; // @[AecFpUnit.scala 202:40]
+  wire [126:0] _oldResult_T_3 = isMinMax ? {{63'd0}, _oldResult_T_2} : unary; // @[AecFpUnit.scala 220:8]
+  wire [126:0] oldResult = isCmp | isCmpP ? {{63'd0}, _oldResult_T_1} : _oldResult_T_3; // @[AecFpUnit.scala 219:22]
+  wire  pipeF64NaNRaw = f64Pipe_io_out_bits_result[62:52] == 11'h7ff & |f64Pipe_io_out_bits_result[51:0]; // @[AecFpUnit.scala 225:52]
+  wire  _pipeF64Fixed_T = pipeF64NaNRaw & f64Pipe_io_out_bits_ctrl_finite_fma; // @[AecFpUnit.scala 226:40]
   wire [63:0] _pipeF64Fixed_T_1 = {f64Pipe_io_out_bits_ctrl_fma_sign,11'h7ff,52'h0}; // @[Cat.scala 33:92]
   wire [63:0] pipeF64Fixed = pipeF64NaNRaw & f64Pipe_io_out_bits_ctrl_finite_fma ? _pipeF64Fixed_T_1 :
-    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 202:25]
-  wire  pipeF64NaN = pipeF64Fixed[62:52] == 11'h7ff & |pipeF64Fixed[51:0]; // @[AecFpUnit.scala 207:51]
+    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 226:25]
+  wire  pipeF64NaN = pipeF64Fixed[62:52] == 11'h7ff & |pipeF64Fixed[51:0]; // @[AecFpUnit.scala 231:51]
   wire [63:0] _pipeResult_T = {48'h0,f64DownF16_io_result}; // @[Cat.scala 33:92]
-  wire [63:0] _pipeResult_T_1 = pipeF64NaN ? 64'h7e00 : _pipeResult_T; // @[AecFpUnit.scala 209:16]
+  wire [63:0] _pipeResult_T_1 = pipeF64NaN ? 64'h7e00 : _pipeResult_T; // @[AecFpUnit.scala 233:16]
   wire [63:0] _pipeResult_T_2 = {48'h0,f64DownBf16_io_result}; // @[Cat.scala 33:92]
-  wire [63:0] _pipeResult_T_3 = pipeF64NaN ? 64'h7fc0 : _pipeResult_T_2; // @[AecFpUnit.scala 210:16]
+  wire [63:0] _pipeResult_T_3 = pipeF64NaN ? 64'h7fc0 : _pipeResult_T_2; // @[AecFpUnit.scala 234:16]
   wire [63:0] _pipeResult_T_4 = {32'h0,f64DownF32_io_result}; // @[Cat.scala 33:92]
-  wire [63:0] _pipeResult_T_5 = pipeF64NaN ? 64'h7fc00000 : _pipeResult_T_4; // @[AecFpUnit.scala 211:15]
+  wire [63:0] _pipeResult_T_5 = pipeF64NaN ? 64'h7fc00000 : _pipeResult_T_4; // @[AecFpUnit.scala 235:15]
   wire [63:0] _pipeResult_T_7 = 4'ha == f64Pipe_io_out_bits_ctrl_dtype ? _pipeResult_T_1 : pipeF64Fixed; // @[Mux.scala 81:58]
   wire [63:0] _pipeResult_T_9 = 4'hb == f64Pipe_io_out_bits_ctrl_dtype ? _pipeResult_T_3 : _pipeResult_T_7; // @[Mux.scala 81:58]
   wire [63:0] pipeResult = 4'h8 == f64Pipe_io_out_bits_ctrl_dtype ? _pipeResult_T_5 : _pipeResult_T_9; // @[Mux.scala 81:58]
-  wire [4:0] f64Flags = _pipeF64Fixed_T ? 5'h5 : f64Pipe_io_out_bits_fflags; // @[AecFpUnit.scala 213:21]
-  wire [126:0] _io_resp_bits_result_T = f64AtHead ? {{63'd0}, pipeResult} : oldResult; // @[AecFpUnit.scala 215:29]
-  wire  _io_resp_bits_error_T_6 = ~(_oldResult_T | isMinMax | _unaryRaw_T_3 | _unaryRaw_T); // @[AecFpUnit.scala 219:5]
-  FMA f64Pipe ( // @[AecFpUnit.scala 98:23]
+  wire [4:0] f64Flags = _pipeF64Fixed_T ? 5'h5 : f64Pipe_io_out_bits_fflags; // @[AecFpUnit.scala 237:21]
+  wire [126:0] _io_resp_bits_result_T = f64AtHead ? {{63'd0}, pipeResult} : oldResult; // @[AecFpUnit.scala 239:29]
+  wire  _io_resp_bits_error_T_6 = ~(_oldResult_T | isMinMax | _unaryRaw_T_3 | _unaryRaw_T); // @[AecFpUnit.scala 243:5]
+  FMA f64Pipe ( // @[AecFpUnit.scala 122:23]
     .clock(f64Pipe_clock),
     .reset(f64Pipe_reset),
     .io_in_ready(f64Pipe_io_in_ready),
@@ -5609,7 +6194,7 @@ module AecFp64PipeUnit(
     .io_out_bits_ctrl_finite_fma(f64Pipe_io_out_bits_ctrl_finite_fma),
     .io_out_bits_ctrl_fma_sign(f64Pipe_io_out_bits_ctrl_fma_sign)
   );
-  Queue_8 issueQ ( // @[AecFpUnit.scala 99:22]
+  Queue_8 issueQ ( // @[AecFpUnit.scala 123:22]
     .clock(issueQ_clock),
     .reset(issueQ_reset),
     .io_enq_ready(issueQ_io_enq_ready),
@@ -5619,62 +6204,62 @@ module AecFp64PipeUnit(
     .io_deq_valid(issueQ_io_deq_valid),
     .io_deq_bits(issueQ_io_deq_bits)
   );
-  CompareRecFN cmp16 ( // @[AecFpUnit.scala 156:21]
+  CompareRecFN cmp16 ( // @[AecFpUnit.scala 180:21]
     .io_a(cmp16_io_a),
     .io_b(cmp16_io_b),
     .io_lt(cmp16_io_lt),
     .io_eq(cmp16_io_eq),
     .io_gt(cmp16_io_gt)
   );
-  CompareRecFN_1 cmp32 ( // @[AecFpUnit.scala 156:66]
+  CompareRecFN_1 cmp32 ( // @[AecFpUnit.scala 180:66]
     .io_a(cmp32_io_a),
     .io_b(cmp32_io_b),
     .io_lt(cmp32_io_lt),
     .io_eq(cmp32_io_eq),
     .io_gt(cmp32_io_gt)
   );
-  CompareRecFN_2 cmp64 ( // @[AecFpUnit.scala 156:111]
+  CompareRecFN_2 cmp64 ( // @[AecFpUnit.scala 180:111]
     .io_a(cmp64_io_a),
     .io_b(cmp64_io_b),
     .io_lt(cmp64_io_lt),
     .io_eq(cmp64_io_eq),
     .io_gt(cmp64_io_gt)
   );
-  FPToFP_9 f64DownF16 ( // @[AecFpUnit.scala 197:26]
+  FPToFP_9 f64DownF16 ( // @[AecFpUnit.scala 221:26]
     .io_in(f64DownF16_io_in),
     .io_result(f64DownF16_io_result)
   );
-  FPToFP_10 f64DownBf16 ( // @[AecFpUnit.scala 198:27]
+  FPToFP_10 f64DownBf16 ( // @[AecFpUnit.scala 222:27]
     .io_in(f64DownBf16_io_in),
     .io_result(f64DownBf16_io_result)
   );
-  FPToFP_11 f64DownF32 ( // @[AecFpUnit.scala 199:26]
+  FPToFP_11 f64DownF32 ( // @[AecFpUnit.scala 223:26]
     .io_in(f64DownF32_io_in),
     .io_result(f64DownF32_io_result)
   );
-  assign io_req_ready = _f64Pipe_io_in_valid_T & reqDtypeSupported & _io_req_ready_T_3; // @[AecFpUnit.scala 143:46]
-  assign io_resp_valid = f64AtHead | oldAtHead; // @[AecFpUnit.scala 169:34]
-  assign io_resp_bits_result = _io_resp_bits_result_T[63:0]; // @[AecFpUnit.scala 215:23]
-  assign io_resp_bits_predicate_result = f64AtHead ? 1'h0 : isCmpP & cmpTrue; // @[AecFpUnit.scala 216:39]
-  assign io_resp_bits_error = f64AtHead ? 1'h0 : _io_resp_bits_error_T_6; // @[AecFpUnit.scala 218:28]
-  assign io_resp_bits_exception_flags = f64AtHead ? f64Flags : 5'h0; // @[AecFpUnit.scala 220:38]
+  assign io_req_ready = _f64Pipe_io_in_valid_T & reqDtypeSupported & _io_req_ready_T_3; // @[AecFpUnit.scala 167:46]
+  assign io_resp_valid = f64AtHead | oldAtHead; // @[AecFpUnit.scala 193:34]
+  assign io_resp_bits_result = _io_resp_bits_result_T[63:0]; // @[AecFpUnit.scala 239:23]
+  assign io_resp_bits_predicate_result = f64AtHead ? 1'h0 : isCmpP & cmpTrue; // @[AecFpUnit.scala 240:39]
+  assign io_resp_bits_error = f64AtHead ? 1'h0 : _io_resp_bits_error_T_6; // @[AecFpUnit.scala 242:28]
+  assign io_resp_bits_exception_flags = f64AtHead ? f64Flags : 5'h0; // @[AecFpUnit.scala 244:38]
   assign f64Pipe_clock = clock;
   assign f64Pipe_reset = reset;
-  assign f64Pipe_io_in_valid = io_req_valid & ~busy & reqPipe & issueQ_io_enq_ready; // @[AecFpUnit.scala 136:58]
+  assign f64Pipe_io_in_valid = io_req_valid & ~busy & reqPipe & issueQ_io_enq_ready; // @[AecFpUnit.scala 160:58]
   assign f64Pipe_io_in_bits_op = 7'h5 == io_req_bits_op ? 3'h4 : _pipeOp_T_5; // @[Mux.scala 81:58]
-  assign f64Pipe_io_in_bits_a = io_req_bits_a; // @[AecFpUnit.scala 126:23]
-  assign f64Pipe_io_in_bits_b = io_req_bits_b; // @[AecFpUnit.scala 127:23]
-  assign f64Pipe_io_in_bits_c = io_req_bits_c; // @[AecFpUnit.scala 128:23]
-  assign f64Pipe_io_in_bits_ctrl_seq = issueSeq; // @[AecFpUnit.scala 130:14]
-  assign f64Pipe_io_in_bits_ctrl_dtype = io_req_bits_dtype; // @[AecFpUnit.scala 132:16]
+  assign f64Pipe_io_in_bits_a = io_req_bits_a; // @[AecFpUnit.scala 150:23]
+  assign f64Pipe_io_in_bits_b = io_req_bits_b; // @[AecFpUnit.scala 151:23]
+  assign f64Pipe_io_in_bits_c = io_req_bits_c; // @[AecFpUnit.scala 152:23]
+  assign f64Pipe_io_in_bits_ctrl_seq = issueSeq; // @[AecFpUnit.scala 154:14]
+  assign f64Pipe_io_in_bits_ctrl_dtype = io_req_bits_dtype; // @[AecFpUnit.scala 156:16]
   assign f64Pipe_io_in_bits_ctrl_finite_fma = _f64Pipe_io_in_bits_ctrl_finite_fma_T_3 & io_req_bits_b[62:52] != 11'h7ff
-     & io_req_bits_c[62:52] != 11'h7ff; // @[AecFpUnit.scala 134:78]
-  assign f64Pipe_io_in_bits_ctrl_fma_sign = io_req_bits_a[63] ^ io_req_bits_b[63]; // @[AecFpUnit.scala 135:42]
-  assign f64Pipe_io_out_ready = io_resp_ready & f64AtHead; // @[AecFpUnit.scala 171:41]
+     & io_req_bits_c[62:52] != 11'h7ff; // @[AecFpUnit.scala 158:78]
+  assign f64Pipe_io_in_bits_ctrl_fma_sign = io_req_bits_a[63] ^ io_req_bits_b[63]; // @[AecFpUnit.scala 159:42]
+  assign f64Pipe_io_out_ready = io_resp_ready & f64AtHead; // @[AecFpUnit.scala 195:41]
   assign issueQ_clock = clock;
   assign issueQ_reset = reset;
   assign issueQ_io_enq_valid = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
-  assign issueQ_io_enq_bits = issueSeq; // @[AecFpUnit.scala 145:22]
+  assign issueQ_io_enq_bits = issueSeq; // @[AecFpUnit.scala 169:22]
   assign issueQ_io_deq_ready = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
   assign cmp16_io_a = {_cmp16_io_a_T_20,cmp16_io_a_rawIn__sig[9:0]}; // @[recFNFromFN.scala 50:41]
   assign cmp16_io_b = {_cmp16_io_b_T_20,cmp16_io_b_rawIn__sig[9:0]}; // @[recFNFromFN.scala 50:41]
@@ -5683,35 +6268,35 @@ module AecFp64PipeUnit(
   assign cmp64_io_a = {_cmp64_io_a_T_6,cmp64_io_a_rawIn__sig[51:0]}; // @[recFNFromFN.scala 50:41]
   assign cmp64_io_b = {_cmp64_io_b_T_6,cmp64_io_b_rawIn__sig[51:0]}; // @[recFNFromFN.scala 50:41]
   assign f64DownF16_io_in = pipeF64NaNRaw & f64Pipe_io_out_bits_ctrl_finite_fma ? _pipeF64Fixed_T_1 :
-    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 202:25]
+    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 226:25]
   assign f64DownBf16_io_in = pipeF64NaNRaw & f64Pipe_io_out_bits_ctrl_finite_fma ? _pipeF64Fixed_T_1 :
-    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 202:25]
+    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 226:25]
   assign f64DownF32_io_in = pipeF64NaNRaw & f64Pipe_io_out_bits_ctrl_finite_fma ? _pipeF64Fixed_T_1 :
-    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 202:25]
+    f64Pipe_io_out_bits_result; // @[AecFpUnit.scala 226:25]
   always @(posedge clock) begin
-    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 147:34]
-      held_op <= io_req_bits_op; // @[AecFpUnit.scala 147:41]
+    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 171:34]
+      held_op <= io_req_bits_op; // @[AecFpUnit.scala 171:41]
     end
-    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 147:34]
-      held_dtype <= io_req_bits_dtype; // @[AecFpUnit.scala 147:41]
+    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 171:34]
+      held_dtype <= io_req_bits_dtype; // @[AecFpUnit.scala 171:41]
     end
-    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 147:34]
-      held_a <= io_req_bits_a; // @[AecFpUnit.scala 147:41]
+    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 171:34]
+      held_a <= io_req_bits_a; // @[AecFpUnit.scala 171:41]
     end
-    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 147:34]
-      held_b <= io_req_bits_b; // @[AecFpUnit.scala 147:41]
+    if (_issueQ_io_enq_valid_T & ~reqPipe) begin // @[AecFpUnit.scala 171:34]
+      held_b <= io_req_bits_b; // @[AecFpUnit.scala 171:41]
     end
-    if (reset) begin // @[AecFpUnit.scala 94:21]
-      busy <= 1'h0; // @[AecFpUnit.scala 94:21]
-    end else if (_issueQ_io_deq_ready_T & oldAtHead) begin // @[AecFpUnit.scala 172:36]
-      busy <= 1'h0; // @[AecFpUnit.scala 172:43]
+    if (reset) begin // @[AecFpUnit.scala 118:21]
+      busy <= 1'h0; // @[AecFpUnit.scala 118:21]
+    end else if (_issueQ_io_deq_ready_T & oldAtHead) begin // @[AecFpUnit.scala 196:36]
+      busy <= 1'h0; // @[AecFpUnit.scala 196:43]
     end else begin
       busy <= _GEN_7;
     end
-    if (reset) begin // @[AecFpUnit.scala 100:25]
-      issueSeq <= 6'h0; // @[AecFpUnit.scala 100:25]
-    end else if (_issueQ_io_enq_valid_T) begin // @[AecFpUnit.scala 146:22]
-      issueSeq <= _issueSeq_T_1; // @[AecFpUnit.scala 146:33]
+    if (reset) begin // @[AecFpUnit.scala 124:25]
+      issueSeq <= 6'h0; // @[AecFpUnit.scala 124:25]
+    end else if (_issueQ_io_enq_valid_T) begin // @[AecFpUnit.scala 170:22]
+      issueSeq <= _issueSeq_T_1; // @[AecFpUnit.scala 170:33]
     end
   end
 // Register and memory initialization
@@ -5868,164 +6453,256 @@ module AecFpWarpRequestStage(
   reg [31:0] _RAND_0;
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
-  reg [31:0] _RAND_3;
-  reg [31:0] _RAND_4;
+  reg [63:0] _RAND_3;
+  reg [63:0] _RAND_4;
   reg [63:0] _RAND_5;
-  reg [63:0] _RAND_6;
-  reg [63:0] _RAND_7;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
+  reg [63:0] _RAND_8;
+  reg [63:0] _RAND_9;
+  reg [63:0] _RAND_10;
+  reg [31:0] _RAND_11;
+  reg [31:0] _RAND_12;
+  reg [63:0] _RAND_13;
+  reg [63:0] _RAND_14;
+  reg [63:0] _RAND_15;
+  reg [31:0] _RAND_16;
+  reg [31:0] _RAND_17;
+  reg [63:0] _RAND_18;
+  reg [63:0] _RAND_19;
+  reg [63:0] _RAND_20;
+  reg [31:0] _RAND_21;
 `endif // RANDOMIZE_REG_INIT
-  reg  selectValid; // @[AecFpUnit.scala 52:28]
-  reg [3:0] selectedGroup; // @[AecFpUnit.scala 53:26]
-  reg  dataValid; // @[AecFpUnit.scala 54:26]
-  reg [6:0] data_op; // @[AecFpUnit.scala 55:17]
-  reg [3:0] data_dtype; // @[AecFpUnit.scala 55:17]
-  reg [63:0] data_a; // @[AecFpUnit.scala 55:17]
-  reg [63:0] data_b; // @[AecFpUnit.scala 55:17]
-  reg [63:0] data_c; // @[AecFpUnit.scala 55:17]
-  wire  dataReady = ~dataValid | io_out_ready; // @[AecFpUnit.scala 56:30]
-  wire  selectReady = ~selectValid | dataReady; // @[AecFpUnit.scala 57:34]
-  wire [6:0] _GEN_1 = 4'h1 == selectedGroup ? io_data_1_op : io_data_0_op; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_2 = 4'h2 == selectedGroup ? io_data_2_op : _GEN_1; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_3 = 4'h3 == selectedGroup ? io_data_3_op : _GEN_2; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_4 = 4'h4 == selectedGroup ? io_data_4_op : _GEN_3; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_5 = 4'h5 == selectedGroup ? io_data_5_op : _GEN_4; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_6 = 4'h6 == selectedGroup ? io_data_6_op : _GEN_5; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_7 = 4'h7 == selectedGroup ? io_data_7_op : _GEN_6; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_8 = 4'h8 == selectedGroup ? io_data_8_op : _GEN_7; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_9 = 4'h9 == selectedGroup ? io_data_9_op : _GEN_8; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_10 = 4'ha == selectedGroup ? io_data_10_op : _GEN_9; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_11 = 4'hb == selectedGroup ? io_data_11_op : _GEN_10; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_12 = 4'hc == selectedGroup ? io_data_12_op : _GEN_11; // @[AecFpUnit.scala 64:{31,31}]
-  wire [6:0] _GEN_13 = 4'hd == selectedGroup ? io_data_13_op : _GEN_12; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_17 = 4'h1 == selectedGroup ? io_data_1_dtype : io_data_0_dtype; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_18 = 4'h2 == selectedGroup ? io_data_2_dtype : _GEN_17; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_19 = 4'h3 == selectedGroup ? io_data_3_dtype : _GEN_18; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_20 = 4'h4 == selectedGroup ? io_data_4_dtype : _GEN_19; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_21 = 4'h5 == selectedGroup ? io_data_5_dtype : _GEN_20; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_22 = 4'h6 == selectedGroup ? io_data_6_dtype : _GEN_21; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_23 = 4'h7 == selectedGroup ? io_data_7_dtype : _GEN_22; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_24 = 4'h8 == selectedGroup ? io_data_8_dtype : _GEN_23; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_25 = 4'h9 == selectedGroup ? io_data_9_dtype : _GEN_24; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_26 = 4'ha == selectedGroup ? io_data_10_dtype : _GEN_25; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_27 = 4'hb == selectedGroup ? io_data_11_dtype : _GEN_26; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_28 = 4'hc == selectedGroup ? io_data_12_dtype : _GEN_27; // @[AecFpUnit.scala 64:{31,31}]
-  wire [3:0] _GEN_29 = 4'hd == selectedGroup ? io_data_13_dtype : _GEN_28; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_33 = 4'h1 == selectedGroup ? io_data_1_a : io_data_0_a; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_34 = 4'h2 == selectedGroup ? io_data_2_a : _GEN_33; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_35 = 4'h3 == selectedGroup ? io_data_3_a : _GEN_34; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_36 = 4'h4 == selectedGroup ? io_data_4_a : _GEN_35; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_37 = 4'h5 == selectedGroup ? io_data_5_a : _GEN_36; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_38 = 4'h6 == selectedGroup ? io_data_6_a : _GEN_37; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_39 = 4'h7 == selectedGroup ? io_data_7_a : _GEN_38; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_40 = 4'h8 == selectedGroup ? io_data_8_a : _GEN_39; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_41 = 4'h9 == selectedGroup ? io_data_9_a : _GEN_40; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_42 = 4'ha == selectedGroup ? io_data_10_a : _GEN_41; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_43 = 4'hb == selectedGroup ? io_data_11_a : _GEN_42; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_44 = 4'hc == selectedGroup ? io_data_12_a : _GEN_43; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_45 = 4'hd == selectedGroup ? io_data_13_a : _GEN_44; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_49 = 4'h1 == selectedGroup ? io_data_1_b : io_data_0_b; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_50 = 4'h2 == selectedGroup ? io_data_2_b : _GEN_49; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_51 = 4'h3 == selectedGroup ? io_data_3_b : _GEN_50; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_52 = 4'h4 == selectedGroup ? io_data_4_b : _GEN_51; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_53 = 4'h5 == selectedGroup ? io_data_5_b : _GEN_52; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_54 = 4'h6 == selectedGroup ? io_data_6_b : _GEN_53; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_55 = 4'h7 == selectedGroup ? io_data_7_b : _GEN_54; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_56 = 4'h8 == selectedGroup ? io_data_8_b : _GEN_55; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_57 = 4'h9 == selectedGroup ? io_data_9_b : _GEN_56; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_58 = 4'ha == selectedGroup ? io_data_10_b : _GEN_57; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_59 = 4'hb == selectedGroup ? io_data_11_b : _GEN_58; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_60 = 4'hc == selectedGroup ? io_data_12_b : _GEN_59; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_61 = 4'hd == selectedGroup ? io_data_13_b : _GEN_60; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_65 = 4'h1 == selectedGroup ? io_data_1_c : io_data_0_c; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_66 = 4'h2 == selectedGroup ? io_data_2_c : _GEN_65; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_67 = 4'h3 == selectedGroup ? io_data_3_c : _GEN_66; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_68 = 4'h4 == selectedGroup ? io_data_4_c : _GEN_67; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_69 = 4'h5 == selectedGroup ? io_data_5_c : _GEN_68; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_70 = 4'h6 == selectedGroup ? io_data_6_c : _GEN_69; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_71 = 4'h7 == selectedGroup ? io_data_7_c : _GEN_70; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_72 = 4'h8 == selectedGroup ? io_data_8_c : _GEN_71; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_73 = 4'h9 == selectedGroup ? io_data_9_c : _GEN_72; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_74 = 4'ha == selectedGroup ? io_data_10_c : _GEN_73; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_75 = 4'hb == selectedGroup ? io_data_11_c : _GEN_74; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_76 = 4'hc == selectedGroup ? io_data_12_c : _GEN_75; // @[AecFpUnit.scala 64:{31,31}]
-  wire [63:0] _GEN_77 = 4'hd == selectedGroup ? io_data_13_c : _GEN_76; // @[AecFpUnit.scala 64:{31,31}]
-  assign io_inReady = ~selectValid | dataReady; // @[AecFpUnit.scala 57:34]
-  assign io_out_valid = dataValid; // @[AecFpUnit.scala 60:16]
-  assign io_out_bits_op = data_op; // @[AecFpUnit.scala 61:15]
-  assign io_out_bits_dtype = data_dtype; // @[AecFpUnit.scala 61:15]
-  assign io_out_bits_a = data_a; // @[AecFpUnit.scala 61:15]
-  assign io_out_bits_b = data_b; // @[AecFpUnit.scala 61:15]
-  assign io_out_bits_c = data_c; // @[AecFpUnit.scala 61:15]
+  reg [1:0] selectedBank; // @[AecFpUnit.scala 74:27]
+  reg [6:0] bankData_0_op; // @[AecFpUnit.scala 75:23]
+  reg [3:0] bankData_0_dtype; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_0_a; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_0_b; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_0_c; // @[AecFpUnit.scala 75:23]
+  reg [6:0] bankData_1_op; // @[AecFpUnit.scala 75:23]
+  reg [3:0] bankData_1_dtype; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_1_a; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_1_b; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_1_c; // @[AecFpUnit.scala 75:23]
+  reg [6:0] bankData_2_op; // @[AecFpUnit.scala 75:23]
+  reg [3:0] bankData_2_dtype; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_2_a; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_2_b; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_2_c; // @[AecFpUnit.scala 75:23]
+  reg [6:0] bankData_3_op; // @[AecFpUnit.scala 75:23]
+  reg [3:0] bankData_3_dtype; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_3_a; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_3_b; // @[AecFpUnit.scala 75:23]
+  reg [63:0] bankData_3_c; // @[AecFpUnit.scala 75:23]
+  reg  outputValid; // @[AecFpUnit.scala 76:30]
+  wire  outputReady = ~outputValid | io_out_ready; // @[AecFpUnit.scala 77:36]
+  wire [6:0] _GEN_1 = 2'h1 == selectedBank ? bankData_1_op : bankData_0_op; // @[AecFpUnit.scala 81:{17,17}]
+  wire [6:0] _GEN_2 = 2'h2 == selectedBank ? bankData_2_op : _GEN_1; // @[AecFpUnit.scala 81:{17,17}]
+  wire [3:0] _GEN_5 = 2'h1 == selectedBank ? bankData_1_dtype : bankData_0_dtype; // @[AecFpUnit.scala 81:{17,17}]
+  wire [3:0] _GEN_6 = 2'h2 == selectedBank ? bankData_2_dtype : _GEN_5; // @[AecFpUnit.scala 81:{17,17}]
+  wire [63:0] _GEN_9 = 2'h1 == selectedBank ? bankData_1_a : bankData_0_a; // @[AecFpUnit.scala 81:{17,17}]
+  wire [63:0] _GEN_10 = 2'h2 == selectedBank ? bankData_2_a : _GEN_9; // @[AecFpUnit.scala 81:{17,17}]
+  wire [63:0] _GEN_13 = 2'h1 == selectedBank ? bankData_1_b : bankData_0_b; // @[AecFpUnit.scala 81:{17,17}]
+  wire [63:0] _GEN_14 = 2'h2 == selectedBank ? bankData_2_b : _GEN_13; // @[AecFpUnit.scala 81:{17,17}]
+  wire [63:0] _GEN_17 = 2'h1 == selectedBank ? bankData_1_c : bankData_0_c; // @[AecFpUnit.scala 81:{17,17}]
+  wire [63:0] _GEN_18 = 2'h2 == selectedBank ? bankData_2_c : _GEN_17; // @[AecFpUnit.scala 81:{17,17}]
+  assign io_inReady = ~outputValid | io_out_ready; // @[AecFpUnit.scala 77:36]
+  assign io_out_valid = outputValid; // @[AecFpUnit.scala 80:18]
+  assign io_out_bits_op = 2'h3 == selectedBank ? bankData_3_op : _GEN_2; // @[AecFpUnit.scala 81:{17,17}]
+  assign io_out_bits_dtype = 2'h3 == selectedBank ? bankData_3_dtype : _GEN_6; // @[AecFpUnit.scala 81:{17,17}]
+  assign io_out_bits_a = 2'h3 == selectedBank ? bankData_3_a : _GEN_10; // @[AecFpUnit.scala 81:{17,17}]
+  assign io_out_bits_b = 2'h3 == selectedBank ? bankData_3_b : _GEN_14; // @[AecFpUnit.scala 81:{17,17}]
+  assign io_out_bits_c = 2'h3 == selectedBank ? bankData_3_c : _GEN_18; // @[AecFpUnit.scala 81:{17,17}]
   always @(posedge clock) begin
-    if (reset) begin // @[AecFpUnit.scala 52:28]
-      selectValid <= 1'h0; // @[AecFpUnit.scala 52:28]
-    end else if (selectReady) begin // @[AecFpUnit.scala 66:22]
-      selectValid <= io_inValid; // @[AecFpUnit.scala 67:17]
-    end
-    if (selectReady) begin // @[AecFpUnit.scala 66:22]
-      if (io_inValid) begin // @[AecFpUnit.scala 68:23]
-        selectedGroup <= io_group; // @[AecFpUnit.scala 68:39]
+    if (outputReady) begin // @[AecFpUnit.scala 89:24]
+      if (io_inValid) begin // @[AecFpUnit.scala 91:25]
+        selectedBank <= io_group[3:2]; // @[AecFpUnit.scala 91:40]
       end
     end
-    if (reset) begin // @[AecFpUnit.scala 54:26]
-      dataValid <= 1'h0; // @[AecFpUnit.scala 54:26]
-    end else if (dataReady) begin // @[AecFpUnit.scala 62:20]
-      dataValid <= selectValid; // @[AecFpUnit.scala 63:15]
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_op <= io_data_3_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_op <= io_data_2_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_op <= io_data_1_op; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_0_op <= io_data_0_op;
     end
-    if (dataReady) begin // @[AecFpUnit.scala 62:20]
-      if (selectValid) begin // @[AecFpUnit.scala 64:24]
-        if (4'hf == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_op <= io_data_15_op; // @[AecFpUnit.scala 64:31]
-        end else if (4'he == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_op <= io_data_14_op; // @[AecFpUnit.scala 64:31]
-        end else begin
-          data_op <= _GEN_13;
-        end
-      end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_dtype <= io_data_3_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_dtype <= io_data_2_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_dtype <= io_data_1_dtype; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_0_dtype <= io_data_0_dtype;
     end
-    if (dataReady) begin // @[AecFpUnit.scala 62:20]
-      if (selectValid) begin // @[AecFpUnit.scala 64:24]
-        if (4'hf == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_dtype <= io_data_15_dtype; // @[AecFpUnit.scala 64:31]
-        end else if (4'he == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_dtype <= io_data_14_dtype; // @[AecFpUnit.scala 64:31]
-        end else begin
-          data_dtype <= _GEN_29;
-        end
-      end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_a <= io_data_3_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_a <= io_data_2_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_a <= io_data_1_a; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_0_a <= io_data_0_a;
     end
-    if (dataReady) begin // @[AecFpUnit.scala 62:20]
-      if (selectValid) begin // @[AecFpUnit.scala 64:24]
-        if (4'hf == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_a <= io_data_15_a; // @[AecFpUnit.scala 64:31]
-        end else if (4'he == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_a <= io_data_14_a; // @[AecFpUnit.scala 64:31]
-        end else begin
-          data_a <= _GEN_45;
-        end
-      end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_b <= io_data_3_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_b <= io_data_2_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_b <= io_data_1_b; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_0_b <= io_data_0_b;
     end
-    if (dataReady) begin // @[AecFpUnit.scala 62:20]
-      if (selectValid) begin // @[AecFpUnit.scala 64:24]
-        if (4'hf == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_b <= io_data_15_b; // @[AecFpUnit.scala 64:31]
-        end else if (4'he == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_b <= io_data_14_b; // @[AecFpUnit.scala 64:31]
-        end else begin
-          data_b <= _GEN_61;
-        end
-      end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_c <= io_data_3_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_c <= io_data_2_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_0_c <= io_data_1_c; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_0_c <= io_data_0_c;
     end
-    if (dataReady) begin // @[AecFpUnit.scala 62:20]
-      if (selectValid) begin // @[AecFpUnit.scala 64:24]
-        if (4'hf == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_c <= io_data_15_c; // @[AecFpUnit.scala 64:31]
-        end else if (4'he == selectedGroup) begin // @[AecFpUnit.scala 64:31]
-          data_c <= io_data_14_c; // @[AecFpUnit.scala 64:31]
-        end else begin
-          data_c <= _GEN_77;
-        end
-      end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_op <= io_data_7_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_op <= io_data_6_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_op <= io_data_5_op; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_1_op <= io_data_4_op;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_dtype <= io_data_7_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_dtype <= io_data_6_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_dtype <= io_data_5_dtype; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_1_dtype <= io_data_4_dtype;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_a <= io_data_7_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_a <= io_data_6_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_a <= io_data_5_a; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_1_a <= io_data_4_a;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_b <= io_data_7_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_b <= io_data_6_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_b <= io_data_5_b; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_1_b <= io_data_4_b;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_c <= io_data_7_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_c <= io_data_6_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_1_c <= io_data_5_c; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_1_c <= io_data_4_c;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_op <= io_data_11_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_op <= io_data_10_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_op <= io_data_9_op; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_2_op <= io_data_8_op;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_dtype <= io_data_11_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_dtype <= io_data_10_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_dtype <= io_data_9_dtype; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_2_dtype <= io_data_8_dtype;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_a <= io_data_11_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_a <= io_data_10_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_a <= io_data_9_a; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_2_a <= io_data_8_a;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_b <= io_data_11_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_b <= io_data_10_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_b <= io_data_9_b; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_2_b <= io_data_8_b;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_c <= io_data_11_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_c <= io_data_10_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_2_c <= io_data_9_c; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_2_c <= io_data_8_c;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_op <= io_data_15_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_op <= io_data_14_op; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_op <= io_data_13_op; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_3_op <= io_data_12_op;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_dtype <= io_data_15_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_dtype <= io_data_14_dtype; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_dtype <= io_data_13_dtype; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_3_dtype <= io_data_12_dtype;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_a <= io_data_15_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_a <= io_data_14_a; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_a <= io_data_13_a; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_3_a <= io_data_12_a;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_b <= io_data_15_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_b <= io_data_14_b; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_b <= io_data_13_b; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_3_b <= io_data_12_b;
+    end
+    if (2'h3 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_c <= io_data_15_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h2 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_c <= io_data_14_c; // @[AecFpUnit.scala 87:22]
+    end else if (2'h1 == io_group[1:0]) begin // @[AecFpUnit.scala 87:22]
+      bankData_3_c <= io_data_13_c; // @[AecFpUnit.scala 87:22]
+    end else begin
+      bankData_3_c <= io_data_12_c;
+    end
+    if (reset) begin // @[AecFpUnit.scala 76:30]
+      outputValid <= 1'h0; // @[AecFpUnit.scala 76:30]
+    end else if (outputReady) begin // @[AecFpUnit.scala 89:24]
+      outputValid <= io_inValid; // @[AecFpUnit.scala 90:19]
     end
   end
 // Register and memory initialization
@@ -6065,21 +6742,49 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  selectValid = _RAND_0[0:0];
+  selectedBank = _RAND_0[1:0];
   _RAND_1 = {1{`RANDOM}};
-  selectedGroup = _RAND_1[3:0];
+  bankData_0_op = _RAND_1[6:0];
   _RAND_2 = {1{`RANDOM}};
-  dataValid = _RAND_2[0:0];
-  _RAND_3 = {1{`RANDOM}};
-  data_op = _RAND_3[6:0];
-  _RAND_4 = {1{`RANDOM}};
-  data_dtype = _RAND_4[3:0];
+  bankData_0_dtype = _RAND_2[3:0];
+  _RAND_3 = {2{`RANDOM}};
+  bankData_0_a = _RAND_3[63:0];
+  _RAND_4 = {2{`RANDOM}};
+  bankData_0_b = _RAND_4[63:0];
   _RAND_5 = {2{`RANDOM}};
-  data_a = _RAND_5[63:0];
-  _RAND_6 = {2{`RANDOM}};
-  data_b = _RAND_6[63:0];
-  _RAND_7 = {2{`RANDOM}};
-  data_c = _RAND_7[63:0];
+  bankData_0_c = _RAND_5[63:0];
+  _RAND_6 = {1{`RANDOM}};
+  bankData_1_op = _RAND_6[6:0];
+  _RAND_7 = {1{`RANDOM}};
+  bankData_1_dtype = _RAND_7[3:0];
+  _RAND_8 = {2{`RANDOM}};
+  bankData_1_a = _RAND_8[63:0];
+  _RAND_9 = {2{`RANDOM}};
+  bankData_1_b = _RAND_9[63:0];
+  _RAND_10 = {2{`RANDOM}};
+  bankData_1_c = _RAND_10[63:0];
+  _RAND_11 = {1{`RANDOM}};
+  bankData_2_op = _RAND_11[6:0];
+  _RAND_12 = {1{`RANDOM}};
+  bankData_2_dtype = _RAND_12[3:0];
+  _RAND_13 = {2{`RANDOM}};
+  bankData_2_a = _RAND_13[63:0];
+  _RAND_14 = {2{`RANDOM}};
+  bankData_2_b = _RAND_14[63:0];
+  _RAND_15 = {2{`RANDOM}};
+  bankData_2_c = _RAND_15[63:0];
+  _RAND_16 = {1{`RANDOM}};
+  bankData_3_op = _RAND_16[6:0];
+  _RAND_17 = {1{`RANDOM}};
+  bankData_3_dtype = _RAND_17[3:0];
+  _RAND_18 = {2{`RANDOM}};
+  bankData_3_a = _RAND_18[63:0];
+  _RAND_19 = {2{`RANDOM}};
+  bankData_3_b = _RAND_19[63:0];
+  _RAND_20 = {2{`RANDOM}};
+  bankData_3_c = _RAND_20[63:0];
+  _RAND_21 = {1{`RANDOM}};
+  outputValid = _RAND_21[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -13635,923 +14340,915 @@ module AecFp64Unit(
   reg [31:0] _RAND_18;
   reg [31:0] _RAND_19;
   reg [31:0] _RAND_20;
-  reg [31:0] _RAND_21;
 `endif // RANDOMIZE_REG_INIT
-  wire  pipes_0_clock; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_0_reset; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_0_io_req_valid; // @[AecFpWarpUnits.scala 114:45]
-  wire [6:0] pipes_0_io_req_bits_op; // @[AecFpWarpUnits.scala 114:45]
-  wire [3:0] pipes_0_io_req_bits_dtype; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_0_io_req_bits_a; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_0_io_req_bits_b; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_0_io_req_bits_c; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_0_io_resp_ready; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_0_io_resp_valid; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 114:45]
-  wire [4:0] pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_clock; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_reset; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_io_req_valid; // @[AecFpWarpUnits.scala 114:45]
-  wire [6:0] pipes_1_io_req_bits_op; // @[AecFpWarpUnits.scala 114:45]
-  wire [3:0] pipes_1_io_req_bits_dtype; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_1_io_req_bits_a; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_1_io_req_bits_b; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_1_io_req_bits_c; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_io_resp_ready; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 114:45]
-  wire [63:0] pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 114:45]
-  wire  pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 114:45]
-  wire [4:0] pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 114:45]
-  wire  requestStages_0_clock; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_0_reset; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_0_io_inValid; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_0_io_inReady; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_group; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_0_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_0_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_0_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_0_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_0_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_1_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_1_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_1_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_1_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_1_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_2_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_2_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_2_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_2_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_2_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_3_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_3_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_3_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_3_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_3_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_4_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_4_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_4_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_4_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_4_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_5_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_5_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_5_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_5_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_5_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_6_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_6_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_6_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_6_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_6_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_7_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_7_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_7_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_7_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_7_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_8_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_8_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_8_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_8_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_8_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_9_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_9_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_9_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_9_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_9_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_10_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_10_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_10_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_10_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_10_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_11_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_11_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_11_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_11_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_11_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_12_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_12_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_12_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_12_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_12_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_13_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_13_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_13_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_13_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_13_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_14_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_14_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_14_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_14_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_14_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_data_15_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_data_15_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_15_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_15_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_data_15_c; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_0_io_out_ready; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_1_clock; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_1_reset; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_1_io_inValid; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_group; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_0_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_0_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_0_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_0_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_0_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_1_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_1_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_1_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_1_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_1_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_2_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_2_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_2_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_2_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_2_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_3_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_3_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_3_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_3_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_3_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_4_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_4_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_4_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_4_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_4_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_5_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_5_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_5_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_5_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_5_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_6_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_6_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_6_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_6_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_6_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_7_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_7_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_7_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_7_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_7_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_8_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_8_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_8_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_8_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_8_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_9_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_9_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_9_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_9_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_9_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_10_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_10_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_10_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_10_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_10_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_11_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_11_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_11_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_11_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_11_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_12_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_12_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_12_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_12_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_12_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_13_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_13_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_13_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_13_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_13_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_14_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_14_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_14_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_14_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_14_c; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_data_15_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_data_15_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_15_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_15_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_data_15_c; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_1_io_out_ready; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 116:53]
-  wire [6:0] requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 116:53]
-  wire [3:0] requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 116:53]
-  wire [63:0] requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 116:53]
-  wire  requestBuffer_clock; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_reset; // @[AecFpWarpUnits.scala 117:29]
-  wire [31:0] requestBuffer_io_in_activeMask; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_0; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_1; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_2; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_3; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_4; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_5; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_6; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_7; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_8; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_9; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_10; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_11; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_12; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_13; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_14; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_15; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_16; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_17; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_18; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_19; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_20; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_21; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_22; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_23; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_24; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_25; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_26; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_27; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_28; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_29; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_30; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_a_31; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_0; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_1; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_2; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_3; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_4; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_5; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_6; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_7; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_8; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_9; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_10; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_11; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_12; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_13; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_14; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_15; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_16; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_17; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_18; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_19; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_20; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_21; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_22; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_23; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_24; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_25; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_26; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_27; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_28; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_29; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_30; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_b_31; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_0; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_1; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_2; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_3; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_4; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_5; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_6; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_7; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_8; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_9; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_10; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_11; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_12; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_13; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_14; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_15; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_16; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_17; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_18; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_19; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_20; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_21; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_22; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_23; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_24; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_25; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_26; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_27; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_28; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_29; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_30; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_in_c_31; // @[AecFpWarpUnits.scala 117:29]
-  wire [7:0] requestBuffer_io_in_dest; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_0; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_1; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_2; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_3; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_4; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_5; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_6; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_arm_7; // @[AecFpWarpUnits.scala 117:29]
-  wire  requestBuffer_io_capture; // @[AecFpWarpUnits.scala 117:29]
-  wire [31:0] requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 117:29]
-  wire [63:0] requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 117:29]
-  wire [7:0] requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 117:29]
-  wire  resultBanks_0_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_0_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_0_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_0_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_0_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_0_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_0_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_0_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_0_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_0_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_0_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_1_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_1_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_1_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_1_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_1_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_1_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_1_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_1_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_1_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_1_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_1_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_2_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_2_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_2_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_2_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_2_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_2_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_2_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_2_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_2_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_2_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_2_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_3_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_3_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_3_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_3_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_3_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_3_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_3_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_3_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_3_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_3_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_3_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_4_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_4_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_4_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_4_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_4_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_4_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_4_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_4_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_4_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_4_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_4_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_5_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_5_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_5_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_5_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_5_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_5_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_5_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_5_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_5_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_5_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_5_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_6_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_6_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_6_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_6_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_6_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_6_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_6_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_6_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_6_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_6_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_6_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_7_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_7_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_7_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_7_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_7_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_7_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_7_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_7_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_7_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_7_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_7_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_8_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_8_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_8_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_8_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_8_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_8_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_8_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_8_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_8_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_8_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_8_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_9_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_9_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_9_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_9_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_9_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_9_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_9_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_9_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_9_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_9_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_9_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_10_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_10_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_10_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_10_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_10_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_10_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_10_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_10_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_10_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_10_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_10_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_11_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_11_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_11_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_11_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_11_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_11_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_11_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_11_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_11_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_11_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_11_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_12_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_12_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_12_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_12_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_12_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_12_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_12_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_12_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_12_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_12_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_12_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_13_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_13_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_13_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_13_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_13_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_13_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_13_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_13_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_13_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_13_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_13_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_14_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_14_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_14_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_14_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_14_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_14_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_14_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_14_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_14_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_14_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_14_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_15_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_15_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_15_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_15_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_15_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_15_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_15_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_15_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_15_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_15_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_15_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_16_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_16_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_16_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_16_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_16_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_16_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_16_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_16_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_16_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_16_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_16_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_17_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_17_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_17_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_17_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_17_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_17_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_17_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_17_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_17_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_17_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_17_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_18_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_18_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_18_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_18_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_18_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_18_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_18_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_18_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_18_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_18_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_18_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_19_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_19_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_19_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_19_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_19_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_19_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_19_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_19_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_19_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_19_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_19_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_20_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_20_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_20_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_20_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_20_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_20_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_20_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_20_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_20_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_20_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_20_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_21_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_21_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_21_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_21_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_21_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_21_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_21_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_21_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_21_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_21_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_21_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_22_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_22_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_22_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_22_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_22_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_22_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_22_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_22_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_22_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_22_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_22_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_23_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_23_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_23_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_23_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_23_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_23_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_23_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_23_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_23_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_23_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_23_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_24_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_24_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_24_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_24_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_24_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_24_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_24_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_24_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_24_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_24_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_24_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_25_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_25_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_25_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_25_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_25_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_25_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_25_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_25_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_25_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_25_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_25_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_26_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_26_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_26_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_26_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_26_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_26_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_26_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_26_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_26_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_26_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_26_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_27_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_27_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_27_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_27_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_27_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_27_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_27_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_27_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_27_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_27_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_27_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_28_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_28_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_28_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_28_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_28_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_28_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_28_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_28_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_28_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_28_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_28_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_29_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_29_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_29_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_29_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_29_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_29_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_29_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_29_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_29_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_29_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_29_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_30_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_30_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_30_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_30_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_30_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_30_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_30_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_30_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_30_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_30_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_30_io_error; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_31_clock; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_31_reset; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_31_io_write; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_31_io_writeResult; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_31_io_writeFlags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_31_io_writePredicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_31_io_writeError; // @[AecFpWarpUnits.scala 125:40]
-  wire [63:0] resultBanks_31_io_result; // @[AecFpWarpUnits.scala 125:40]
-  wire [4:0] resultBanks_31_io_flags; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_31_io_predicate; // @[AecFpWarpUnits.scala 125:40]
-  wire  resultBanks_31_io_error; // @[AecFpWarpUnits.scala 125:40]
-  reg  capturePending; // @[AecFpWarpUnits.scala 120:31]
-  reg [3:0] group; // @[AecFpWarpUnits.scala 121:22]
-  reg  outValid; // @[AecFpWarpUnits.scala 121:91]
-  reg  running; // @[AecFpWarpUnits.scala 122:24]
-  reg  groupIssued; // @[AecFpWarpUnits.scala 123:28]
-  reg  commitPending; // @[AecFpWarpUnits.scala 124:30]
-  reg [31:0] writeMask; // @[AecFpWarpUnits.scala 126:26]
-  reg [6:0] laneOp_0; // @[AecFpWarpUnits.scala 127:19]
-  reg [6:0] laneOp_1; // @[AecFpWarpUnits.scala 127:19]
-  reg [3:0] laneDtype_0; // @[AecFpWarpUnits.scala 128:22]
-  reg [3:0] laneDtype_1; // @[AecFpWarpUnits.scala 128:22]
-  reg [7:0] laneDest_0; // @[AecFpWarpUnits.scala 129:21]
-  reg [7:0] laneDest_1; // @[AecFpWarpUnits.scala 129:21]
-  wire [5:0] base = group * 2'h2; // @[AecFpWarpUnits.scala 131:20]
-  wire  allReady = requestStages_0_io_inReady & requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 132:59]
-  wire  allValid = pipes_0_io_resp_valid & pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 132:117]
-  reg  armPending; // @[AecFpWarpUnits.scala 133:27]
-  wire  _armCapture_T_5 = ~outValid; // @[AecFpWarpUnits.scala 134:66]
-  wire  armCapture = ~armPending & ~capturePending & ~running & ~outValid & io_req_valid; // @[AecFpWarpUnits.scala 134:76]
-  reg  armClusters_0; // @[AecFpWarpUnits.scala 135:28]
-  reg  armClusters_1; // @[AecFpWarpUnits.scala 135:28]
-  reg  armClusters_2; // @[AecFpWarpUnits.scala 135:28]
-  reg  armClusters_3; // @[AecFpWarpUnits.scala 135:28]
-  reg  armClusters_4; // @[AecFpWarpUnits.scala 135:28]
-  reg  armClusters_5; // @[AecFpWarpUnits.scala 135:28]
-  reg  armClusters_6; // @[AecFpWarpUnits.scala 135:28]
-  reg  armClusters_7; // @[AecFpWarpUnits.scala 135:28]
+  wire  pipes_0_clock; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_0_reset; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_0_io_req_valid; // @[AecFpWarpUnits.scala 110:45]
+  wire [6:0] pipes_0_io_req_bits_op; // @[AecFpWarpUnits.scala 110:45]
+  wire [3:0] pipes_0_io_req_bits_dtype; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_0_io_req_bits_a; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_0_io_req_bits_b; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_0_io_req_bits_c; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_0_io_resp_ready; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_0_io_resp_valid; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 110:45]
+  wire [4:0] pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_clock; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_reset; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_io_req_valid; // @[AecFpWarpUnits.scala 110:45]
+  wire [6:0] pipes_1_io_req_bits_op; // @[AecFpWarpUnits.scala 110:45]
+  wire [3:0] pipes_1_io_req_bits_dtype; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_1_io_req_bits_a; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_1_io_req_bits_b; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_1_io_req_bits_c; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_io_resp_ready; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 110:45]
+  wire [63:0] pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 110:45]
+  wire  pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 110:45]
+  wire [4:0] pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 110:45]
+  wire  requestStages_0_clock; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_0_reset; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_0_io_inValid; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_0_io_inReady; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_group; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_0_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_0_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_0_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_0_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_0_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_1_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_1_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_1_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_1_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_1_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_2_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_2_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_2_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_2_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_2_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_3_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_3_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_3_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_3_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_3_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_4_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_4_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_4_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_4_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_4_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_5_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_5_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_5_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_5_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_5_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_6_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_6_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_6_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_6_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_6_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_7_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_7_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_7_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_7_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_7_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_8_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_8_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_8_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_8_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_8_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_9_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_9_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_9_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_9_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_9_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_10_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_10_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_10_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_10_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_10_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_11_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_11_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_11_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_11_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_11_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_12_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_12_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_12_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_12_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_12_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_13_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_13_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_13_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_13_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_13_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_14_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_14_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_14_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_14_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_14_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_data_15_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_data_15_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_15_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_15_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_data_15_c; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_0_io_out_ready; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_1_clock; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_1_reset; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_1_io_inValid; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_group; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_0_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_0_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_0_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_0_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_0_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_1_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_1_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_1_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_1_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_1_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_2_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_2_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_2_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_2_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_2_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_3_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_3_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_3_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_3_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_3_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_4_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_4_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_4_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_4_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_4_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_5_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_5_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_5_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_5_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_5_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_6_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_6_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_6_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_6_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_6_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_7_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_7_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_7_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_7_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_7_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_8_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_8_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_8_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_8_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_8_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_9_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_9_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_9_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_9_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_9_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_10_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_10_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_10_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_10_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_10_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_11_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_11_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_11_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_11_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_11_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_12_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_12_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_12_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_12_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_12_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_13_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_13_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_13_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_13_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_13_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_14_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_14_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_14_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_14_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_14_c; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_data_15_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_data_15_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_15_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_15_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_data_15_c; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_1_io_out_ready; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 112:53]
+  wire [6:0] requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 112:53]
+  wire [3:0] requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 112:53]
+  wire [63:0] requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 112:53]
+  wire  requestBuffer_clock; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_reset; // @[AecFpWarpUnits.scala 113:29]
+  wire [31:0] requestBuffer_io_in_activeMask; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_0; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_1; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_2; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_3; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_4; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_5; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_6; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_7; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_8; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_9; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_10; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_11; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_12; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_13; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_14; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_15; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_16; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_17; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_18; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_19; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_20; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_21; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_22; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_23; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_24; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_25; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_26; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_27; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_28; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_29; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_30; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_a_31; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_0; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_1; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_2; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_3; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_4; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_5; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_6; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_7; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_8; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_9; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_10; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_11; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_12; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_13; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_14; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_15; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_16; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_17; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_18; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_19; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_20; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_21; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_22; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_23; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_24; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_25; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_26; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_27; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_28; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_29; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_30; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_b_31; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_0; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_1; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_2; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_3; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_4; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_5; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_6; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_7; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_8; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_9; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_10; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_11; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_12; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_13; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_14; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_15; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_16; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_17; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_18; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_19; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_20; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_21; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_22; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_23; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_24; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_25; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_26; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_27; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_28; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_29; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_30; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_in_c_31; // @[AecFpWarpUnits.scala 113:29]
+  wire [7:0] requestBuffer_io_in_dest; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_0; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_1; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_2; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_3; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_4; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_5; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_6; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_arm_7; // @[AecFpWarpUnits.scala 113:29]
+  wire  requestBuffer_io_capture; // @[AecFpWarpUnits.scala 113:29]
+  wire [31:0] requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 113:29]
+  wire [63:0] requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 113:29]
+  wire [7:0] requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 113:29]
+  wire  resultBanks_0_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_0_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_0_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_0_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_0_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_0_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_0_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_0_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_0_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_0_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_0_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_1_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_1_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_1_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_1_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_1_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_1_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_1_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_1_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_1_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_1_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_1_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_2_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_2_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_2_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_2_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_2_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_2_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_2_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_2_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_2_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_2_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_2_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_3_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_3_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_3_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_3_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_3_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_3_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_3_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_3_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_3_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_3_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_3_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_4_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_4_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_4_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_4_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_4_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_4_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_4_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_4_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_4_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_4_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_4_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_5_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_5_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_5_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_5_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_5_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_5_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_5_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_5_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_5_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_5_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_5_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_6_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_6_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_6_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_6_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_6_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_6_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_6_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_6_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_6_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_6_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_6_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_7_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_7_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_7_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_7_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_7_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_7_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_7_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_7_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_7_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_7_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_7_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_8_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_8_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_8_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_8_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_8_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_8_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_8_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_8_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_8_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_8_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_8_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_9_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_9_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_9_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_9_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_9_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_9_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_9_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_9_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_9_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_9_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_9_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_10_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_10_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_10_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_10_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_10_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_10_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_10_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_10_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_10_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_10_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_10_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_11_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_11_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_11_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_11_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_11_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_11_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_11_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_11_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_11_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_11_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_11_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_12_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_12_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_12_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_12_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_12_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_12_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_12_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_12_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_12_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_12_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_12_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_13_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_13_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_13_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_13_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_13_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_13_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_13_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_13_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_13_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_13_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_13_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_14_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_14_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_14_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_14_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_14_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_14_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_14_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_14_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_14_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_14_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_14_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_15_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_15_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_15_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_15_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_15_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_15_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_15_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_15_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_15_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_15_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_15_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_16_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_16_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_16_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_16_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_16_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_16_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_16_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_16_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_16_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_16_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_16_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_17_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_17_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_17_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_17_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_17_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_17_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_17_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_17_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_17_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_17_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_17_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_18_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_18_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_18_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_18_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_18_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_18_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_18_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_18_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_18_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_18_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_18_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_19_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_19_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_19_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_19_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_19_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_19_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_19_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_19_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_19_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_19_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_19_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_20_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_20_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_20_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_20_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_20_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_20_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_20_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_20_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_20_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_20_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_20_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_21_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_21_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_21_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_21_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_21_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_21_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_21_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_21_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_21_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_21_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_21_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_22_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_22_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_22_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_22_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_22_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_22_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_22_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_22_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_22_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_22_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_22_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_23_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_23_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_23_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_23_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_23_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_23_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_23_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_23_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_23_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_23_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_23_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_24_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_24_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_24_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_24_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_24_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_24_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_24_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_24_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_24_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_24_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_24_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_25_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_25_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_25_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_25_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_25_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_25_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_25_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_25_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_25_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_25_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_25_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_26_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_26_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_26_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_26_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_26_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_26_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_26_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_26_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_26_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_26_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_26_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_27_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_27_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_27_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_27_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_27_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_27_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_27_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_27_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_27_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_27_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_27_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_28_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_28_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_28_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_28_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_28_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_28_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_28_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_28_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_28_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_28_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_28_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_29_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_29_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_29_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_29_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_29_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_29_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_29_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_29_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_29_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_29_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_29_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_30_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_30_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_30_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_30_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_30_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_30_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_30_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_30_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_30_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_30_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_30_io_error; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_31_clock; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_31_reset; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_31_io_write; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_31_io_writeResult; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_31_io_writeFlags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_31_io_writePredicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_31_io_writeError; // @[AecFpWarpUnits.scala 121:40]
+  wire [63:0] resultBanks_31_io_result; // @[AecFpWarpUnits.scala 121:40]
+  wire [4:0] resultBanks_31_io_flags; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_31_io_predicate; // @[AecFpWarpUnits.scala 121:40]
+  wire  resultBanks_31_io_error; // @[AecFpWarpUnits.scala 121:40]
+  reg  capturePending; // @[AecFpWarpUnits.scala 116:31]
+  reg [3:0] group; // @[AecFpWarpUnits.scala 117:22]
+  reg  outValid; // @[AecFpWarpUnits.scala 117:91]
+  reg  running; // @[AecFpWarpUnits.scala 118:24]
+  reg  groupIssued; // @[AecFpWarpUnits.scala 119:28]
+  reg  commitPending; // @[AecFpWarpUnits.scala 120:30]
+  reg [6:0] laneOp_0; // @[AecFpWarpUnits.scala 122:19]
+  reg [6:0] laneOp_1; // @[AecFpWarpUnits.scala 122:19]
+  reg [3:0] laneDtype_0; // @[AecFpWarpUnits.scala 123:22]
+  reg [3:0] laneDtype_1; // @[AecFpWarpUnits.scala 123:22]
+  reg [7:0] laneDest_0; // @[AecFpWarpUnits.scala 124:21]
+  reg [7:0] laneDest_1; // @[AecFpWarpUnits.scala 124:21]
+  wire  allReady = requestStages_0_io_inReady & requestStages_1_io_inReady; // @[AecFpWarpUnits.scala 127:59]
+  wire  allValid = pipes_0_io_resp_valid & pipes_1_io_resp_valid; // @[AecFpWarpUnits.scala 127:117]
+  reg  armPending; // @[AecFpWarpUnits.scala 128:27]
+  wire  _armCapture_T_5 = ~outValid; // @[AecFpWarpUnits.scala 129:66]
+  wire  armCapture = ~armPending & ~capturePending & ~running & ~outValid & io_req_valid; // @[AecFpWarpUnits.scala 129:76]
+  reg  armClusters_0; // @[AecFpWarpUnits.scala 130:28]
+  reg  armClusters_1; // @[AecFpWarpUnits.scala 130:28]
+  reg  armClusters_2; // @[AecFpWarpUnits.scala 130:28]
+  reg  armClusters_3; // @[AecFpWarpUnits.scala 130:28]
+  reg  armClusters_4; // @[AecFpWarpUnits.scala 130:28]
+  reg  armClusters_5; // @[AecFpWarpUnits.scala 130:28]
+  reg  armClusters_6; // @[AecFpWarpUnits.scala 130:28]
+  reg  armClusters_7; // @[AecFpWarpUnits.scala 130:28]
   wire  _requestBuffer_io_capture_T = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
-  wire  _io_resp_bits_predicateMask_T_1 = writeMask[0] & resultBanks_0_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_3 = writeMask[1] & resultBanks_1_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_5 = writeMask[2] & resultBanks_2_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_7 = writeMask[3] & resultBanks_3_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_9 = writeMask[4] & resultBanks_4_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_11 = writeMask[5] & resultBanks_5_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_13 = writeMask[6] & resultBanks_6_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_15 = writeMask[7] & resultBanks_7_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_17 = writeMask[8] & resultBanks_8_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_19 = writeMask[9] & resultBanks_9_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_21 = writeMask[10] & resultBanks_10_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_23 = writeMask[11] & resultBanks_11_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_25 = writeMask[12] & resultBanks_12_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_27 = writeMask[13] & resultBanks_13_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_29 = writeMask[14] & resultBanks_14_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_31 = writeMask[15] & resultBanks_15_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_33 = writeMask[16] & resultBanks_16_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_35 = writeMask[17] & resultBanks_17_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_37 = writeMask[18] & resultBanks_18_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_39 = writeMask[19] & resultBanks_19_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_41 = writeMask[20] & resultBanks_20_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_43 = writeMask[21] & resultBanks_21_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_45 = writeMask[22] & resultBanks_22_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_47 = writeMask[23] & resultBanks_23_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_49 = writeMask[24] & resultBanks_24_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_51 = writeMask[25] & resultBanks_25_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_53 = writeMask[26] & resultBanks_26_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_55 = writeMask[27] & resultBanks_27_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_57 = writeMask[28] & resultBanks_28_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_59 = writeMask[29] & resultBanks_29_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_61 = writeMask[30] & resultBanks_30_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire  _io_resp_bits_predicateMask_T_63 = writeMask[31] & resultBanks_31_io_predicate; // @[AecFpWarpUnits.scala 143:76]
-  wire [7:0] io_resp_bits_predicateMask_lo_lo = {_io_resp_bits_predicateMask_T_15,_io_resp_bits_predicateMask_T_13,
-    _io_resp_bits_predicateMask_T_11,_io_resp_bits_predicateMask_T_9,_io_resp_bits_predicateMask_T_7,
-    _io_resp_bits_predicateMask_T_5,_io_resp_bits_predicateMask_T_3,_io_resp_bits_predicateMask_T_1}; // @[AecFpWarpUnits.scala 143:109]
-  wire [15:0] io_resp_bits_predicateMask_lo = {_io_resp_bits_predicateMask_T_31,_io_resp_bits_predicateMask_T_29,
-    _io_resp_bits_predicateMask_T_27,_io_resp_bits_predicateMask_T_25,_io_resp_bits_predicateMask_T_23,
-    _io_resp_bits_predicateMask_T_21,_io_resp_bits_predicateMask_T_19,_io_resp_bits_predicateMask_T_17,
-    io_resp_bits_predicateMask_lo_lo}; // @[AecFpWarpUnits.scala 143:109]
-  wire [7:0] io_resp_bits_predicateMask_hi_lo = {_io_resp_bits_predicateMask_T_47,_io_resp_bits_predicateMask_T_45,
-    _io_resp_bits_predicateMask_T_43,_io_resp_bits_predicateMask_T_41,_io_resp_bits_predicateMask_T_39,
-    _io_resp_bits_predicateMask_T_37,_io_resp_bits_predicateMask_T_35,_io_resp_bits_predicateMask_T_33}; // @[AecFpWarpUnits.scala 143:109]
-  wire [15:0] io_resp_bits_predicateMask_hi = {_io_resp_bits_predicateMask_T_63,_io_resp_bits_predicateMask_T_61,
-    _io_resp_bits_predicateMask_T_59,_io_resp_bits_predicateMask_T_57,_io_resp_bits_predicateMask_T_55,
-    _io_resp_bits_predicateMask_T_53,_io_resp_bits_predicateMask_T_51,_io_resp_bits_predicateMask_T_49,
-    io_resp_bits_predicateMask_hi_lo}; // @[AecFpWarpUnits.scala 143:109]
-  wire  _io_resp_bits_errorMask_T_1 = writeMask[0] & resultBanks_0_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_3 = writeMask[1] & resultBanks_1_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_5 = writeMask[2] & resultBanks_2_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_7 = writeMask[3] & resultBanks_3_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_9 = writeMask[4] & resultBanks_4_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_11 = writeMask[5] & resultBanks_5_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_13 = writeMask[6] & resultBanks_6_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_15 = writeMask[7] & resultBanks_7_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_17 = writeMask[8] & resultBanks_8_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_19 = writeMask[9] & resultBanks_9_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_21 = writeMask[10] & resultBanks_10_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_23 = writeMask[11] & resultBanks_11_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_25 = writeMask[12] & resultBanks_12_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_27 = writeMask[13] & resultBanks_13_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_29 = writeMask[14] & resultBanks_14_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_31 = writeMask[15] & resultBanks_15_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_33 = writeMask[16] & resultBanks_16_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_35 = writeMask[17] & resultBanks_17_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_37 = writeMask[18] & resultBanks_18_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_39 = writeMask[19] & resultBanks_19_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_41 = writeMask[20] & resultBanks_20_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_43 = writeMask[21] & resultBanks_21_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_45 = writeMask[22] & resultBanks_22_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_47 = writeMask[23] & resultBanks_23_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_49 = writeMask[24] & resultBanks_24_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_51 = writeMask[25] & resultBanks_25_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_53 = writeMask[26] & resultBanks_26_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_55 = writeMask[27] & resultBanks_27_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_57 = writeMask[28] & resultBanks_28_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_59 = writeMask[29] & resultBanks_29_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_61 = writeMask[30] & resultBanks_30_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire  _io_resp_bits_errorMask_T_63 = writeMask[31] & resultBanks_31_io_error; // @[AecFpWarpUnits.scala 144:72]
-  wire [7:0] io_resp_bits_errorMask_lo_lo = {_io_resp_bits_errorMask_T_15,_io_resp_bits_errorMask_T_13,
-    _io_resp_bits_errorMask_T_11,_io_resp_bits_errorMask_T_9,_io_resp_bits_errorMask_T_7,_io_resp_bits_errorMask_T_5,
-    _io_resp_bits_errorMask_T_3,_io_resp_bits_errorMask_T_1}; // @[AecFpWarpUnits.scala 144:101]
-  wire [15:0] io_resp_bits_errorMask_lo = {_io_resp_bits_errorMask_T_31,_io_resp_bits_errorMask_T_29,
-    _io_resp_bits_errorMask_T_27,_io_resp_bits_errorMask_T_25,_io_resp_bits_errorMask_T_23,_io_resp_bits_errorMask_T_21,
-    _io_resp_bits_errorMask_T_19,_io_resp_bits_errorMask_T_17,io_resp_bits_errorMask_lo_lo}; // @[AecFpWarpUnits.scala 144:101]
-  wire [7:0] io_resp_bits_errorMask_hi_lo = {_io_resp_bits_errorMask_T_47,_io_resp_bits_errorMask_T_45,
-    _io_resp_bits_errorMask_T_43,_io_resp_bits_errorMask_T_41,_io_resp_bits_errorMask_T_39,_io_resp_bits_errorMask_T_37,
-    _io_resp_bits_errorMask_T_35,_io_resp_bits_errorMask_T_33}; // @[AecFpWarpUnits.scala 144:101]
-  wire [15:0] io_resp_bits_errorMask_hi = {_io_resp_bits_errorMask_T_63,_io_resp_bits_errorMask_T_61,
-    _io_resp_bits_errorMask_T_59,_io_resp_bits_errorMask_T_57,_io_resp_bits_errorMask_T_55,_io_resp_bits_errorMask_T_53,
-    _io_resp_bits_errorMask_T_51,_io_resp_bits_errorMask_T_49,io_resp_bits_errorMask_hi_lo}; // @[AecFpWarpUnits.scala 144:101]
-  wire  _requestStages_0_io_inValid_T_1 = running & ~groupIssued; // @[AecFpWarpUnits.scala 148:44]
-  wire  _resultBanks_30_io_write_T_3 = group == 4'hf; // @[AecFpWarpUnits.scala 164:90]
-  wire  _GEN_0 = armPending | capturePending; // @[AecFpWarpUnits.scala 171:21 120:31 171:38]
-  wire [6:0] _laneOp_1_T_1 = io_req_bits_op[6:0] ^ 7'h1; // @[AecFpWarpUnits.scala 174:41]
-  wire [3:0] _laneDtype_1_T = io_req_bits_dtype ^ 4'h1; // @[AecFpWarpUnits.scala 175:41]
-  wire [7:0] _laneDest_1_T = io_req_bits_dest ^ 8'h1; // @[AecFpWarpUnits.scala 176:39]
-  wire  _running_T = |io_req_bits_activeMask; // @[AecFpWarpUnits.scala 181:39]
-  wire  _GEN_9 = _requestBuffer_io_capture_T ? 1'h0 : groupIssued; // @[AecFpWarpUnits.scala 172:22 179:17 123:28]
-  wire  _GEN_10 = _requestBuffer_io_capture_T ? 1'h0 : commitPending; // @[AecFpWarpUnits.scala 172:22 180:19 124:30]
-  wire  _GEN_11 = _requestBuffer_io_capture_T ? |io_req_bits_activeMask : running; // @[AecFpWarpUnits.scala 172:22 181:13 122:24]
-  wire  _GEN_12 = _requestBuffer_io_capture_T ? ~_running_T : outValid; // @[AecFpWarpUnits.scala 172:22 182:14 121:91]
-  wire  _T_131 = ~commitPending; // @[AecFpWarpUnits.scala 185:36]
-  wire  _GEN_14 = _requestStages_0_io_inValid_T_1 & ~commitPending & allReady | _GEN_9; // @[AecFpWarpUnits.scala 185:{64,78}]
-  wire  _GEN_15 = running & groupIssued & _T_131 & allValid | _GEN_10; // @[AecFpWarpUnits.scala 186:63 187:19]
-  wire [34:0] _groupMask_T_2 = 35'h4 - 35'h1; // @[AecFpWarpUnits.scala 191:53]
-  wire [97:0] _GEN_1 = {{63'd0}, _groupMask_T_2}; // @[AecFpWarpUnits.scala 191:60]
-  wire [97:0] _groupMask_T_3 = _GEN_1 << base; // @[AecFpWarpUnits.scala 191:60]
-  wire [31:0] groupMask = _groupMask_T_3[31:0]; // @[AecFpWarpUnits.scala 191:68]
-  wire [31:0] _writeMask_T = requestBuffer_io_out_activeMask & groupMask; // @[AecFpWarpUnits.scala 192:47]
-  wire [31:0] _writeMask_T_1 = writeMask | _writeMask_T; // @[AecFpWarpUnits.scala 192:28]
-  wire [3:0] _group_T_1 = group + 4'h1; // @[AecFpWarpUnits.scala 194:121]
-  wire  _GEN_16 = _resultBanks_30_io_write_T_3 | _GEN_12; // @[AecFpWarpUnits.scala 194:{37,48}]
-  wire  _T_139 = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
-  AecFp64PipeUnit pipes_0 ( // @[AecFpWarpUnits.scala 114:45]
+  wire  _io_resp_bits_predicateMask_WIRE_1 = resultBanks_1_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_0 = resultBanks_0_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_3 = resultBanks_3_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_2 = resultBanks_2_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_5 = resultBanks_5_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_4 = resultBanks_4_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_7 = resultBanks_7_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_6 = resultBanks_6_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire [7:0] io_resp_bits_predicateMask_lo_lo = {_io_resp_bits_predicateMask_WIRE_7,_io_resp_bits_predicateMask_WIRE_6,
+    _io_resp_bits_predicateMask_WIRE_5,_io_resp_bits_predicateMask_WIRE_4,_io_resp_bits_predicateMask_WIRE_3,
+    _io_resp_bits_predicateMask_WIRE_2,_io_resp_bits_predicateMask_WIRE_1,_io_resp_bits_predicateMask_WIRE_0}; // @[AecFpWarpUnits.scala 138:74]
+  wire  _io_resp_bits_predicateMask_WIRE_9 = resultBanks_9_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_8 = resultBanks_8_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_11 = resultBanks_11_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_10 = resultBanks_10_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_13 = resultBanks_13_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_12 = resultBanks_12_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_15 = resultBanks_15_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_14 = resultBanks_14_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire [15:0] io_resp_bits_predicateMask_lo = {_io_resp_bits_predicateMask_WIRE_15,_io_resp_bits_predicateMask_WIRE_14,
+    _io_resp_bits_predicateMask_WIRE_13,_io_resp_bits_predicateMask_WIRE_12,_io_resp_bits_predicateMask_WIRE_11,
+    _io_resp_bits_predicateMask_WIRE_10,_io_resp_bits_predicateMask_WIRE_9,_io_resp_bits_predicateMask_WIRE_8,
+    io_resp_bits_predicateMask_lo_lo}; // @[AecFpWarpUnits.scala 138:74]
+  wire  _io_resp_bits_predicateMask_WIRE_17 = resultBanks_17_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_16 = resultBanks_16_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_19 = resultBanks_19_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_18 = resultBanks_18_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_21 = resultBanks_21_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_20 = resultBanks_20_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_23 = resultBanks_23_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_22 = resultBanks_22_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire [7:0] io_resp_bits_predicateMask_hi_lo = {_io_resp_bits_predicateMask_WIRE_23,_io_resp_bits_predicateMask_WIRE_22
+    ,_io_resp_bits_predicateMask_WIRE_21,_io_resp_bits_predicateMask_WIRE_20,_io_resp_bits_predicateMask_WIRE_19,
+    _io_resp_bits_predicateMask_WIRE_18,_io_resp_bits_predicateMask_WIRE_17,_io_resp_bits_predicateMask_WIRE_16}; // @[AecFpWarpUnits.scala 138:74]
+  wire  _io_resp_bits_predicateMask_WIRE_25 = resultBanks_25_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_24 = resultBanks_24_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_27 = resultBanks_27_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_26 = resultBanks_26_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_29 = resultBanks_29_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_28 = resultBanks_28_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_31 = resultBanks_31_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_30 = resultBanks_30_io_predicate; // @[AecFpWarpUnits.scala 138:{40,40}]
+  wire [15:0] io_resp_bits_predicateMask_hi = {_io_resp_bits_predicateMask_WIRE_31,_io_resp_bits_predicateMask_WIRE_30,
+    _io_resp_bits_predicateMask_WIRE_29,_io_resp_bits_predicateMask_WIRE_28,_io_resp_bits_predicateMask_WIRE_27,
+    _io_resp_bits_predicateMask_WIRE_26,_io_resp_bits_predicateMask_WIRE_25,_io_resp_bits_predicateMask_WIRE_24,
+    io_resp_bits_predicateMask_hi_lo}; // @[AecFpWarpUnits.scala 138:74]
+  wire  _io_resp_bits_errorMask_WIRE_1 = resultBanks_1_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_0 = resultBanks_0_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_3 = resultBanks_3_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_2 = resultBanks_2_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_5 = resultBanks_5_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_4 = resultBanks_4_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_7 = resultBanks_7_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_6 = resultBanks_6_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire [7:0] io_resp_bits_errorMask_lo_lo = {_io_resp_bits_errorMask_WIRE_7,_io_resp_bits_errorMask_WIRE_6,
+    _io_resp_bits_errorMask_WIRE_5,_io_resp_bits_errorMask_WIRE_4,_io_resp_bits_errorMask_WIRE_3,
+    _io_resp_bits_errorMask_WIRE_2,_io_resp_bits_errorMask_WIRE_1,_io_resp_bits_errorMask_WIRE_0}; // @[AecFpWarpUnits.scala 139:66]
+  wire  _io_resp_bits_errorMask_WIRE_9 = resultBanks_9_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_8 = resultBanks_8_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_11 = resultBanks_11_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_10 = resultBanks_10_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_13 = resultBanks_13_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_12 = resultBanks_12_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_15 = resultBanks_15_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_14 = resultBanks_14_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire [15:0] io_resp_bits_errorMask_lo = {_io_resp_bits_errorMask_WIRE_15,_io_resp_bits_errorMask_WIRE_14,
+    _io_resp_bits_errorMask_WIRE_13,_io_resp_bits_errorMask_WIRE_12,_io_resp_bits_errorMask_WIRE_11,
+    _io_resp_bits_errorMask_WIRE_10,_io_resp_bits_errorMask_WIRE_9,_io_resp_bits_errorMask_WIRE_8,
+    io_resp_bits_errorMask_lo_lo}; // @[AecFpWarpUnits.scala 139:66]
+  wire  _io_resp_bits_errorMask_WIRE_17 = resultBanks_17_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_16 = resultBanks_16_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_19 = resultBanks_19_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_18 = resultBanks_18_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_21 = resultBanks_21_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_20 = resultBanks_20_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_23 = resultBanks_23_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_22 = resultBanks_22_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire [7:0] io_resp_bits_errorMask_hi_lo = {_io_resp_bits_errorMask_WIRE_23,_io_resp_bits_errorMask_WIRE_22,
+    _io_resp_bits_errorMask_WIRE_21,_io_resp_bits_errorMask_WIRE_20,_io_resp_bits_errorMask_WIRE_19,
+    _io_resp_bits_errorMask_WIRE_18,_io_resp_bits_errorMask_WIRE_17,_io_resp_bits_errorMask_WIRE_16}; // @[AecFpWarpUnits.scala 139:66]
+  wire  _io_resp_bits_errorMask_WIRE_25 = resultBanks_25_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_24 = resultBanks_24_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_27 = resultBanks_27_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_26 = resultBanks_26_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_29 = resultBanks_29_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_28 = resultBanks_28_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_31 = resultBanks_31_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_30 = resultBanks_30_io_error; // @[AecFpWarpUnits.scala 139:{36,36}]
+  wire [15:0] io_resp_bits_errorMask_hi = {_io_resp_bits_errorMask_WIRE_31,_io_resp_bits_errorMask_WIRE_30,
+    _io_resp_bits_errorMask_WIRE_29,_io_resp_bits_errorMask_WIRE_28,_io_resp_bits_errorMask_WIRE_27,
+    _io_resp_bits_errorMask_WIRE_26,_io_resp_bits_errorMask_WIRE_25,_io_resp_bits_errorMask_WIRE_24,
+    io_resp_bits_errorMask_hi_lo}; // @[AecFpWarpUnits.scala 139:66]
+  wire  _requestStages_0_io_inValid_T_1 = running & ~groupIssued; // @[AecFpWarpUnits.scala 143:44]
+  wire  _resultBanks_30_io_write_T_3 = group == 4'hf; // @[AecFpWarpUnits.scala 159:90]
+  wire  _GEN_0 = armPending | capturePending; // @[AecFpWarpUnits.scala 166:21 116:31 166:38]
+  wire [6:0] _laneOp_1_T_1 = io_req_bits_op[6:0] ^ 7'h1; // @[AecFpWarpUnits.scala 169:41]
+  wire [3:0] _laneDtype_1_T = io_req_bits_dtype ^ 4'h1; // @[AecFpWarpUnits.scala 170:41]
+  wire [7:0] _laneDest_1_T = io_req_bits_dest ^ 8'h1; // @[AecFpWarpUnits.scala 171:39]
+  wire  _GEN_9 = _requestBuffer_io_capture_T ? 1'h0 : groupIssued; // @[AecFpWarpUnits.scala 167:22 174:17 119:28]
+  wire  _GEN_10 = _requestBuffer_io_capture_T ? 1'h0 : commitPending; // @[AecFpWarpUnits.scala 167:22 175:19 120:30]
+  wire  _GEN_11 = _requestBuffer_io_capture_T | running; // @[AecFpWarpUnits.scala 167:22 176:13 118:24]
+  wire  _GEN_12 = _requestBuffer_io_capture_T ? 1'h0 : outValid; // @[AecFpWarpUnits.scala 167:22 177:14 117:91]
+  wire  _T_3 = ~commitPending; // @[AecFpWarpUnits.scala 179:36]
+  wire  _GEN_13 = _requestStages_0_io_inValid_T_1 & ~commitPending & allReady | _GEN_9; // @[AecFpWarpUnits.scala 179:{64,78}]
+  wire  _GEN_14 = running & groupIssued & _T_3 & allValid | _GEN_10; // @[AecFpWarpUnits.scala 180:63 181:19]
+  wire [3:0] _group_T_1 = group + 4'h1; // @[AecFpWarpUnits.scala 186:121]
+  wire  _GEN_15 = _resultBanks_30_io_write_T_3 | _GEN_12; // @[AecFpWarpUnits.scala 186:{37,48}]
+  wire  _T_11 = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
+  AecFp64PipeUnit pipes_0 ( // @[AecFpWarpUnits.scala 110:45]
     .clock(pipes_0_clock),
     .reset(pipes_0_reset),
     .io_req_ready(pipes_0_io_req_ready),
@@ -14568,7 +15265,7 @@ module AecFp64Unit(
     .io_resp_bits_error(pipes_0_io_resp_bits_error),
     .io_resp_bits_exception_flags(pipes_0_io_resp_bits_exception_flags)
   );
-  AecFp64PipeUnit pipes_1 ( // @[AecFpWarpUnits.scala 114:45]
+  AecFp64PipeUnit pipes_1 ( // @[AecFpWarpUnits.scala 110:45]
     .clock(pipes_1_clock),
     .reset(pipes_1_reset),
     .io_req_ready(pipes_1_io_req_ready),
@@ -14585,7 +15282,7 @@ module AecFp64Unit(
     .io_resp_bits_error(pipes_1_io_resp_bits_error),
     .io_resp_bits_exception_flags(pipes_1_io_resp_bits_exception_flags)
   );
-  AecFpWarpRequestStage requestStages_0 ( // @[AecFpWarpUnits.scala 116:53]
+  AecFpWarpRequestStage requestStages_0 ( // @[AecFpWarpUnits.scala 112:53]
     .clock(requestStages_0_clock),
     .reset(requestStages_0_reset),
     .io_inValid(requestStages_0_io_inValid),
@@ -14679,7 +15376,7 @@ module AecFp64Unit(
     .io_out_bits_b(requestStages_0_io_out_bits_b),
     .io_out_bits_c(requestStages_0_io_out_bits_c)
   );
-  AecFpWarpRequestStage requestStages_1 ( // @[AecFpWarpUnits.scala 116:53]
+  AecFpWarpRequestStage requestStages_1 ( // @[AecFpWarpUnits.scala 112:53]
     .clock(requestStages_1_clock),
     .reset(requestStages_1_reset),
     .io_inValid(requestStages_1_io_inValid),
@@ -14773,7 +15470,7 @@ module AecFp64Unit(
     .io_out_bits_b(requestStages_1_io_out_bits_b),
     .io_out_bits_c(requestStages_1_io_out_bits_c)
   );
-  AecWarpRequestBuffer requestBuffer ( // @[AecFpWarpUnits.scala 117:29]
+  AecWarpRequestBuffer requestBuffer ( // @[AecFpWarpUnits.scala 113:29]
     .clock(requestBuffer_clock),
     .reset(requestBuffer_reset),
     .io_in_activeMask(requestBuffer_io_in_activeMask),
@@ -14982,7 +15679,7 @@ module AecFp64Unit(
     .io_out_c_31(requestBuffer_io_out_c_31),
     .io_out_dest(requestBuffer_io_out_dest)
   );
-  AecResultLaneBank resultBanks_0 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_0 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_0_clock),
     .reset(resultBanks_0_reset),
     .io_write(resultBanks_0_io_write),
@@ -14995,7 +15692,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_0_io_predicate),
     .io_error(resultBanks_0_io_error)
   );
-  AecResultLaneBank resultBanks_1 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_1 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_1_clock),
     .reset(resultBanks_1_reset),
     .io_write(resultBanks_1_io_write),
@@ -15008,7 +15705,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_1_io_predicate),
     .io_error(resultBanks_1_io_error)
   );
-  AecResultLaneBank resultBanks_2 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_2 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_2_clock),
     .reset(resultBanks_2_reset),
     .io_write(resultBanks_2_io_write),
@@ -15021,7 +15718,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_2_io_predicate),
     .io_error(resultBanks_2_io_error)
   );
-  AecResultLaneBank resultBanks_3 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_3 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_3_clock),
     .reset(resultBanks_3_reset),
     .io_write(resultBanks_3_io_write),
@@ -15034,7 +15731,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_3_io_predicate),
     .io_error(resultBanks_3_io_error)
   );
-  AecResultLaneBank resultBanks_4 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_4 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_4_clock),
     .reset(resultBanks_4_reset),
     .io_write(resultBanks_4_io_write),
@@ -15047,7 +15744,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_4_io_predicate),
     .io_error(resultBanks_4_io_error)
   );
-  AecResultLaneBank resultBanks_5 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_5 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_5_clock),
     .reset(resultBanks_5_reset),
     .io_write(resultBanks_5_io_write),
@@ -15060,7 +15757,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_5_io_predicate),
     .io_error(resultBanks_5_io_error)
   );
-  AecResultLaneBank resultBanks_6 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_6 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_6_clock),
     .reset(resultBanks_6_reset),
     .io_write(resultBanks_6_io_write),
@@ -15073,7 +15770,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_6_io_predicate),
     .io_error(resultBanks_6_io_error)
   );
-  AecResultLaneBank resultBanks_7 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_7 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_7_clock),
     .reset(resultBanks_7_reset),
     .io_write(resultBanks_7_io_write),
@@ -15086,7 +15783,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_7_io_predicate),
     .io_error(resultBanks_7_io_error)
   );
-  AecResultLaneBank resultBanks_8 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_8 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_8_clock),
     .reset(resultBanks_8_reset),
     .io_write(resultBanks_8_io_write),
@@ -15099,7 +15796,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_8_io_predicate),
     .io_error(resultBanks_8_io_error)
   );
-  AecResultLaneBank resultBanks_9 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_9 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_9_clock),
     .reset(resultBanks_9_reset),
     .io_write(resultBanks_9_io_write),
@@ -15112,7 +15809,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_9_io_predicate),
     .io_error(resultBanks_9_io_error)
   );
-  AecResultLaneBank resultBanks_10 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_10 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_10_clock),
     .reset(resultBanks_10_reset),
     .io_write(resultBanks_10_io_write),
@@ -15125,7 +15822,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_10_io_predicate),
     .io_error(resultBanks_10_io_error)
   );
-  AecResultLaneBank resultBanks_11 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_11 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_11_clock),
     .reset(resultBanks_11_reset),
     .io_write(resultBanks_11_io_write),
@@ -15138,7 +15835,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_11_io_predicate),
     .io_error(resultBanks_11_io_error)
   );
-  AecResultLaneBank resultBanks_12 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_12 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_12_clock),
     .reset(resultBanks_12_reset),
     .io_write(resultBanks_12_io_write),
@@ -15151,7 +15848,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_12_io_predicate),
     .io_error(resultBanks_12_io_error)
   );
-  AecResultLaneBank resultBanks_13 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_13 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_13_clock),
     .reset(resultBanks_13_reset),
     .io_write(resultBanks_13_io_write),
@@ -15164,7 +15861,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_13_io_predicate),
     .io_error(resultBanks_13_io_error)
   );
-  AecResultLaneBank resultBanks_14 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_14 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_14_clock),
     .reset(resultBanks_14_reset),
     .io_write(resultBanks_14_io_write),
@@ -15177,7 +15874,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_14_io_predicate),
     .io_error(resultBanks_14_io_error)
   );
-  AecResultLaneBank resultBanks_15 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_15 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_15_clock),
     .reset(resultBanks_15_reset),
     .io_write(resultBanks_15_io_write),
@@ -15190,7 +15887,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_15_io_predicate),
     .io_error(resultBanks_15_io_error)
   );
-  AecResultLaneBank resultBanks_16 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_16 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_16_clock),
     .reset(resultBanks_16_reset),
     .io_write(resultBanks_16_io_write),
@@ -15203,7 +15900,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_16_io_predicate),
     .io_error(resultBanks_16_io_error)
   );
-  AecResultLaneBank resultBanks_17 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_17 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_17_clock),
     .reset(resultBanks_17_reset),
     .io_write(resultBanks_17_io_write),
@@ -15216,7 +15913,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_17_io_predicate),
     .io_error(resultBanks_17_io_error)
   );
-  AecResultLaneBank resultBanks_18 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_18 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_18_clock),
     .reset(resultBanks_18_reset),
     .io_write(resultBanks_18_io_write),
@@ -15229,7 +15926,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_18_io_predicate),
     .io_error(resultBanks_18_io_error)
   );
-  AecResultLaneBank resultBanks_19 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_19 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_19_clock),
     .reset(resultBanks_19_reset),
     .io_write(resultBanks_19_io_write),
@@ -15242,7 +15939,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_19_io_predicate),
     .io_error(resultBanks_19_io_error)
   );
-  AecResultLaneBank resultBanks_20 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_20 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_20_clock),
     .reset(resultBanks_20_reset),
     .io_write(resultBanks_20_io_write),
@@ -15255,7 +15952,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_20_io_predicate),
     .io_error(resultBanks_20_io_error)
   );
-  AecResultLaneBank resultBanks_21 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_21 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_21_clock),
     .reset(resultBanks_21_reset),
     .io_write(resultBanks_21_io_write),
@@ -15268,7 +15965,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_21_io_predicate),
     .io_error(resultBanks_21_io_error)
   );
-  AecResultLaneBank resultBanks_22 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_22 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_22_clock),
     .reset(resultBanks_22_reset),
     .io_write(resultBanks_22_io_write),
@@ -15281,7 +15978,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_22_io_predicate),
     .io_error(resultBanks_22_io_error)
   );
-  AecResultLaneBank resultBanks_23 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_23 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_23_clock),
     .reset(resultBanks_23_reset),
     .io_write(resultBanks_23_io_write),
@@ -15294,7 +15991,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_23_io_predicate),
     .io_error(resultBanks_23_io_error)
   );
-  AecResultLaneBank resultBanks_24 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_24 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_24_clock),
     .reset(resultBanks_24_reset),
     .io_write(resultBanks_24_io_write),
@@ -15307,7 +16004,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_24_io_predicate),
     .io_error(resultBanks_24_io_error)
   );
-  AecResultLaneBank resultBanks_25 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_25 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_25_clock),
     .reset(resultBanks_25_reset),
     .io_write(resultBanks_25_io_write),
@@ -15320,7 +16017,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_25_io_predicate),
     .io_error(resultBanks_25_io_error)
   );
-  AecResultLaneBank resultBanks_26 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_26 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_26_clock),
     .reset(resultBanks_26_reset),
     .io_write(resultBanks_26_io_write),
@@ -15333,7 +16030,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_26_io_predicate),
     .io_error(resultBanks_26_io_error)
   );
-  AecResultLaneBank resultBanks_27 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_27 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_27_clock),
     .reset(resultBanks_27_reset),
     .io_write(resultBanks_27_io_write),
@@ -15346,7 +16043,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_27_io_predicate),
     .io_error(resultBanks_27_io_error)
   );
-  AecResultLaneBank resultBanks_28 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_28 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_28_clock),
     .reset(resultBanks_28_reset),
     .io_write(resultBanks_28_io_write),
@@ -15359,7 +16056,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_28_io_predicate),
     .io_error(resultBanks_28_io_error)
   );
-  AecResultLaneBank resultBanks_29 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_29 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_29_clock),
     .reset(resultBanks_29_reset),
     .io_write(resultBanks_29_io_write),
@@ -15372,7 +16069,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_29_io_predicate),
     .io_error(resultBanks_29_io_error)
   );
-  AecResultLaneBank resultBanks_30 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_30 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_30_clock),
     .reset(resultBanks_30_reset),
     .io_write(resultBanks_30_io_write),
@@ -15385,7 +16082,7 @@ module AecFp64Unit(
     .io_predicate(resultBanks_30_io_predicate),
     .io_error(resultBanks_30_io_error)
   );
-  AecResultLaneBank resultBanks_31 ( // @[AecFpWarpUnits.scala 125:40]
+  AecResultLaneBank resultBanks_31 ( // @[AecFpWarpUnits.scala 121:40]
     .clock(resultBanks_31_clock),
     .reset(resultBanks_31_reset),
     .io_write(resultBanks_31_io_write),
@@ -15398,721 +16095,734 @@ module AecFp64Unit(
     .io_predicate(resultBanks_31_io_predicate),
     .io_error(resultBanks_31_io_error)
   );
-  assign io_req_ready = capturePending; // @[AecFpWarpUnits.scala 140:16]
-  assign io_resp_valid = outValid; // @[AecFpWarpUnits.scala 141:17]
-  assign io_resp_bits_result_0 = writeMask[0] ? resultBanks_0_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_1 = writeMask[1] ? resultBanks_1_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_2 = writeMask[2] ? resultBanks_2_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_3 = writeMask[3] ? resultBanks_3_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_4 = writeMask[4] ? resultBanks_4_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_5 = writeMask[5] ? resultBanks_5_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_6 = writeMask[6] ? resultBanks_6_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_7 = writeMask[7] ? resultBanks_7_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_8 = writeMask[8] ? resultBanks_8_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_9 = writeMask[9] ? resultBanks_9_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_10 = writeMask[10] ? resultBanks_10_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_11 = writeMask[11] ? resultBanks_11_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_12 = writeMask[12] ? resultBanks_12_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_13 = writeMask[13] ? resultBanks_13_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_14 = writeMask[14] ? resultBanks_14_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_15 = writeMask[15] ? resultBanks_15_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_16 = writeMask[16] ? resultBanks_16_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_17 = writeMask[17] ? resultBanks_17_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_18 = writeMask[18] ? resultBanks_18_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_19 = writeMask[19] ? resultBanks_19_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_20 = writeMask[20] ? resultBanks_20_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_21 = writeMask[21] ? resultBanks_21_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_22 = writeMask[22] ? resultBanks_22_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_23 = writeMask[23] ? resultBanks_23_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_24 = writeMask[24] ? resultBanks_24_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_25 = writeMask[25] ? resultBanks_25_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_26 = writeMask[26] ? resultBanks_26_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_27 = writeMask[27] ? resultBanks_27_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_28 = writeMask[28] ? resultBanks_28_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_29 = writeMask[29] ? resultBanks_29_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_30 = writeMask[30] ? resultBanks_30_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_result_31 = writeMask[31] ? resultBanks_31_io_result : 64'h0; // @[AecFpWarpUnits.scala 142:59]
-  assign io_resp_bits_predicateMask = {io_resp_bits_predicateMask_hi,io_resp_bits_predicateMask_lo}; // @[AecFpWarpUnits.scala 143:109]
-  assign io_resp_bits_errorMask = {io_resp_bits_errorMask_hi,io_resp_bits_errorMask_lo}; // @[AecFpWarpUnits.scala 144:101]
-  assign io_resp_bits_exceptionFlags_0 = writeMask[0] ? resultBanks_0_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_1 = writeMask[1] ? resultBanks_1_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_2 = writeMask[2] ? resultBanks_2_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_3 = writeMask[3] ? resultBanks_3_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_4 = writeMask[4] ? resultBanks_4_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_5 = writeMask[5] ? resultBanks_5_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_6 = writeMask[6] ? resultBanks_6_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_7 = writeMask[7] ? resultBanks_7_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_8 = writeMask[8] ? resultBanks_8_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_9 = writeMask[9] ? resultBanks_9_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_10 = writeMask[10] ? resultBanks_10_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_11 = writeMask[11] ? resultBanks_11_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_12 = writeMask[12] ? resultBanks_12_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_13 = writeMask[13] ? resultBanks_13_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_14 = writeMask[14] ? resultBanks_14_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_15 = writeMask[15] ? resultBanks_15_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_16 = writeMask[16] ? resultBanks_16_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_17 = writeMask[17] ? resultBanks_17_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_18 = writeMask[18] ? resultBanks_18_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_19 = writeMask[19] ? resultBanks_19_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_20 = writeMask[20] ? resultBanks_20_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_21 = writeMask[21] ? resultBanks_21_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_22 = writeMask[22] ? resultBanks_22_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_23 = writeMask[23] ? resultBanks_23_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_24 = writeMask[24] ? resultBanks_24_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_25 = writeMask[25] ? resultBanks_25_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_26 = writeMask[26] ? resultBanks_26_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_27 = writeMask[27] ? resultBanks_27_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_28 = writeMask[28] ? resultBanks_28_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_29 = writeMask[29] ? resultBanks_29_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_30 = writeMask[30] ? resultBanks_30_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_exceptionFlags_31 = writeMask[31] ? resultBanks_31_io_flags : 5'h0; // @[AecFpWarpUnits.scala 145:67]
-  assign io_resp_bits_activeMask = requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 146:27]
-  assign io_resp_bits_dest = requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 146:65]
+  assign io_req_ready = capturePending; // @[AecFpWarpUnits.scala 135:16]
+  assign io_resp_valid = outValid; // @[AecFpWarpUnits.scala 136:17]
+  assign io_resp_bits_result_0 = resultBanks_0_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_1 = resultBanks_1_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_2 = resultBanks_2_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_3 = resultBanks_3_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_4 = resultBanks_4_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_5 = resultBanks_5_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_6 = resultBanks_6_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_7 = resultBanks_7_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_8 = resultBanks_8_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_9 = resultBanks_9_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_10 = resultBanks_10_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_11 = resultBanks_11_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_12 = resultBanks_12_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_13 = resultBanks_13_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_14 = resultBanks_14_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_15 = resultBanks_15_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_16 = resultBanks_16_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_17 = resultBanks_17_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_18 = resultBanks_18_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_19 = resultBanks_19_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_20 = resultBanks_20_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_21 = resultBanks_21_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_22 = resultBanks_22_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_23 = resultBanks_23_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_24 = resultBanks_24_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_25 = resultBanks_25_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_26 = resultBanks_26_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_27 = resultBanks_27_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_28 = resultBanks_28_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_29 = resultBanks_29_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_30 = resultBanks_30_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_result_31 = resultBanks_31_io_result; // @[AecFpWarpUnits.scala 137:{33,33}]
+  assign io_resp_bits_predicateMask = {io_resp_bits_predicateMask_hi,io_resp_bits_predicateMask_lo}; // @[AecFpWarpUnits.scala 138:74]
+  assign io_resp_bits_errorMask = {io_resp_bits_errorMask_hi,io_resp_bits_errorMask_lo}; // @[AecFpWarpUnits.scala 139:66]
+  assign io_resp_bits_exceptionFlags_0 = resultBanks_0_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_1 = resultBanks_1_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_2 = resultBanks_2_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_3 = resultBanks_3_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_4 = resultBanks_4_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_5 = resultBanks_5_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_6 = resultBanks_6_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_7 = resultBanks_7_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_8 = resultBanks_8_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_9 = resultBanks_9_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_10 = resultBanks_10_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_11 = resultBanks_11_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_12 = resultBanks_12_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_13 = resultBanks_13_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_14 = resultBanks_14_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_15 = resultBanks_15_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_16 = resultBanks_16_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_17 = resultBanks_17_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_18 = resultBanks_18_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_19 = resultBanks_19_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_20 = resultBanks_20_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_21 = resultBanks_21_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_22 = resultBanks_22_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_23 = resultBanks_23_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_24 = resultBanks_24_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_25 = resultBanks_25_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_26 = resultBanks_26_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_27 = resultBanks_27_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_28 = resultBanks_28_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_29 = resultBanks_29_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_30 = resultBanks_30_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_exceptionFlags_31 = resultBanks_31_io_flags; // @[AecFpWarpUnits.scala 140:{41,41}]
+  assign io_resp_bits_activeMask = requestBuffer_io_out_activeMask; // @[AecFpWarpUnits.scala 141:27]
+  assign io_resp_bits_dest = requestBuffer_io_out_dest; // @[AecFpWarpUnits.scala 141:65]
   assign pipes_0_clock = clock;
   assign pipes_0_reset = reset;
-  assign pipes_0_io_req_valid = requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_0_io_req_bits_op = requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_0_io_req_bits_dtype = requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_0_io_req_bits_a = requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_0_io_req_bits_b = requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_0_io_req_bits_c = requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_0_io_resp_ready = _armCapture_T_5 & allValid; // @[AecFpWarpUnits.scala 160:41]
+  assign pipes_0_io_req_valid = requestStages_0_io_out_valid; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_0_io_req_bits_op = requestStages_0_io_out_bits_op; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_0_io_req_bits_dtype = requestStages_0_io_out_bits_dtype; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_0_io_req_bits_a = requestStages_0_io_out_bits_a; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_0_io_req_bits_b = requestStages_0_io_out_bits_b; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_0_io_req_bits_c = requestStages_0_io_out_bits_c; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_0_io_resp_ready = _armCapture_T_5 & allValid; // @[AecFpWarpUnits.scala 155:41]
   assign pipes_1_clock = clock;
   assign pipes_1_reset = reset;
-  assign pipes_1_io_req_valid = requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_1_io_req_bits_op = requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_1_io_req_bits_dtype = requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_1_io_req_bits_a = requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_1_io_req_bits_b = requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_1_io_req_bits_c = requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 159:21]
-  assign pipes_1_io_resp_ready = _armCapture_T_5 & allValid; // @[AecFpWarpUnits.scala 160:41]
+  assign pipes_1_io_req_valid = requestStages_1_io_out_valid; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_1_io_req_bits_op = requestStages_1_io_out_bits_op; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_1_io_req_bits_dtype = requestStages_1_io_out_bits_dtype; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_1_io_req_bits_a = requestStages_1_io_out_bits_a; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_1_io_req_bits_b = requestStages_1_io_out_bits_b; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_1_io_req_bits_c = requestStages_1_io_out_bits_c; // @[AecFpWarpUnits.scala 154:21]
+  assign pipes_1_io_resp_ready = _armCapture_T_5 & allValid; // @[AecFpWarpUnits.scala 155:41]
   assign requestStages_0_clock = clock;
   assign requestStages_0_reset = reset;
-  assign requestStages_0_io_inValid = running & ~groupIssued & |requestBuffer_io_out_activeMask & _armCapture_T_5 &
-    allReady; // @[AecFpWarpUnits.scala 148:116]
-  assign requestStages_0_io_group = group; // @[AecFpWarpUnits.scala 149:31]
-  assign requestStages_0_io_data_0_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_0_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_0_a = requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_0_b = requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_0_c = requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_1_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_1_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_1_a = requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_1_b = requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_1_c = requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_2_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_2_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_2_a = requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_2_b = requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_2_c = requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_3_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_3_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_3_a = requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_3_b = requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_3_c = requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_4_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_4_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_4_a = requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_4_b = requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_4_c = requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_5_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_5_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_5_a = requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_5_b = requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_5_c = requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_6_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_6_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_6_a = requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_6_b = requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_6_c = requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_7_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_7_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_7_a = requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_7_b = requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_7_c = requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_8_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_8_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_8_a = requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_8_b = requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_8_c = requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_9_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_9_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_9_a = requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_9_b = requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_9_c = requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_10_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_10_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_10_a = requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_10_b = requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_10_c = requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_11_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_11_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_11_a = requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_11_b = requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_11_c = requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_12_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_12_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_12_a = requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_12_b = requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_12_c = requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_13_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_13_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_13_a = requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_13_b = requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_13_c = requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_14_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_14_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_14_a = requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_14_b = requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_14_c = requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_data_15_op = laneOp_0; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_0_io_data_15_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_0_io_data_15_a = requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_0_io_data_15_b = requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_0_io_data_15_c = requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_0_io_out_ready = pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 159:21]
+  assign requestStages_0_io_inValid = running & ~groupIssued & _armCapture_T_5 & allReady; // @[AecFpWarpUnits.scala 143:93]
+  assign requestStages_0_io_group = group; // @[AecFpWarpUnits.scala 144:31]
+  assign requestStages_0_io_data_0_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_0_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_0_a = requestBuffer_io_out_a_0; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_0_b = requestBuffer_io_out_b_0; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_0_c = requestBuffer_io_out_c_0; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_1_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_1_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_1_a = requestBuffer_io_out_a_2; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_1_b = requestBuffer_io_out_b_2; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_1_c = requestBuffer_io_out_c_2; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_2_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_2_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_2_a = requestBuffer_io_out_a_4; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_2_b = requestBuffer_io_out_b_4; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_2_c = requestBuffer_io_out_c_4; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_3_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_3_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_3_a = requestBuffer_io_out_a_6; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_3_b = requestBuffer_io_out_b_6; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_3_c = requestBuffer_io_out_c_6; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_4_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_4_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_4_a = requestBuffer_io_out_a_8; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_4_b = requestBuffer_io_out_b_8; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_4_c = requestBuffer_io_out_c_8; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_5_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_5_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_5_a = requestBuffer_io_out_a_10; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_5_b = requestBuffer_io_out_b_10; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_5_c = requestBuffer_io_out_c_10; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_6_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_6_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_6_a = requestBuffer_io_out_a_12; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_6_b = requestBuffer_io_out_b_12; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_6_c = requestBuffer_io_out_c_12; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_7_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_7_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_7_a = requestBuffer_io_out_a_14; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_7_b = requestBuffer_io_out_b_14; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_7_c = requestBuffer_io_out_c_14; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_8_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_8_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_8_a = requestBuffer_io_out_a_16; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_8_b = requestBuffer_io_out_b_16; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_8_c = requestBuffer_io_out_c_16; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_9_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_9_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_9_a = requestBuffer_io_out_a_18; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_9_b = requestBuffer_io_out_b_18; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_9_c = requestBuffer_io_out_c_18; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_10_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_10_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_10_a = requestBuffer_io_out_a_20; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_10_b = requestBuffer_io_out_b_20; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_10_c = requestBuffer_io_out_c_20; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_11_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_11_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_11_a = requestBuffer_io_out_a_22; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_11_b = requestBuffer_io_out_b_22; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_11_c = requestBuffer_io_out_c_22; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_12_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_12_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_12_a = requestBuffer_io_out_a_24; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_12_b = requestBuffer_io_out_b_24; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_12_c = requestBuffer_io_out_c_24; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_13_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_13_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_13_a = requestBuffer_io_out_a_26; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_13_b = requestBuffer_io_out_b_26; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_13_c = requestBuffer_io_out_c_26; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_14_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_14_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_14_a = requestBuffer_io_out_a_28; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_14_b = requestBuffer_io_out_b_28; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_14_c = requestBuffer_io_out_c_28; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_data_15_op = laneOp_0; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_0_io_data_15_dtype = laneDtype_0; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_0_io_data_15_a = requestBuffer_io_out_a_30; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_0_io_data_15_b = requestBuffer_io_out_b_30; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_0_io_data_15_c = requestBuffer_io_out_c_30; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_0_io_out_ready = pipes_0_io_req_ready; // @[AecFpWarpUnits.scala 154:21]
   assign requestStages_1_clock = clock;
   assign requestStages_1_reset = reset;
-  assign requestStages_1_io_inValid = running & ~groupIssued & |requestBuffer_io_out_activeMask & _armCapture_T_5 &
-    allReady; // @[AecFpWarpUnits.scala 148:116]
-  assign requestStages_1_io_group = group; // @[AecFpWarpUnits.scala 149:31]
-  assign requestStages_1_io_data_0_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_0_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_0_a = requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_0_b = requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_0_c = requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_1_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_1_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_1_a = requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_1_b = requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_1_c = requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_2_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_2_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_2_a = requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_2_b = requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_2_c = requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_3_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_3_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_3_a = requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_3_b = requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_3_c = requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_4_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_4_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_4_a = requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_4_b = requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_4_c = requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_5_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_5_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_5_a = requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_5_b = requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_5_c = requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_6_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_6_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_6_a = requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_6_b = requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_6_c = requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_7_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_7_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_7_a = requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_7_b = requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_7_c = requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_8_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_8_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_8_a = requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_8_b = requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_8_c = requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_9_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_9_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_9_a = requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_9_b = requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_9_c = requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_10_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_10_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_10_a = requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_10_b = requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_10_c = requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_11_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_11_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_11_a = requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_11_b = requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_11_c = requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_12_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_12_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_12_a = requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_12_b = requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_12_c = requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_13_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_13_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_13_a = requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_13_b = requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_13_c = requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_14_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_14_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_14_a = requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_14_b = requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_14_c = requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_data_15_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 152:51]
-  assign requestStages_1_io_data_15_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 153:57]
-  assign requestStages_1_io_data_15_a = requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 154:37]
-  assign requestStages_1_io_data_15_b = requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 155:37]
-  assign requestStages_1_io_data_15_c = requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 156:37]
-  assign requestStages_1_io_out_ready = pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 159:21]
+  assign requestStages_1_io_inValid = running & ~groupIssued & _armCapture_T_5 & allReady; // @[AecFpWarpUnits.scala 143:93]
+  assign requestStages_1_io_group = group; // @[AecFpWarpUnits.scala 144:31]
+  assign requestStages_1_io_data_0_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_0_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_0_a = requestBuffer_io_out_a_1; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_0_b = requestBuffer_io_out_b_1; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_0_c = requestBuffer_io_out_c_1; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_1_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_1_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_1_a = requestBuffer_io_out_a_3; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_1_b = requestBuffer_io_out_b_3; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_1_c = requestBuffer_io_out_c_3; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_2_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_2_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_2_a = requestBuffer_io_out_a_5; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_2_b = requestBuffer_io_out_b_5; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_2_c = requestBuffer_io_out_c_5; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_3_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_3_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_3_a = requestBuffer_io_out_a_7; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_3_b = requestBuffer_io_out_b_7; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_3_c = requestBuffer_io_out_c_7; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_4_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_4_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_4_a = requestBuffer_io_out_a_9; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_4_b = requestBuffer_io_out_b_9; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_4_c = requestBuffer_io_out_c_9; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_5_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_5_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_5_a = requestBuffer_io_out_a_11; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_5_b = requestBuffer_io_out_b_11; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_5_c = requestBuffer_io_out_c_11; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_6_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_6_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_6_a = requestBuffer_io_out_a_13; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_6_b = requestBuffer_io_out_b_13; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_6_c = requestBuffer_io_out_c_13; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_7_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_7_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_7_a = requestBuffer_io_out_a_15; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_7_b = requestBuffer_io_out_b_15; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_7_c = requestBuffer_io_out_c_15; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_8_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_8_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_8_a = requestBuffer_io_out_a_17; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_8_b = requestBuffer_io_out_b_17; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_8_c = requestBuffer_io_out_c_17; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_9_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_9_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_9_a = requestBuffer_io_out_a_19; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_9_b = requestBuffer_io_out_b_19; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_9_c = requestBuffer_io_out_c_19; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_10_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_10_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_10_a = requestBuffer_io_out_a_21; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_10_b = requestBuffer_io_out_b_21; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_10_c = requestBuffer_io_out_c_21; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_11_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_11_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_11_a = requestBuffer_io_out_a_23; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_11_b = requestBuffer_io_out_b_23; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_11_c = requestBuffer_io_out_c_23; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_12_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_12_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_12_a = requestBuffer_io_out_a_25; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_12_b = requestBuffer_io_out_b_25; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_12_c = requestBuffer_io_out_c_25; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_13_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_13_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_13_a = requestBuffer_io_out_a_27; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_13_b = requestBuffer_io_out_b_27; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_13_c = requestBuffer_io_out_c_27; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_14_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_14_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_14_a = requestBuffer_io_out_a_29; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_14_b = requestBuffer_io_out_b_29; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_14_c = requestBuffer_io_out_c_29; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_data_15_op = laneOp_1 ^ 7'h1; // @[AecFpWarpUnits.scala 147:51]
+  assign requestStages_1_io_data_15_dtype = laneDtype_1 ^ 4'h1; // @[AecFpWarpUnits.scala 148:57]
+  assign requestStages_1_io_data_15_a = requestBuffer_io_out_a_31; // @[AecFpWarpUnits.scala 149:37]
+  assign requestStages_1_io_data_15_b = requestBuffer_io_out_b_31; // @[AecFpWarpUnits.scala 150:37]
+  assign requestStages_1_io_data_15_c = requestBuffer_io_out_c_31; // @[AecFpWarpUnits.scala 151:37]
+  assign requestStages_1_io_out_ready = pipes_1_io_req_ready; // @[AecFpWarpUnits.scala 154:21]
   assign requestBuffer_clock = clock;
   assign requestBuffer_reset = reset;
-  assign requestBuffer_io_in_activeMask = io_req_bits_activeMask; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_0 = io_req_bits_a_0; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_1 = io_req_bits_a_1; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_2 = io_req_bits_a_2; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_3 = io_req_bits_a_3; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_4 = io_req_bits_a_4; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_5 = io_req_bits_a_5; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_6 = io_req_bits_a_6; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_7 = io_req_bits_a_7; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_8 = io_req_bits_a_8; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_9 = io_req_bits_a_9; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_10 = io_req_bits_a_10; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_11 = io_req_bits_a_11; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_12 = io_req_bits_a_12; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_13 = io_req_bits_a_13; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_14 = io_req_bits_a_14; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_15 = io_req_bits_a_15; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_16 = io_req_bits_a_16; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_17 = io_req_bits_a_17; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_18 = io_req_bits_a_18; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_19 = io_req_bits_a_19; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_20 = io_req_bits_a_20; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_21 = io_req_bits_a_21; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_22 = io_req_bits_a_22; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_23 = io_req_bits_a_23; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_24 = io_req_bits_a_24; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_25 = io_req_bits_a_25; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_26 = io_req_bits_a_26; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_27 = io_req_bits_a_27; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_28 = io_req_bits_a_28; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_29 = io_req_bits_a_29; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_30 = io_req_bits_a_30; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_a_31 = io_req_bits_a_31; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_0 = io_req_bits_b_0; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_1 = io_req_bits_b_1; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_2 = io_req_bits_b_2; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_3 = io_req_bits_b_3; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_4 = io_req_bits_b_4; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_5 = io_req_bits_b_5; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_6 = io_req_bits_b_6; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_7 = io_req_bits_b_7; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_8 = io_req_bits_b_8; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_9 = io_req_bits_b_9; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_10 = io_req_bits_b_10; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_11 = io_req_bits_b_11; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_12 = io_req_bits_b_12; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_13 = io_req_bits_b_13; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_14 = io_req_bits_b_14; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_15 = io_req_bits_b_15; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_16 = io_req_bits_b_16; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_17 = io_req_bits_b_17; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_18 = io_req_bits_b_18; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_19 = io_req_bits_b_19; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_20 = io_req_bits_b_20; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_21 = io_req_bits_b_21; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_22 = io_req_bits_b_22; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_23 = io_req_bits_b_23; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_24 = io_req_bits_b_24; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_25 = io_req_bits_b_25; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_26 = io_req_bits_b_26; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_27 = io_req_bits_b_27; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_28 = io_req_bits_b_28; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_29 = io_req_bits_b_29; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_30 = io_req_bits_b_30; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_b_31 = io_req_bits_b_31; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_0 = io_req_bits_c_0; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_1 = io_req_bits_c_1; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_2 = io_req_bits_c_2; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_3 = io_req_bits_c_3; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_4 = io_req_bits_c_4; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_5 = io_req_bits_c_5; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_6 = io_req_bits_c_6; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_7 = io_req_bits_c_7; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_8 = io_req_bits_c_8; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_9 = io_req_bits_c_9; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_10 = io_req_bits_c_10; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_11 = io_req_bits_c_11; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_12 = io_req_bits_c_12; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_13 = io_req_bits_c_13; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_14 = io_req_bits_c_14; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_15 = io_req_bits_c_15; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_16 = io_req_bits_c_16; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_17 = io_req_bits_c_17; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_18 = io_req_bits_c_18; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_19 = io_req_bits_c_19; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_20 = io_req_bits_c_20; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_21 = io_req_bits_c_21; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_22 = io_req_bits_c_22; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_23 = io_req_bits_c_23; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_24 = io_req_bits_c_24; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_25 = io_req_bits_c_25; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_26 = io_req_bits_c_26; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_27 = io_req_bits_c_27; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_28 = io_req_bits_c_28; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_29 = io_req_bits_c_29; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_30 = io_req_bits_c_30; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_c_31 = io_req_bits_c_31; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_in_dest = io_req_bits_dest; // @[AecFpWarpUnits.scala 118:23]
-  assign requestBuffer_io_arm_0 = armClusters_0; // @[AecFpWarpUnits.scala 138:24]
-  assign requestBuffer_io_arm_1 = armClusters_1; // @[AecFpWarpUnits.scala 138:24]
-  assign requestBuffer_io_arm_2 = armClusters_2; // @[AecFpWarpUnits.scala 138:24]
-  assign requestBuffer_io_arm_3 = armClusters_3; // @[AecFpWarpUnits.scala 138:24]
-  assign requestBuffer_io_arm_4 = armClusters_4; // @[AecFpWarpUnits.scala 138:24]
-  assign requestBuffer_io_arm_5 = armClusters_5; // @[AecFpWarpUnits.scala 138:24]
-  assign requestBuffer_io_arm_6 = armClusters_6; // @[AecFpWarpUnits.scala 138:24]
-  assign requestBuffer_io_arm_7 = armClusters_7; // @[AecFpWarpUnits.scala 138:24]
+  assign requestBuffer_io_in_activeMask = io_req_bits_activeMask; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_0 = io_req_bits_a_0; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_1 = io_req_bits_a_1; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_2 = io_req_bits_a_2; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_3 = io_req_bits_a_3; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_4 = io_req_bits_a_4; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_5 = io_req_bits_a_5; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_6 = io_req_bits_a_6; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_7 = io_req_bits_a_7; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_8 = io_req_bits_a_8; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_9 = io_req_bits_a_9; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_10 = io_req_bits_a_10; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_11 = io_req_bits_a_11; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_12 = io_req_bits_a_12; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_13 = io_req_bits_a_13; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_14 = io_req_bits_a_14; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_15 = io_req_bits_a_15; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_16 = io_req_bits_a_16; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_17 = io_req_bits_a_17; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_18 = io_req_bits_a_18; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_19 = io_req_bits_a_19; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_20 = io_req_bits_a_20; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_21 = io_req_bits_a_21; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_22 = io_req_bits_a_22; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_23 = io_req_bits_a_23; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_24 = io_req_bits_a_24; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_25 = io_req_bits_a_25; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_26 = io_req_bits_a_26; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_27 = io_req_bits_a_27; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_28 = io_req_bits_a_28; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_29 = io_req_bits_a_29; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_30 = io_req_bits_a_30; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_a_31 = io_req_bits_a_31; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_0 = io_req_bits_b_0; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_1 = io_req_bits_b_1; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_2 = io_req_bits_b_2; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_3 = io_req_bits_b_3; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_4 = io_req_bits_b_4; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_5 = io_req_bits_b_5; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_6 = io_req_bits_b_6; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_7 = io_req_bits_b_7; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_8 = io_req_bits_b_8; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_9 = io_req_bits_b_9; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_10 = io_req_bits_b_10; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_11 = io_req_bits_b_11; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_12 = io_req_bits_b_12; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_13 = io_req_bits_b_13; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_14 = io_req_bits_b_14; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_15 = io_req_bits_b_15; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_16 = io_req_bits_b_16; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_17 = io_req_bits_b_17; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_18 = io_req_bits_b_18; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_19 = io_req_bits_b_19; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_20 = io_req_bits_b_20; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_21 = io_req_bits_b_21; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_22 = io_req_bits_b_22; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_23 = io_req_bits_b_23; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_24 = io_req_bits_b_24; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_25 = io_req_bits_b_25; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_26 = io_req_bits_b_26; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_27 = io_req_bits_b_27; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_28 = io_req_bits_b_28; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_29 = io_req_bits_b_29; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_30 = io_req_bits_b_30; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_b_31 = io_req_bits_b_31; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_0 = io_req_bits_c_0; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_1 = io_req_bits_c_1; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_2 = io_req_bits_c_2; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_3 = io_req_bits_c_3; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_4 = io_req_bits_c_4; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_5 = io_req_bits_c_5; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_6 = io_req_bits_c_6; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_7 = io_req_bits_c_7; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_8 = io_req_bits_c_8; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_9 = io_req_bits_c_9; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_10 = io_req_bits_c_10; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_11 = io_req_bits_c_11; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_12 = io_req_bits_c_12; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_13 = io_req_bits_c_13; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_14 = io_req_bits_c_14; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_15 = io_req_bits_c_15; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_16 = io_req_bits_c_16; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_17 = io_req_bits_c_17; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_18 = io_req_bits_c_18; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_19 = io_req_bits_c_19; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_20 = io_req_bits_c_20; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_21 = io_req_bits_c_21; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_22 = io_req_bits_c_22; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_23 = io_req_bits_c_23; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_24 = io_req_bits_c_24; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_25 = io_req_bits_c_25; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_26 = io_req_bits_c_26; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_27 = io_req_bits_c_27; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_28 = io_req_bits_c_28; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_29 = io_req_bits_c_29; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_30 = io_req_bits_c_30; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_c_31 = io_req_bits_c_31; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_in_dest = io_req_bits_dest; // @[AecFpWarpUnits.scala 114:23]
+  assign requestBuffer_io_arm_0 = armClusters_0; // @[AecFpWarpUnits.scala 133:24]
+  assign requestBuffer_io_arm_1 = armClusters_1; // @[AecFpWarpUnits.scala 133:24]
+  assign requestBuffer_io_arm_2 = armClusters_2; // @[AecFpWarpUnits.scala 133:24]
+  assign requestBuffer_io_arm_3 = armClusters_3; // @[AecFpWarpUnits.scala 133:24]
+  assign requestBuffer_io_arm_4 = armClusters_4; // @[AecFpWarpUnits.scala 133:24]
+  assign requestBuffer_io_arm_5 = armClusters_5; // @[AecFpWarpUnits.scala 133:24]
+  assign requestBuffer_io_arm_6 = armClusters_6; // @[AecFpWarpUnits.scala 133:24]
+  assign requestBuffer_io_arm_7 = armClusters_7; // @[AecFpWarpUnits.scala 133:24]
   assign requestBuffer_io_capture = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
   assign resultBanks_0_clock = clock;
   assign resultBanks_0_reset = reset;
-  assign resultBanks_0_io_write = running & _armCapture_T_5 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_0_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_0_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_0_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_0_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_0_io_write = running & _armCapture_T_5 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_0_io_writeResult = requestBuffer_io_out_activeMask[0] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_0_io_writeFlags = requestBuffer_io_out_activeMask[0] ? pipes_0_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_0_io_writePredicate = requestBuffer_io_out_activeMask[0] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_0_io_writeError = requestBuffer_io_out_activeMask[0] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_1_clock = clock;
   assign resultBanks_1_reset = reset;
-  assign resultBanks_1_io_write = running & _armCapture_T_5 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_1_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_1_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_1_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_1_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_1_io_write = running & _armCapture_T_5 & allValid & group == 4'h0; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_1_io_writeResult = requestBuffer_io_out_activeMask[1] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_1_io_writeFlags = requestBuffer_io_out_activeMask[1] ? pipes_1_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_1_io_writePredicate = requestBuffer_io_out_activeMask[1] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_1_io_writeError = requestBuffer_io_out_activeMask[1] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_2_clock = clock;
   assign resultBanks_2_reset = reset;
-  assign resultBanks_2_io_write = running & _armCapture_T_5 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_2_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_2_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_2_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_2_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_2_io_write = running & _armCapture_T_5 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_2_io_writeResult = requestBuffer_io_out_activeMask[2] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_2_io_writeFlags = requestBuffer_io_out_activeMask[2] ? pipes_0_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_2_io_writePredicate = requestBuffer_io_out_activeMask[2] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_2_io_writeError = requestBuffer_io_out_activeMask[2] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_3_clock = clock;
   assign resultBanks_3_reset = reset;
-  assign resultBanks_3_io_write = running & _armCapture_T_5 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_3_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_3_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_3_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_3_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_3_io_write = running & _armCapture_T_5 & allValid & group == 4'h1; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_3_io_writeResult = requestBuffer_io_out_activeMask[3] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_3_io_writeFlags = requestBuffer_io_out_activeMask[3] ? pipes_1_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_3_io_writePredicate = requestBuffer_io_out_activeMask[3] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_3_io_writeError = requestBuffer_io_out_activeMask[3] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_4_clock = clock;
   assign resultBanks_4_reset = reset;
-  assign resultBanks_4_io_write = running & _armCapture_T_5 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_4_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_4_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_4_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_4_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_4_io_write = running & _armCapture_T_5 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_4_io_writeResult = requestBuffer_io_out_activeMask[4] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_4_io_writeFlags = requestBuffer_io_out_activeMask[4] ? pipes_0_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_4_io_writePredicate = requestBuffer_io_out_activeMask[4] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_4_io_writeError = requestBuffer_io_out_activeMask[4] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_5_clock = clock;
   assign resultBanks_5_reset = reset;
-  assign resultBanks_5_io_write = running & _armCapture_T_5 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_5_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_5_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_5_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_5_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_5_io_write = running & _armCapture_T_5 & allValid & group == 4'h2; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_5_io_writeResult = requestBuffer_io_out_activeMask[5] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_5_io_writeFlags = requestBuffer_io_out_activeMask[5] ? pipes_1_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_5_io_writePredicate = requestBuffer_io_out_activeMask[5] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_5_io_writeError = requestBuffer_io_out_activeMask[5] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_6_clock = clock;
   assign resultBanks_6_reset = reset;
-  assign resultBanks_6_io_write = running & _armCapture_T_5 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_6_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_6_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_6_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_6_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_6_io_write = running & _armCapture_T_5 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_6_io_writeResult = requestBuffer_io_out_activeMask[6] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_6_io_writeFlags = requestBuffer_io_out_activeMask[6] ? pipes_0_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_6_io_writePredicate = requestBuffer_io_out_activeMask[6] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_6_io_writeError = requestBuffer_io_out_activeMask[6] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_7_clock = clock;
   assign resultBanks_7_reset = reset;
-  assign resultBanks_7_io_write = running & _armCapture_T_5 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_7_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_7_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_7_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_7_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_7_io_write = running & _armCapture_T_5 & allValid & group == 4'h3; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_7_io_writeResult = requestBuffer_io_out_activeMask[7] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_7_io_writeFlags = requestBuffer_io_out_activeMask[7] ? pipes_1_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_7_io_writePredicate = requestBuffer_io_out_activeMask[7] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_7_io_writeError = requestBuffer_io_out_activeMask[7] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_8_clock = clock;
   assign resultBanks_8_reset = reset;
-  assign resultBanks_8_io_write = running & _armCapture_T_5 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_8_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_8_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_8_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_8_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_8_io_write = running & _armCapture_T_5 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_8_io_writeResult = requestBuffer_io_out_activeMask[8] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_8_io_writeFlags = requestBuffer_io_out_activeMask[8] ? pipes_0_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_8_io_writePredicate = requestBuffer_io_out_activeMask[8] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_8_io_writeError = requestBuffer_io_out_activeMask[8] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_9_clock = clock;
   assign resultBanks_9_reset = reset;
-  assign resultBanks_9_io_write = running & _armCapture_T_5 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_9_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_9_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_9_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_9_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_9_io_write = running & _armCapture_T_5 & allValid & group == 4'h4; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_9_io_writeResult = requestBuffer_io_out_activeMask[9] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_9_io_writeFlags = requestBuffer_io_out_activeMask[9] ? pipes_1_io_resp_bits_exception_flags : 5'h0; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_9_io_writePredicate = requestBuffer_io_out_activeMask[9] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_9_io_writeError = requestBuffer_io_out_activeMask[9] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_10_clock = clock;
   assign resultBanks_10_reset = reset;
-  assign resultBanks_10_io_write = running & _armCapture_T_5 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_10_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_10_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_10_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_10_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_10_io_write = running & _armCapture_T_5 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_10_io_writeResult = requestBuffer_io_out_activeMask[10] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_10_io_writeFlags = requestBuffer_io_out_activeMask[10] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_10_io_writePredicate = requestBuffer_io_out_activeMask[10] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_10_io_writeError = requestBuffer_io_out_activeMask[10] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_11_clock = clock;
   assign resultBanks_11_reset = reset;
-  assign resultBanks_11_io_write = running & _armCapture_T_5 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_11_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_11_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_11_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_11_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_11_io_write = running & _armCapture_T_5 & allValid & group == 4'h5; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_11_io_writeResult = requestBuffer_io_out_activeMask[11] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_11_io_writeFlags = requestBuffer_io_out_activeMask[11] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_11_io_writePredicate = requestBuffer_io_out_activeMask[11] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_11_io_writeError = requestBuffer_io_out_activeMask[11] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_12_clock = clock;
   assign resultBanks_12_reset = reset;
-  assign resultBanks_12_io_write = running & _armCapture_T_5 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_12_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_12_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_12_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_12_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_12_io_write = running & _armCapture_T_5 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_12_io_writeResult = requestBuffer_io_out_activeMask[12] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_12_io_writeFlags = requestBuffer_io_out_activeMask[12] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_12_io_writePredicate = requestBuffer_io_out_activeMask[12] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_12_io_writeError = requestBuffer_io_out_activeMask[12] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_13_clock = clock;
   assign resultBanks_13_reset = reset;
-  assign resultBanks_13_io_write = running & _armCapture_T_5 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_13_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_13_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_13_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_13_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_13_io_write = running & _armCapture_T_5 & allValid & group == 4'h6; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_13_io_writeResult = requestBuffer_io_out_activeMask[13] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_13_io_writeFlags = requestBuffer_io_out_activeMask[13] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_13_io_writePredicate = requestBuffer_io_out_activeMask[13] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_13_io_writeError = requestBuffer_io_out_activeMask[13] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_14_clock = clock;
   assign resultBanks_14_reset = reset;
-  assign resultBanks_14_io_write = running & _armCapture_T_5 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_14_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_14_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_14_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_14_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_14_io_write = running & _armCapture_T_5 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_14_io_writeResult = requestBuffer_io_out_activeMask[14] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_14_io_writeFlags = requestBuffer_io_out_activeMask[14] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_14_io_writePredicate = requestBuffer_io_out_activeMask[14] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_14_io_writeError = requestBuffer_io_out_activeMask[14] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_15_clock = clock;
   assign resultBanks_15_reset = reset;
-  assign resultBanks_15_io_write = running & _armCapture_T_5 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_15_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_15_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_15_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_15_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_15_io_write = running & _armCapture_T_5 & allValid & group == 4'h7; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_15_io_writeResult = requestBuffer_io_out_activeMask[15] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_15_io_writeFlags = requestBuffer_io_out_activeMask[15] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_15_io_writePredicate = requestBuffer_io_out_activeMask[15] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_15_io_writeError = requestBuffer_io_out_activeMask[15] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_16_clock = clock;
   assign resultBanks_16_reset = reset;
-  assign resultBanks_16_io_write = running & _armCapture_T_5 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_16_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_16_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_16_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_16_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_16_io_write = running & _armCapture_T_5 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_16_io_writeResult = requestBuffer_io_out_activeMask[16] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_16_io_writeFlags = requestBuffer_io_out_activeMask[16] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_16_io_writePredicate = requestBuffer_io_out_activeMask[16] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_16_io_writeError = requestBuffer_io_out_activeMask[16] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_17_clock = clock;
   assign resultBanks_17_reset = reset;
-  assign resultBanks_17_io_write = running & _armCapture_T_5 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_17_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_17_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_17_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_17_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_17_io_write = running & _armCapture_T_5 & allValid & group == 4'h8; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_17_io_writeResult = requestBuffer_io_out_activeMask[17] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_17_io_writeFlags = requestBuffer_io_out_activeMask[17] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_17_io_writePredicate = requestBuffer_io_out_activeMask[17] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_17_io_writeError = requestBuffer_io_out_activeMask[17] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_18_clock = clock;
   assign resultBanks_18_reset = reset;
-  assign resultBanks_18_io_write = running & _armCapture_T_5 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_18_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_18_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_18_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_18_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_18_io_write = running & _armCapture_T_5 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_18_io_writeResult = requestBuffer_io_out_activeMask[18] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_18_io_writeFlags = requestBuffer_io_out_activeMask[18] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_18_io_writePredicate = requestBuffer_io_out_activeMask[18] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_18_io_writeError = requestBuffer_io_out_activeMask[18] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_19_clock = clock;
   assign resultBanks_19_reset = reset;
-  assign resultBanks_19_io_write = running & _armCapture_T_5 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_19_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_19_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_19_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_19_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_19_io_write = running & _armCapture_T_5 & allValid & group == 4'h9; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_19_io_writeResult = requestBuffer_io_out_activeMask[19] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_19_io_writeFlags = requestBuffer_io_out_activeMask[19] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_19_io_writePredicate = requestBuffer_io_out_activeMask[19] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_19_io_writeError = requestBuffer_io_out_activeMask[19] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_20_clock = clock;
   assign resultBanks_20_reset = reset;
-  assign resultBanks_20_io_write = running & _armCapture_T_5 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_20_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_20_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_20_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_20_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_20_io_write = running & _armCapture_T_5 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_20_io_writeResult = requestBuffer_io_out_activeMask[20] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_20_io_writeFlags = requestBuffer_io_out_activeMask[20] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_20_io_writePredicate = requestBuffer_io_out_activeMask[20] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_20_io_writeError = requestBuffer_io_out_activeMask[20] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_21_clock = clock;
   assign resultBanks_21_reset = reset;
-  assign resultBanks_21_io_write = running & _armCapture_T_5 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_21_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_21_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_21_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_21_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_21_io_write = running & _armCapture_T_5 & allValid & group == 4'ha; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_21_io_writeResult = requestBuffer_io_out_activeMask[21] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_21_io_writeFlags = requestBuffer_io_out_activeMask[21] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_21_io_writePredicate = requestBuffer_io_out_activeMask[21] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_21_io_writeError = requestBuffer_io_out_activeMask[21] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_22_clock = clock;
   assign resultBanks_22_reset = reset;
-  assign resultBanks_22_io_write = running & _armCapture_T_5 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_22_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_22_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_22_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_22_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_22_io_write = running & _armCapture_T_5 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_22_io_writeResult = requestBuffer_io_out_activeMask[22] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_22_io_writeFlags = requestBuffer_io_out_activeMask[22] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_22_io_writePredicate = requestBuffer_io_out_activeMask[22] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_22_io_writeError = requestBuffer_io_out_activeMask[22] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_23_clock = clock;
   assign resultBanks_23_reset = reset;
-  assign resultBanks_23_io_write = running & _armCapture_T_5 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_23_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_23_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_23_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_23_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_23_io_write = running & _armCapture_T_5 & allValid & group == 4'hb; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_23_io_writeResult = requestBuffer_io_out_activeMask[23] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_23_io_writeFlags = requestBuffer_io_out_activeMask[23] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_23_io_writePredicate = requestBuffer_io_out_activeMask[23] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_23_io_writeError = requestBuffer_io_out_activeMask[23] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_24_clock = clock;
   assign resultBanks_24_reset = reset;
-  assign resultBanks_24_io_write = running & _armCapture_T_5 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_24_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_24_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_24_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_24_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_24_io_write = running & _armCapture_T_5 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_24_io_writeResult = requestBuffer_io_out_activeMask[24] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_24_io_writeFlags = requestBuffer_io_out_activeMask[24] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_24_io_writePredicate = requestBuffer_io_out_activeMask[24] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_24_io_writeError = requestBuffer_io_out_activeMask[24] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_25_clock = clock;
   assign resultBanks_25_reset = reset;
-  assign resultBanks_25_io_write = running & _armCapture_T_5 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_25_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_25_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_25_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_25_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_25_io_write = running & _armCapture_T_5 & allValid & group == 4'hc; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_25_io_writeResult = requestBuffer_io_out_activeMask[25] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_25_io_writeFlags = requestBuffer_io_out_activeMask[25] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_25_io_writePredicate = requestBuffer_io_out_activeMask[25] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_25_io_writeError = requestBuffer_io_out_activeMask[25] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_26_clock = clock;
   assign resultBanks_26_reset = reset;
-  assign resultBanks_26_io_write = running & _armCapture_T_5 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_26_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_26_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_26_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_26_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_26_io_write = running & _armCapture_T_5 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_26_io_writeResult = requestBuffer_io_out_activeMask[26] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_26_io_writeFlags = requestBuffer_io_out_activeMask[26] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_26_io_writePredicate = requestBuffer_io_out_activeMask[26] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_26_io_writeError = requestBuffer_io_out_activeMask[26] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_27_clock = clock;
   assign resultBanks_27_reset = reset;
-  assign resultBanks_27_io_write = running & _armCapture_T_5 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_27_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_27_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_27_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_27_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_27_io_write = running & _armCapture_T_5 & allValid & group == 4'hd; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_27_io_writeResult = requestBuffer_io_out_activeMask[27] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_27_io_writeFlags = requestBuffer_io_out_activeMask[27] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_27_io_writePredicate = requestBuffer_io_out_activeMask[27] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_27_io_writeError = requestBuffer_io_out_activeMask[27] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_28_clock = clock;
   assign resultBanks_28_reset = reset;
-  assign resultBanks_28_io_write = running & _armCapture_T_5 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_28_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_28_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_28_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_28_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_28_io_write = running & _armCapture_T_5 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_28_io_writeResult = requestBuffer_io_out_activeMask[28] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_28_io_writeFlags = requestBuffer_io_out_activeMask[28] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_28_io_writePredicate = requestBuffer_io_out_activeMask[28] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_28_io_writeError = requestBuffer_io_out_activeMask[28] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_29_clock = clock;
   assign resultBanks_29_reset = reset;
-  assign resultBanks_29_io_write = running & _armCapture_T_5 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_29_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_29_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_29_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_29_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_29_io_write = running & _armCapture_T_5 & allValid & group == 4'he; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_29_io_writeResult = requestBuffer_io_out_activeMask[29] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_29_io_writeFlags = requestBuffer_io_out_activeMask[29] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_29_io_writePredicate = requestBuffer_io_out_activeMask[29] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_29_io_writeError = requestBuffer_io_out_activeMask[29] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_30_clock = clock;
   assign resultBanks_30_reset = reset;
-  assign resultBanks_30_io_write = running & _armCapture_T_5 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_30_io_writeResult = pipes_0_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_30_io_writeFlags = pipes_0_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_30_io_writePredicate = pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_30_io_writeError = pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_30_io_write = running & _armCapture_T_5 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_30_io_writeResult = requestBuffer_io_out_activeMask[30] ? pipes_0_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_30_io_writeFlags = requestBuffer_io_out_activeMask[30] ? pipes_0_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_30_io_writePredicate = requestBuffer_io_out_activeMask[30] & pipes_0_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_30_io_writeError = requestBuffer_io_out_activeMask[30] & pipes_0_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   assign resultBanks_31_clock = clock;
   assign resultBanks_31_reset = reset;
-  assign resultBanks_31_io_write = running & _armCapture_T_5 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 164:81]
-  assign resultBanks_31_io_writeResult = pipes_1_io_resp_bits_result; // @[AecFpWarpUnits.scala 165:51]
-  assign resultBanks_31_io_writeFlags = pipes_1_io_resp_bits_exception_flags; // @[AecFpWarpUnits.scala 166:50]
-  assign resultBanks_31_io_writePredicate = pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 167:54]
-  assign resultBanks_31_io_writeError = pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 168:50]
+  assign resultBanks_31_io_write = running & _armCapture_T_5 & allValid & group == 4'hf; // @[AecFpWarpUnits.scala 159:81]
+  assign resultBanks_31_io_writeResult = requestBuffer_io_out_activeMask[31] ? pipes_1_io_resp_bits_result : 64'h0; // @[AecFpWarpUnits.scala 160:57]
+  assign resultBanks_31_io_writeFlags = requestBuffer_io_out_activeMask[31] ? pipes_1_io_resp_bits_exception_flags : 5'h0
+    ; // @[AecFpWarpUnits.scala 161:56]
+  assign resultBanks_31_io_writePredicate = requestBuffer_io_out_activeMask[31] & pipes_1_io_resp_bits_predicate_result; // @[AecFpWarpUnits.scala 162:92]
+  assign resultBanks_31_io_writeError = requestBuffer_io_out_activeMask[31] & pipes_1_io_resp_bits_error; // @[AecFpWarpUnits.scala 163:88]
   always @(posedge clock) begin
-    if (reset) begin // @[AecFpWarpUnits.scala 120:31]
-      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 120:31]
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 178:20]
+    if (reset) begin // @[AecFpWarpUnits.scala 116:31]
+      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 116:31]
+    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      capturePending <= 1'h0; // @[AecFpWarpUnits.scala 173:20]
     end else begin
       capturePending <= _GEN_0;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 121:22]
-      group <= 4'h0; // @[AecFpWarpUnits.scala 121:22]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
-      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 194:37]
-        group <= 4'h0; // @[AecFpWarpUnits.scala 194:85]
+    if (reset) begin // @[AecFpWarpUnits.scala 117:22]
+      group <= 4'h0; // @[AecFpWarpUnits.scala 117:22]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 183:24]
+      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 186:37]
+        group <= 4'h0; // @[AecFpWarpUnits.scala 186:85]
       end else begin
-        group <= _group_T_1; // @[AecFpWarpUnits.scala 194:112]
+        group <= _group_T_1; // @[AecFpWarpUnits.scala 186:112]
       end
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      group <= 4'h0; // @[AecFpWarpUnits.scala 178:38]
+    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      group <= 4'h0; // @[AecFpWarpUnits.scala 173:38]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 121:91]
-      outValid <= 1'h0; // @[AecFpWarpUnits.scala 121:91]
-    end else if (_T_139) begin // @[AecFpWarpUnits.scala 196:23]
-      outValid <= 1'h0; // @[AecFpWarpUnits.scala 197:14]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
-      outValid <= _GEN_16;
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      outValid <= ~_running_T; // @[AecFpWarpUnits.scala 182:14]
+    if (reset) begin // @[AecFpWarpUnits.scala 117:91]
+      outValid <= 1'h0; // @[AecFpWarpUnits.scala 117:91]
+    end else if (_T_11) begin // @[AecFpWarpUnits.scala 188:23]
+      outValid <= 1'h0; // @[AecFpWarpUnits.scala 189:14]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 183:24]
+      outValid <= _GEN_15;
+    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      outValid <= 1'h0; // @[AecFpWarpUnits.scala 177:14]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 122:24]
-      running <= 1'h0; // @[AecFpWarpUnits.scala 122:24]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
-      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 194:37]
-        running <= 1'h0; // @[AecFpWarpUnits.scala 194:67]
+    if (reset) begin // @[AecFpWarpUnits.scala 118:24]
+      running <= 1'h0; // @[AecFpWarpUnits.scala 118:24]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 183:24]
+      if (_resultBanks_30_io_write_T_3) begin // @[AecFpWarpUnits.scala 186:37]
+        running <= 1'h0; // @[AecFpWarpUnits.scala 186:67]
       end else begin
         running <= _GEN_11;
       end
     end else begin
       running <= _GEN_11;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 123:28]
-      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 123:28]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
-      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 190:17]
+    if (reset) begin // @[AecFpWarpUnits.scala 119:28]
+      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 119:28]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 183:24]
+      groupIssued <= 1'h0; // @[AecFpWarpUnits.scala 184:17]
     end else begin
-      groupIssued <= _GEN_14;
+      groupIssued <= _GEN_13;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 124:30]
-      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 124:30]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
-      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 193:19]
+    if (reset) begin // @[AecFpWarpUnits.scala 120:30]
+      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 120:30]
+    end else if (commitPending) begin // @[AecFpWarpUnits.scala 183:24]
+      commitPending <= 1'h0; // @[AecFpWarpUnits.scala 185:19]
     end else begin
-      commitPending <= _GEN_15;
+      commitPending <= _GEN_14;
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 126:26]
-      writeMask <= 32'h0; // @[AecFpWarpUnits.scala 126:26]
-    end else if (commitPending) begin // @[AecFpWarpUnits.scala 189:24]
-      writeMask <= _writeMask_T_1; // @[AecFpWarpUnits.scala 192:15]
-    end else if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      writeMask <= 32'h0; // @[AecFpWarpUnits.scala 183:15]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      laneOp_0 <= io_req_bits_op[6:0]; // @[AecFpWarpUnits.scala 169:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      laneOp_0 <= io_req_bits_op[6:0]; // @[AecFpWarpUnits.scala 174:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      laneOp_1 <= _laneOp_1_T_1; // @[AecFpWarpUnits.scala 169:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      laneOp_1 <= _laneOp_1_T_1; // @[AecFpWarpUnits.scala 174:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      laneDtype_0 <= io_req_bits_dtype; // @[AecFpWarpUnits.scala 170:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      laneDtype_0 <= io_req_bits_dtype; // @[AecFpWarpUnits.scala 175:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      laneDtype_1 <= _laneDtype_1_T; // @[AecFpWarpUnits.scala 170:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      laneDtype_1 <= _laneDtype_1_T; // @[AecFpWarpUnits.scala 175:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      laneDest_0 <= io_req_bits_dest; // @[AecFpWarpUnits.scala 171:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      laneDest_0 <= io_req_bits_dest; // @[AecFpWarpUnits.scala 176:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 167:22]
+      laneDest_1 <= _laneDest_1_T; // @[AecFpWarpUnits.scala 171:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecFpWarpUnits.scala 172:22]
-      laneDest_1 <= _laneDest_1_T; // @[AecFpWarpUnits.scala 176:19]
-    end
-    if (reset) begin // @[AecFpWarpUnits.scala 133:27]
-      armPending <= 1'h0; // @[AecFpWarpUnits.scala 133:27]
+    if (reset) begin // @[AecFpWarpUnits.scala 128:27]
+      armPending <= 1'h0; // @[AecFpWarpUnits.scala 128:27]
     end else begin
-      armPending <= armCapture; // @[AecFpWarpUnits.scala 170:14]
+      armPending <= armCapture; // @[AecFpWarpUnits.scala 165:14]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_0 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_0 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_0 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_0 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_1 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_1 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_1 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_1 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_2 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_2 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_2 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_2 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_3 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_3 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_3 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_3 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_4 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_4 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_4 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_4 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_5 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_5 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_5 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_5 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_6 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_6 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_6 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_6 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
-    if (reset) begin // @[AecFpWarpUnits.scala 135:28]
-      armClusters_7 <= 1'h0; // @[AecFpWarpUnits.scala 135:28]
+    if (reset) begin // @[AecFpWarpUnits.scala 130:28]
+      armClusters_7 <= 1'h0; // @[AecFpWarpUnits.scala 130:28]
     end else begin
-      armClusters_7 <= armCapture; // @[AecFpWarpUnits.scala 136:25]
+      armClusters_7 <= armCapture; // @[AecFpWarpUnits.scala 131:25]
     end
   end
 // Register and memory initialization
@@ -16164,37 +16874,35 @@ initial begin
   _RAND_5 = {1{`RANDOM}};
   commitPending = _RAND_5[0:0];
   _RAND_6 = {1{`RANDOM}};
-  writeMask = _RAND_6[31:0];
+  laneOp_0 = _RAND_6[6:0];
   _RAND_7 = {1{`RANDOM}};
-  laneOp_0 = _RAND_7[6:0];
+  laneOp_1 = _RAND_7[6:0];
   _RAND_8 = {1{`RANDOM}};
-  laneOp_1 = _RAND_8[6:0];
+  laneDtype_0 = _RAND_8[3:0];
   _RAND_9 = {1{`RANDOM}};
-  laneDtype_0 = _RAND_9[3:0];
+  laneDtype_1 = _RAND_9[3:0];
   _RAND_10 = {1{`RANDOM}};
-  laneDtype_1 = _RAND_10[3:0];
+  laneDest_0 = _RAND_10[7:0];
   _RAND_11 = {1{`RANDOM}};
-  laneDest_0 = _RAND_11[7:0];
+  laneDest_1 = _RAND_11[7:0];
   _RAND_12 = {1{`RANDOM}};
-  laneDest_1 = _RAND_12[7:0];
+  armPending = _RAND_12[0:0];
   _RAND_13 = {1{`RANDOM}};
-  armPending = _RAND_13[0:0];
+  armClusters_0 = _RAND_13[0:0];
   _RAND_14 = {1{`RANDOM}};
-  armClusters_0 = _RAND_14[0:0];
+  armClusters_1 = _RAND_14[0:0];
   _RAND_15 = {1{`RANDOM}};
-  armClusters_1 = _RAND_15[0:0];
+  armClusters_2 = _RAND_15[0:0];
   _RAND_16 = {1{`RANDOM}};
-  armClusters_2 = _RAND_16[0:0];
+  armClusters_3 = _RAND_16[0:0];
   _RAND_17 = {1{`RANDOM}};
-  armClusters_3 = _RAND_17[0:0];
+  armClusters_4 = _RAND_17[0:0];
   _RAND_18 = {1{`RANDOM}};
-  armClusters_4 = _RAND_18[0:0];
+  armClusters_5 = _RAND_18[0:0];
   _RAND_19 = {1{`RANDOM}};
-  armClusters_5 = _RAND_19[0:0];
+  armClusters_6 = _RAND_19[0:0];
   _RAND_20 = {1{`RANDOM}};
-  armClusters_6 = _RAND_20[0:0];
-  _RAND_21 = {1{`RANDOM}};
-  armClusters_7 = _RAND_21[0:0];
+  armClusters_7 = _RAND_20[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial

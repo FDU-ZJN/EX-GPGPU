@@ -3,6 +3,8 @@ from __future__ import annotations
 import ast,json,re
 from pathlib import Path
 from .execution import create_gpu
+MEMORY_TARGETS=('gmem','pmem','cmem')
+LOCAL_CAPACITY_LIMIT=65536
 def load_yaml(path):
  d={}; cur=None
  for raw in Path(path).read_text().splitlines():
@@ -36,17 +38,38 @@ def parse(v):
   except ValueError:return v.strip('"\'')
 def parse_item(v):
  k,x=v.split(':',1);return {k.strip():parse(x.strip())}
+def derive_capacities(case, manifest):
+ case=Path(case); capacity={name:0 for name in MEMORY_TARGETS}; init_capacity={name:0 for name in MEMORY_TARGETS}
+ for item in manifest.get('memory_init',[]):
+  target=item.get('target','gmem')
+  if target not in capacity: raise ValueError(f'unsupported memory target {target!r}')
+  payload=(case.parent/item['file']).read_bytes(); declared=item.get('size')
+  if declared is not None and declared != len(payload):
+   raise ValueError(f"artifact size mismatch for {item['file']}: declared={declared} actual={len(payload)}")
+  end=item['address']+len(payload)
+  if item['address'] < 0 or end > (1<<32): raise ValueError(f'memory artifact exceeds 32-bit address space: {item}')
+  init_capacity[target]=max(init_capacity[target],end); capacity[target]=max(capacity[target],end)
+ for item in manifest.get('expected',{}).get('memory',[]):
+  target=item.get('target','gmem')
+  if target not in capacity: raise ValueError(f'unsupported expected memory target {target!r}')
+  expected=(case.parent/item['file']).read_bytes()
+  if len(expected) != item['size']:
+   raise ValueError(f"expected size mismatch for {item['file']}: declared={item['size']} actual={len(expected)}")
+  end=item['address']+item['size']
+  if item['address'] < 0 or end > (1<<32): raise ValueError(f'expected artifact exceeds 32-bit address space: {item}')
+  if target != 'gmem' and end > init_capacity[target]:
+   raise ValueError(f'expected-only {target} capacity requires an official capacity channel')
+  capacity[target]=max(capacity[target],end)
+ for target in ('cmem','pmem'):
+  if capacity[target] > LOCAL_CAPACITY_LIMIT: raise ValueError(f'{target} capacity exceeds 64 KiB implementation limit')
+ return capacity
 def run_case(case,out,trace_path=None):
  case=Path(case);m=load_yaml(case);out=Path(out);out.mkdir(parents=True,exist_ok=True)
- images={'gmem':bytearray(), 'cmem':bytearray(), 'pmem':bytearray()}
+ capacities=derive_capacities(case,m)
+ images={name:bytearray(capacities[name]) for name in MEMORY_TARGETS}
  for x in m.get('memory_init',[]):
-  data=(case.parent/x['file']).read_bytes(); target=x.get('target') or ('cmem' if 'cmem' in x['file'] else 'pmem' if 'pmem' in x['file'] else 'gmem')
-  if target not in images: raise ValueError(f'unsupported memory target {target!r}')
-  end=x['address']+len(data); images[target].extend(b'\0'*max(0,end-len(images[target]))); images[target][x['address']:end]=data
- # GMEM must also cover all requested dumps; a no-input GMEM remains a useful
- # 1 MiB functional backing store for binaries that address ordinary buffers.
- dump_end=max((x['address']+x['size'] for x in m.get('expected',{}).get('memory',[])),default=0)
- images['gmem'].extend(b'\0'*max(0,max(1<<20,dump_end)-len(images['gmem'])))
+  data=(case.parent/x['file']).read_bytes(); target=x.get('target','gmem')
+  end=x['address']+len(data); images[target][x['address']:end]=data
  l=m['launch']
  trace_file = open(trace_path, 'w', encoding='utf-8') if trace_path else None
  try:
@@ -54,5 +77,6 @@ def run_case(case,out,trace_path=None):
  finally:
   if trace_file: trace_file.close()
  result={'status':str(r.status).replace('exec_error','fail'),'instruction_steps':r.instruction_steps,'completed_ctas':r.completed_ctas,'error_detail':r.error_detail};(out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
- for x in m.get('expected',{}).get('memory',[]):(out/f"gmem_{x['address']:016x}.bin").write_bytes(images['gmem'][x['address']:x['address']+x['size']])
+ for x in m.get('expected',{}).get('memory',[]):
+  target=x.get('target','gmem'); (out/f"{target}_{x['address']:016x}.bin").write_bytes(images[target][x['address']:x['address']+x['size']])
  return result

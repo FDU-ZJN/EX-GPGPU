@@ -9,6 +9,7 @@ from .gpu import (
     ExecutionStatus,
     LaunchConfig,
     RunResult,
+    lmem_external_address,
 )
 
-__all__ = ["AecExecutionModel", "ExecutionStatus", "LaunchConfig", "RunResult"]
+__all__ = ["AecExecutionModel", "ExecutionStatus", "LaunchConfig", "RunResult", "lmem_external_address"]

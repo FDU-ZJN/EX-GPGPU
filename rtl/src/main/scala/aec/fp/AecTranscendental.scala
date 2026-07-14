@@ -9,6 +9,54 @@ class AecTransRequest extends Bundle {
   val in = UInt(32.W)
 }
 
+/** Resource-serial signed 48x48 multiplier. */
+class AecTransMultiplier extends Module {
+  val io = IO(new Bundle {
+    val req = Flipped(Decoupled(new Bundle {
+      val a = SInt(48.W)
+      val b = SInt(48.W)
+    }))
+    val resp = Decoupled(SInt(96.W))
+  })
+
+  val busy = RegInit(false.B)
+  val valid = RegInit(false.B)
+  val negative = Reg(Bool())
+  val multiplicand = Reg(UInt(96.W))
+  val multiplierBits = Reg(UInt(48.W))
+  val accumulator = Reg(UInt(96.W))
+  val count = Reg(UInt(6.W))
+  val product = Reg(SInt(96.W))
+
+  io.req.ready := !busy && !valid
+  io.resp.valid := valid
+  io.resp.bits := product
+  when (io.req.fire) {
+    val absA = Mux(io.req.bits.a < 0.S, (-io.req.bits.a).asUInt, io.req.bits.a.asUInt)
+    val absB = Mux(io.req.bits.b < 0.S, (-io.req.bits.b).asUInt, io.req.bits.b.asUInt)
+    negative := io.req.bits.a(47) ^ io.req.bits.b(47)
+    multiplicand := Cat(0.U(48.W), absA)
+    multiplierBits := absB
+    accumulator := 0.U
+    count := 0.U
+    busy := true.B
+  }
+  when (busy) {
+    val nextAccumulator = Mux(multiplierBits(0), accumulator + multiplicand, accumulator)
+    when (count === 47.U) {
+      product := Mux(negative, -nextAccumulator.asSInt, nextAccumulator.asSInt)
+      busy := false.B
+      valid := true.B
+    }.otherwise {
+      accumulator := nextAccumulator
+      multiplicand := multiplicand << 1
+      multiplierBits := multiplierBits >> 1
+      count := count + 1.U
+    }
+  }
+  when (io.resp.fire) { valid := false.B }
+}
+
 /** Resource-serial Q34 transcendental engine with one shared multiplier. */
 class AecTranscendental extends Module {
   val io = IO(new Bundle {
@@ -40,8 +88,17 @@ class AecTranscendental extends Module {
   // The only fixed-point multiplier in the complete transcendental unit.
   val multiplyA = WireDefault(0.S(48.W))
   val multiplyB = WireDefault(0.S(48.W))
-  val fullProduct = multiplyA * multiplyB
-  val multiplyResult = fullProduct.asUInt(Q + 47, Q).asSInt
+  val multiplier = Module(new AecTransMultiplier)
+  val multiplyState = state === trigScale || state === trigReduce || state === square || state === poly ||
+    state === trigFinal || state === trigSinFinal || state === expStart || state === logNewtonMul ||
+    state === logNewtonUpdate || state === logZ || state === logSquare || state === logCombine ||
+    state === logZ3 || state === logScale || state === logFinal
+  multiplier.io.req.valid := multiplyState
+  multiplier.io.req.bits.a := multiplyA
+  multiplier.io.req.bits.b := multiplyB
+  multiplier.io.resp.ready := multiplyState
+  val multiplyResult = multiplier.io.resp.bits.asUInt(Q + 47, Q).asSInt
+  val multiplyValid = multiplier.io.resp.valid
 
   val inputSign = io.req.bits.in(31)
   val inputExponent = io.req.bits.in(30, 23)
@@ -123,7 +180,7 @@ class AecTranscendental extends Module {
     }
   }
 
-  when (state === trigScale) {
+  when (state === trigScale && multiplyValid) {
     multiplyA := x; multiplyB := q(2.0 / math.Pi)
     val signedQuadrant = Mux(multiplyResult >= 0.S,
       (multiplyResult + q(0.5)) >> Q, -((-multiplyResult + q(0.5)) >> Q))
@@ -131,7 +188,7 @@ class AecTranscendental extends Module {
     auxiliary := signedQuadrant << Q
     state := trigReduce
   }
-  when (state === trigReduce) {
+  when (state === trigReduce && multiplyValid) {
     multiplyA := auxiliary; multiplyB := q(math.Pi / 2.0)
     term := x - multiplyResult
     val odd = quadrant(0)
@@ -139,14 +196,14 @@ class AecTranscendental extends Module {
     negateResult := Mux(op === AecOpcode.sin, quadrant(1), quadrant(1) ^ quadrant(0))
     state := square
   }
-  when (state === square) {
+  when (state === square && multiplyValid) {
     multiplyA := term; multiplyB := term
     argument2 := multiplyResult
     accumulator := Mux(polynomialCos, q(-1.0 / 3628800.0), q(-1.0 / 39916800.0))
     step := 0.U
     state := poly
   }
-  when (state === poly && step < 4.U) {
+  when (state === poly && step < 4.U && multiplyValid) {
     multiplyA := argument2; multiplyB := accumulator
     val sinCoefficient = MuxLookup(step, q(0.0), Seq(0.U -> q(1.0 / 362880.0), 1.U -> q(-1.0 / 5040.0),
       2.U -> q(1.0 / 120.0), 3.U -> q(-1.0 / 6.0)))
@@ -155,7 +212,7 @@ class AecTranscendental extends Module {
     accumulator := multiplyResult + Mux(polynomialCos, cosCoefficient, sinCoefficient)
     when (step === 3.U) { state := trigFinal }.otherwise { step := step + 1.U }
   }
-  when (state === trigFinal) {
+  when (state === trigFinal && multiplyValid) {
     multiplyA := argument2; multiplyB := accumulator
     val inner = q(1.0) + multiplyResult
     when (polynomialCos) {
@@ -164,12 +221,12 @@ class AecTranscendental extends Module {
       accumulator := inner; state := trigSinFinal
     }
   }
-  when (state === trigSinFinal) {
+  when (state === trigSinFinal && multiplyValid) {
     multiplyA := term; multiplyB := accumulator
     result := packQ34(Mux(negateResult, -multiplyResult, multiplyResult)); state := finish
   }
 
-  when (state === expStart) {
+  when (state === expStart && multiplyValid) {
     multiplyA := term; multiplyB := q(math.log(2.0))
     term := multiplyResult
     accumulator := q(1.0 / 3628800.0)
@@ -179,7 +236,7 @@ class AecTranscendental extends Module {
     // step values 4..13 distinguish EXP from the trigonometric polynomial.
     step := 4.U
   }
-  when (state === poly && step >= 4.U) {
+  when (state === poly && step >= 4.U && multiplyValid) {
     multiplyA := term; multiplyB := accumulator
     val coefficient = MuxLookup(step, q(1.0), Seq(
       4.U -> q(1.0 / 362880.0), 5.U -> q(1.0 / 40320.0), 6.U -> q(1.0 / 5040.0),
@@ -191,46 +248,66 @@ class AecTranscendental extends Module {
   }
 
   val denominator = term + q(1.0)
-  when (state === logNewtonMul) {
+  switch (state) {
+    is (trigScale) { multiplyA := x; multiplyB := q(2.0 / math.Pi) }
+    is (trigReduce) { multiplyA := auxiliary; multiplyB := q(math.Pi / 2.0) }
+    is (square) { multiplyA := term; multiplyB := term }
+    is (poly) {
+      multiplyA := Mux(step < 4.U, argument2, term)
+      multiplyB := accumulator
+    }
+    is (trigFinal) { multiplyA := argument2; multiplyB := accumulator }
+    is (trigSinFinal) { multiplyA := term; multiplyB := accumulator }
+    is (expStart) { multiplyA := term; multiplyB := q(math.log(2.0)) }
+    is (logNewtonMul) { multiplyA := denominator; multiplyB := accumulator }
+    is (logNewtonUpdate) { multiplyA := accumulator; multiplyB := auxiliary }
+    is (logZ) { multiplyA := term - q(1.0); multiplyB := accumulator }
+    is (logSquare) { multiplyA := term; multiplyB := term }
+    is (logCombine) { multiplyA := argument2; multiplyB := accumulator }
+    is (logZ3) { multiplyA := term; multiplyB := argument2 }
+    is (logScale) { multiplyA := auxiliary; multiplyB := accumulator }
+    is (logFinal) { multiplyA := auxiliary; multiplyB := q(2.0 / math.log(2.0)) }
+  }
+  when (state === logNewtonMul && multiplyValid) {
     multiplyA := denominator; multiplyB := accumulator
     auxiliary := q(2.0) - multiplyResult
     state := logNewtonUpdate
   }
-  when (state === logNewtonUpdate) {
+  when (state === logNewtonUpdate && multiplyValid) {
     multiplyA := accumulator; multiplyB := auxiliary
     accumulator := multiplyResult
     when (step === 2.U) { state := logZ }.otherwise { step := step + 1.U; state := logNewtonMul }
   }
-  when (state === logZ) {
+  when (state === logZ && multiplyValid) {
     multiplyA := term - q(1.0); multiplyB := accumulator
     term := multiplyResult
     state := logSquare
   }
-  when (state === logSquare) {
+  when (state === logSquare && multiplyValid) {
     multiplyA := term; multiplyB := term
     argument2 := multiplyResult
     accumulator := q(1.0 / 13.0)
     step := 0.U
     state := logCombine
   }
-  when (state === logCombine) {
+  when (state === logCombine && multiplyValid) {
     multiplyA := argument2; multiplyB := accumulator
     val coefficient = MuxLookup(step, q(1.0 / 3.0), Seq(0.U -> q(1.0 / 11.0), 1.U -> q(1.0 / 9.0),
       2.U -> q(1.0 / 7.0), 3.U -> q(1.0 / 5.0), 4.U -> q(1.0 / 3.0)))
     accumulator := coefficient + multiplyResult
     when (step === 4.U) { state := logZ3 }.otherwise { step := step + 1.U }
   }
-  when (state === logZ3) {
+  when (state === logZ3 && multiplyValid) {
     multiplyA := term; multiplyB := argument2
     auxiliary := multiplyResult
     state := logScale
   }
-  when (state === logScale) {
+  when (state === logScale && multiplyValid) {
     multiplyA := auxiliary; multiplyB := accumulator
     auxiliary := term + multiplyResult
     state := logFinal
   }
-  when (state === logFinal) {
+  when (state === logFinal && multiplyValid) {
     multiplyA := auxiliary; multiplyB := q(2.0 / math.log(2.0))
     result := packQ34((exponentScale << Q) + multiplyResult)
     state := finish

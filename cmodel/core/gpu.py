@@ -17,7 +17,6 @@ from . import values as V
 
 MAX_THREADS_PER_CTA = 256
 MAX_CALL_DEPTH = 32
-DEFAULT_GMEM_BYTES = 1 << 20
 FP_TYPES = {I.TYPE_F16, I.TYPE_BF16, I.TYPE_F32, I.TYPE_F64}
 PAIR_TYPES = {I.TYPE_B64, I.TYPE_F64}
 CVT_OPS = {I.OP_CVTFF, I.OP_CVTFI, I.OP_CVTIF, I.OP_CVTII}
@@ -38,12 +37,29 @@ class LaunchConfig:
         if (len(self.grid) != 3 or len(self.block) != 3 or
                 any(value <= 0 for value in self.grid + self.block) or
                 not 1 <= self.threads_per_cta <= MAX_THREADS_PER_CTA or
+                math.prod(self.grid) * self.threads_per_cta > (1 << 20) or
                 self.program_instructions <= 0):
             raise ValueError('invalid launch')
 
     @property
     def threads_per_cta(self) -> int:
         return self.block[0] * self.block[1] * self.block[2]
+
+
+def lmem_external_address(launch: LaunchConfig, cta: tuple[int, int, int],
+                          warp: int, lane: int, offset: int, access_bytes: int = 4) -> int:
+    """Return the QA-defined byte address in the independent LMEM backing store."""
+    if (not 0 <= warp < 8 or not 0 <= lane < 32 or
+            offset < 0 or access_bytes <= 0 or offset + access_bytes > 4096):
+        raise ExecutionError('local memory out of bounds')
+    x, y, z = cta
+    if not (0 <= x < launch.grid[0] and 0 <= y < launch.grid[1] and 0 <= z < launch.grid[2]):
+        raise ExecutionError('invalid CTA coordinate')
+    cta_linear = x + launch.grid[0] * (y + launch.grid[1] * z)
+    global_thread = cta_linear * launch.threads_per_cta + warp * 32 + lane
+    if global_thread >= (1 << 20):
+        raise ExecutionError('local memory thread address out of bounds')
+    return global_thread * 4096 + offset
 
 
 @dataclass
@@ -63,7 +79,7 @@ class AecExecutionModel:
     def __init__(self, program, launch, gmem=None, cmem=None, pmem=None, trace=None):
         if launch.program_instructions > len(program): raise ValueError('program range')
         self.program = tuple(program[:launch.program_instructions]); self.launch = launch
-        self.gmem = gmem if gmem is not None else bytearray(DEFAULT_GMEM_BYTES)
+        self.gmem = gmem if gmem is not None else bytearray()
         self.cmem = cmem if cmem is not None else bytearray()
         self.pmem = pmem if pmem is not None else bytearray()
         self.instruction_steps = 0; self._cta_cursor = 0
@@ -306,6 +322,8 @@ class AecExecutionModel:
         actions = []
         for lane in lanes:
             memory = get_memory(lane); address = warp.lanes[lane].gprs[f['src1']]
+            if space == I.SPACE_LMEM:
+                lmem_external_address(self.launch, cta.coord, cta.warps.index(warp), lane, address, width)
             if address + width > len(memory) or (op == I.OP_ATOM and address & 3): raise ExecutionError('memory out of bounds or atomic misalignment')
             actions.append((lane, memory, address))
         writes, stores = [], []
@@ -322,16 +340,19 @@ class AecExecutionModel:
                 key = (id(memory), address)
                 old = pending_words.get(key, int.from_bytes(memory[address:address+4], 'little'))
                 update = regs[f['src2_imm32'] & 0xffff]; subop = ctrl['subop']
+                cas_success = subop == I.ATOM_CAS and old == regs[(f['src2_imm32'] >> 16) & 0xffff]
                 if subop == I.ATOM_ADD: new = old + update
-                elif subop == I.ATOM_MIN: new = min(V.int_read(old,dtype), V.int_read(update,dtype))
                 elif subop == I.ATOM_MAX: new = max(V.int_read(old,dtype), V.int_read(update,dtype))
+                elif subop == I.ATOM_MIN: new = min(V.int_read(old,dtype), V.int_read(update,dtype))
                 elif subop == I.ATOM_XCHG: new = update
                 elif subop == I.ATOM_AND: new = old & update
                 elif subop == I.ATOM_OR: new = old | update
                 elif subop == I.ATOM_XOR: new = old ^ update
-                else: new = update if old == regs[(f['src2_imm32'] >> 16) & 0xffff] else old
+                else: new = update if cas_success else old
                 pending_words[key] = V.u32(new)
-                stores.append((memory, address, V.u32(new).to_bytes(4, 'little'))); writes.append((lane, f['dest'], old))
+                if subop != I.ATOM_CAS or cas_success:
+                    stores.append((memory, address, V.u32(new).to_bytes(4, 'little')))
+                writes.append((lane, f['dest'], old))
         return writes, stores
 
     def _collective(self, op, warp, f, ctrl, lanes):

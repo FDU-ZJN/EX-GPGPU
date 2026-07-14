@@ -7,7 +7,7 @@ export PATH := $(JAVA_HOME)/bin:$(PATH)
 SBT_GLOBAL_BASE ?= /tmp/gpgpu-sbt
 # SBT 1.8+ starts a local build server when needed.  Do not force-disable it:
 # newer launchers otherwise fail before compiling the Chisel sources.
-SBT_FLAGS ?= -batch -J-XX:ActiveProcessorCount=16 -Dsbt.ci=true -Dsbt.global.base=$(SBT_GLOBAL_BASE)
+SBT_FLAGS ?= -batch -J-Xms512M -J-Xmx4G -J-XX:+UseG1GC -J-XX:ActiveProcessorCount=16 -Dsbt.ci=true -Dsbt.global.base=$(SBT_GLOBAL_BASE)
 VERILATOR ?= verilator
 PYTHON_CONFIG ?= python3-config
 CMODEL_ROOT := $(abspath ../cmodel)

@@ -16,7 +16,7 @@ from .core.aec_isa import read_binary
 def build_reference(program_path: str, program_instructions: int,
                     grid: tuple[int, int, int], block: tuple[int, int, int],
                     max_steps: int, memory_init: list[tuple[int, int, bytes]],
-                    gmem_bytes: int = 1 << 20) -> dict:
+                    gmem_bytes: int) -> dict:
     images = {1: bytearray(gmem_bytes), 2: bytearray(), 3: bytearray()}
     for target, address, payload in memory_init:
         memory = images[target]

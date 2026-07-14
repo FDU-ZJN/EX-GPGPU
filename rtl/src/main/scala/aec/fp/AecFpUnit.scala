@@ -49,23 +49,47 @@ class AecFpWarpRequestStage(val groups: Int) extends Module {
     val out = Decoupled(new AecFpRequest)
   })
 
-  val selectValid = RegInit(false.B)
-  val selectedGroup = Reg(UInt(log2Ceil(groups max 2).W))
-  val dataValid = RegInit(false.B)
-  val data = Reg(new AecFpRequest)
-  val dataReady = !dataValid || io.out.ready
-  val selectReady = !selectValid || dataReady
+  if (groups <= 4) {
+    val dataValid = RegInit(false.B)
+    val data = Reg(new AecFpRequest)
+    val selectValid = RegInit(false.B)
+    val selectedGroup = Reg(UInt(log2Ceil(groups max 2).W))
+    val dataReady = !dataValid || io.out.ready
+    val selectReady = !selectValid || dataReady
 
-  io.inReady := selectReady
-  io.out.valid := dataValid
-  io.out.bits := data
-  when (dataReady) {
-    dataValid := selectValid
-    when (selectValid) { data := io.data(selectedGroup) }
-  }
-  when (selectReady) {
-    selectValid := io.inValid
-    when (io.inValid) { selectedGroup := io.group }
+    io.inReady := selectReady
+    io.out.valid := dataValid
+    io.out.bits := data
+    when (dataReady) {
+      dataValid := selectValid
+      when (selectValid) { data := io.data(selectedGroup) }
+    }
+    when (selectReady) {
+      selectValid := io.inValid
+      when (io.inValid) { selectedGroup := io.group }
+    }
+  } else {
+    require(groups % 4 == 0)
+    val banks = groups / 4
+    val selectedBank = Reg(UInt(log2Ceil(banks max 2).W))
+    val bankData = Reg(Vec(banks, new AecFpRequest))
+    val outputValid = RegInit(false.B)
+    val outputReady = !outputValid || io.out.ready
+
+    io.inReady := outputReady
+    io.out.valid := outputValid
+    io.out.bits := bankData(selectedBank)
+
+    // The warp request buffer and architectural group remain stable until the
+    // lane response is consumed.  Sampling every bank unconditionally removes
+    // the shared write-enable that otherwise drives hundreds of payload D muxes.
+    for (bank <- 0 until banks) {
+      bankData(bank) := VecInit(io.data.slice(bank * 4, bank * 4 + 4))(io.group(1, 0))
+    }
+    when (outputReady) {
+      outputValid := io.inValid
+      when (io.inValid) { selectedBank := io.group(log2Ceil(groups) - 1, 2) }
+    }
   }
 }
 

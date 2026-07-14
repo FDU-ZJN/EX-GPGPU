@@ -23,8 +23,8 @@ reported per-lane GPR or predicate values. The simulator stops on the first
 difference.
 
 At completion it also checks RTL versus CModel result status, absence of
-unmatched CModel retirement events, and every byte of the authoritative 1 MiB
-GMEM vector. Manifest verification then checks expected status and each
+unmatched CModel retirement events, and every byte of the exact artifact-derived
+GMEM capacity. Manifest verification then checks expected status and each
 published GMEM dump using the declared exact or floating-point policy. RDTSC
 absolute values are intentionally excluded from exact comparison per
 `spec.md`; downstream architectural effects and final GMEM remain checked.
@@ -46,16 +46,23 @@ separate `passed` verdict.
 
 ## Additional checks
 
-The following were run after the SRAM/vector/coalescer optimization:
+The following were run after the Track-2 QA implementation and final Chisel
+regeneration:
 
-- Verilator `eval-lint` passed without RTL warnings.
-- Chisel `SpecBugFixSpec` passed 8/8, including four-way barrier arrival and
-  a 64-bit load crossing a 128-byte line.
+- Chisel `SpecBugFixSpec` plus `WarpLatencyHidingSpec` passed 11/11, including
+  out-of-order completion/in-order ROB visibility, stale epoch rejection and
+  source-use dependency masks.
+- Chisel `QaComplianceSpec` passed 5/5: request payload stability, LMEM 4 KiB
+  mapping/OOB rejection, signed and unsigned MAX/MIN encoding, strict CAS write
+  suppression/strobes, and zero/sparse resident capacity.
+- Python unit tests passed 18/18, including four artifact-capacity, LMEM-address
+  and atomic-encoding QA tests. CModel public regression passed 36/36.
 - Public RTL regression passed 36/36 with each manifest's native cycle budget.
-  Representative cycles: ABI smoke 159, ADD 406, LD 286, ST 282, ATOM 372,
-  DIV 574, RCP 853, GEMM 936.
-- Python CModel unit tests passed 14/14.
-- `git diff --check` passed.
+- In-process realtime RTL/CModel differential passed 36/36, including the
+  two ATOM cases and expected EXEC_ERROR memory-boundary case.
+- Verilator judged-top lint, Yosys `hierarchy -check -top aec_eval_top`, locked
+  SRAM checksum verification, `scripts/check_submission.sh`, and
+  `git diff --check` all passed. Full PPA was intentionally not run.
 
 Use `scripts/check_submission.sh` to validate entry points, parse every shell
 and Python script, reject caches/local checkouts/build products from the

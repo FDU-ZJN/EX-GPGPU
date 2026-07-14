@@ -37,6 +37,37 @@ class AecIntRequestStage extends Module {
   when (io.in.ready) { valid := io.in.valid }
 }
 
+/** Two-stage lane-local architectural-group selection for a physical lane. */
+class AecIntWarpRequestStage(val groups: Int) extends Module {
+  require(groups > 0)
+  val io = IO(new Bundle {
+    val inValid = Input(Bool())
+    val inReady = Output(Bool())
+    val group = Input(UInt(log2Ceil(groups max 2).W))
+    val data = Input(Vec(groups, new AecIntRequest))
+    val out = Decoupled(new AecIntRequest)
+  })
+
+  val selectValid = RegInit(false.B)
+  val selectedGroup = Reg(UInt(log2Ceil(groups max 2).W))
+  val dataValid = RegInit(false.B)
+  val data = Reg(new AecIntRequest)
+  val dataReady = !dataValid || io.out.ready
+  val selectReady = !selectValid || dataReady
+
+  io.inReady := selectReady
+  io.out.valid := dataValid
+  io.out.bits := data
+  when (dataReady) {
+    dataValid := selectValid
+    when (selectValid) { data := io.data(selectedGroup) }
+  }
+  when (selectReady) {
+    selectValid := io.inValid
+    when (io.inValid) { selectedGroup := io.group }
+  }
+}
+
 /**
   * One lane's integer and bit-manipulation ALU.
   *

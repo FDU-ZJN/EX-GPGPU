@@ -188,6 +188,7 @@ class SpecBugFixSpec extends AnyFlatSpec with ChiselScalatestTester {
       dut.io.lineOut.bits.address.expect(0.U); dut.clock.step()
       val first = (1 to 3).zipWithIndex.foldLeft(BigInt(0)) { case (v, (b, i)) => v | (BigInt(b) << (8 * (125 + i))) }
       dut.io.lineComplete.bits.warp.poke(0.U); dut.io.lineComplete.bits.tag.poke(0.U)
+      dut.io.lineComplete.bits.space.poke(false.B)
       dut.io.lineComplete.bits.write.poke(false.B); dut.io.lineComplete.bits.lastForInstruction.poke(false.B)
       dut.io.lineComplete.bits.error.poke(false.B); dut.io.lineComplete.bits.rdata.poke(first.U)
       dut.io.lineComplete.valid.poke(true.B); dut.clock.step(); dut.io.lineComplete.valid.poke(false.B)

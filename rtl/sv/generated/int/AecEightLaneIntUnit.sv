@@ -40,70 +40,70 @@ module AecIntAlu(
   reg [31:0] _RAND_21;
   reg [31:0] _RAND_22;
 `endif // RANDOMIZE_REG_INIT
-  reg [2:0] state; // @[AecIntAlu.scala 56:22]
-  reg [31:0] result; // @[AecIntAlu.scala 57:23]
-  reg  predicateResult; // @[AecIntAlu.scala 58:32]
-  reg  error; // @[AecIntAlu.scala 60:22]
-  reg [31:0] multiplicand; // @[AecIntAlu.scala 62:25]
-  reg [31:0] multiplier; // @[AecIntAlu.scala 63:23]
-  reg [31:0] product; // @[AecIntAlu.scala 64:20]
-  reg [4:0] multiplyCount; // @[AecIntAlu.scala 65:26]
-  reg [31:0] multiplyAddend; // @[AecIntAlu.scala 66:27]
-  reg  multiplyMad; // @[AecIntAlu.scala 67:24]
-  reg [31:0] shiftValue; // @[AecIntAlu.scala 68:23]
-  reg [4:0] shiftAmount; // @[AecIntAlu.scala 69:24]
-  reg [2:0] shiftStep; // @[AecIntAlu.scala 70:22]
-  reg  shiftRight; // @[AecIntAlu.scala 71:23]
-  reg  shiftArithmetic; // @[AecIntAlu.scala 72:28]
-  reg [31:0] bitfieldBase; // @[AecIntAlu.scala 73:25]
-  reg [31:0] bitfieldValue; // @[AecIntAlu.scala 74:26]
-  reg [31:0] bitfieldMaskReg; // @[AecIntAlu.scala 75:28]
-  reg [5:0] bitfieldLsb; // @[AecIntAlu.scala 76:24]
-  reg [5:0] bitfieldWidth; // @[AecIntAlu.scala 77:26]
-  reg [5:0] bitfieldRemaining; // @[AecIntAlu.scala 78:30]
-  reg  bitfieldInsert; // @[AecIntAlu.scala 79:27]
-  reg  bitfieldSigned; // @[AecIntAlu.scala 80:27]
-  wire  isSigned = io_req_bits_dtype == 4'h3; // @[AecIntAlu.scala 89:36]
-  wire [4:0] shift = io_req_bits_b[4:0]; // @[AecIntAlu.scala 95:16]
-  wire  isCmp = io_req_bits_op == 16'h20; // @[AecIntAlu.scala 96:30]
-  wire  isCmmP = io_req_bits_op == 16'h21; // @[AecIntAlu.scala 97:31]
-  wire [2:0] relation = io_req_bits_c[2:0]; // @[AecIntAlu.scala 98:19]
-  wire  cmpEq = io_req_bits_a == io_req_bits_b; // @[AecIntAlu.scala 100:17]
-  wire  _cmpLt_T = $signed(io_req_bits_a) < $signed(io_req_bits_b); // @[AecIntAlu.scala 101:32]
-  wire  _cmpLt_T_1 = io_req_bits_a < io_req_bits_b; // @[AecIntAlu.scala 101:40]
-  wire  cmpLt = isSigned ? $signed(io_req_bits_a) < $signed(io_req_bits_b) : io_req_bits_a < io_req_bits_b; // @[AecIntAlu.scala 101:18]
-  wire  _cmpGt_T = $signed(io_req_bits_a) > $signed(io_req_bits_b); // @[AecIntAlu.scala 102:32]
-  wire  _cmpGt_T_1 = io_req_bits_a > io_req_bits_b; // @[AecIntAlu.scala 102:40]
-  wire  cmpGt = isSigned ? $signed(io_req_bits_a) > $signed(io_req_bits_b) : io_req_bits_a > io_req_bits_b; // @[AecIntAlu.scala 102:18]
-  wire  _cmpResult_T = ~cmpEq; // @[AecIntAlu.scala 104:26]
-  wire  _cmpResult_T_1 = cmpLt | cmpEq; // @[AecIntAlu.scala 105:19]
-  wire  _cmpResult_T_2 = cmpGt | cmpEq; // @[AecIntAlu.scala 105:58]
+  reg [2:0] state; // @[AecIntAlu.scala 87:22]
+  reg [31:0] result; // @[AecIntAlu.scala 88:23]
+  reg  predicateResult; // @[AecIntAlu.scala 89:32]
+  reg  error; // @[AecIntAlu.scala 91:22]
+  reg [31:0] multiplicand; // @[AecIntAlu.scala 93:25]
+  reg [31:0] multiplier; // @[AecIntAlu.scala 94:23]
+  reg [31:0] product; // @[AecIntAlu.scala 95:20]
+  reg [4:0] multiplyCount; // @[AecIntAlu.scala 96:26]
+  reg [31:0] multiplyAddend; // @[AecIntAlu.scala 97:27]
+  reg  multiplyMad; // @[AecIntAlu.scala 98:24]
+  reg [31:0] shiftValue; // @[AecIntAlu.scala 99:23]
+  reg [4:0] shiftAmount; // @[AecIntAlu.scala 100:24]
+  reg [2:0] shiftStep; // @[AecIntAlu.scala 101:22]
+  reg  shiftRight; // @[AecIntAlu.scala 102:23]
+  reg  shiftArithmetic; // @[AecIntAlu.scala 103:28]
+  reg [31:0] bitfieldBase; // @[AecIntAlu.scala 104:25]
+  reg [31:0] bitfieldValue; // @[AecIntAlu.scala 105:26]
+  reg [31:0] bitfieldMaskReg; // @[AecIntAlu.scala 106:28]
+  reg [5:0] bitfieldLsb; // @[AecIntAlu.scala 107:24]
+  reg [5:0] bitfieldWidth; // @[AecIntAlu.scala 108:26]
+  reg [5:0] bitfieldRemaining; // @[AecIntAlu.scala 109:30]
+  reg  bitfieldInsert; // @[AecIntAlu.scala 110:27]
+  reg  bitfieldSigned; // @[AecIntAlu.scala 111:27]
+  wire  isSigned = io_req_bits_dtype == 4'h3; // @[AecIntAlu.scala 120:36]
+  wire [4:0] shift = io_req_bits_b[4:0]; // @[AecIntAlu.scala 126:16]
+  wire  isCmp = io_req_bits_op == 16'h20; // @[AecIntAlu.scala 127:30]
+  wire  isCmmP = io_req_bits_op == 16'h21; // @[AecIntAlu.scala 128:31]
+  wire [2:0] relation = io_req_bits_c[2:0]; // @[AecIntAlu.scala 129:19]
+  wire  cmpEq = io_req_bits_a == io_req_bits_b; // @[AecIntAlu.scala 131:17]
+  wire  _cmpLt_T = $signed(io_req_bits_a) < $signed(io_req_bits_b); // @[AecIntAlu.scala 132:32]
+  wire  _cmpLt_T_1 = io_req_bits_a < io_req_bits_b; // @[AecIntAlu.scala 132:40]
+  wire  cmpLt = isSigned ? $signed(io_req_bits_a) < $signed(io_req_bits_b) : io_req_bits_a < io_req_bits_b; // @[AecIntAlu.scala 132:18]
+  wire  _cmpGt_T = $signed(io_req_bits_a) > $signed(io_req_bits_b); // @[AecIntAlu.scala 133:32]
+  wire  _cmpGt_T_1 = io_req_bits_a > io_req_bits_b; // @[AecIntAlu.scala 133:40]
+  wire  cmpGt = isSigned ? $signed(io_req_bits_a) > $signed(io_req_bits_b) : io_req_bits_a > io_req_bits_b; // @[AecIntAlu.scala 133:18]
+  wire  _cmpResult_T = ~cmpEq; // @[AecIntAlu.scala 135:26]
+  wire  _cmpResult_T_1 = cmpLt | cmpEq; // @[AecIntAlu.scala 136:19]
+  wire  _cmpResult_T_2 = cmpGt | cmpEq; // @[AecIntAlu.scala 136:58]
   wire  _cmpResult_T_6 = 3'h1 == relation ? _cmpResult_T : 3'h0 == relation & cmpEq; // @[Mux.scala 81:58]
   wire  _cmpResult_T_8 = 3'h2 == relation ? cmpLt : _cmpResult_T_6; // @[Mux.scala 81:58]
   wire  _cmpResult_T_10 = 3'h3 == relation ? _cmpResult_T_1 : _cmpResult_T_8; // @[Mux.scala 81:58]
   wire  _cmpResult_T_12 = 3'h4 == relation ? cmpGt : _cmpResult_T_10; // @[Mux.scala 81:58]
   wire  cmpResult = 3'h5 == relation ? _cmpResult_T_2 : _cmpResult_T_12; // @[Mux.scala 81:58]
-  wire [31:0] _aluResult_T_1 = io_req_bits_a + io_req_bits_b; // @[AecIntAlu.scala 114:20]
-  wire [31:0] _aluResult_T_3 = io_req_bits_a - io_req_bits_b; // @[AecIntAlu.scala 116:20]
-  wire  _T_4 = io_req_bits_op == 16'h4; // @[AecIntAlu.scala 117:66]
-  wire  _T_5 = io_req_bits_op == 16'h3 | io_req_bits_op == 16'h4; // @[AecIntAlu.scala 117:48]
-  wire [31:0] _aluResult_T_7 = 32'sh0 - $signed(io_req_bits_a); // @[AecIntAlu.scala 125:24]
-  wire [31:0] _aluResult_T_13 = $signed(io_req_bits_a) < 32'sh0 ? _aluResult_T_7 : io_req_bits_a; // @[AecIntAlu.scala 127:21]
-  wire [31:0] _aluResult_T_15 = _cmpLt_T ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 129:35]
-  wire [31:0] _aluResult_T_17 = _cmpLt_T_1 ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 129:55]
-  wire [31:0] _aluResult_T_18 = isSigned ? _aluResult_T_15 : _aluResult_T_17; // @[AecIntAlu.scala 129:21]
-  wire [31:0] _aluResult_T_20 = _cmpGt_T ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 131:35]
-  wire [31:0] _aluResult_T_22 = _cmpGt_T_1 ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 131:55]
-  wire [31:0] _aluResult_T_23 = isSigned ? _aluResult_T_20 : _aluResult_T_22; // @[AecIntAlu.scala 131:21]
-  wire [31:0] _aluResult_T_24 = io_req_bits_a & io_req_bits_b; // @[AecIntAlu.scala 133:20]
-  wire [31:0] _aluResult_T_25 = io_req_bits_a | io_req_bits_b; // @[AecIntAlu.scala 135:20]
-  wire [31:0] _aluResult_T_26 = io_req_bits_a ^ io_req_bits_b; // @[AecIntAlu.scala 137:20]
-  wire [31:0] _aluResult_T_27 = ~io_req_bits_a; // @[AecIntAlu.scala 139:18]
-  wire  _T_16 = io_req_bits_op == 16'h15; // @[AecIntAlu.scala 140:66]
-  wire  _T_17 = io_req_bits_op == 16'h14 | io_req_bits_op == 16'h15; // @[AecIntAlu.scala 140:48]
-  wire  _T_18 = io_req_bits_op == 16'h16; // @[AecIntAlu.scala 141:20]
-  wire  _T_19 = io_req_bits_op == 16'h14 | io_req_bits_op == 16'h15 | _T_18; // @[AecIntAlu.scala 140:84]
-  wire  _T_20 = io_req_bits_op == 16'h17; // @[AecIntAlu.scala 141:56]
+  wire [31:0] _aluResult_T_1 = io_req_bits_a + io_req_bits_b; // @[AecIntAlu.scala 145:20]
+  wire [31:0] _aluResult_T_3 = io_req_bits_a - io_req_bits_b; // @[AecIntAlu.scala 147:20]
+  wire  _T_4 = io_req_bits_op == 16'h4; // @[AecIntAlu.scala 148:66]
+  wire  _T_5 = io_req_bits_op == 16'h3 | io_req_bits_op == 16'h4; // @[AecIntAlu.scala 148:48]
+  wire [31:0] _aluResult_T_7 = 32'sh0 - $signed(io_req_bits_a); // @[AecIntAlu.scala 156:24]
+  wire [31:0] _aluResult_T_13 = $signed(io_req_bits_a) < 32'sh0 ? _aluResult_T_7 : io_req_bits_a; // @[AecIntAlu.scala 158:21]
+  wire [31:0] _aluResult_T_15 = _cmpLt_T ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 160:35]
+  wire [31:0] _aluResult_T_17 = _cmpLt_T_1 ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 160:55]
+  wire [31:0] _aluResult_T_18 = isSigned ? _aluResult_T_15 : _aluResult_T_17; // @[AecIntAlu.scala 160:21]
+  wire [31:0] _aluResult_T_20 = _cmpGt_T ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 162:35]
+  wire [31:0] _aluResult_T_22 = _cmpGt_T_1 ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 162:55]
+  wire [31:0] _aluResult_T_23 = isSigned ? _aluResult_T_20 : _aluResult_T_22; // @[AecIntAlu.scala 162:21]
+  wire [31:0] _aluResult_T_24 = io_req_bits_a & io_req_bits_b; // @[AecIntAlu.scala 164:20]
+  wire [31:0] _aluResult_T_25 = io_req_bits_a | io_req_bits_b; // @[AecIntAlu.scala 166:20]
+  wire [31:0] _aluResult_T_26 = io_req_bits_a ^ io_req_bits_b; // @[AecIntAlu.scala 168:20]
+  wire [31:0] _aluResult_T_27 = ~io_req_bits_a; // @[AecIntAlu.scala 170:18]
+  wire  _T_16 = io_req_bits_op == 16'h15; // @[AecIntAlu.scala 171:66]
+  wire  _T_17 = io_req_bits_op == 16'h14 | io_req_bits_op == 16'h15; // @[AecIntAlu.scala 171:48]
+  wire  _T_18 = io_req_bits_op == 16'h16; // @[AecIntAlu.scala 172:20]
+  wire  _T_19 = io_req_bits_op == 16'h14 | io_req_bits_op == 16'h15 | _T_18; // @[AecIntAlu.scala 171:84]
+  wire  _T_20 = io_req_bits_op == 16'h17; // @[AecIntAlu.scala 172:56]
   wire [1:0] _aluResult_T_60 = io_req_bits_a[0] + io_req_bits_a[1]; // @[Bitwise.scala 51:90]
   wire [1:0] _aluResult_T_62 = io_req_bits_a[2] + io_req_bits_a[3]; // @[Bitwise.scala 51:90]
   wire [2:0] _aluResult_T_64 = _aluResult_T_60 + _aluResult_T_62; // @[Bitwise.scala 51:90]
@@ -191,112 +191,112 @@ module AecIntAlu(
   wire [4:0] _aluResult_T_231 = _aluResult_T_170[2] ? 5'h2 : _aluResult_T_230; // @[Mux.scala 47:70]
   wire [4:0] _aluResult_T_232 = _aluResult_T_170[1] ? 5'h1 : _aluResult_T_231; // @[Mux.scala 47:70]
   wire [4:0] _aluResult_T_233 = _aluResult_T_170[0] ? 5'h0 : _aluResult_T_232; // @[Mux.scala 47:70]
-  wire [4:0] _aluResult_T_235 = 5'h1f - _aluResult_T_233; // @[AecIntAlu.scala 148:23]
-  wire [31:0] _GEN_0 = io_req_bits_a == 32'h0 ? 32'hffffffff : {{27'd0}, _aluResult_T_235}; // @[AecIntAlu.scala 148:15 149:{22,34}]
-  wire [31:0] _aluResult_T_236 = io_req_bits_selectPredicate ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 151:21]
-  wire [31:0] _aluResult_T_238 = io_req_bits_a[31] ? io_req_bits_b : io_req_bits_a; // @[AecIntAlu.scala 153:21]
-  wire [31:0] _GEN_1 = io_req_bits_op == 16'h23 ? _aluResult_T_238 : 32'h0; // @[AecIntAlu.scala 152:50 153:15 107:30]
-  wire  _GEN_2 = io_req_bits_op == 16'h23 ? 1'h0 : 1'h1; // @[AecIntAlu.scala 109:29 152:50 155:14]
-  wire [31:0] _GEN_3 = io_req_bits_op == 16'h22 ? _aluResult_T_236 : _GEN_1; // @[AecIntAlu.scala 150:49 151:15]
-  wire  _GEN_4 = io_req_bits_op == 16'h22 ? 1'h0 : _GEN_2; // @[AecIntAlu.scala 109:29 150:49]
-  wire [31:0] _GEN_5 = io_req_bits_op == 16'h19 ? _GEN_0 : _GEN_3; // @[AecIntAlu.scala 145:49]
-  wire  _GEN_6 = io_req_bits_op == 16'h19 ? 1'h0 : _GEN_4; // @[AecIntAlu.scala 109:29 145:49]
-  wire [31:0] _GEN_7 = io_req_bits_op == 16'h18 ? {{26'd0}, _aluResult_T_120} : _GEN_5; // @[AecIntAlu.scala 143:50 144:15]
-  wire  _GEN_8 = io_req_bits_op == 16'h18 ? 1'h0 : _GEN_6; // @[AecIntAlu.scala 109:29 143:50]
-  wire [31:0] _GEN_9 = _T_19 | io_req_bits_op == 16'h17 ? 32'h0 : _GEN_7; // @[AecIntAlu.scala 141:76 142:15]
-  wire  _GEN_10 = _T_19 | io_req_bits_op == 16'h17 ? 1'h0 : _GEN_8; // @[AecIntAlu.scala 109:29 141:76]
-  wire [31:0] _GEN_11 = io_req_bits_op == 16'h13 ? _aluResult_T_27 : _GEN_9; // @[AecIntAlu.scala 138:51 139:15]
-  wire  _GEN_12 = io_req_bits_op == 16'h13 ? 1'h0 : _GEN_10; // @[AecIntAlu.scala 109:29 138:51]
-  wire [31:0] _GEN_13 = io_req_bits_op == 16'h12 ? _aluResult_T_26 : _GEN_11; // @[AecIntAlu.scala 136:51 137:15]
-  wire  _GEN_14 = io_req_bits_op == 16'h12 ? 1'h0 : _GEN_12; // @[AecIntAlu.scala 109:29 136:51]
-  wire [31:0] _GEN_15 = io_req_bits_op == 16'h11 ? _aluResult_T_25 : _GEN_13; // @[AecIntAlu.scala 134:50 135:15]
-  wire  _GEN_16 = io_req_bits_op == 16'h11 ? 1'h0 : _GEN_14; // @[AecIntAlu.scala 109:29 134:50]
-  wire [31:0] _GEN_17 = io_req_bits_op == 16'h10 ? _aluResult_T_24 : _GEN_15; // @[AecIntAlu.scala 132:51 133:15]
-  wire  _GEN_18 = io_req_bits_op == 16'h10 ? 1'h0 : _GEN_16; // @[AecIntAlu.scala 109:29 132:51]
-  wire [31:0] _GEN_19 = io_req_bits_op == 16'ha ? _aluResult_T_23 : _GEN_17; // @[AecIntAlu.scala 130:49 131:15]
-  wire  _GEN_20 = io_req_bits_op == 16'ha ? 1'h0 : _GEN_18; // @[AecIntAlu.scala 109:29 130:49]
-  wire [31:0] _GEN_21 = io_req_bits_op == 16'h9 ? _aluResult_T_18 : _GEN_19; // @[AecIntAlu.scala 128:49 129:15]
-  wire  _GEN_22 = io_req_bits_op == 16'h9 ? 1'h0 : _GEN_20; // @[AecIntAlu.scala 109:29 128:49]
-  wire [31:0] _GEN_23 = io_req_bits_op == 16'h8 ? _aluResult_T_13 : _GEN_21; // @[AecIntAlu.scala 126:49 127:15]
-  wire  _GEN_24 = io_req_bits_op == 16'h8 ? 1'h0 : _GEN_22; // @[AecIntAlu.scala 109:29 126:49]
-  wire [31:0] _GEN_25 = io_req_bits_op == 16'h7 ? _aluResult_T_7 : _GEN_23; // @[AecIntAlu.scala 124:49 125:15]
-  wire  _GEN_26 = io_req_bits_op == 16'h7 ? 1'h0 : _GEN_24; // @[AecIntAlu.scala 109:29 124:49]
-  wire  _GEN_27 = io_req_bits_op == 16'h6 | _GEN_26; // @[AecIntAlu.scala 119:49 123:14]
-  wire [31:0] _GEN_28 = io_req_bits_op == 16'h6 ? 32'h0 : _GEN_25; // @[AecIntAlu.scala 107:30 119:49]
-  wire [31:0] _GEN_29 = io_req_bits_op == 16'h3 | io_req_bits_op == 16'h4 ? 32'h0 : _GEN_28; // @[AecIntAlu.scala 117:85 118:15]
-  wire  _GEN_30 = io_req_bits_op == 16'h3 | io_req_bits_op == 16'h4 ? 1'h0 : _GEN_27; // @[AecIntAlu.scala 109:29 117:85]
-  wire [31:0] _GEN_31 = io_req_bits_op == 16'h2 ? _aluResult_T_3 : _GEN_29; // @[AecIntAlu.scala 115:49 116:15]
-  wire  _GEN_32 = io_req_bits_op == 16'h2 ? 1'h0 : _GEN_30; // @[AecIntAlu.scala 109:29 115:49]
-  wire [31:0] _GEN_33 = io_req_bits_op == 16'h1 ? _aluResult_T_1 : _GEN_31; // @[AecIntAlu.scala 113:49 114:15]
-  wire  _GEN_34 = io_req_bits_op == 16'h1 ? 1'h0 : _GEN_32; // @[AecIntAlu.scala 109:29 113:49]
-  wire [31:0] aluResult = isCmp | isCmmP ? {{31'd0}, cmpResult} : _GEN_33; // @[AecIntAlu.scala 110:26 111:15]
-  wire  aluPredicate = (isCmp | isCmmP) & cmpResult; // @[AecIntAlu.scala 110:26 112:18 108:33]
-  wire  aluError = isCmp | isCmmP ? 1'h0 : _GEN_34; // @[AecIntAlu.scala 110:26 109:29]
+  wire [4:0] _aluResult_T_235 = 5'h1f - _aluResult_T_233; // @[AecIntAlu.scala 179:23]
+  wire [31:0] _GEN_0 = io_req_bits_a == 32'h0 ? 32'hffffffff : {{27'd0}, _aluResult_T_235}; // @[AecIntAlu.scala 179:15 180:{22,34}]
+  wire [31:0] _aluResult_T_236 = io_req_bits_selectPredicate ? io_req_bits_a : io_req_bits_b; // @[AecIntAlu.scala 182:21]
+  wire [31:0] _aluResult_T_238 = io_req_bits_a[31] ? io_req_bits_b : io_req_bits_a; // @[AecIntAlu.scala 184:21]
+  wire [31:0] _GEN_1 = io_req_bits_op == 16'h23 ? _aluResult_T_238 : 32'h0; // @[AecIntAlu.scala 183:50 184:15 138:30]
+  wire  _GEN_2 = io_req_bits_op == 16'h23 ? 1'h0 : 1'h1; // @[AecIntAlu.scala 140:29 183:50 186:14]
+  wire [31:0] _GEN_3 = io_req_bits_op == 16'h22 ? _aluResult_T_236 : _GEN_1; // @[AecIntAlu.scala 181:49 182:15]
+  wire  _GEN_4 = io_req_bits_op == 16'h22 ? 1'h0 : _GEN_2; // @[AecIntAlu.scala 140:29 181:49]
+  wire [31:0] _GEN_5 = io_req_bits_op == 16'h19 ? _GEN_0 : _GEN_3; // @[AecIntAlu.scala 176:49]
+  wire  _GEN_6 = io_req_bits_op == 16'h19 ? 1'h0 : _GEN_4; // @[AecIntAlu.scala 140:29 176:49]
+  wire [31:0] _GEN_7 = io_req_bits_op == 16'h18 ? {{26'd0}, _aluResult_T_120} : _GEN_5; // @[AecIntAlu.scala 174:50 175:15]
+  wire  _GEN_8 = io_req_bits_op == 16'h18 ? 1'h0 : _GEN_6; // @[AecIntAlu.scala 140:29 174:50]
+  wire [31:0] _GEN_9 = _T_19 | io_req_bits_op == 16'h17 ? 32'h0 : _GEN_7; // @[AecIntAlu.scala 172:76 173:15]
+  wire  _GEN_10 = _T_19 | io_req_bits_op == 16'h17 ? 1'h0 : _GEN_8; // @[AecIntAlu.scala 140:29 172:76]
+  wire [31:0] _GEN_11 = io_req_bits_op == 16'h13 ? _aluResult_T_27 : _GEN_9; // @[AecIntAlu.scala 169:51 170:15]
+  wire  _GEN_12 = io_req_bits_op == 16'h13 ? 1'h0 : _GEN_10; // @[AecIntAlu.scala 140:29 169:51]
+  wire [31:0] _GEN_13 = io_req_bits_op == 16'h12 ? _aluResult_T_26 : _GEN_11; // @[AecIntAlu.scala 167:51 168:15]
+  wire  _GEN_14 = io_req_bits_op == 16'h12 ? 1'h0 : _GEN_12; // @[AecIntAlu.scala 140:29 167:51]
+  wire [31:0] _GEN_15 = io_req_bits_op == 16'h11 ? _aluResult_T_25 : _GEN_13; // @[AecIntAlu.scala 165:50 166:15]
+  wire  _GEN_16 = io_req_bits_op == 16'h11 ? 1'h0 : _GEN_14; // @[AecIntAlu.scala 140:29 165:50]
+  wire [31:0] _GEN_17 = io_req_bits_op == 16'h10 ? _aluResult_T_24 : _GEN_15; // @[AecIntAlu.scala 163:51 164:15]
+  wire  _GEN_18 = io_req_bits_op == 16'h10 ? 1'h0 : _GEN_16; // @[AecIntAlu.scala 140:29 163:51]
+  wire [31:0] _GEN_19 = io_req_bits_op == 16'ha ? _aluResult_T_23 : _GEN_17; // @[AecIntAlu.scala 161:49 162:15]
+  wire  _GEN_20 = io_req_bits_op == 16'ha ? 1'h0 : _GEN_18; // @[AecIntAlu.scala 140:29 161:49]
+  wire [31:0] _GEN_21 = io_req_bits_op == 16'h9 ? _aluResult_T_18 : _GEN_19; // @[AecIntAlu.scala 159:49 160:15]
+  wire  _GEN_22 = io_req_bits_op == 16'h9 ? 1'h0 : _GEN_20; // @[AecIntAlu.scala 140:29 159:49]
+  wire [31:0] _GEN_23 = io_req_bits_op == 16'h8 ? _aluResult_T_13 : _GEN_21; // @[AecIntAlu.scala 157:49 158:15]
+  wire  _GEN_24 = io_req_bits_op == 16'h8 ? 1'h0 : _GEN_22; // @[AecIntAlu.scala 140:29 157:49]
+  wire [31:0] _GEN_25 = io_req_bits_op == 16'h7 ? _aluResult_T_7 : _GEN_23; // @[AecIntAlu.scala 155:49 156:15]
+  wire  _GEN_26 = io_req_bits_op == 16'h7 ? 1'h0 : _GEN_24; // @[AecIntAlu.scala 140:29 155:49]
+  wire  _GEN_27 = io_req_bits_op == 16'h6 | _GEN_26; // @[AecIntAlu.scala 150:49 154:14]
+  wire [31:0] _GEN_28 = io_req_bits_op == 16'h6 ? 32'h0 : _GEN_25; // @[AecIntAlu.scala 138:30 150:49]
+  wire [31:0] _GEN_29 = io_req_bits_op == 16'h3 | io_req_bits_op == 16'h4 ? 32'h0 : _GEN_28; // @[AecIntAlu.scala 148:85 149:15]
+  wire  _GEN_30 = io_req_bits_op == 16'h3 | io_req_bits_op == 16'h4 ? 1'h0 : _GEN_27; // @[AecIntAlu.scala 140:29 148:85]
+  wire [31:0] _GEN_31 = io_req_bits_op == 16'h2 ? _aluResult_T_3 : _GEN_29; // @[AecIntAlu.scala 146:49 147:15]
+  wire  _GEN_32 = io_req_bits_op == 16'h2 ? 1'h0 : _GEN_30; // @[AecIntAlu.scala 140:29 146:49]
+  wire [31:0] _GEN_33 = io_req_bits_op == 16'h1 ? _aluResult_T_1 : _GEN_31; // @[AecIntAlu.scala 144:49 145:15]
+  wire  _GEN_34 = io_req_bits_op == 16'h1 ? 1'h0 : _GEN_32; // @[AecIntAlu.scala 140:29 144:49]
+  wire [31:0] aluResult = isCmp | isCmmP ? {{31'd0}, cmpResult} : _GEN_33; // @[AecIntAlu.scala 141:26 142:15]
+  wire  aluPredicate = (isCmp | isCmmP) & cmpResult; // @[AecIntAlu.scala 141:26 143:18 139:33]
+  wire  aluError = isCmp | isCmmP ? 1'h0 : _GEN_34; // @[AecIntAlu.scala 141:26 140:29]
   wire  _T_27 = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
-  wire [7:0] lsb = io_req_bits_c[7:0]; // @[AecIntAlu.scala 178:18]
-  wire [7:0] width = io_req_bits_c[15:8]; // @[AecIntAlu.scala 179:20]
-  wire [8:0] _valid_T_3 = lsb + width; // @[AecIntAlu.scala 180:55]
-  wire  valid = lsb <= 8'h1f & width <= 8'h20 & _valid_T_3 <= 9'h20; // @[AecIntAlu.scala 180:48]
-  wire  _T_37 = ~valid; // @[AecIntAlu.scala 181:13]
-  wire [31:0] _bitfieldValue_T_1 = _T_20 ? io_req_bits_b : io_req_bits_a; // @[AecIntAlu.scala 187:29]
-  wire [31:0] _GEN_38 = ~valid ? 32'h0 : result; // @[AecIntAlu.scala 181:21 182:16 57:23]
-  wire [2:0] _GEN_40 = ~valid ? 3'h6 : 3'h3; // @[AecIntAlu.scala 181:21 184:15 194:15]
-  wire [31:0] _GEN_41 = ~valid ? bitfieldBase : io_req_bits_a; // @[AecIntAlu.scala 181:21 186:22 73:25]
-  wire [31:0] _GEN_42 = ~valid ? bitfieldValue : _bitfieldValue_T_1; // @[AecIntAlu.scala 181:21 187:23 74:26]
-  wire [31:0] _GEN_43 = ~valid ? bitfieldMaskReg : 32'h0; // @[AecIntAlu.scala 181:21 188:25 75:28]
-  wire [5:0] _GEN_44 = ~valid ? bitfieldLsb : lsb[5:0]; // @[AecIntAlu.scala 181:21 189:21 76:24]
-  wire [5:0] _GEN_45 = ~valid ? bitfieldRemaining : lsb[5:0]; // @[AecIntAlu.scala 181:21 190:27 78:30]
-  wire [5:0] _GEN_46 = ~valid ? bitfieldWidth : width[5:0]; // @[AecIntAlu.scala 181:21 191:23 77:26]
-  wire  _GEN_47 = ~valid ? bitfieldInsert : _T_20; // @[AecIntAlu.scala 181:21 192:24 79:27]
-  wire  _GEN_48 = ~valid ? bitfieldSigned : isSigned; // @[AecIntAlu.scala 181:21 193:24 80:27]
-  wire [31:0] _GEN_49 = _T_18 | _T_20 ? _GEN_38 : aluResult; // @[AecIntAlu.scala 177:88 197:14]
-  wire  _GEN_50 = _T_18 | _T_20 ? _T_37 : aluError; // @[AecIntAlu.scala 177:88 199:13]
-  wire [2:0] _GEN_51 = _T_18 | _T_20 ? _GEN_40 : 3'h6; // @[AecIntAlu.scala 177:88 200:13]
-  wire [31:0] _GEN_53 = _T_18 | _T_20 ? _GEN_42 : bitfieldValue; // @[AecIntAlu.scala 177:88 74:26]
-  wire [31:0] _GEN_54 = _T_18 | _T_20 ? _GEN_43 : bitfieldMaskReg; // @[AecIntAlu.scala 177:88 75:28]
-  wire [5:0] _GEN_56 = _T_18 | _T_20 ? _GEN_45 : bitfieldRemaining; // @[AecIntAlu.scala 177:88 78:30]
-  wire  _GEN_60 = _T_18 | _T_20 ? 1'h0 : aluPredicate; // @[AecIntAlu.scala 160:21 177:88 198:23]
-  wire [31:0] _GEN_61 = _T_17 ? io_req_bits_a : shiftValue; // @[AecIntAlu.scala 170:87 171:18 68:23]
-  wire [2:0] _GEN_63 = _T_17 ? 3'h0 : shiftStep; // @[AecIntAlu.scala 170:87 173:17 70:22]
-  wire [2:0] _GEN_66 = _T_17 ? 3'h2 : _GEN_51; // @[AecIntAlu.scala 170:87 176:13]
-  wire [31:0] _GEN_67 = _T_17 ? result : _GEN_49; // @[AecIntAlu.scala 170:87 57:23]
-  wire [31:0] _GEN_70 = _T_17 ? bitfieldValue : _GEN_53; // @[AecIntAlu.scala 170:87 74:26]
-  wire [31:0] _GEN_71 = _T_17 ? bitfieldMaskReg : _GEN_54; // @[AecIntAlu.scala 170:87 75:28]
-  wire [5:0] _GEN_73 = _T_17 ? bitfieldRemaining : _GEN_56; // @[AecIntAlu.scala 170:87 78:30]
-  wire [31:0] _GEN_78 = _T_5 ? io_req_bits_a : multiplicand; // @[AecIntAlu.scala 162:81 163:20 62:25]
-  wire [4:0] _GEN_81 = _T_5 ? 5'h0 : multiplyCount; // @[AecIntAlu.scala 162:81 166:21 65:26]
-  wire [2:0] _GEN_84 = _T_5 ? 3'h1 : _GEN_66; // @[AecIntAlu.scala 162:81 169:13]
-  wire [31:0] _GEN_85 = _T_5 ? shiftValue : _GEN_61; // @[AecIntAlu.scala 162:81 68:23]
-  wire [2:0] _GEN_87 = _T_5 ? shiftStep : _GEN_63; // @[AecIntAlu.scala 162:81 70:22]
-  wire [31:0] _GEN_90 = _T_5 ? result : _GEN_67; // @[AecIntAlu.scala 162:81 57:23]
-  wire [31:0] _GEN_93 = _T_5 ? bitfieldValue : _GEN_70; // @[AecIntAlu.scala 162:81 74:26]
-  wire [31:0] _GEN_94 = _T_5 ? bitfieldMaskReg : _GEN_71; // @[AecIntAlu.scala 162:81 75:28]
-  wire [5:0] _GEN_96 = _T_5 ? bitfieldRemaining : _GEN_73; // @[AecIntAlu.scala 162:81 78:30]
-  wire [31:0] _GEN_104 = _T_27 ? _GEN_78 : multiplicand; // @[AecIntAlu.scala 158:22 62:25]
-  wire [4:0] _GEN_107 = _T_27 ? _GEN_81 : multiplyCount; // @[AecIntAlu.scala 158:22 65:26]
-  wire [2:0] _GEN_110 = _T_27 ? _GEN_84 : state; // @[AecIntAlu.scala 158:22 56:22]
-  wire [31:0] _GEN_111 = _T_27 ? _GEN_85 : shiftValue; // @[AecIntAlu.scala 158:22 68:23]
-  wire [2:0] _GEN_113 = _T_27 ? _GEN_87 : shiftStep; // @[AecIntAlu.scala 158:22 70:22]
-  wire [31:0] _GEN_116 = _T_27 ? _GEN_90 : result; // @[AecIntAlu.scala 158:22 57:23]
-  wire [31:0] _GEN_118 = _T_27 ? _GEN_93 : bitfieldValue; // @[AecIntAlu.scala 158:22 74:26]
-  wire [31:0] _GEN_119 = _T_27 ? _GEN_94 : bitfieldMaskReg; // @[AecIntAlu.scala 158:22 75:28]
-  wire [5:0] _GEN_121 = _T_27 ? _GEN_96 : bitfieldRemaining; // @[AecIntAlu.scala 158:22 78:30]
-  wire [31:0] _nextProduct_T_2 = product + multiplicand; // @[AecIntAlu.scala 205:50]
-  wire [31:0] nextProduct = multiplier[0] ? _nextProduct_T_2 : product; // @[AecIntAlu.scala 205:26]
-  wire [32:0] _multiplicand_T = {multiplicand, 1'h0}; // @[AecIntAlu.scala 207:34]
-  wire [31:0] _result_T_1 = nextProduct + multiplyAddend; // @[AecIntAlu.scala 210:46]
-  wire [31:0] _result_T_2 = multiplyMad ? _result_T_1 : nextProduct; // @[AecIntAlu.scala 210:20]
-  wire [4:0] _multiplyCount_T_1 = multiplyCount + 5'h1; // @[AecIntAlu.scala 212:50]
-  wire [31:0] _GEN_125 = multiplyCount == 5'h1f ? _result_T_2 : _GEN_116; // @[AecIntAlu.scala 209:35 210:14]
-  wire [2:0] _GEN_126 = multiplyCount == 5'h1f ? 3'h6 : _GEN_110; // @[AecIntAlu.scala 209:35 211:13]
-  wire [32:0] _GEN_129 = state == 3'h1 ? _multiplicand_T : {{1'd0}, _GEN_104}; // @[AecIntAlu.scala 204:29 207:18]
-  wire [31:0] _GEN_131 = state == 3'h1 ? _GEN_125 : _GEN_116; // @[AecIntAlu.scala 204:29]
-  wire [2:0] _GEN_132 = state == 3'h1 ? _GEN_126 : _GEN_110; // @[AecIntAlu.scala 204:29]
-  wire [32:0] _left_T = {shiftValue, 1'h0}; // @[AecIntAlu.scala 216:48]
-  wire [33:0] _left_T_2 = {shiftValue, 2'h0}; // @[AecIntAlu.scala 217:52]
-  wire [35:0] _left_T_3 = {shiftValue, 4'h0}; // @[AecIntAlu.scala 217:78]
-  wire [39:0] _left_T_4 = {shiftValue, 8'h0}; // @[AecIntAlu.scala 218:26]
-  wire [47:0] _left_T_5 = {shiftValue, 16'h0}; // @[AecIntAlu.scala 218:52]
+  wire [7:0] lsb = io_req_bits_c[7:0]; // @[AecIntAlu.scala 209:18]
+  wire [7:0] width = io_req_bits_c[15:8]; // @[AecIntAlu.scala 210:20]
+  wire [8:0] _valid_T_3 = lsb + width; // @[AecIntAlu.scala 211:55]
+  wire  valid = lsb <= 8'h1f & width <= 8'h20 & _valid_T_3 <= 9'h20; // @[AecIntAlu.scala 211:48]
+  wire  _T_37 = ~valid; // @[AecIntAlu.scala 212:13]
+  wire [31:0] _bitfieldValue_T_1 = _T_20 ? io_req_bits_b : io_req_bits_a; // @[AecIntAlu.scala 218:29]
+  wire [31:0] _GEN_38 = ~valid ? 32'h0 : result; // @[AecIntAlu.scala 212:21 213:16 88:23]
+  wire [2:0] _GEN_40 = ~valid ? 3'h6 : 3'h3; // @[AecIntAlu.scala 212:21 215:15 225:15]
+  wire [31:0] _GEN_41 = ~valid ? bitfieldBase : io_req_bits_a; // @[AecIntAlu.scala 212:21 104:25 217:22]
+  wire [31:0] _GEN_42 = ~valid ? bitfieldValue : _bitfieldValue_T_1; // @[AecIntAlu.scala 212:21 105:26 218:23]
+  wire [31:0] _GEN_43 = ~valid ? bitfieldMaskReg : 32'h0; // @[AecIntAlu.scala 212:21 106:28 219:25]
+  wire [5:0] _GEN_44 = ~valid ? bitfieldLsb : lsb[5:0]; // @[AecIntAlu.scala 212:21 107:24 220:21]
+  wire [5:0] _GEN_45 = ~valid ? bitfieldRemaining : lsb[5:0]; // @[AecIntAlu.scala 212:21 109:30 221:27]
+  wire [5:0] _GEN_46 = ~valid ? bitfieldWidth : width[5:0]; // @[AecIntAlu.scala 212:21 108:26 222:23]
+  wire  _GEN_47 = ~valid ? bitfieldInsert : _T_20; // @[AecIntAlu.scala 212:21 110:27 223:24]
+  wire  _GEN_48 = ~valid ? bitfieldSigned : isSigned; // @[AecIntAlu.scala 212:21 111:27 224:24]
+  wire [31:0] _GEN_49 = _T_18 | _T_20 ? _GEN_38 : aluResult; // @[AecIntAlu.scala 208:88 228:14]
+  wire  _GEN_50 = _T_18 | _T_20 ? _T_37 : aluError; // @[AecIntAlu.scala 208:88 230:13]
+  wire [2:0] _GEN_51 = _T_18 | _T_20 ? _GEN_40 : 3'h6; // @[AecIntAlu.scala 208:88 231:13]
+  wire [31:0] _GEN_53 = _T_18 | _T_20 ? _GEN_42 : bitfieldValue; // @[AecIntAlu.scala 105:26 208:88]
+  wire [31:0] _GEN_54 = _T_18 | _T_20 ? _GEN_43 : bitfieldMaskReg; // @[AecIntAlu.scala 106:28 208:88]
+  wire [5:0] _GEN_56 = _T_18 | _T_20 ? _GEN_45 : bitfieldRemaining; // @[AecIntAlu.scala 109:30 208:88]
+  wire  _GEN_60 = _T_18 | _T_20 ? 1'h0 : aluPredicate; // @[AecIntAlu.scala 191:21 208:88 229:23]
+  wire [31:0] _GEN_61 = _T_17 ? io_req_bits_a : shiftValue; // @[AecIntAlu.scala 201:87 202:18 99:23]
+  wire [2:0] _GEN_63 = _T_17 ? 3'h0 : shiftStep; // @[AecIntAlu.scala 201:87 204:17 101:22]
+  wire [2:0] _GEN_66 = _T_17 ? 3'h2 : _GEN_51; // @[AecIntAlu.scala 201:87 207:13]
+  wire [31:0] _GEN_67 = _T_17 ? result : _GEN_49; // @[AecIntAlu.scala 201:87 88:23]
+  wire [31:0] _GEN_70 = _T_17 ? bitfieldValue : _GEN_53; // @[AecIntAlu.scala 105:26 201:87]
+  wire [31:0] _GEN_71 = _T_17 ? bitfieldMaskReg : _GEN_54; // @[AecIntAlu.scala 106:28 201:87]
+  wire [5:0] _GEN_73 = _T_17 ? bitfieldRemaining : _GEN_56; // @[AecIntAlu.scala 109:30 201:87]
+  wire [31:0] _GEN_78 = _T_5 ? io_req_bits_a : multiplicand; // @[AecIntAlu.scala 193:81 194:20 93:25]
+  wire [4:0] _GEN_81 = _T_5 ? 5'h0 : multiplyCount; // @[AecIntAlu.scala 193:81 197:21 96:26]
+  wire [2:0] _GEN_84 = _T_5 ? 3'h1 : _GEN_66; // @[AecIntAlu.scala 193:81 200:13]
+  wire [31:0] _GEN_85 = _T_5 ? shiftValue : _GEN_61; // @[AecIntAlu.scala 193:81 99:23]
+  wire [2:0] _GEN_87 = _T_5 ? shiftStep : _GEN_63; // @[AecIntAlu.scala 101:22 193:81]
+  wire [31:0] _GEN_90 = _T_5 ? result : _GEN_67; // @[AecIntAlu.scala 193:81 88:23]
+  wire [31:0] _GEN_93 = _T_5 ? bitfieldValue : _GEN_70; // @[AecIntAlu.scala 105:26 193:81]
+  wire [31:0] _GEN_94 = _T_5 ? bitfieldMaskReg : _GEN_71; // @[AecIntAlu.scala 106:28 193:81]
+  wire [5:0] _GEN_96 = _T_5 ? bitfieldRemaining : _GEN_73; // @[AecIntAlu.scala 109:30 193:81]
+  wire [31:0] _GEN_104 = _T_27 ? _GEN_78 : multiplicand; // @[AecIntAlu.scala 189:22 93:25]
+  wire [4:0] _GEN_107 = _T_27 ? _GEN_81 : multiplyCount; // @[AecIntAlu.scala 189:22 96:26]
+  wire [2:0] _GEN_110 = _T_27 ? _GEN_84 : state; // @[AecIntAlu.scala 189:22 87:22]
+  wire [31:0] _GEN_111 = _T_27 ? _GEN_85 : shiftValue; // @[AecIntAlu.scala 189:22 99:23]
+  wire [2:0] _GEN_113 = _T_27 ? _GEN_87 : shiftStep; // @[AecIntAlu.scala 101:22 189:22]
+  wire [31:0] _GEN_116 = _T_27 ? _GEN_90 : result; // @[AecIntAlu.scala 189:22 88:23]
+  wire [31:0] _GEN_118 = _T_27 ? _GEN_93 : bitfieldValue; // @[AecIntAlu.scala 189:22 105:26]
+  wire [31:0] _GEN_119 = _T_27 ? _GEN_94 : bitfieldMaskReg; // @[AecIntAlu.scala 189:22 106:28]
+  wire [5:0] _GEN_121 = _T_27 ? _GEN_96 : bitfieldRemaining; // @[AecIntAlu.scala 189:22 109:30]
+  wire [31:0] _nextProduct_T_2 = product + multiplicand; // @[AecIntAlu.scala 236:50]
+  wire [31:0] nextProduct = multiplier[0] ? _nextProduct_T_2 : product; // @[AecIntAlu.scala 236:26]
+  wire [32:0] _multiplicand_T = {multiplicand, 1'h0}; // @[AecIntAlu.scala 238:34]
+  wire [31:0] _result_T_1 = nextProduct + multiplyAddend; // @[AecIntAlu.scala 241:46]
+  wire [31:0] _result_T_2 = multiplyMad ? _result_T_1 : nextProduct; // @[AecIntAlu.scala 241:20]
+  wire [4:0] _multiplyCount_T_1 = multiplyCount + 5'h1; // @[AecIntAlu.scala 243:50]
+  wire [31:0] _GEN_125 = multiplyCount == 5'h1f ? _result_T_2 : _GEN_116; // @[AecIntAlu.scala 240:35 241:14]
+  wire [2:0] _GEN_126 = multiplyCount == 5'h1f ? 3'h6 : _GEN_110; // @[AecIntAlu.scala 240:35 242:13]
+  wire [32:0] _GEN_129 = state == 3'h1 ? _multiplicand_T : {{1'd0}, _GEN_104}; // @[AecIntAlu.scala 235:29 238:18]
+  wire [31:0] _GEN_131 = state == 3'h1 ? _GEN_125 : _GEN_116; // @[AecIntAlu.scala 235:29]
+  wire [2:0] _GEN_132 = state == 3'h1 ? _GEN_126 : _GEN_110; // @[AecIntAlu.scala 235:29]
+  wire [32:0] _left_T = {shiftValue, 1'h0}; // @[AecIntAlu.scala 247:48]
+  wire [33:0] _left_T_2 = {shiftValue, 2'h0}; // @[AecIntAlu.scala 248:52]
+  wire [35:0] _left_T_3 = {shiftValue, 4'h0}; // @[AecIntAlu.scala 248:78]
+  wire [39:0] _left_T_4 = {shiftValue, 8'h0}; // @[AecIntAlu.scala 249:26]
+  wire [47:0] _left_T_5 = {shiftValue, 16'h0}; // @[AecIntAlu.scala 249:52]
   wire [32:0] _left_T_7 = 3'h0 == shiftStep ? _left_T : _left_T; // @[Mux.scala 81:58]
   wire [33:0] _left_T_9 = 3'h1 == shiftStep ? _left_T_2 : {{1'd0}, _left_T_7}; // @[Mux.scala 81:58]
   wire [35:0] _left_T_11 = 3'h2 == shiftStep ? _left_T_3 : {{2'd0}, _left_T_9}; // @[Mux.scala 81:58]
@@ -321,168 +321,168 @@ module AecIntAlu(
   wire [31:0] _arithmeticRight_T_31 = 3'h2 == shiftStep ? _arithmeticRight_T_15 : _arithmeticRight_T_29; // @[Mux.scala 81:58]
   wire [31:0] _arithmeticRight_T_33 = 3'h3 == shiftStep ? _arithmeticRight_T_20 : _arithmeticRight_T_31; // @[Mux.scala 81:58]
   wire [31:0] arithmeticRight = 3'h4 == shiftStep ? _arithmeticRight_T_25 : _arithmeticRight_T_33; // @[Mux.scala 81:58]
-  wire [31:0] _shifted_T = shiftArithmetic ? arithmeticRight : {{1'd0}, logicalRight}; // @[AecIntAlu.scala 228:38]
-  wire [47:0] shifted = shiftRight ? {{16'd0}, _shifted_T} : left; // @[AecIntAlu.scala 228:22]
-  wire [4:0] _nextValue_T = shiftAmount >> shiftStep; // @[AecIntAlu.scala 229:36]
-  wire [47:0] nextValue = _nextValue_T[0] ? shifted : {{16'd0}, shiftValue}; // @[AecIntAlu.scala 229:24]
-  wire [2:0] _shiftStep_T_1 = shiftStep + 3'h1; // @[AecIntAlu.scala 232:43]
-  wire [47:0] _GEN_134 = shiftStep == 3'h4 ? nextValue : {{16'd0}, _GEN_131}; // @[AecIntAlu.scala 231:{30,39}]
-  wire [2:0] _GEN_135 = shiftStep == 3'h4 ? 3'h6 : _GEN_132; // @[AecIntAlu.scala 231:{30,59}]
-  wire [47:0] _GEN_137 = state == 3'h2 ? nextValue : {{16'd0}, _GEN_111}; // @[AecIntAlu.scala 215:29 230:16]
-  wire [47:0] _GEN_138 = state == 3'h2 ? _GEN_134 : {{16'd0}, _GEN_131}; // @[AecIntAlu.scala 215:29]
-  wire [2:0] _GEN_139 = state == 3'h2 ? _GEN_135 : _GEN_132; // @[AecIntAlu.scala 215:29]
-  wire  _T_43 = bitfieldRemaining == 6'h0; // @[AecIntAlu.scala 236:29]
-  wire [32:0] _bitfieldValue_T_2 = {bitfieldValue, 1'h0}; // @[AecIntAlu.scala 240:58]
-  wire [32:0] _bitfieldValue_T_4 = bitfieldInsert ? _bitfieldValue_T_2 : {{2'd0}, bitfieldValue[31:1]}; // @[AecIntAlu.scala 240:27]
-  wire [5:0] _bitfieldRemaining_T_2 = bitfieldRemaining - 6'h1; // @[AecIntAlu.scala 241:46]
-  wire [5:0] _GEN_141 = bitfieldRemaining == 6'h0 ? bitfieldWidth : _bitfieldRemaining_T_2; // @[AecIntAlu.scala 236:38 237:25 241:25]
-  wire [2:0] _GEN_142 = bitfieldRemaining == 6'h0 ? 3'h4 : _GEN_139; // @[AecIntAlu.scala 236:38 238:13]
-  wire [32:0] _GEN_143 = bitfieldRemaining == 6'h0 ? {{1'd0}, _GEN_118} : _bitfieldValue_T_4; // @[AecIntAlu.scala 236:38 240:21]
-  wire [5:0] _GEN_144 = state == 3'h3 ? _GEN_141 : _GEN_121; // @[AecIntAlu.scala 235:34]
-  wire [2:0] _GEN_145 = state == 3'h3 ? _GEN_142 : _GEN_139; // @[AecIntAlu.scala 235:34]
-  wire [32:0] _GEN_146 = state == 3'h3 ? _GEN_143 : {{1'd0}, _GEN_118}; // @[AecIntAlu.scala 235:34]
-  wire [31:0] extracted = bitfieldValue & bitfieldMaskReg; // @[AecIntAlu.scala 250:39]
-  wire [31:0] _signBit_T_1 = bitfieldMaskReg + 32'h1; // @[AecIntAlu.scala 251:54]
-  wire [31:0] _GEN_172 = {{1'd0}, _signBit_T_1[31:1]}; // @[AecIntAlu.scala 251:34]
-  wire [31:0] _signBit_T_3 = extracted & _GEN_172; // @[AecIntAlu.scala 251:34]
-  wire  signBit = |_signBit_T_3; // @[AecIntAlu.scala 251:68]
-  wire [31:0] _result_T_4 = ~bitfieldMaskReg; // @[AecIntAlu.scala 252:62]
-  wire [31:0] _result_T_5 = extracted | _result_T_4; // @[AecIntAlu.scala 252:60]
-  wire [31:0] _result_T_6 = bitfieldSigned & signBit ? _result_T_5 : extracted; // @[AecIntAlu.scala 252:22]
-  wire [5:0] _GEN_147 = bitfieldInsert ? bitfieldLsb : _GEN_144; // @[AecIntAlu.scala 246:29 247:27]
-  wire [2:0] _GEN_148 = bitfieldInsert ? 3'h5 : 3'h6; // @[AecIntAlu.scala 246:29 248:15 253:15]
-  wire [47:0] _GEN_149 = bitfieldInsert ? _GEN_138 : {{16'd0}, _result_T_6}; // @[AecIntAlu.scala 246:29 252:16]
-  wire [32:0] _bitfieldMaskReg_T = {bitfieldMaskReg, 1'h0}; // @[AecIntAlu.scala 256:43]
-  wire [32:0] _bitfieldMaskReg_T_1 = _bitfieldMaskReg_T | 33'h1; // @[AecIntAlu.scala 256:49]
-  wire [5:0] _GEN_150 = _T_43 ? _GEN_147 : _bitfieldRemaining_T_2; // @[AecIntAlu.scala 245:38 257:25]
-  wire [2:0] _GEN_151 = _T_43 ? _GEN_148 : _GEN_145; // @[AecIntAlu.scala 245:38]
-  wire [47:0] _GEN_152 = _T_43 ? _GEN_149 : _GEN_138; // @[AecIntAlu.scala 245:38]
-  wire [32:0] _GEN_153 = _T_43 ? {{1'd0}, _GEN_119} : _bitfieldMaskReg_T_1; // @[AecIntAlu.scala 245:38 256:23]
-  wire [5:0] _GEN_154 = state == 3'h4 ? _GEN_150 : _GEN_144; // @[AecIntAlu.scala 244:33]
-  wire [2:0] _GEN_155 = state == 3'h4 ? _GEN_151 : _GEN_145; // @[AecIntAlu.scala 244:33]
-  wire [47:0] _GEN_156 = state == 3'h4 ? _GEN_152 : _GEN_138; // @[AecIntAlu.scala 244:33]
-  wire [32:0] _GEN_157 = state == 3'h4 ? _GEN_153 : {{1'd0}, _GEN_119}; // @[AecIntAlu.scala 244:33]
-  wire [31:0] _result_T_8 = bitfieldBase & _result_T_4; // @[AecIntAlu.scala 262:31]
-  wire [31:0] _result_T_10 = _result_T_8 | extracted; // @[AecIntAlu.scala 262:51]
-  wire [47:0] _GEN_158 = _T_43 ? {{16'd0}, _result_T_10} : _GEN_156; // @[AecIntAlu.scala 261:38 262:14]
-  wire [32:0] _GEN_160 = _T_43 ? _GEN_157 : _bitfieldMaskReg_T; // @[AecIntAlu.scala 261:38 265:23]
-  wire [47:0] _GEN_162 = state == 3'h5 ? _GEN_158 : _GEN_156; // @[AecIntAlu.scala 260:38]
-  wire [32:0] _GEN_164 = state == 3'h5 ? _GEN_160 : _GEN_157; // @[AecIntAlu.scala 260:38]
+  wire [31:0] _shifted_T = shiftArithmetic ? arithmeticRight : {{1'd0}, logicalRight}; // @[AecIntAlu.scala 259:38]
+  wire [47:0] shifted = shiftRight ? {{16'd0}, _shifted_T} : left; // @[AecIntAlu.scala 259:22]
+  wire [4:0] _nextValue_T = shiftAmount >> shiftStep; // @[AecIntAlu.scala 260:36]
+  wire [47:0] nextValue = _nextValue_T[0] ? shifted : {{16'd0}, shiftValue}; // @[AecIntAlu.scala 260:24]
+  wire [2:0] _shiftStep_T_1 = shiftStep + 3'h1; // @[AecIntAlu.scala 263:43]
+  wire [47:0] _GEN_134 = shiftStep == 3'h4 ? nextValue : {{16'd0}, _GEN_131}; // @[AecIntAlu.scala 262:{30,39}]
+  wire [2:0] _GEN_135 = shiftStep == 3'h4 ? 3'h6 : _GEN_132; // @[AecIntAlu.scala 262:{30,59}]
+  wire [47:0] _GEN_137 = state == 3'h2 ? nextValue : {{16'd0}, _GEN_111}; // @[AecIntAlu.scala 246:29 261:16]
+  wire [47:0] _GEN_138 = state == 3'h2 ? _GEN_134 : {{16'd0}, _GEN_131}; // @[AecIntAlu.scala 246:29]
+  wire [2:0] _GEN_139 = state == 3'h2 ? _GEN_135 : _GEN_132; // @[AecIntAlu.scala 246:29]
+  wire  _T_43 = bitfieldRemaining == 6'h0; // @[AecIntAlu.scala 267:29]
+  wire [32:0] _bitfieldValue_T_2 = {bitfieldValue, 1'h0}; // @[AecIntAlu.scala 271:58]
+  wire [32:0] _bitfieldValue_T_4 = bitfieldInsert ? _bitfieldValue_T_2 : {{2'd0}, bitfieldValue[31:1]}; // @[AecIntAlu.scala 271:27]
+  wire [5:0] _bitfieldRemaining_T_2 = bitfieldRemaining - 6'h1; // @[AecIntAlu.scala 272:46]
+  wire [5:0] _GEN_141 = bitfieldRemaining == 6'h0 ? bitfieldWidth : _bitfieldRemaining_T_2; // @[AecIntAlu.scala 267:38 268:25 272:25]
+  wire [2:0] _GEN_142 = bitfieldRemaining == 6'h0 ? 3'h4 : _GEN_139; // @[AecIntAlu.scala 267:38 269:13]
+  wire [32:0] _GEN_143 = bitfieldRemaining == 6'h0 ? {{1'd0}, _GEN_118} : _bitfieldValue_T_4; // @[AecIntAlu.scala 267:38 271:21]
+  wire [5:0] _GEN_144 = state == 3'h3 ? _GEN_141 : _GEN_121; // @[AecIntAlu.scala 266:34]
+  wire [2:0] _GEN_145 = state == 3'h3 ? _GEN_142 : _GEN_139; // @[AecIntAlu.scala 266:34]
+  wire [32:0] _GEN_146 = state == 3'h3 ? _GEN_143 : {{1'd0}, _GEN_118}; // @[AecIntAlu.scala 266:34]
+  wire [31:0] extracted = bitfieldValue & bitfieldMaskReg; // @[AecIntAlu.scala 281:39]
+  wire [31:0] _signBit_T_1 = bitfieldMaskReg + 32'h1; // @[AecIntAlu.scala 282:54]
+  wire [31:0] _GEN_172 = {{1'd0}, _signBit_T_1[31:1]}; // @[AecIntAlu.scala 282:34]
+  wire [31:0] _signBit_T_3 = extracted & _GEN_172; // @[AecIntAlu.scala 282:34]
+  wire  signBit = |_signBit_T_3; // @[AecIntAlu.scala 282:68]
+  wire [31:0] _result_T_4 = ~bitfieldMaskReg; // @[AecIntAlu.scala 283:62]
+  wire [31:0] _result_T_5 = extracted | _result_T_4; // @[AecIntAlu.scala 283:60]
+  wire [31:0] _result_T_6 = bitfieldSigned & signBit ? _result_T_5 : extracted; // @[AecIntAlu.scala 283:22]
+  wire [5:0] _GEN_147 = bitfieldInsert ? bitfieldLsb : _GEN_144; // @[AecIntAlu.scala 277:29 278:27]
+  wire [2:0] _GEN_148 = bitfieldInsert ? 3'h5 : 3'h6; // @[AecIntAlu.scala 277:29 279:15 284:15]
+  wire [47:0] _GEN_149 = bitfieldInsert ? _GEN_138 : {{16'd0}, _result_T_6}; // @[AecIntAlu.scala 277:29 283:16]
+  wire [32:0] _bitfieldMaskReg_T = {bitfieldMaskReg, 1'h0}; // @[AecIntAlu.scala 287:43]
+  wire [32:0] _bitfieldMaskReg_T_1 = _bitfieldMaskReg_T | 33'h1; // @[AecIntAlu.scala 287:49]
+  wire [5:0] _GEN_150 = _T_43 ? _GEN_147 : _bitfieldRemaining_T_2; // @[AecIntAlu.scala 276:38 288:25]
+  wire [2:0] _GEN_151 = _T_43 ? _GEN_148 : _GEN_145; // @[AecIntAlu.scala 276:38]
+  wire [47:0] _GEN_152 = _T_43 ? _GEN_149 : _GEN_138; // @[AecIntAlu.scala 276:38]
+  wire [32:0] _GEN_153 = _T_43 ? {{1'd0}, _GEN_119} : _bitfieldMaskReg_T_1; // @[AecIntAlu.scala 276:38 287:23]
+  wire [5:0] _GEN_154 = state == 3'h4 ? _GEN_150 : _GEN_144; // @[AecIntAlu.scala 275:33]
+  wire [2:0] _GEN_155 = state == 3'h4 ? _GEN_151 : _GEN_145; // @[AecIntAlu.scala 275:33]
+  wire [47:0] _GEN_156 = state == 3'h4 ? _GEN_152 : _GEN_138; // @[AecIntAlu.scala 275:33]
+  wire [32:0] _GEN_157 = state == 3'h4 ? _GEN_153 : {{1'd0}, _GEN_119}; // @[AecIntAlu.scala 275:33]
+  wire [31:0] _result_T_8 = bitfieldBase & _result_T_4; // @[AecIntAlu.scala 293:31]
+  wire [31:0] _result_T_10 = _result_T_8 | extracted; // @[AecIntAlu.scala 293:51]
+  wire [47:0] _GEN_158 = _T_43 ? {{16'd0}, _result_T_10} : _GEN_156; // @[AecIntAlu.scala 292:38 293:14]
+  wire [32:0] _GEN_160 = _T_43 ? _GEN_157 : _bitfieldMaskReg_T; // @[AecIntAlu.scala 292:38 296:23]
+  wire [47:0] _GEN_162 = state == 3'h5 ? _GEN_158 : _GEN_156; // @[AecIntAlu.scala 291:38]
+  wire [32:0] _GEN_164 = state == 3'h5 ? _GEN_160 : _GEN_157; // @[AecIntAlu.scala 291:38]
   wire  _T_48 = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
-  wire [47:0] _GEN_173 = reset ? 48'h0 : _GEN_162; // @[AecIntAlu.scala 57:{23,23}]
-  assign io_req_ready = state == 3'h0; // @[AecIntAlu.scala 82:25]
-  assign io_resp_valid = state == 3'h6; // @[AecIntAlu.scala 83:26]
-  assign io_resp_bits_result = result; // @[AecIntAlu.scala 84:23]
-  assign io_resp_bits_predicateResult = predicateResult; // @[AecIntAlu.scala 85:32]
-  assign io_resp_bits_error = error; // @[AecIntAlu.scala 87:22]
+  wire [47:0] _GEN_173 = reset ? 48'h0 : _GEN_162; // @[AecIntAlu.scala 88:{23,23}]
+  assign io_req_ready = state == 3'h0; // @[AecIntAlu.scala 113:25]
+  assign io_resp_valid = state == 3'h6; // @[AecIntAlu.scala 114:26]
+  assign io_resp_bits_result = result; // @[AecIntAlu.scala 115:23]
+  assign io_resp_bits_predicateResult = predicateResult; // @[AecIntAlu.scala 116:32]
+  assign io_resp_bits_error = error; // @[AecIntAlu.scala 118:22]
   always @(posedge clock) begin
-    if (reset) begin // @[AecIntAlu.scala 56:22]
-      state <= 3'h0; // @[AecIntAlu.scala 56:22]
-    end else if (_T_48) begin // @[AecIntAlu.scala 270:23]
-      state <= 3'h0; // @[AecIntAlu.scala 270:31]
-    end else if (state == 3'h5) begin // @[AecIntAlu.scala 260:38]
-      if (_T_43) begin // @[AecIntAlu.scala 261:38]
-        state <= 3'h6; // @[AecIntAlu.scala 263:13]
+    if (reset) begin // @[AecIntAlu.scala 87:22]
+      state <= 3'h0; // @[AecIntAlu.scala 87:22]
+    end else if (_T_48) begin // @[AecIntAlu.scala 301:23]
+      state <= 3'h0; // @[AecIntAlu.scala 301:31]
+    end else if (state == 3'h5) begin // @[AecIntAlu.scala 291:38]
+      if (_T_43) begin // @[AecIntAlu.scala 292:38]
+        state <= 3'h6; // @[AecIntAlu.scala 294:13]
       end else begin
         state <= _GEN_155;
       end
     end else begin
       state <= _GEN_155;
     end
-    result <= _GEN_173[31:0]; // @[AecIntAlu.scala 57:{23,23}]
-    if (reset) begin // @[AecIntAlu.scala 58:32]
-      predicateResult <= 1'h0; // @[AecIntAlu.scala 58:32]
-    end else if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (_T_5) begin // @[AecIntAlu.scala 162:81]
-        predicateResult <= 1'h0; // @[AecIntAlu.scala 160:21]
-      end else if (_T_17) begin // @[AecIntAlu.scala 170:87]
-        predicateResult <= 1'h0; // @[AecIntAlu.scala 160:21]
+    result <= _GEN_173[31:0]; // @[AecIntAlu.scala 88:{23,23}]
+    if (reset) begin // @[AecIntAlu.scala 89:32]
+      predicateResult <= 1'h0; // @[AecIntAlu.scala 89:32]
+    end else if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (_T_5) begin // @[AecIntAlu.scala 193:81]
+        predicateResult <= 1'h0; // @[AecIntAlu.scala 191:21]
+      end else if (_T_17) begin // @[AecIntAlu.scala 201:87]
+        predicateResult <= 1'h0; // @[AecIntAlu.scala 191:21]
       end else begin
         predicateResult <= _GEN_60;
       end
     end
-    if (reset) begin // @[AecIntAlu.scala 60:22]
-      error <= 1'h0; // @[AecIntAlu.scala 60:22]
-    end else if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (_T_5) begin // @[AecIntAlu.scala 162:81]
-        error <= 1'h0; // @[AecIntAlu.scala 161:11]
-      end else if (_T_17) begin // @[AecIntAlu.scala 170:87]
-        error <= 1'h0; // @[AecIntAlu.scala 161:11]
+    if (reset) begin // @[AecIntAlu.scala 91:22]
+      error <= 1'h0; // @[AecIntAlu.scala 91:22]
+    end else if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (_T_5) begin // @[AecIntAlu.scala 193:81]
+        error <= 1'h0; // @[AecIntAlu.scala 192:11]
+      end else if (_T_17) begin // @[AecIntAlu.scala 201:87]
+        error <= 1'h0; // @[AecIntAlu.scala 192:11]
       end else begin
         error <= _GEN_50;
       end
     end
     multiplicand <= _GEN_129[31:0];
-    if (state == 3'h1) begin // @[AecIntAlu.scala 204:29]
-      multiplier <= {{1'd0}, multiplier[31:1]}; // @[AecIntAlu.scala 208:16]
-    end else if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (_T_5) begin // @[AecIntAlu.scala 162:81]
-        multiplier <= io_req_bits_b; // @[AecIntAlu.scala 164:18]
+    if (state == 3'h1) begin // @[AecIntAlu.scala 235:29]
+      multiplier <= {{1'd0}, multiplier[31:1]}; // @[AecIntAlu.scala 239:16]
+    end else if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (_T_5) begin // @[AecIntAlu.scala 193:81]
+        multiplier <= io_req_bits_b; // @[AecIntAlu.scala 195:18]
       end
     end
-    if (state == 3'h1) begin // @[AecIntAlu.scala 204:29]
-      if (multiplier[0]) begin // @[AecIntAlu.scala 205:26]
+    if (state == 3'h1) begin // @[AecIntAlu.scala 235:29]
+      if (multiplier[0]) begin // @[AecIntAlu.scala 236:26]
         product <= _nextProduct_T_2;
       end
-    end else if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (_T_5) begin // @[AecIntAlu.scala 162:81]
-        product <= 32'h0; // @[AecIntAlu.scala 165:15]
+    end else if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (_T_5) begin // @[AecIntAlu.scala 193:81]
+        product <= 32'h0; // @[AecIntAlu.scala 196:15]
       end
     end
-    if (state == 3'h1) begin // @[AecIntAlu.scala 204:29]
-      if (multiplyCount == 5'h1f) begin // @[AecIntAlu.scala 209:35]
+    if (state == 3'h1) begin // @[AecIntAlu.scala 235:29]
+      if (multiplyCount == 5'h1f) begin // @[AecIntAlu.scala 240:35]
         multiplyCount <= _GEN_107;
       end else begin
-        multiplyCount <= _multiplyCount_T_1; // @[AecIntAlu.scala 212:33]
+        multiplyCount <= _multiplyCount_T_1; // @[AecIntAlu.scala 243:33]
       end
     end else begin
       multiplyCount <= _GEN_107;
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (_T_5) begin // @[AecIntAlu.scala 162:81]
-        multiplyAddend <= io_req_bits_c; // @[AecIntAlu.scala 167:22]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (_T_5) begin // @[AecIntAlu.scala 193:81]
+        multiplyAddend <= io_req_bits_c; // @[AecIntAlu.scala 198:22]
       end
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (_T_5) begin // @[AecIntAlu.scala 162:81]
-        multiplyMad <= _T_4; // @[AecIntAlu.scala 168:19]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (_T_5) begin // @[AecIntAlu.scala 193:81]
+        multiplyMad <= _T_4; // @[AecIntAlu.scala 199:19]
       end
     end
     shiftValue <= _GEN_137[31:0];
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (_T_17) begin // @[AecIntAlu.scala 170:87]
-          shiftAmount <= shift; // @[AecIntAlu.scala 172:19]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (_T_17) begin // @[AecIntAlu.scala 201:87]
+          shiftAmount <= shift; // @[AecIntAlu.scala 203:19]
         end
       end
     end
-    if (state == 3'h2) begin // @[AecIntAlu.scala 215:29]
-      if (shiftStep == 3'h4) begin // @[AecIntAlu.scala 231:30]
+    if (state == 3'h2) begin // @[AecIntAlu.scala 246:29]
+      if (shiftStep == 3'h4) begin // @[AecIntAlu.scala 262:30]
         shiftStep <= _GEN_113;
       end else begin
-        shiftStep <= _shiftStep_T_1; // @[AecIntAlu.scala 232:30]
+        shiftStep <= _shiftStep_T_1; // @[AecIntAlu.scala 263:30]
       end
     end else begin
       shiftStep <= _GEN_113;
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (_T_17) begin // @[AecIntAlu.scala 170:87]
-          shiftRight <= _T_16; // @[AecIntAlu.scala 174:18]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (_T_17) begin // @[AecIntAlu.scala 201:87]
+          shiftRight <= _T_16; // @[AecIntAlu.scala 205:18]
         end
       end
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (_T_17) begin // @[AecIntAlu.scala 170:87]
-          shiftArithmetic <= _T_16 & isSigned; // @[AecIntAlu.scala 175:23]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (_T_17) begin // @[AecIntAlu.scala 201:87]
+          shiftArithmetic <= _T_16 & isSigned; // @[AecIntAlu.scala 206:23]
         end
       end
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (!(_T_17)) begin // @[AecIntAlu.scala 170:87]
-          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 177:88]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (!(_T_17)) begin // @[AecIntAlu.scala 201:87]
+          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 208:88]
             bitfieldBase <= _GEN_41;
           end
         end
@@ -490,46 +490,46 @@ module AecIntAlu(
     end
     bitfieldValue <= _GEN_146[31:0];
     bitfieldMaskReg <= _GEN_164[31:0];
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (!(_T_17)) begin // @[AecIntAlu.scala 170:87]
-          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 177:88]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (!(_T_17)) begin // @[AecIntAlu.scala 201:87]
+          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 208:88]
             bitfieldLsb <= _GEN_44;
           end
         end
       end
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (!(_T_17)) begin // @[AecIntAlu.scala 170:87]
-          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 177:88]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (!(_T_17)) begin // @[AecIntAlu.scala 201:87]
+          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 208:88]
             bitfieldWidth <= _GEN_46;
           end
         end
       end
     end
-    if (state == 3'h5) begin // @[AecIntAlu.scala 260:38]
-      if (_T_43) begin // @[AecIntAlu.scala 261:38]
+    if (state == 3'h5) begin // @[AecIntAlu.scala 291:38]
+      if (_T_43) begin // @[AecIntAlu.scala 292:38]
         bitfieldRemaining <= _GEN_154;
       end else begin
-        bitfieldRemaining <= _bitfieldRemaining_T_2; // @[AecIntAlu.scala 266:25]
+        bitfieldRemaining <= _bitfieldRemaining_T_2; // @[AecIntAlu.scala 297:25]
       end
     end else begin
       bitfieldRemaining <= _GEN_154;
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (!(_T_17)) begin // @[AecIntAlu.scala 170:87]
-          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 177:88]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (!(_T_17)) begin // @[AecIntAlu.scala 201:87]
+          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 208:88]
             bitfieldInsert <= _GEN_47;
           end
         end
       end
     end
-    if (_T_27) begin // @[AecIntAlu.scala 158:22]
-      if (!(_T_5)) begin // @[AecIntAlu.scala 162:81]
-        if (!(_T_17)) begin // @[AecIntAlu.scala 170:87]
-          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 177:88]
+    if (_T_27) begin // @[AecIntAlu.scala 189:22]
+      if (!(_T_5)) begin // @[AecIntAlu.scala 193:81]
+        if (!(_T_17)) begin // @[AecIntAlu.scala 201:87]
+          if (_T_18 | _T_20) begin // @[AecIntAlu.scala 208:88]
             bitfieldSigned <= _GEN_48;
           end
         end
@@ -626,17 +626,24 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module AecIntRequestStage(
+module AecIntWarpRequestStage(
   input         clock,
   input         reset,
-  output        io_in_ready,
-  input         io_in_valid,
-  input  [15:0] io_in_bits_op,
-  input  [3:0]  io_in_bits_dtype,
-  input  [31:0] io_in_bits_a,
-  input  [31:0] io_in_bits_b,
-  input  [31:0] io_in_bits_c,
-  input         io_in_bits_selectPredicate,
+  input         io_inValid,
+  output        io_inReady,
+  input         io_group,
+  input  [15:0] io_data_0_op,
+  input  [3:0]  io_data_0_dtype,
+  input  [31:0] io_data_0_a,
+  input  [31:0] io_data_0_b,
+  input  [31:0] io_data_0_c,
+  input         io_data_0_selectPredicate,
+  input  [15:0] io_data_1_op,
+  input  [3:0]  io_data_1_dtype,
+  input  [31:0] io_data_1_a,
+  input  [31:0] io_data_1_b,
+  input  [31:0] io_data_1_c,
+  input         io_data_1_selectPredicate,
   input         io_out_ready,
   output        io_out_valid,
   output [15:0] io_out_bits_op,
@@ -654,33 +661,97 @@ module AecIntRequestStage(
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
   reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_8;
 `endif // RANDOMIZE_REG_INIT
-  reg [15:0] data_op; // @[AecIntAlu.scala 32:21]
-  reg [3:0] data_dtype; // @[AecIntAlu.scala 32:21]
-  reg [31:0] data_a; // @[AecIntAlu.scala 32:21]
-  reg [31:0] data_b; // @[AecIntAlu.scala 32:21]
-  reg [31:0] data_c; // @[AecIntAlu.scala 32:21]
-  reg  data_selectPredicate; // @[AecIntAlu.scala 32:21]
-  reg  valid; // @[AecIntAlu.scala 33:22]
-  assign io_in_ready = ~valid | io_out_ready; // @[AecIntAlu.scala 34:25]
-  assign io_out_valid = valid; // @[AecIntAlu.scala 35:16]
-  assign io_out_bits_op = data_op; // @[AecIntAlu.scala 36:15]
-  assign io_out_bits_dtype = data_dtype; // @[AecIntAlu.scala 36:15]
-  assign io_out_bits_a = data_a; // @[AecIntAlu.scala 36:15]
-  assign io_out_bits_b = data_b; // @[AecIntAlu.scala 36:15]
-  assign io_out_bits_c = data_c; // @[AecIntAlu.scala 36:15]
-  assign io_out_bits_selectPredicate = data_selectPredicate; // @[AecIntAlu.scala 36:15]
+  reg  selectValid; // @[AecIntAlu.scala 51:28]
+  reg  selectedGroup; // @[AecIntAlu.scala 52:26]
+  reg  dataValid; // @[AecIntAlu.scala 53:26]
+  reg [15:0] data_op; // @[AecIntAlu.scala 54:17]
+  reg [3:0] data_dtype; // @[AecIntAlu.scala 54:17]
+  reg [31:0] data_a; // @[AecIntAlu.scala 54:17]
+  reg [31:0] data_b; // @[AecIntAlu.scala 54:17]
+  reg [31:0] data_c; // @[AecIntAlu.scala 54:17]
+  reg  data_selectPredicate; // @[AecIntAlu.scala 54:17]
+  wire  dataReady = ~dataValid | io_out_ready; // @[AecIntAlu.scala 55:30]
+  wire  selectReady = ~selectValid | dataReady; // @[AecIntAlu.scala 56:34]
+  assign io_inReady = ~selectValid | dataReady; // @[AecIntAlu.scala 56:34]
+  assign io_out_valid = dataValid; // @[AecIntAlu.scala 59:16]
+  assign io_out_bits_op = data_op; // @[AecIntAlu.scala 60:15]
+  assign io_out_bits_dtype = data_dtype; // @[AecIntAlu.scala 60:15]
+  assign io_out_bits_a = data_a; // @[AecIntAlu.scala 60:15]
+  assign io_out_bits_b = data_b; // @[AecIntAlu.scala 60:15]
+  assign io_out_bits_c = data_c; // @[AecIntAlu.scala 60:15]
+  assign io_out_bits_selectPredicate = data_selectPredicate; // @[AecIntAlu.scala 60:15]
   always @(posedge clock) begin
-    data_op <= io_in_bits_op; // @[AecIntAlu.scala 32:21]
-    data_dtype <= io_in_bits_dtype; // @[AecIntAlu.scala 32:21]
-    data_a <= io_in_bits_a; // @[AecIntAlu.scala 32:21]
-    data_b <= io_in_bits_b; // @[AecIntAlu.scala 32:21]
-    data_c <= io_in_bits_c; // @[AecIntAlu.scala 32:21]
-    data_selectPredicate <= io_in_bits_selectPredicate; // @[AecIntAlu.scala 32:21]
-    if (reset) begin // @[AecIntAlu.scala 33:22]
-      valid <= 1'h0; // @[AecIntAlu.scala 33:22]
-    end else if (io_in_ready) begin // @[AecIntAlu.scala 37:22]
-      valid <= io_in_valid; // @[AecIntAlu.scala 37:30]
+    if (reset) begin // @[AecIntAlu.scala 51:28]
+      selectValid <= 1'h0; // @[AecIntAlu.scala 51:28]
+    end else if (selectReady) begin // @[AecIntAlu.scala 65:22]
+      selectValid <= io_inValid; // @[AecIntAlu.scala 66:17]
+    end
+    if (selectReady) begin // @[AecIntAlu.scala 65:22]
+      if (io_inValid) begin // @[AecIntAlu.scala 67:23]
+        selectedGroup <= io_group; // @[AecIntAlu.scala 67:39]
+      end
+    end
+    if (reset) begin // @[AecIntAlu.scala 53:26]
+      dataValid <= 1'h0; // @[AecIntAlu.scala 53:26]
+    end else if (dataReady) begin // @[AecIntAlu.scala 61:20]
+      dataValid <= selectValid; // @[AecIntAlu.scala 62:15]
+    end
+    if (dataReady) begin // @[AecIntAlu.scala 61:20]
+      if (selectValid) begin // @[AecIntAlu.scala 63:24]
+        if (selectedGroup) begin // @[AecIntAlu.scala 63:31]
+          data_op <= io_data_1_op; // @[AecIntAlu.scala 63:31]
+        end else begin
+          data_op <= io_data_0_op;
+        end
+      end
+    end
+    if (dataReady) begin // @[AecIntAlu.scala 61:20]
+      if (selectValid) begin // @[AecIntAlu.scala 63:24]
+        if (selectedGroup) begin // @[AecIntAlu.scala 63:31]
+          data_dtype <= io_data_1_dtype; // @[AecIntAlu.scala 63:31]
+        end else begin
+          data_dtype <= io_data_0_dtype;
+        end
+      end
+    end
+    if (dataReady) begin // @[AecIntAlu.scala 61:20]
+      if (selectValid) begin // @[AecIntAlu.scala 63:24]
+        if (selectedGroup) begin // @[AecIntAlu.scala 63:31]
+          data_a <= io_data_1_a; // @[AecIntAlu.scala 63:31]
+        end else begin
+          data_a <= io_data_0_a;
+        end
+      end
+    end
+    if (dataReady) begin // @[AecIntAlu.scala 61:20]
+      if (selectValid) begin // @[AecIntAlu.scala 63:24]
+        if (selectedGroup) begin // @[AecIntAlu.scala 63:31]
+          data_b <= io_data_1_b; // @[AecIntAlu.scala 63:31]
+        end else begin
+          data_b <= io_data_0_b;
+        end
+      end
+    end
+    if (dataReady) begin // @[AecIntAlu.scala 61:20]
+      if (selectValid) begin // @[AecIntAlu.scala 63:24]
+        if (selectedGroup) begin // @[AecIntAlu.scala 63:31]
+          data_c <= io_data_1_c; // @[AecIntAlu.scala 63:31]
+        end else begin
+          data_c <= io_data_0_c;
+        end
+      end
+    end
+    if (dataReady) begin // @[AecIntAlu.scala 61:20]
+      if (selectValid) begin // @[AecIntAlu.scala 63:24]
+        if (selectedGroup) begin // @[AecIntAlu.scala 63:31]
+          data_selectPredicate <= io_data_1_selectPredicate; // @[AecIntAlu.scala 63:31]
+        end else begin
+          data_selectPredicate <= io_data_0_selectPredicate;
+        end
+      end
     end
   end
 // Register and memory initialization
@@ -720,19 +791,23 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  data_op = _RAND_0[15:0];
+  selectValid = _RAND_0[0:0];
   _RAND_1 = {1{`RANDOM}};
-  data_dtype = _RAND_1[3:0];
+  selectedGroup = _RAND_1[0:0];
   _RAND_2 = {1{`RANDOM}};
-  data_a = _RAND_2[31:0];
+  dataValid = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
-  data_b = _RAND_3[31:0];
+  data_op = _RAND_3[15:0];
   _RAND_4 = {1{`RANDOM}};
-  data_c = _RAND_4[31:0];
+  data_dtype = _RAND_4[3:0];
   _RAND_5 = {1{`RANDOM}};
-  data_selectPredicate = _RAND_5[0:0];
+  data_a = _RAND_5[31:0];
   _RAND_6 = {1{`RANDOM}};
-  valid = _RAND_6[0:0];
+  data_b = _RAND_6[31:0];
+  _RAND_7 = {1{`RANDOM}};
+  data_c = _RAND_7[31:0];
+  _RAND_8 = {1{`RANDOM}};
+  data_selectPredicate = _RAND_8[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -8559,7 +8634,6 @@ module AecEightLaneIntUnit(
   reg [31:0] _RAND_71;
   reg [31:0] _RAND_72;
   reg [31:0] _RAND_73;
-  reg [31:0] _RAND_74;
 `endif // RANDOMIZE_REG_INIT
   wire  lanes_0_clock; // @[AecEightLaneIntUnit.scala 22:45]
   wire  lanes_0_reset; // @[AecEightLaneIntUnit.scala 22:45]
@@ -8803,14 +8877,21 @@ module AecEightLaneIntUnit(
   wire  lanes_15_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 22:45]
   wire  requestStages_0_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_0_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_0_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_0_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_0_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_0_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_0_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_0_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_0_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_0_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_0_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_0_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_0_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_0_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_0_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_0_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_0_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_0_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_0_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_0_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_0_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_0_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_0_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_0_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_0_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_0_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_0_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_0_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8821,14 +8902,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_0_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_1_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_1_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_1_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_1_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_1_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_1_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_1_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_1_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_1_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_1_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_1_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_1_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_1_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_1_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_1_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_1_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_1_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_1_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_1_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_1_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_1_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_1_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_1_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_1_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_1_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_1_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_1_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_1_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8839,14 +8927,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_1_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_2_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_2_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_2_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_2_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_2_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_2_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_2_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_2_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_2_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_2_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_2_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_2_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_2_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_2_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_2_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_2_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_2_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_2_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_2_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_2_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_2_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_2_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_2_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_2_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_2_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_2_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_2_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_2_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8857,14 +8952,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_2_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_3_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_3_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_3_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_3_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_3_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_3_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_3_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_3_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_3_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_3_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_3_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_3_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_3_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_3_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_3_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_3_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_3_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_3_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_3_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_3_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_3_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_3_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_3_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_3_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_3_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_3_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_3_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_3_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8875,14 +8977,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_3_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_4_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_4_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_4_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_4_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_4_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_4_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_4_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_4_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_4_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_4_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_4_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_4_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_4_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_4_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_4_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_4_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_4_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_4_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_4_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_4_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_4_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_4_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_4_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_4_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_4_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_4_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_4_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_4_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8893,14 +9002,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_4_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_5_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_5_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_5_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_5_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_5_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_5_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_5_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_5_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_5_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_5_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_5_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_5_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_5_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_5_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_5_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_5_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_5_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_5_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_5_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_5_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_5_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_5_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_5_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_5_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_5_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_5_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_5_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_5_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8911,14 +9027,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_5_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_6_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_6_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_6_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_6_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_6_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_6_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_6_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_6_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_6_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_6_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_6_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_6_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_6_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_6_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_6_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_6_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_6_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_6_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_6_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_6_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_6_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_6_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_6_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_6_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_6_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_6_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_6_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_6_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8929,14 +9052,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_6_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_7_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_7_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_7_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_7_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_7_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_7_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_7_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_7_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_7_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_7_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_7_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_7_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_7_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_7_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_7_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_7_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_7_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_7_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_7_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_7_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_7_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_7_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_7_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_7_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_7_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_7_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_7_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_7_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8947,14 +9077,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_7_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_8_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_8_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_8_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_8_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_8_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_8_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_8_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_8_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_8_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_8_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_8_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_8_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_8_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_8_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_8_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_8_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_8_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_8_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_8_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_8_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_8_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_8_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_8_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_8_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_8_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_8_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_8_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_8_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8965,14 +9102,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_8_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_9_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_9_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_9_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_9_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_9_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_9_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_9_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_9_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_9_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_9_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_9_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_9_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_9_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_9_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_9_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_9_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_9_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_9_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_9_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_9_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_9_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_9_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_9_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_9_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_9_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_9_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_9_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_9_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -8983,14 +9127,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_9_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_10_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_10_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_10_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_10_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_10_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_10_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_10_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_10_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_10_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_10_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_10_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_10_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_10_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_10_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_10_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_10_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_10_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_10_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_10_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_10_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_10_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_10_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_10_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_10_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_10_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_10_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_10_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_10_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -9001,14 +9152,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_10_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_11_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_11_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_11_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_11_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_11_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_11_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_11_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_11_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_11_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_11_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_11_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_11_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_11_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_11_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_11_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_11_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_11_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_11_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_11_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_11_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_11_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_11_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_11_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_11_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_11_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_11_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_11_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_11_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -9019,14 +9177,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_11_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_12_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_12_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_12_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_12_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_12_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_12_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_12_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_12_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_12_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_12_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_12_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_12_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_12_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_12_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_12_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_12_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_12_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_12_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_12_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_12_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_12_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_12_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_12_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_12_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_12_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_12_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_12_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_12_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -9037,14 +9202,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_12_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_13_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_13_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_13_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_13_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_13_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_13_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_13_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_13_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_13_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_13_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_13_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_13_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_13_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_13_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_13_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_13_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_13_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_13_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_13_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_13_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_13_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_13_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_13_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_13_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_13_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_13_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_13_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_13_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -9055,14 +9227,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_13_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_14_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_14_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_14_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_14_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_14_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_14_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_14_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_14_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_14_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_14_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_14_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_14_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_14_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_14_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_14_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_14_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_14_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_14_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_14_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_14_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_14_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_14_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_14_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_14_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_14_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_14_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_14_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_14_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -9073,14 +9252,21 @@ module AecEightLaneIntUnit(
   wire  requestStages_14_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_15_clock; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_15_reset; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_15_io_in_ready; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_15_io_in_valid; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [15:0] requestStages_15_io_in_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [3:0] requestStages_15_io_in_bits_dtype; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_15_io_in_bits_a; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_15_io_in_bits_b; // @[AecEightLaneIntUnit.scala 23:53]
-  wire [31:0] requestStages_15_io_in_bits_c; // @[AecEightLaneIntUnit.scala 23:53]
-  wire  requestStages_15_io_in_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_15_io_inValid; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_15_io_inReady; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_15_io_group; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_15_io_data_0_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_15_io_data_0_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_15_io_data_0_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_15_io_data_0_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_15_io_data_0_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_15_io_data_0_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [15:0] requestStages_15_io_data_1_op; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [3:0] requestStages_15_io_data_1_dtype; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_15_io_data_1_a; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_15_io_data_1_b; // @[AecEightLaneIntUnit.scala 23:53]
+  wire [31:0] requestStages_15_io_data_1_c; // @[AecEightLaneIntUnit.scala 23:53]
+  wire  requestStages_15_io_data_1_selectPredicate; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_15_io_out_ready; // @[AecEightLaneIntUnit.scala 23:53]
   wire  requestStages_15_io_out_valid; // @[AecEightLaneIntUnit.scala 23:53]
   wire [15:0] requestStages_15_io_out_bits_op; // @[AecEightLaneIntUnit.scala 23:53]
@@ -9612,1755 +9798,239 @@ module AecEightLaneIntUnit(
   reg  responseReady_1; // @[AecEightLaneIntUnit.scala 46:30]
   reg  responseReady_2; // @[AecEightLaneIntUnit.scala 46:30]
   reg  responseReady_3; // @[AecEightLaneIntUnit.scala 46:30]
-  reg [31:0] writeMask; // @[AecEightLaneIntUnit.scala 48:26]
-  reg [15:0] laneOp_0; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_1; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_2; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_3; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_4; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_5; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_6; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_7; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_8; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_9; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_10; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_11; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_12; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_13; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_14; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [15:0] laneOp_15; // @[AecEightLaneIntUnit.scala 49:19]
-  reg [3:0] laneDtype_0; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_1; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_2; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_3; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_4; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_5; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_6; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_7; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_8; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_9; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_10; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_11; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_12; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_13; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_14; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [3:0] laneDtype_15; // @[AecEightLaneIntUnit.scala 50:22]
-  reg [7:0] laneDest_0; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_1; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_2; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_3; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_4; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_5; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_6; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_7; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_8; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_9; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_10; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_11; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_12; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_13; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_14; // @[AecEightLaneIntUnit.scala 51:21]
-  reg [7:0] laneDest_15; // @[AecEightLaneIntUnit.scala 51:21]
-  wire  armCapture = stateIdle & io_req_valid; // @[AecEightLaneIntUnit.scala 56:30]
-  reg  armClusters_0; // @[AecEightLaneIntUnit.scala 57:28]
-  reg  armClusters_1; // @[AecEightLaneIntUnit.scala 57:28]
-  reg  armClusters_2; // @[AecEightLaneIntUnit.scala 57:28]
-  reg  armClusters_3; // @[AecEightLaneIntUnit.scala 57:28]
-  reg  armClusters_4; // @[AecEightLaneIntUnit.scala 57:28]
-  reg  armClusters_5; // @[AecEightLaneIntUnit.scala 57:28]
-  reg  armClusters_6; // @[AecEightLaneIntUnit.scala 57:28]
-  reg  armClusters_7; // @[AecEightLaneIntUnit.scala 57:28]
+  reg [15:0] laneOp_0; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_1; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_2; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_3; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_4; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_5; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_6; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_7; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_8; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_9; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_10; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_11; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_12; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_13; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_14; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [15:0] laneOp_15; // @[AecEightLaneIntUnit.scala 48:19]
+  reg [3:0] laneDtype_0; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_1; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_2; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_3; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_4; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_5; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_6; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_7; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_8; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_9; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_10; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_11; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_12; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_13; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_14; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [3:0] laneDtype_15; // @[AecEightLaneIntUnit.scala 49:22]
+  reg [7:0] laneDest_0; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_1; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_2; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_3; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_4; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_5; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_6; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_7; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_8; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_9; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_10; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_11; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_12; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_13; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_14; // @[AecEightLaneIntUnit.scala 50:21]
+  reg [7:0] laneDest_15; // @[AecEightLaneIntUnit.scala 50:21]
+  wire  armCapture = stateIdle & io_req_valid; // @[AecEightLaneIntUnit.scala 55:30]
+  reg  armClusters_0; // @[AecEightLaneIntUnit.scala 56:28]
+  reg  armClusters_1; // @[AecEightLaneIntUnit.scala 56:28]
+  reg  armClusters_2; // @[AecEightLaneIntUnit.scala 56:28]
+  reg  armClusters_3; // @[AecEightLaneIntUnit.scala 56:28]
+  reg  armClusters_4; // @[AecEightLaneIntUnit.scala 56:28]
+  reg  armClusters_5; // @[AecEightLaneIntUnit.scala 56:28]
+  reg  armClusters_6; // @[AecEightLaneIntUnit.scala 56:28]
+  reg  armClusters_7; // @[AecEightLaneIntUnit.scala 56:28]
   wire  _requestBuffer_io_capture_T = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
-  wire  _io_resp_bits_predicateMask_T_1 = writeMask[0] & resultBanks_0_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_3 = writeMask[1] & resultBanks_1_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_5 = writeMask[2] & resultBanks_2_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_7 = writeMask[3] & resultBanks_3_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_9 = writeMask[4] & resultBanks_4_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_11 = writeMask[5] & resultBanks_5_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_13 = writeMask[6] & resultBanks_6_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_15 = writeMask[7] & resultBanks_7_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_17 = writeMask[8] & resultBanks_8_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_19 = writeMask[9] & resultBanks_9_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_21 = writeMask[10] & resultBanks_10_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_23 = writeMask[11] & resultBanks_11_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_25 = writeMask[12] & resultBanks_12_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_27 = writeMask[13] & resultBanks_13_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_29 = writeMask[14] & resultBanks_14_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_31 = writeMask[15] & resultBanks_15_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_33 = writeMask[16] & resultBanks_16_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_35 = writeMask[17] & resultBanks_17_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_37 = writeMask[18] & resultBanks_18_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_39 = writeMask[19] & resultBanks_19_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_41 = writeMask[20] & resultBanks_20_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_43 = writeMask[21] & resultBanks_21_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_45 = writeMask[22] & resultBanks_22_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_47 = writeMask[23] & resultBanks_23_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_49 = writeMask[24] & resultBanks_24_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_51 = writeMask[25] & resultBanks_25_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_53 = writeMask[26] & resultBanks_26_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_55 = writeMask[27] & resultBanks_27_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_57 = writeMask[28] & resultBanks_28_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_59 = writeMask[29] & resultBanks_29_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_61 = writeMask[30] & resultBanks_30_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire  _io_resp_bits_predicateMask_T_63 = writeMask[31] & resultBanks_31_io_predicate; // @[AecEightLaneIntUnit.scala 65:76]
-  wire [7:0] io_resp_bits_predicateMask_lo_lo = {_io_resp_bits_predicateMask_T_15,_io_resp_bits_predicateMask_T_13,
-    _io_resp_bits_predicateMask_T_11,_io_resp_bits_predicateMask_T_9,_io_resp_bits_predicateMask_T_7,
-    _io_resp_bits_predicateMask_T_5,_io_resp_bits_predicateMask_T_3,_io_resp_bits_predicateMask_T_1}; // @[AecEightLaneIntUnit.scala 65:109]
-  wire [15:0] io_resp_bits_predicateMask_lo = {_io_resp_bits_predicateMask_T_31,_io_resp_bits_predicateMask_T_29,
-    _io_resp_bits_predicateMask_T_27,_io_resp_bits_predicateMask_T_25,_io_resp_bits_predicateMask_T_23,
-    _io_resp_bits_predicateMask_T_21,_io_resp_bits_predicateMask_T_19,_io_resp_bits_predicateMask_T_17,
-    io_resp_bits_predicateMask_lo_lo}; // @[AecEightLaneIntUnit.scala 65:109]
-  wire [7:0] io_resp_bits_predicateMask_hi_lo = {_io_resp_bits_predicateMask_T_47,_io_resp_bits_predicateMask_T_45,
-    _io_resp_bits_predicateMask_T_43,_io_resp_bits_predicateMask_T_41,_io_resp_bits_predicateMask_T_39,
-    _io_resp_bits_predicateMask_T_37,_io_resp_bits_predicateMask_T_35,_io_resp_bits_predicateMask_T_33}; // @[AecEightLaneIntUnit.scala 65:109]
-  wire [15:0] io_resp_bits_predicateMask_hi = {_io_resp_bits_predicateMask_T_63,_io_resp_bits_predicateMask_T_61,
-    _io_resp_bits_predicateMask_T_59,_io_resp_bits_predicateMask_T_57,_io_resp_bits_predicateMask_T_55,
-    _io_resp_bits_predicateMask_T_53,_io_resp_bits_predicateMask_T_51,_io_resp_bits_predicateMask_T_49,
-    io_resp_bits_predicateMask_hi_lo}; // @[AecEightLaneIntUnit.scala 65:109]
-  wire  _io_resp_bits_errorMask_T_1 = writeMask[0] & resultBanks_0_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_3 = writeMask[1] & resultBanks_1_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_5 = writeMask[2] & resultBanks_2_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_7 = writeMask[3] & resultBanks_3_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_9 = writeMask[4] & resultBanks_4_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_11 = writeMask[5] & resultBanks_5_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_13 = writeMask[6] & resultBanks_6_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_15 = writeMask[7] & resultBanks_7_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_17 = writeMask[8] & resultBanks_8_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_19 = writeMask[9] & resultBanks_9_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_21 = writeMask[10] & resultBanks_10_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_23 = writeMask[11] & resultBanks_11_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_25 = writeMask[12] & resultBanks_12_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_27 = writeMask[13] & resultBanks_13_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_29 = writeMask[14] & resultBanks_14_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_31 = writeMask[15] & resultBanks_15_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_33 = writeMask[16] & resultBanks_16_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_35 = writeMask[17] & resultBanks_17_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_37 = writeMask[18] & resultBanks_18_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_39 = writeMask[19] & resultBanks_19_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_41 = writeMask[20] & resultBanks_20_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_43 = writeMask[21] & resultBanks_21_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_45 = writeMask[22] & resultBanks_22_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_47 = writeMask[23] & resultBanks_23_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_49 = writeMask[24] & resultBanks_24_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_51 = writeMask[25] & resultBanks_25_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_53 = writeMask[26] & resultBanks_26_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_55 = writeMask[27] & resultBanks_27_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_57 = writeMask[28] & resultBanks_28_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_59 = writeMask[29] & resultBanks_29_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_61 = writeMask[30] & resultBanks_30_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire  _io_resp_bits_errorMask_T_63 = writeMask[31] & resultBanks_31_io_error; // @[AecEightLaneIntUnit.scala 66:72]
-  wire [7:0] io_resp_bits_errorMask_lo_lo = {_io_resp_bits_errorMask_T_15,_io_resp_bits_errorMask_T_13,
-    _io_resp_bits_errorMask_T_11,_io_resp_bits_errorMask_T_9,_io_resp_bits_errorMask_T_7,_io_resp_bits_errorMask_T_5,
-    _io_resp_bits_errorMask_T_3,_io_resp_bits_errorMask_T_1}; // @[AecEightLaneIntUnit.scala 66:101]
-  wire [15:0] io_resp_bits_errorMask_lo = {_io_resp_bits_errorMask_T_31,_io_resp_bits_errorMask_T_29,
-    _io_resp_bits_errorMask_T_27,_io_resp_bits_errorMask_T_25,_io_resp_bits_errorMask_T_23,_io_resp_bits_errorMask_T_21,
-    _io_resp_bits_errorMask_T_19,_io_resp_bits_errorMask_T_17,io_resp_bits_errorMask_lo_lo}; // @[AecEightLaneIntUnit.scala 66:101]
-  wire [7:0] io_resp_bits_errorMask_hi_lo = {_io_resp_bits_errorMask_T_47,_io_resp_bits_errorMask_T_45,
-    _io_resp_bits_errorMask_T_43,_io_resp_bits_errorMask_T_41,_io_resp_bits_errorMask_T_39,_io_resp_bits_errorMask_T_37,
-    _io_resp_bits_errorMask_T_35,_io_resp_bits_errorMask_T_33}; // @[AecEightLaneIntUnit.scala 66:101]
-  wire [15:0] io_resp_bits_errorMask_hi = {_io_resp_bits_errorMask_T_63,_io_resp_bits_errorMask_T_61,
-    _io_resp_bits_errorMask_T_59,_io_resp_bits_errorMask_T_57,_io_resp_bits_errorMask_T_55,_io_resp_bits_errorMask_T_53,
-    _io_resp_bits_errorMask_T_51,_io_resp_bits_errorMask_T_49,io_resp_bits_errorMask_hi_lo}; // @[AecEightLaneIntUnit.scala 66:101]
-  wire [5:0] base = group * 5'h10; // @[AecEightLaneIntUnit.scala 71:20]
-  wire  allReady = requestStages_0_io_in_ready & requestStages_1_io_in_ready & requestStages_2_io_in_ready &
-    requestStages_3_io_in_ready & requestStages_4_io_in_ready & requestStages_5_io_in_ready &
-    requestStages_6_io_in_ready & requestStages_7_io_in_ready & requestStages_8_io_in_ready &
-    requestStages_9_io_in_ready & requestStages_10_io_in_ready & requestStages_11_io_in_ready &
-    requestStages_12_io_in_ready & requestStages_13_io_in_ready & requestStages_14_io_in_ready &
-    requestStages_15_io_in_ready; // @[AecEightLaneIntUnit.scala 72:60]
+  wire  _io_resp_bits_predicateMask_WIRE_1 = resultBanks_1_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_0 = resultBanks_0_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_3 = resultBanks_3_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_2 = resultBanks_2_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_5 = resultBanks_5_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_4 = resultBanks_4_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_7 = resultBanks_7_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_6 = resultBanks_6_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire [7:0] io_resp_bits_predicateMask_lo_lo = {_io_resp_bits_predicateMask_WIRE_7,_io_resp_bits_predicateMask_WIRE_6,
+    _io_resp_bits_predicateMask_WIRE_5,_io_resp_bits_predicateMask_WIRE_4,_io_resp_bits_predicateMask_WIRE_3,
+    _io_resp_bits_predicateMask_WIRE_2,_io_resp_bits_predicateMask_WIRE_1,_io_resp_bits_predicateMask_WIRE_0}; // @[AecEightLaneIntUnit.scala 64:74]
+  wire  _io_resp_bits_predicateMask_WIRE_9 = resultBanks_9_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_8 = resultBanks_8_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_11 = resultBanks_11_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_10 = resultBanks_10_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_13 = resultBanks_13_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_12 = resultBanks_12_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_15 = resultBanks_15_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_14 = resultBanks_14_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire [15:0] io_resp_bits_predicateMask_lo = {_io_resp_bits_predicateMask_WIRE_15,_io_resp_bits_predicateMask_WIRE_14,
+    _io_resp_bits_predicateMask_WIRE_13,_io_resp_bits_predicateMask_WIRE_12,_io_resp_bits_predicateMask_WIRE_11,
+    _io_resp_bits_predicateMask_WIRE_10,_io_resp_bits_predicateMask_WIRE_9,_io_resp_bits_predicateMask_WIRE_8,
+    io_resp_bits_predicateMask_lo_lo}; // @[AecEightLaneIntUnit.scala 64:74]
+  wire  _io_resp_bits_predicateMask_WIRE_17 = resultBanks_17_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_16 = resultBanks_16_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_19 = resultBanks_19_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_18 = resultBanks_18_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_21 = resultBanks_21_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_20 = resultBanks_20_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_23 = resultBanks_23_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_22 = resultBanks_22_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire [7:0] io_resp_bits_predicateMask_hi_lo = {_io_resp_bits_predicateMask_WIRE_23,_io_resp_bits_predicateMask_WIRE_22
+    ,_io_resp_bits_predicateMask_WIRE_21,_io_resp_bits_predicateMask_WIRE_20,_io_resp_bits_predicateMask_WIRE_19,
+    _io_resp_bits_predicateMask_WIRE_18,_io_resp_bits_predicateMask_WIRE_17,_io_resp_bits_predicateMask_WIRE_16}; // @[AecEightLaneIntUnit.scala 64:74]
+  wire  _io_resp_bits_predicateMask_WIRE_25 = resultBanks_25_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_24 = resultBanks_24_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_27 = resultBanks_27_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_26 = resultBanks_26_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_29 = resultBanks_29_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_28 = resultBanks_28_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_31 = resultBanks_31_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire  _io_resp_bits_predicateMask_WIRE_30 = resultBanks_30_io_predicate; // @[AecEightLaneIntUnit.scala 64:{40,40}]
+  wire [15:0] io_resp_bits_predicateMask_hi = {_io_resp_bits_predicateMask_WIRE_31,_io_resp_bits_predicateMask_WIRE_30,
+    _io_resp_bits_predicateMask_WIRE_29,_io_resp_bits_predicateMask_WIRE_28,_io_resp_bits_predicateMask_WIRE_27,
+    _io_resp_bits_predicateMask_WIRE_26,_io_resp_bits_predicateMask_WIRE_25,_io_resp_bits_predicateMask_WIRE_24,
+    io_resp_bits_predicateMask_hi_lo}; // @[AecEightLaneIntUnit.scala 64:74]
+  wire  _io_resp_bits_errorMask_WIRE_1 = resultBanks_1_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_0 = resultBanks_0_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_3 = resultBanks_3_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_2 = resultBanks_2_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_5 = resultBanks_5_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_4 = resultBanks_4_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_7 = resultBanks_7_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_6 = resultBanks_6_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire [7:0] io_resp_bits_errorMask_lo_lo = {_io_resp_bits_errorMask_WIRE_7,_io_resp_bits_errorMask_WIRE_6,
+    _io_resp_bits_errorMask_WIRE_5,_io_resp_bits_errorMask_WIRE_4,_io_resp_bits_errorMask_WIRE_3,
+    _io_resp_bits_errorMask_WIRE_2,_io_resp_bits_errorMask_WIRE_1,_io_resp_bits_errorMask_WIRE_0}; // @[AecEightLaneIntUnit.scala 65:66]
+  wire  _io_resp_bits_errorMask_WIRE_9 = resultBanks_9_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_8 = resultBanks_8_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_11 = resultBanks_11_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_10 = resultBanks_10_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_13 = resultBanks_13_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_12 = resultBanks_12_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_15 = resultBanks_15_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_14 = resultBanks_14_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire [15:0] io_resp_bits_errorMask_lo = {_io_resp_bits_errorMask_WIRE_15,_io_resp_bits_errorMask_WIRE_14,
+    _io_resp_bits_errorMask_WIRE_13,_io_resp_bits_errorMask_WIRE_12,_io_resp_bits_errorMask_WIRE_11,
+    _io_resp_bits_errorMask_WIRE_10,_io_resp_bits_errorMask_WIRE_9,_io_resp_bits_errorMask_WIRE_8,
+    io_resp_bits_errorMask_lo_lo}; // @[AecEightLaneIntUnit.scala 65:66]
+  wire  _io_resp_bits_errorMask_WIRE_17 = resultBanks_17_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_16 = resultBanks_16_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_19 = resultBanks_19_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_18 = resultBanks_18_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_21 = resultBanks_21_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_20 = resultBanks_20_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_23 = resultBanks_23_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_22 = resultBanks_22_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire [7:0] io_resp_bits_errorMask_hi_lo = {_io_resp_bits_errorMask_WIRE_23,_io_resp_bits_errorMask_WIRE_22,
+    _io_resp_bits_errorMask_WIRE_21,_io_resp_bits_errorMask_WIRE_20,_io_resp_bits_errorMask_WIRE_19,
+    _io_resp_bits_errorMask_WIRE_18,_io_resp_bits_errorMask_WIRE_17,_io_resp_bits_errorMask_WIRE_16}; // @[AecEightLaneIntUnit.scala 65:66]
+  wire  _io_resp_bits_errorMask_WIRE_25 = resultBanks_25_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_24 = resultBanks_24_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_27 = resultBanks_27_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_26 = resultBanks_26_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_29 = resultBanks_29_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_28 = resultBanks_28_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_31 = resultBanks_31_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire  _io_resp_bits_errorMask_WIRE_30 = resultBanks_30_io_error; // @[AecEightLaneIntUnit.scala 65:{36,36}]
+  wire [15:0] io_resp_bits_errorMask_hi = {_io_resp_bits_errorMask_WIRE_31,_io_resp_bits_errorMask_WIRE_30,
+    _io_resp_bits_errorMask_WIRE_29,_io_resp_bits_errorMask_WIRE_28,_io_resp_bits_errorMask_WIRE_27,
+    _io_resp_bits_errorMask_WIRE_26,_io_resp_bits_errorMask_WIRE_25,_io_resp_bits_errorMask_WIRE_24,
+    io_resp_bits_errorMask_hi_lo}; // @[AecEightLaneIntUnit.scala 65:66]
+  wire  allReady = requestStages_0_io_inReady & requestStages_1_io_inReady & requestStages_2_io_inReady &
+    requestStages_3_io_inReady & requestStages_4_io_inReady & requestStages_5_io_inReady & requestStages_6_io_inReady &
+    requestStages_7_io_inReady & requestStages_8_io_inReady & requestStages_9_io_inReady & requestStages_10_io_inReady
+     & requestStages_11_io_inReady & requestStages_12_io_inReady & requestStages_13_io_inReady &
+    requestStages_14_io_inReady & requestStages_15_io_inReady; // @[AecEightLaneIntUnit.scala 71:59]
   wire  allValid = lanes_0_io_resp_valid & lanes_1_io_resp_valid & lanes_2_io_resp_valid & lanes_3_io_resp_valid &
     lanes_4_io_resp_valid & lanes_5_io_resp_valid & lanes_6_io_resp_valid & lanes_7_io_resp_valid &
     lanes_8_io_resp_valid & lanes_9_io_resp_valid & lanes_10_io_resp_valid & lanes_11_io_resp_valid &
-    lanes_12_io_resp_valid & lanes_13_io_resp_valid & lanes_14_io_resp_valid & lanes_15_io_resp_valid; // @[AecEightLaneIntUnit.scala 73:54]
-  wire [6:0] _laneIndex_T = {{1'd0}, base}; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [5:0] laneIndex = _laneIndex_T[5:0]; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_0 = requestBuffer_io_out_a_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1 = 5'h1 == laneIndex[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_2 = 5'h2 == laneIndex[4:0] ? requestBuffer_io_out_a_2 : _GEN_1; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_3 = 5'h3 == laneIndex[4:0] ? requestBuffer_io_out_a_3 : _GEN_2; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_4 = 5'h4 == laneIndex[4:0] ? requestBuffer_io_out_a_4 : _GEN_3; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_5 = 5'h5 == laneIndex[4:0] ? requestBuffer_io_out_a_5 : _GEN_4; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_6 = 5'h6 == laneIndex[4:0] ? requestBuffer_io_out_a_6 : _GEN_5; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_7 = 5'h7 == laneIndex[4:0] ? requestBuffer_io_out_a_7 : _GEN_6; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_8 = 5'h8 == laneIndex[4:0] ? requestBuffer_io_out_a_8 : _GEN_7; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_9 = 5'h9 == laneIndex[4:0] ? requestBuffer_io_out_a_9 : _GEN_8; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_10 = 5'ha == laneIndex[4:0] ? requestBuffer_io_out_a_10 : _GEN_9; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_11 = 5'hb == laneIndex[4:0] ? requestBuffer_io_out_a_11 : _GEN_10; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_12 = 5'hc == laneIndex[4:0] ? requestBuffer_io_out_a_12 : _GEN_11; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_13 = 5'hd == laneIndex[4:0] ? requestBuffer_io_out_a_13 : _GEN_12; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_14 = 5'he == laneIndex[4:0] ? requestBuffer_io_out_a_14 : _GEN_13; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_15 = 5'hf == laneIndex[4:0] ? requestBuffer_io_out_a_15 : _GEN_14; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_16 = 5'h10 == laneIndex[4:0] ? requestBuffer_io_out_a_16 : _GEN_15; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_17 = 5'h11 == laneIndex[4:0] ? requestBuffer_io_out_a_17 : _GEN_16; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_18 = 5'h12 == laneIndex[4:0] ? requestBuffer_io_out_a_18 : _GEN_17; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_19 = 5'h13 == laneIndex[4:0] ? requestBuffer_io_out_a_19 : _GEN_18; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_20 = 5'h14 == laneIndex[4:0] ? requestBuffer_io_out_a_20 : _GEN_19; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_21 = 5'h15 == laneIndex[4:0] ? requestBuffer_io_out_a_21 : _GEN_20; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_22 = 5'h16 == laneIndex[4:0] ? requestBuffer_io_out_a_22 : _GEN_21; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_23 = 5'h17 == laneIndex[4:0] ? requestBuffer_io_out_a_23 : _GEN_22; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_24 = 5'h18 == laneIndex[4:0] ? requestBuffer_io_out_a_24 : _GEN_23; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_25 = 5'h19 == laneIndex[4:0] ? requestBuffer_io_out_a_25 : _GEN_24; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_26 = 5'h1a == laneIndex[4:0] ? requestBuffer_io_out_a_26 : _GEN_25; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_27 = 5'h1b == laneIndex[4:0] ? requestBuffer_io_out_a_27 : _GEN_26; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_28 = 5'h1c == laneIndex[4:0] ? requestBuffer_io_out_a_28 : _GEN_27; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_29 = 5'h1d == laneIndex[4:0] ? requestBuffer_io_out_a_29 : _GEN_28; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_30 = 5'h1e == laneIndex[4:0] ? requestBuffer_io_out_a_30 : _GEN_29; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_31 = 5'h1f == laneIndex[4:0] ? requestBuffer_io_out_a_31 : _GEN_30; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_32 = requestBuffer_io_out_b_0; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_33 = 5'h1 == laneIndex[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_34 = 5'h2 == laneIndex[4:0] ? requestBuffer_io_out_b_2 : _GEN_33; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_35 = 5'h3 == laneIndex[4:0] ? requestBuffer_io_out_b_3 : _GEN_34; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_36 = 5'h4 == laneIndex[4:0] ? requestBuffer_io_out_b_4 : _GEN_35; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_37 = 5'h5 == laneIndex[4:0] ? requestBuffer_io_out_b_5 : _GEN_36; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_38 = 5'h6 == laneIndex[4:0] ? requestBuffer_io_out_b_6 : _GEN_37; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_39 = 5'h7 == laneIndex[4:0] ? requestBuffer_io_out_b_7 : _GEN_38; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_40 = 5'h8 == laneIndex[4:0] ? requestBuffer_io_out_b_8 : _GEN_39; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_41 = 5'h9 == laneIndex[4:0] ? requestBuffer_io_out_b_9 : _GEN_40; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_42 = 5'ha == laneIndex[4:0] ? requestBuffer_io_out_b_10 : _GEN_41; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_43 = 5'hb == laneIndex[4:0] ? requestBuffer_io_out_b_11 : _GEN_42; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_44 = 5'hc == laneIndex[4:0] ? requestBuffer_io_out_b_12 : _GEN_43; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_45 = 5'hd == laneIndex[4:0] ? requestBuffer_io_out_b_13 : _GEN_44; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_46 = 5'he == laneIndex[4:0] ? requestBuffer_io_out_b_14 : _GEN_45; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_47 = 5'hf == laneIndex[4:0] ? requestBuffer_io_out_b_15 : _GEN_46; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_48 = 5'h10 == laneIndex[4:0] ? requestBuffer_io_out_b_16 : _GEN_47; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_49 = 5'h11 == laneIndex[4:0] ? requestBuffer_io_out_b_17 : _GEN_48; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_50 = 5'h12 == laneIndex[4:0] ? requestBuffer_io_out_b_18 : _GEN_49; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_51 = 5'h13 == laneIndex[4:0] ? requestBuffer_io_out_b_19 : _GEN_50; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_52 = 5'h14 == laneIndex[4:0] ? requestBuffer_io_out_b_20 : _GEN_51; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_53 = 5'h15 == laneIndex[4:0] ? requestBuffer_io_out_b_21 : _GEN_52; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_54 = 5'h16 == laneIndex[4:0] ? requestBuffer_io_out_b_22 : _GEN_53; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_55 = 5'h17 == laneIndex[4:0] ? requestBuffer_io_out_b_23 : _GEN_54; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_56 = 5'h18 == laneIndex[4:0] ? requestBuffer_io_out_b_24 : _GEN_55; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_57 = 5'h19 == laneIndex[4:0] ? requestBuffer_io_out_b_25 : _GEN_56; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_58 = 5'h1a == laneIndex[4:0] ? requestBuffer_io_out_b_26 : _GEN_57; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_59 = 5'h1b == laneIndex[4:0] ? requestBuffer_io_out_b_27 : _GEN_58; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_60 = 5'h1c == laneIndex[4:0] ? requestBuffer_io_out_b_28 : _GEN_59; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_61 = 5'h1d == laneIndex[4:0] ? requestBuffer_io_out_b_29 : _GEN_60; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_62 = 5'h1e == laneIndex[4:0] ? requestBuffer_io_out_b_30 : _GEN_61; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_63 = 5'h1f == laneIndex[4:0] ? requestBuffer_io_out_b_31 : _GEN_62; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_64 = requestBuffer_io_out_c_0; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_65 = 5'h1 == laneIndex[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_66 = 5'h2 == laneIndex[4:0] ? requestBuffer_io_out_c_2 : _GEN_65; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_67 = 5'h3 == laneIndex[4:0] ? requestBuffer_io_out_c_3 : _GEN_66; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_68 = 5'h4 == laneIndex[4:0] ? requestBuffer_io_out_c_4 : _GEN_67; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_69 = 5'h5 == laneIndex[4:0] ? requestBuffer_io_out_c_5 : _GEN_68; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_70 = 5'h6 == laneIndex[4:0] ? requestBuffer_io_out_c_6 : _GEN_69; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_71 = 5'h7 == laneIndex[4:0] ? requestBuffer_io_out_c_7 : _GEN_70; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_72 = 5'h8 == laneIndex[4:0] ? requestBuffer_io_out_c_8 : _GEN_71; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_73 = 5'h9 == laneIndex[4:0] ? requestBuffer_io_out_c_9 : _GEN_72; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_74 = 5'ha == laneIndex[4:0] ? requestBuffer_io_out_c_10 : _GEN_73; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_75 = 5'hb == laneIndex[4:0] ? requestBuffer_io_out_c_11 : _GEN_74; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_76 = 5'hc == laneIndex[4:0] ? requestBuffer_io_out_c_12 : _GEN_75; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_77 = 5'hd == laneIndex[4:0] ? requestBuffer_io_out_c_13 : _GEN_76; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_78 = 5'he == laneIndex[4:0] ? requestBuffer_io_out_c_14 : _GEN_77; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_79 = 5'hf == laneIndex[4:0] ? requestBuffer_io_out_c_15 : _GEN_78; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_80 = 5'h10 == laneIndex[4:0] ? requestBuffer_io_out_c_16 : _GEN_79; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_81 = 5'h11 == laneIndex[4:0] ? requestBuffer_io_out_c_17 : _GEN_80; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_82 = 5'h12 == laneIndex[4:0] ? requestBuffer_io_out_c_18 : _GEN_81; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_83 = 5'h13 == laneIndex[4:0] ? requestBuffer_io_out_c_19 : _GEN_82; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_84 = 5'h14 == laneIndex[4:0] ? requestBuffer_io_out_c_20 : _GEN_83; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_85 = 5'h15 == laneIndex[4:0] ? requestBuffer_io_out_c_21 : _GEN_84; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_86 = 5'h16 == laneIndex[4:0] ? requestBuffer_io_out_c_22 : _GEN_85; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_87 = 5'h17 == laneIndex[4:0] ? requestBuffer_io_out_c_23 : _GEN_86; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_88 = 5'h18 == laneIndex[4:0] ? requestBuffer_io_out_c_24 : _GEN_87; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_89 = 5'h19 == laneIndex[4:0] ? requestBuffer_io_out_c_25 : _GEN_88; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_90 = 5'h1a == laneIndex[4:0] ? requestBuffer_io_out_c_26 : _GEN_89; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_91 = 5'h1b == laneIndex[4:0] ? requestBuffer_io_out_c_27 : _GEN_90; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_92 = 5'h1c == laneIndex[4:0] ? requestBuffer_io_out_c_28 : _GEN_91; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_93 = 5'h1d == laneIndex[4:0] ? requestBuffer_io_out_c_29 : _GEN_92; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_94 = 5'h1e == laneIndex[4:0] ? requestBuffer_io_out_c_30 : _GEN_93; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_95 = 5'h1f == laneIndex[4:0] ? requestBuffer_io_out_c_31 : _GEN_94; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_0_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_1 = base + 6'h1; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_97 = 5'h1 == laneIndex_1[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_98 = 5'h2 == laneIndex_1[4:0] ? requestBuffer_io_out_a_2 : _GEN_97; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_99 = 5'h3 == laneIndex_1[4:0] ? requestBuffer_io_out_a_3 : _GEN_98; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_100 = 5'h4 == laneIndex_1[4:0] ? requestBuffer_io_out_a_4 : _GEN_99; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_101 = 5'h5 == laneIndex_1[4:0] ? requestBuffer_io_out_a_5 : _GEN_100; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_102 = 5'h6 == laneIndex_1[4:0] ? requestBuffer_io_out_a_6 : _GEN_101; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_103 = 5'h7 == laneIndex_1[4:0] ? requestBuffer_io_out_a_7 : _GEN_102; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_104 = 5'h8 == laneIndex_1[4:0] ? requestBuffer_io_out_a_8 : _GEN_103; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_105 = 5'h9 == laneIndex_1[4:0] ? requestBuffer_io_out_a_9 : _GEN_104; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_106 = 5'ha == laneIndex_1[4:0] ? requestBuffer_io_out_a_10 : _GEN_105; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_107 = 5'hb == laneIndex_1[4:0] ? requestBuffer_io_out_a_11 : _GEN_106; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_108 = 5'hc == laneIndex_1[4:0] ? requestBuffer_io_out_a_12 : _GEN_107; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_109 = 5'hd == laneIndex_1[4:0] ? requestBuffer_io_out_a_13 : _GEN_108; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_110 = 5'he == laneIndex_1[4:0] ? requestBuffer_io_out_a_14 : _GEN_109; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_111 = 5'hf == laneIndex_1[4:0] ? requestBuffer_io_out_a_15 : _GEN_110; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_112 = 5'h10 == laneIndex_1[4:0] ? requestBuffer_io_out_a_16 : _GEN_111; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_113 = 5'h11 == laneIndex_1[4:0] ? requestBuffer_io_out_a_17 : _GEN_112; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_114 = 5'h12 == laneIndex_1[4:0] ? requestBuffer_io_out_a_18 : _GEN_113; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_115 = 5'h13 == laneIndex_1[4:0] ? requestBuffer_io_out_a_19 : _GEN_114; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_116 = 5'h14 == laneIndex_1[4:0] ? requestBuffer_io_out_a_20 : _GEN_115; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_117 = 5'h15 == laneIndex_1[4:0] ? requestBuffer_io_out_a_21 : _GEN_116; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_118 = 5'h16 == laneIndex_1[4:0] ? requestBuffer_io_out_a_22 : _GEN_117; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_119 = 5'h17 == laneIndex_1[4:0] ? requestBuffer_io_out_a_23 : _GEN_118; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_120 = 5'h18 == laneIndex_1[4:0] ? requestBuffer_io_out_a_24 : _GEN_119; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_121 = 5'h19 == laneIndex_1[4:0] ? requestBuffer_io_out_a_25 : _GEN_120; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_122 = 5'h1a == laneIndex_1[4:0] ? requestBuffer_io_out_a_26 : _GEN_121; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_123 = 5'h1b == laneIndex_1[4:0] ? requestBuffer_io_out_a_27 : _GEN_122; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_124 = 5'h1c == laneIndex_1[4:0] ? requestBuffer_io_out_a_28 : _GEN_123; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_125 = 5'h1d == laneIndex_1[4:0] ? requestBuffer_io_out_a_29 : _GEN_124; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_126 = 5'h1e == laneIndex_1[4:0] ? requestBuffer_io_out_a_30 : _GEN_125; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_127 = 5'h1f == laneIndex_1[4:0] ? requestBuffer_io_out_a_31 : _GEN_126; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_129 = 5'h1 == laneIndex_1[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_130 = 5'h2 == laneIndex_1[4:0] ? requestBuffer_io_out_b_2 : _GEN_129; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_131 = 5'h3 == laneIndex_1[4:0] ? requestBuffer_io_out_b_3 : _GEN_130; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_132 = 5'h4 == laneIndex_1[4:0] ? requestBuffer_io_out_b_4 : _GEN_131; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_133 = 5'h5 == laneIndex_1[4:0] ? requestBuffer_io_out_b_5 : _GEN_132; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_134 = 5'h6 == laneIndex_1[4:0] ? requestBuffer_io_out_b_6 : _GEN_133; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_135 = 5'h7 == laneIndex_1[4:0] ? requestBuffer_io_out_b_7 : _GEN_134; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_136 = 5'h8 == laneIndex_1[4:0] ? requestBuffer_io_out_b_8 : _GEN_135; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_137 = 5'h9 == laneIndex_1[4:0] ? requestBuffer_io_out_b_9 : _GEN_136; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_138 = 5'ha == laneIndex_1[4:0] ? requestBuffer_io_out_b_10 : _GEN_137; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_139 = 5'hb == laneIndex_1[4:0] ? requestBuffer_io_out_b_11 : _GEN_138; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_140 = 5'hc == laneIndex_1[4:0] ? requestBuffer_io_out_b_12 : _GEN_139; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_141 = 5'hd == laneIndex_1[4:0] ? requestBuffer_io_out_b_13 : _GEN_140; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_142 = 5'he == laneIndex_1[4:0] ? requestBuffer_io_out_b_14 : _GEN_141; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_143 = 5'hf == laneIndex_1[4:0] ? requestBuffer_io_out_b_15 : _GEN_142; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_144 = 5'h10 == laneIndex_1[4:0] ? requestBuffer_io_out_b_16 : _GEN_143; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_145 = 5'h11 == laneIndex_1[4:0] ? requestBuffer_io_out_b_17 : _GEN_144; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_146 = 5'h12 == laneIndex_1[4:0] ? requestBuffer_io_out_b_18 : _GEN_145; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_147 = 5'h13 == laneIndex_1[4:0] ? requestBuffer_io_out_b_19 : _GEN_146; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_148 = 5'h14 == laneIndex_1[4:0] ? requestBuffer_io_out_b_20 : _GEN_147; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_149 = 5'h15 == laneIndex_1[4:0] ? requestBuffer_io_out_b_21 : _GEN_148; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_150 = 5'h16 == laneIndex_1[4:0] ? requestBuffer_io_out_b_22 : _GEN_149; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_151 = 5'h17 == laneIndex_1[4:0] ? requestBuffer_io_out_b_23 : _GEN_150; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_152 = 5'h18 == laneIndex_1[4:0] ? requestBuffer_io_out_b_24 : _GEN_151; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_153 = 5'h19 == laneIndex_1[4:0] ? requestBuffer_io_out_b_25 : _GEN_152; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_154 = 5'h1a == laneIndex_1[4:0] ? requestBuffer_io_out_b_26 : _GEN_153; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_155 = 5'h1b == laneIndex_1[4:0] ? requestBuffer_io_out_b_27 : _GEN_154; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_156 = 5'h1c == laneIndex_1[4:0] ? requestBuffer_io_out_b_28 : _GEN_155; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_157 = 5'h1d == laneIndex_1[4:0] ? requestBuffer_io_out_b_29 : _GEN_156; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_158 = 5'h1e == laneIndex_1[4:0] ? requestBuffer_io_out_b_30 : _GEN_157; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_159 = 5'h1f == laneIndex_1[4:0] ? requestBuffer_io_out_b_31 : _GEN_158; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_161 = 5'h1 == laneIndex_1[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_162 = 5'h2 == laneIndex_1[4:0] ? requestBuffer_io_out_c_2 : _GEN_161; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_163 = 5'h3 == laneIndex_1[4:0] ? requestBuffer_io_out_c_3 : _GEN_162; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_164 = 5'h4 == laneIndex_1[4:0] ? requestBuffer_io_out_c_4 : _GEN_163; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_165 = 5'h5 == laneIndex_1[4:0] ? requestBuffer_io_out_c_5 : _GEN_164; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_166 = 5'h6 == laneIndex_1[4:0] ? requestBuffer_io_out_c_6 : _GEN_165; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_167 = 5'h7 == laneIndex_1[4:0] ? requestBuffer_io_out_c_7 : _GEN_166; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_168 = 5'h8 == laneIndex_1[4:0] ? requestBuffer_io_out_c_8 : _GEN_167; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_169 = 5'h9 == laneIndex_1[4:0] ? requestBuffer_io_out_c_9 : _GEN_168; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_170 = 5'ha == laneIndex_1[4:0] ? requestBuffer_io_out_c_10 : _GEN_169; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_171 = 5'hb == laneIndex_1[4:0] ? requestBuffer_io_out_c_11 : _GEN_170; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_172 = 5'hc == laneIndex_1[4:0] ? requestBuffer_io_out_c_12 : _GEN_171; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_173 = 5'hd == laneIndex_1[4:0] ? requestBuffer_io_out_c_13 : _GEN_172; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_174 = 5'he == laneIndex_1[4:0] ? requestBuffer_io_out_c_14 : _GEN_173; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_175 = 5'hf == laneIndex_1[4:0] ? requestBuffer_io_out_c_15 : _GEN_174; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_176 = 5'h10 == laneIndex_1[4:0] ? requestBuffer_io_out_c_16 : _GEN_175; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_177 = 5'h11 == laneIndex_1[4:0] ? requestBuffer_io_out_c_17 : _GEN_176; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_178 = 5'h12 == laneIndex_1[4:0] ? requestBuffer_io_out_c_18 : _GEN_177; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_179 = 5'h13 == laneIndex_1[4:0] ? requestBuffer_io_out_c_19 : _GEN_178; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_180 = 5'h14 == laneIndex_1[4:0] ? requestBuffer_io_out_c_20 : _GEN_179; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_181 = 5'h15 == laneIndex_1[4:0] ? requestBuffer_io_out_c_21 : _GEN_180; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_182 = 5'h16 == laneIndex_1[4:0] ? requestBuffer_io_out_c_22 : _GEN_181; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_183 = 5'h17 == laneIndex_1[4:0] ? requestBuffer_io_out_c_23 : _GEN_182; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_184 = 5'h18 == laneIndex_1[4:0] ? requestBuffer_io_out_c_24 : _GEN_183; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_185 = 5'h19 == laneIndex_1[4:0] ? requestBuffer_io_out_c_25 : _GEN_184; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_186 = 5'h1a == laneIndex_1[4:0] ? requestBuffer_io_out_c_26 : _GEN_185; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_187 = 5'h1b == laneIndex_1[4:0] ? requestBuffer_io_out_c_27 : _GEN_186; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_188 = 5'h1c == laneIndex_1[4:0] ? requestBuffer_io_out_c_28 : _GEN_187; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_189 = 5'h1d == laneIndex_1[4:0] ? requestBuffer_io_out_c_29 : _GEN_188; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_190 = 5'h1e == laneIndex_1[4:0] ? requestBuffer_io_out_c_30 : _GEN_189; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_191 = 5'h1f == laneIndex_1[4:0] ? requestBuffer_io_out_c_31 : _GEN_190; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_1_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_1; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_2 = base + 6'h2; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_193 = 5'h1 == laneIndex_2[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_194 = 5'h2 == laneIndex_2[4:0] ? requestBuffer_io_out_a_2 : _GEN_193; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_195 = 5'h3 == laneIndex_2[4:0] ? requestBuffer_io_out_a_3 : _GEN_194; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_196 = 5'h4 == laneIndex_2[4:0] ? requestBuffer_io_out_a_4 : _GEN_195; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_197 = 5'h5 == laneIndex_2[4:0] ? requestBuffer_io_out_a_5 : _GEN_196; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_198 = 5'h6 == laneIndex_2[4:0] ? requestBuffer_io_out_a_6 : _GEN_197; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_199 = 5'h7 == laneIndex_2[4:0] ? requestBuffer_io_out_a_7 : _GEN_198; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_200 = 5'h8 == laneIndex_2[4:0] ? requestBuffer_io_out_a_8 : _GEN_199; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_201 = 5'h9 == laneIndex_2[4:0] ? requestBuffer_io_out_a_9 : _GEN_200; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_202 = 5'ha == laneIndex_2[4:0] ? requestBuffer_io_out_a_10 : _GEN_201; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_203 = 5'hb == laneIndex_2[4:0] ? requestBuffer_io_out_a_11 : _GEN_202; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_204 = 5'hc == laneIndex_2[4:0] ? requestBuffer_io_out_a_12 : _GEN_203; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_205 = 5'hd == laneIndex_2[4:0] ? requestBuffer_io_out_a_13 : _GEN_204; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_206 = 5'he == laneIndex_2[4:0] ? requestBuffer_io_out_a_14 : _GEN_205; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_207 = 5'hf == laneIndex_2[4:0] ? requestBuffer_io_out_a_15 : _GEN_206; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_208 = 5'h10 == laneIndex_2[4:0] ? requestBuffer_io_out_a_16 : _GEN_207; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_209 = 5'h11 == laneIndex_2[4:0] ? requestBuffer_io_out_a_17 : _GEN_208; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_210 = 5'h12 == laneIndex_2[4:0] ? requestBuffer_io_out_a_18 : _GEN_209; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_211 = 5'h13 == laneIndex_2[4:0] ? requestBuffer_io_out_a_19 : _GEN_210; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_212 = 5'h14 == laneIndex_2[4:0] ? requestBuffer_io_out_a_20 : _GEN_211; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_213 = 5'h15 == laneIndex_2[4:0] ? requestBuffer_io_out_a_21 : _GEN_212; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_214 = 5'h16 == laneIndex_2[4:0] ? requestBuffer_io_out_a_22 : _GEN_213; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_215 = 5'h17 == laneIndex_2[4:0] ? requestBuffer_io_out_a_23 : _GEN_214; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_216 = 5'h18 == laneIndex_2[4:0] ? requestBuffer_io_out_a_24 : _GEN_215; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_217 = 5'h19 == laneIndex_2[4:0] ? requestBuffer_io_out_a_25 : _GEN_216; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_218 = 5'h1a == laneIndex_2[4:0] ? requestBuffer_io_out_a_26 : _GEN_217; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_219 = 5'h1b == laneIndex_2[4:0] ? requestBuffer_io_out_a_27 : _GEN_218; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_220 = 5'h1c == laneIndex_2[4:0] ? requestBuffer_io_out_a_28 : _GEN_219; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_221 = 5'h1d == laneIndex_2[4:0] ? requestBuffer_io_out_a_29 : _GEN_220; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_222 = 5'h1e == laneIndex_2[4:0] ? requestBuffer_io_out_a_30 : _GEN_221; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_223 = 5'h1f == laneIndex_2[4:0] ? requestBuffer_io_out_a_31 : _GEN_222; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_225 = 5'h1 == laneIndex_2[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_226 = 5'h2 == laneIndex_2[4:0] ? requestBuffer_io_out_b_2 : _GEN_225; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_227 = 5'h3 == laneIndex_2[4:0] ? requestBuffer_io_out_b_3 : _GEN_226; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_228 = 5'h4 == laneIndex_2[4:0] ? requestBuffer_io_out_b_4 : _GEN_227; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_229 = 5'h5 == laneIndex_2[4:0] ? requestBuffer_io_out_b_5 : _GEN_228; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_230 = 5'h6 == laneIndex_2[4:0] ? requestBuffer_io_out_b_6 : _GEN_229; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_231 = 5'h7 == laneIndex_2[4:0] ? requestBuffer_io_out_b_7 : _GEN_230; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_232 = 5'h8 == laneIndex_2[4:0] ? requestBuffer_io_out_b_8 : _GEN_231; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_233 = 5'h9 == laneIndex_2[4:0] ? requestBuffer_io_out_b_9 : _GEN_232; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_234 = 5'ha == laneIndex_2[4:0] ? requestBuffer_io_out_b_10 : _GEN_233; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_235 = 5'hb == laneIndex_2[4:0] ? requestBuffer_io_out_b_11 : _GEN_234; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_236 = 5'hc == laneIndex_2[4:0] ? requestBuffer_io_out_b_12 : _GEN_235; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_237 = 5'hd == laneIndex_2[4:0] ? requestBuffer_io_out_b_13 : _GEN_236; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_238 = 5'he == laneIndex_2[4:0] ? requestBuffer_io_out_b_14 : _GEN_237; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_239 = 5'hf == laneIndex_2[4:0] ? requestBuffer_io_out_b_15 : _GEN_238; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_240 = 5'h10 == laneIndex_2[4:0] ? requestBuffer_io_out_b_16 : _GEN_239; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_241 = 5'h11 == laneIndex_2[4:0] ? requestBuffer_io_out_b_17 : _GEN_240; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_242 = 5'h12 == laneIndex_2[4:0] ? requestBuffer_io_out_b_18 : _GEN_241; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_243 = 5'h13 == laneIndex_2[4:0] ? requestBuffer_io_out_b_19 : _GEN_242; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_244 = 5'h14 == laneIndex_2[4:0] ? requestBuffer_io_out_b_20 : _GEN_243; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_245 = 5'h15 == laneIndex_2[4:0] ? requestBuffer_io_out_b_21 : _GEN_244; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_246 = 5'h16 == laneIndex_2[4:0] ? requestBuffer_io_out_b_22 : _GEN_245; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_247 = 5'h17 == laneIndex_2[4:0] ? requestBuffer_io_out_b_23 : _GEN_246; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_248 = 5'h18 == laneIndex_2[4:0] ? requestBuffer_io_out_b_24 : _GEN_247; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_249 = 5'h19 == laneIndex_2[4:0] ? requestBuffer_io_out_b_25 : _GEN_248; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_250 = 5'h1a == laneIndex_2[4:0] ? requestBuffer_io_out_b_26 : _GEN_249; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_251 = 5'h1b == laneIndex_2[4:0] ? requestBuffer_io_out_b_27 : _GEN_250; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_252 = 5'h1c == laneIndex_2[4:0] ? requestBuffer_io_out_b_28 : _GEN_251; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_253 = 5'h1d == laneIndex_2[4:0] ? requestBuffer_io_out_b_29 : _GEN_252; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_254 = 5'h1e == laneIndex_2[4:0] ? requestBuffer_io_out_b_30 : _GEN_253; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_255 = 5'h1f == laneIndex_2[4:0] ? requestBuffer_io_out_b_31 : _GEN_254; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_257 = 5'h1 == laneIndex_2[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_258 = 5'h2 == laneIndex_2[4:0] ? requestBuffer_io_out_c_2 : _GEN_257; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_259 = 5'h3 == laneIndex_2[4:0] ? requestBuffer_io_out_c_3 : _GEN_258; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_260 = 5'h4 == laneIndex_2[4:0] ? requestBuffer_io_out_c_4 : _GEN_259; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_261 = 5'h5 == laneIndex_2[4:0] ? requestBuffer_io_out_c_5 : _GEN_260; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_262 = 5'h6 == laneIndex_2[4:0] ? requestBuffer_io_out_c_6 : _GEN_261; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_263 = 5'h7 == laneIndex_2[4:0] ? requestBuffer_io_out_c_7 : _GEN_262; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_264 = 5'h8 == laneIndex_2[4:0] ? requestBuffer_io_out_c_8 : _GEN_263; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_265 = 5'h9 == laneIndex_2[4:0] ? requestBuffer_io_out_c_9 : _GEN_264; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_266 = 5'ha == laneIndex_2[4:0] ? requestBuffer_io_out_c_10 : _GEN_265; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_267 = 5'hb == laneIndex_2[4:0] ? requestBuffer_io_out_c_11 : _GEN_266; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_268 = 5'hc == laneIndex_2[4:0] ? requestBuffer_io_out_c_12 : _GEN_267; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_269 = 5'hd == laneIndex_2[4:0] ? requestBuffer_io_out_c_13 : _GEN_268; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_270 = 5'he == laneIndex_2[4:0] ? requestBuffer_io_out_c_14 : _GEN_269; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_271 = 5'hf == laneIndex_2[4:0] ? requestBuffer_io_out_c_15 : _GEN_270; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_272 = 5'h10 == laneIndex_2[4:0] ? requestBuffer_io_out_c_16 : _GEN_271; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_273 = 5'h11 == laneIndex_2[4:0] ? requestBuffer_io_out_c_17 : _GEN_272; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_274 = 5'h12 == laneIndex_2[4:0] ? requestBuffer_io_out_c_18 : _GEN_273; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_275 = 5'h13 == laneIndex_2[4:0] ? requestBuffer_io_out_c_19 : _GEN_274; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_276 = 5'h14 == laneIndex_2[4:0] ? requestBuffer_io_out_c_20 : _GEN_275; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_277 = 5'h15 == laneIndex_2[4:0] ? requestBuffer_io_out_c_21 : _GEN_276; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_278 = 5'h16 == laneIndex_2[4:0] ? requestBuffer_io_out_c_22 : _GEN_277; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_279 = 5'h17 == laneIndex_2[4:0] ? requestBuffer_io_out_c_23 : _GEN_278; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_280 = 5'h18 == laneIndex_2[4:0] ? requestBuffer_io_out_c_24 : _GEN_279; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_281 = 5'h19 == laneIndex_2[4:0] ? requestBuffer_io_out_c_25 : _GEN_280; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_282 = 5'h1a == laneIndex_2[4:0] ? requestBuffer_io_out_c_26 : _GEN_281; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_283 = 5'h1b == laneIndex_2[4:0] ? requestBuffer_io_out_c_27 : _GEN_282; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_284 = 5'h1c == laneIndex_2[4:0] ? requestBuffer_io_out_c_28 : _GEN_283; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_285 = 5'h1d == laneIndex_2[4:0] ? requestBuffer_io_out_c_29 : _GEN_284; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_286 = 5'h1e == laneIndex_2[4:0] ? requestBuffer_io_out_c_30 : _GEN_285; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_287 = 5'h1f == laneIndex_2[4:0] ? requestBuffer_io_out_c_31 : _GEN_286; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_2_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_2; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_3 = base + 6'h3; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_289 = 5'h1 == laneIndex_3[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_290 = 5'h2 == laneIndex_3[4:0] ? requestBuffer_io_out_a_2 : _GEN_289; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_291 = 5'h3 == laneIndex_3[4:0] ? requestBuffer_io_out_a_3 : _GEN_290; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_292 = 5'h4 == laneIndex_3[4:0] ? requestBuffer_io_out_a_4 : _GEN_291; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_293 = 5'h5 == laneIndex_3[4:0] ? requestBuffer_io_out_a_5 : _GEN_292; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_294 = 5'h6 == laneIndex_3[4:0] ? requestBuffer_io_out_a_6 : _GEN_293; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_295 = 5'h7 == laneIndex_3[4:0] ? requestBuffer_io_out_a_7 : _GEN_294; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_296 = 5'h8 == laneIndex_3[4:0] ? requestBuffer_io_out_a_8 : _GEN_295; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_297 = 5'h9 == laneIndex_3[4:0] ? requestBuffer_io_out_a_9 : _GEN_296; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_298 = 5'ha == laneIndex_3[4:0] ? requestBuffer_io_out_a_10 : _GEN_297; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_299 = 5'hb == laneIndex_3[4:0] ? requestBuffer_io_out_a_11 : _GEN_298; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_300 = 5'hc == laneIndex_3[4:0] ? requestBuffer_io_out_a_12 : _GEN_299; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_301 = 5'hd == laneIndex_3[4:0] ? requestBuffer_io_out_a_13 : _GEN_300; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_302 = 5'he == laneIndex_3[4:0] ? requestBuffer_io_out_a_14 : _GEN_301; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_303 = 5'hf == laneIndex_3[4:0] ? requestBuffer_io_out_a_15 : _GEN_302; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_304 = 5'h10 == laneIndex_3[4:0] ? requestBuffer_io_out_a_16 : _GEN_303; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_305 = 5'h11 == laneIndex_3[4:0] ? requestBuffer_io_out_a_17 : _GEN_304; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_306 = 5'h12 == laneIndex_3[4:0] ? requestBuffer_io_out_a_18 : _GEN_305; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_307 = 5'h13 == laneIndex_3[4:0] ? requestBuffer_io_out_a_19 : _GEN_306; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_308 = 5'h14 == laneIndex_3[4:0] ? requestBuffer_io_out_a_20 : _GEN_307; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_309 = 5'h15 == laneIndex_3[4:0] ? requestBuffer_io_out_a_21 : _GEN_308; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_310 = 5'h16 == laneIndex_3[4:0] ? requestBuffer_io_out_a_22 : _GEN_309; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_311 = 5'h17 == laneIndex_3[4:0] ? requestBuffer_io_out_a_23 : _GEN_310; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_312 = 5'h18 == laneIndex_3[4:0] ? requestBuffer_io_out_a_24 : _GEN_311; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_313 = 5'h19 == laneIndex_3[4:0] ? requestBuffer_io_out_a_25 : _GEN_312; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_314 = 5'h1a == laneIndex_3[4:0] ? requestBuffer_io_out_a_26 : _GEN_313; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_315 = 5'h1b == laneIndex_3[4:0] ? requestBuffer_io_out_a_27 : _GEN_314; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_316 = 5'h1c == laneIndex_3[4:0] ? requestBuffer_io_out_a_28 : _GEN_315; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_317 = 5'h1d == laneIndex_3[4:0] ? requestBuffer_io_out_a_29 : _GEN_316; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_318 = 5'h1e == laneIndex_3[4:0] ? requestBuffer_io_out_a_30 : _GEN_317; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_319 = 5'h1f == laneIndex_3[4:0] ? requestBuffer_io_out_a_31 : _GEN_318; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_321 = 5'h1 == laneIndex_3[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_322 = 5'h2 == laneIndex_3[4:0] ? requestBuffer_io_out_b_2 : _GEN_321; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_323 = 5'h3 == laneIndex_3[4:0] ? requestBuffer_io_out_b_3 : _GEN_322; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_324 = 5'h4 == laneIndex_3[4:0] ? requestBuffer_io_out_b_4 : _GEN_323; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_325 = 5'h5 == laneIndex_3[4:0] ? requestBuffer_io_out_b_5 : _GEN_324; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_326 = 5'h6 == laneIndex_3[4:0] ? requestBuffer_io_out_b_6 : _GEN_325; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_327 = 5'h7 == laneIndex_3[4:0] ? requestBuffer_io_out_b_7 : _GEN_326; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_328 = 5'h8 == laneIndex_3[4:0] ? requestBuffer_io_out_b_8 : _GEN_327; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_329 = 5'h9 == laneIndex_3[4:0] ? requestBuffer_io_out_b_9 : _GEN_328; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_330 = 5'ha == laneIndex_3[4:0] ? requestBuffer_io_out_b_10 : _GEN_329; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_331 = 5'hb == laneIndex_3[4:0] ? requestBuffer_io_out_b_11 : _GEN_330; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_332 = 5'hc == laneIndex_3[4:0] ? requestBuffer_io_out_b_12 : _GEN_331; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_333 = 5'hd == laneIndex_3[4:0] ? requestBuffer_io_out_b_13 : _GEN_332; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_334 = 5'he == laneIndex_3[4:0] ? requestBuffer_io_out_b_14 : _GEN_333; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_335 = 5'hf == laneIndex_3[4:0] ? requestBuffer_io_out_b_15 : _GEN_334; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_336 = 5'h10 == laneIndex_3[4:0] ? requestBuffer_io_out_b_16 : _GEN_335; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_337 = 5'h11 == laneIndex_3[4:0] ? requestBuffer_io_out_b_17 : _GEN_336; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_338 = 5'h12 == laneIndex_3[4:0] ? requestBuffer_io_out_b_18 : _GEN_337; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_339 = 5'h13 == laneIndex_3[4:0] ? requestBuffer_io_out_b_19 : _GEN_338; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_340 = 5'h14 == laneIndex_3[4:0] ? requestBuffer_io_out_b_20 : _GEN_339; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_341 = 5'h15 == laneIndex_3[4:0] ? requestBuffer_io_out_b_21 : _GEN_340; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_342 = 5'h16 == laneIndex_3[4:0] ? requestBuffer_io_out_b_22 : _GEN_341; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_343 = 5'h17 == laneIndex_3[4:0] ? requestBuffer_io_out_b_23 : _GEN_342; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_344 = 5'h18 == laneIndex_3[4:0] ? requestBuffer_io_out_b_24 : _GEN_343; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_345 = 5'h19 == laneIndex_3[4:0] ? requestBuffer_io_out_b_25 : _GEN_344; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_346 = 5'h1a == laneIndex_3[4:0] ? requestBuffer_io_out_b_26 : _GEN_345; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_347 = 5'h1b == laneIndex_3[4:0] ? requestBuffer_io_out_b_27 : _GEN_346; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_348 = 5'h1c == laneIndex_3[4:0] ? requestBuffer_io_out_b_28 : _GEN_347; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_349 = 5'h1d == laneIndex_3[4:0] ? requestBuffer_io_out_b_29 : _GEN_348; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_350 = 5'h1e == laneIndex_3[4:0] ? requestBuffer_io_out_b_30 : _GEN_349; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_351 = 5'h1f == laneIndex_3[4:0] ? requestBuffer_io_out_b_31 : _GEN_350; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_353 = 5'h1 == laneIndex_3[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_354 = 5'h2 == laneIndex_3[4:0] ? requestBuffer_io_out_c_2 : _GEN_353; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_355 = 5'h3 == laneIndex_3[4:0] ? requestBuffer_io_out_c_3 : _GEN_354; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_356 = 5'h4 == laneIndex_3[4:0] ? requestBuffer_io_out_c_4 : _GEN_355; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_357 = 5'h5 == laneIndex_3[4:0] ? requestBuffer_io_out_c_5 : _GEN_356; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_358 = 5'h6 == laneIndex_3[4:0] ? requestBuffer_io_out_c_6 : _GEN_357; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_359 = 5'h7 == laneIndex_3[4:0] ? requestBuffer_io_out_c_7 : _GEN_358; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_360 = 5'h8 == laneIndex_3[4:0] ? requestBuffer_io_out_c_8 : _GEN_359; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_361 = 5'h9 == laneIndex_3[4:0] ? requestBuffer_io_out_c_9 : _GEN_360; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_362 = 5'ha == laneIndex_3[4:0] ? requestBuffer_io_out_c_10 : _GEN_361; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_363 = 5'hb == laneIndex_3[4:0] ? requestBuffer_io_out_c_11 : _GEN_362; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_364 = 5'hc == laneIndex_3[4:0] ? requestBuffer_io_out_c_12 : _GEN_363; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_365 = 5'hd == laneIndex_3[4:0] ? requestBuffer_io_out_c_13 : _GEN_364; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_366 = 5'he == laneIndex_3[4:0] ? requestBuffer_io_out_c_14 : _GEN_365; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_367 = 5'hf == laneIndex_3[4:0] ? requestBuffer_io_out_c_15 : _GEN_366; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_368 = 5'h10 == laneIndex_3[4:0] ? requestBuffer_io_out_c_16 : _GEN_367; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_369 = 5'h11 == laneIndex_3[4:0] ? requestBuffer_io_out_c_17 : _GEN_368; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_370 = 5'h12 == laneIndex_3[4:0] ? requestBuffer_io_out_c_18 : _GEN_369; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_371 = 5'h13 == laneIndex_3[4:0] ? requestBuffer_io_out_c_19 : _GEN_370; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_372 = 5'h14 == laneIndex_3[4:0] ? requestBuffer_io_out_c_20 : _GEN_371; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_373 = 5'h15 == laneIndex_3[4:0] ? requestBuffer_io_out_c_21 : _GEN_372; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_374 = 5'h16 == laneIndex_3[4:0] ? requestBuffer_io_out_c_22 : _GEN_373; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_375 = 5'h17 == laneIndex_3[4:0] ? requestBuffer_io_out_c_23 : _GEN_374; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_376 = 5'h18 == laneIndex_3[4:0] ? requestBuffer_io_out_c_24 : _GEN_375; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_377 = 5'h19 == laneIndex_3[4:0] ? requestBuffer_io_out_c_25 : _GEN_376; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_378 = 5'h1a == laneIndex_3[4:0] ? requestBuffer_io_out_c_26 : _GEN_377; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_379 = 5'h1b == laneIndex_3[4:0] ? requestBuffer_io_out_c_27 : _GEN_378; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_380 = 5'h1c == laneIndex_3[4:0] ? requestBuffer_io_out_c_28 : _GEN_379; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_381 = 5'h1d == laneIndex_3[4:0] ? requestBuffer_io_out_c_29 : _GEN_380; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_382 = 5'h1e == laneIndex_3[4:0] ? requestBuffer_io_out_c_30 : _GEN_381; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_383 = 5'h1f == laneIndex_3[4:0] ? requestBuffer_io_out_c_31 : _GEN_382; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_3_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_3; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_4 = base + 6'h4; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_385 = 5'h1 == laneIndex_4[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_386 = 5'h2 == laneIndex_4[4:0] ? requestBuffer_io_out_a_2 : _GEN_385; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_387 = 5'h3 == laneIndex_4[4:0] ? requestBuffer_io_out_a_3 : _GEN_386; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_388 = 5'h4 == laneIndex_4[4:0] ? requestBuffer_io_out_a_4 : _GEN_387; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_389 = 5'h5 == laneIndex_4[4:0] ? requestBuffer_io_out_a_5 : _GEN_388; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_390 = 5'h6 == laneIndex_4[4:0] ? requestBuffer_io_out_a_6 : _GEN_389; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_391 = 5'h7 == laneIndex_4[4:0] ? requestBuffer_io_out_a_7 : _GEN_390; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_392 = 5'h8 == laneIndex_4[4:0] ? requestBuffer_io_out_a_8 : _GEN_391; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_393 = 5'h9 == laneIndex_4[4:0] ? requestBuffer_io_out_a_9 : _GEN_392; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_394 = 5'ha == laneIndex_4[4:0] ? requestBuffer_io_out_a_10 : _GEN_393; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_395 = 5'hb == laneIndex_4[4:0] ? requestBuffer_io_out_a_11 : _GEN_394; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_396 = 5'hc == laneIndex_4[4:0] ? requestBuffer_io_out_a_12 : _GEN_395; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_397 = 5'hd == laneIndex_4[4:0] ? requestBuffer_io_out_a_13 : _GEN_396; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_398 = 5'he == laneIndex_4[4:0] ? requestBuffer_io_out_a_14 : _GEN_397; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_399 = 5'hf == laneIndex_4[4:0] ? requestBuffer_io_out_a_15 : _GEN_398; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_400 = 5'h10 == laneIndex_4[4:0] ? requestBuffer_io_out_a_16 : _GEN_399; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_401 = 5'h11 == laneIndex_4[4:0] ? requestBuffer_io_out_a_17 : _GEN_400; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_402 = 5'h12 == laneIndex_4[4:0] ? requestBuffer_io_out_a_18 : _GEN_401; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_403 = 5'h13 == laneIndex_4[4:0] ? requestBuffer_io_out_a_19 : _GEN_402; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_404 = 5'h14 == laneIndex_4[4:0] ? requestBuffer_io_out_a_20 : _GEN_403; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_405 = 5'h15 == laneIndex_4[4:0] ? requestBuffer_io_out_a_21 : _GEN_404; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_406 = 5'h16 == laneIndex_4[4:0] ? requestBuffer_io_out_a_22 : _GEN_405; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_407 = 5'h17 == laneIndex_4[4:0] ? requestBuffer_io_out_a_23 : _GEN_406; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_408 = 5'h18 == laneIndex_4[4:0] ? requestBuffer_io_out_a_24 : _GEN_407; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_409 = 5'h19 == laneIndex_4[4:0] ? requestBuffer_io_out_a_25 : _GEN_408; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_410 = 5'h1a == laneIndex_4[4:0] ? requestBuffer_io_out_a_26 : _GEN_409; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_411 = 5'h1b == laneIndex_4[4:0] ? requestBuffer_io_out_a_27 : _GEN_410; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_412 = 5'h1c == laneIndex_4[4:0] ? requestBuffer_io_out_a_28 : _GEN_411; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_413 = 5'h1d == laneIndex_4[4:0] ? requestBuffer_io_out_a_29 : _GEN_412; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_414 = 5'h1e == laneIndex_4[4:0] ? requestBuffer_io_out_a_30 : _GEN_413; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_415 = 5'h1f == laneIndex_4[4:0] ? requestBuffer_io_out_a_31 : _GEN_414; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_417 = 5'h1 == laneIndex_4[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_418 = 5'h2 == laneIndex_4[4:0] ? requestBuffer_io_out_b_2 : _GEN_417; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_419 = 5'h3 == laneIndex_4[4:0] ? requestBuffer_io_out_b_3 : _GEN_418; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_420 = 5'h4 == laneIndex_4[4:0] ? requestBuffer_io_out_b_4 : _GEN_419; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_421 = 5'h5 == laneIndex_4[4:0] ? requestBuffer_io_out_b_5 : _GEN_420; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_422 = 5'h6 == laneIndex_4[4:0] ? requestBuffer_io_out_b_6 : _GEN_421; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_423 = 5'h7 == laneIndex_4[4:0] ? requestBuffer_io_out_b_7 : _GEN_422; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_424 = 5'h8 == laneIndex_4[4:0] ? requestBuffer_io_out_b_8 : _GEN_423; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_425 = 5'h9 == laneIndex_4[4:0] ? requestBuffer_io_out_b_9 : _GEN_424; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_426 = 5'ha == laneIndex_4[4:0] ? requestBuffer_io_out_b_10 : _GEN_425; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_427 = 5'hb == laneIndex_4[4:0] ? requestBuffer_io_out_b_11 : _GEN_426; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_428 = 5'hc == laneIndex_4[4:0] ? requestBuffer_io_out_b_12 : _GEN_427; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_429 = 5'hd == laneIndex_4[4:0] ? requestBuffer_io_out_b_13 : _GEN_428; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_430 = 5'he == laneIndex_4[4:0] ? requestBuffer_io_out_b_14 : _GEN_429; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_431 = 5'hf == laneIndex_4[4:0] ? requestBuffer_io_out_b_15 : _GEN_430; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_432 = 5'h10 == laneIndex_4[4:0] ? requestBuffer_io_out_b_16 : _GEN_431; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_433 = 5'h11 == laneIndex_4[4:0] ? requestBuffer_io_out_b_17 : _GEN_432; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_434 = 5'h12 == laneIndex_4[4:0] ? requestBuffer_io_out_b_18 : _GEN_433; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_435 = 5'h13 == laneIndex_4[4:0] ? requestBuffer_io_out_b_19 : _GEN_434; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_436 = 5'h14 == laneIndex_4[4:0] ? requestBuffer_io_out_b_20 : _GEN_435; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_437 = 5'h15 == laneIndex_4[4:0] ? requestBuffer_io_out_b_21 : _GEN_436; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_438 = 5'h16 == laneIndex_4[4:0] ? requestBuffer_io_out_b_22 : _GEN_437; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_439 = 5'h17 == laneIndex_4[4:0] ? requestBuffer_io_out_b_23 : _GEN_438; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_440 = 5'h18 == laneIndex_4[4:0] ? requestBuffer_io_out_b_24 : _GEN_439; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_441 = 5'h19 == laneIndex_4[4:0] ? requestBuffer_io_out_b_25 : _GEN_440; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_442 = 5'h1a == laneIndex_4[4:0] ? requestBuffer_io_out_b_26 : _GEN_441; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_443 = 5'h1b == laneIndex_4[4:0] ? requestBuffer_io_out_b_27 : _GEN_442; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_444 = 5'h1c == laneIndex_4[4:0] ? requestBuffer_io_out_b_28 : _GEN_443; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_445 = 5'h1d == laneIndex_4[4:0] ? requestBuffer_io_out_b_29 : _GEN_444; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_446 = 5'h1e == laneIndex_4[4:0] ? requestBuffer_io_out_b_30 : _GEN_445; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_447 = 5'h1f == laneIndex_4[4:0] ? requestBuffer_io_out_b_31 : _GEN_446; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_449 = 5'h1 == laneIndex_4[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_450 = 5'h2 == laneIndex_4[4:0] ? requestBuffer_io_out_c_2 : _GEN_449; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_451 = 5'h3 == laneIndex_4[4:0] ? requestBuffer_io_out_c_3 : _GEN_450; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_452 = 5'h4 == laneIndex_4[4:0] ? requestBuffer_io_out_c_4 : _GEN_451; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_453 = 5'h5 == laneIndex_4[4:0] ? requestBuffer_io_out_c_5 : _GEN_452; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_454 = 5'h6 == laneIndex_4[4:0] ? requestBuffer_io_out_c_6 : _GEN_453; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_455 = 5'h7 == laneIndex_4[4:0] ? requestBuffer_io_out_c_7 : _GEN_454; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_456 = 5'h8 == laneIndex_4[4:0] ? requestBuffer_io_out_c_8 : _GEN_455; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_457 = 5'h9 == laneIndex_4[4:0] ? requestBuffer_io_out_c_9 : _GEN_456; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_458 = 5'ha == laneIndex_4[4:0] ? requestBuffer_io_out_c_10 : _GEN_457; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_459 = 5'hb == laneIndex_4[4:0] ? requestBuffer_io_out_c_11 : _GEN_458; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_460 = 5'hc == laneIndex_4[4:0] ? requestBuffer_io_out_c_12 : _GEN_459; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_461 = 5'hd == laneIndex_4[4:0] ? requestBuffer_io_out_c_13 : _GEN_460; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_462 = 5'he == laneIndex_4[4:0] ? requestBuffer_io_out_c_14 : _GEN_461; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_463 = 5'hf == laneIndex_4[4:0] ? requestBuffer_io_out_c_15 : _GEN_462; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_464 = 5'h10 == laneIndex_4[4:0] ? requestBuffer_io_out_c_16 : _GEN_463; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_465 = 5'h11 == laneIndex_4[4:0] ? requestBuffer_io_out_c_17 : _GEN_464; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_466 = 5'h12 == laneIndex_4[4:0] ? requestBuffer_io_out_c_18 : _GEN_465; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_467 = 5'h13 == laneIndex_4[4:0] ? requestBuffer_io_out_c_19 : _GEN_466; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_468 = 5'h14 == laneIndex_4[4:0] ? requestBuffer_io_out_c_20 : _GEN_467; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_469 = 5'h15 == laneIndex_4[4:0] ? requestBuffer_io_out_c_21 : _GEN_468; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_470 = 5'h16 == laneIndex_4[4:0] ? requestBuffer_io_out_c_22 : _GEN_469; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_471 = 5'h17 == laneIndex_4[4:0] ? requestBuffer_io_out_c_23 : _GEN_470; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_472 = 5'h18 == laneIndex_4[4:0] ? requestBuffer_io_out_c_24 : _GEN_471; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_473 = 5'h19 == laneIndex_4[4:0] ? requestBuffer_io_out_c_25 : _GEN_472; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_474 = 5'h1a == laneIndex_4[4:0] ? requestBuffer_io_out_c_26 : _GEN_473; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_475 = 5'h1b == laneIndex_4[4:0] ? requestBuffer_io_out_c_27 : _GEN_474; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_476 = 5'h1c == laneIndex_4[4:0] ? requestBuffer_io_out_c_28 : _GEN_475; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_477 = 5'h1d == laneIndex_4[4:0] ? requestBuffer_io_out_c_29 : _GEN_476; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_478 = 5'h1e == laneIndex_4[4:0] ? requestBuffer_io_out_c_30 : _GEN_477; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_479 = 5'h1f == laneIndex_4[4:0] ? requestBuffer_io_out_c_31 : _GEN_478; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_4_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_4; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_5 = base + 6'h5; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_481 = 5'h1 == laneIndex_5[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_482 = 5'h2 == laneIndex_5[4:0] ? requestBuffer_io_out_a_2 : _GEN_481; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_483 = 5'h3 == laneIndex_5[4:0] ? requestBuffer_io_out_a_3 : _GEN_482; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_484 = 5'h4 == laneIndex_5[4:0] ? requestBuffer_io_out_a_4 : _GEN_483; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_485 = 5'h5 == laneIndex_5[4:0] ? requestBuffer_io_out_a_5 : _GEN_484; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_486 = 5'h6 == laneIndex_5[4:0] ? requestBuffer_io_out_a_6 : _GEN_485; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_487 = 5'h7 == laneIndex_5[4:0] ? requestBuffer_io_out_a_7 : _GEN_486; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_488 = 5'h8 == laneIndex_5[4:0] ? requestBuffer_io_out_a_8 : _GEN_487; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_489 = 5'h9 == laneIndex_5[4:0] ? requestBuffer_io_out_a_9 : _GEN_488; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_490 = 5'ha == laneIndex_5[4:0] ? requestBuffer_io_out_a_10 : _GEN_489; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_491 = 5'hb == laneIndex_5[4:0] ? requestBuffer_io_out_a_11 : _GEN_490; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_492 = 5'hc == laneIndex_5[4:0] ? requestBuffer_io_out_a_12 : _GEN_491; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_493 = 5'hd == laneIndex_5[4:0] ? requestBuffer_io_out_a_13 : _GEN_492; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_494 = 5'he == laneIndex_5[4:0] ? requestBuffer_io_out_a_14 : _GEN_493; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_495 = 5'hf == laneIndex_5[4:0] ? requestBuffer_io_out_a_15 : _GEN_494; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_496 = 5'h10 == laneIndex_5[4:0] ? requestBuffer_io_out_a_16 : _GEN_495; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_497 = 5'h11 == laneIndex_5[4:0] ? requestBuffer_io_out_a_17 : _GEN_496; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_498 = 5'h12 == laneIndex_5[4:0] ? requestBuffer_io_out_a_18 : _GEN_497; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_499 = 5'h13 == laneIndex_5[4:0] ? requestBuffer_io_out_a_19 : _GEN_498; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_500 = 5'h14 == laneIndex_5[4:0] ? requestBuffer_io_out_a_20 : _GEN_499; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_501 = 5'h15 == laneIndex_5[4:0] ? requestBuffer_io_out_a_21 : _GEN_500; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_502 = 5'h16 == laneIndex_5[4:0] ? requestBuffer_io_out_a_22 : _GEN_501; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_503 = 5'h17 == laneIndex_5[4:0] ? requestBuffer_io_out_a_23 : _GEN_502; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_504 = 5'h18 == laneIndex_5[4:0] ? requestBuffer_io_out_a_24 : _GEN_503; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_505 = 5'h19 == laneIndex_5[4:0] ? requestBuffer_io_out_a_25 : _GEN_504; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_506 = 5'h1a == laneIndex_5[4:0] ? requestBuffer_io_out_a_26 : _GEN_505; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_507 = 5'h1b == laneIndex_5[4:0] ? requestBuffer_io_out_a_27 : _GEN_506; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_508 = 5'h1c == laneIndex_5[4:0] ? requestBuffer_io_out_a_28 : _GEN_507; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_509 = 5'h1d == laneIndex_5[4:0] ? requestBuffer_io_out_a_29 : _GEN_508; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_510 = 5'h1e == laneIndex_5[4:0] ? requestBuffer_io_out_a_30 : _GEN_509; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_511 = 5'h1f == laneIndex_5[4:0] ? requestBuffer_io_out_a_31 : _GEN_510; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_513 = 5'h1 == laneIndex_5[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_514 = 5'h2 == laneIndex_5[4:0] ? requestBuffer_io_out_b_2 : _GEN_513; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_515 = 5'h3 == laneIndex_5[4:0] ? requestBuffer_io_out_b_3 : _GEN_514; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_516 = 5'h4 == laneIndex_5[4:0] ? requestBuffer_io_out_b_4 : _GEN_515; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_517 = 5'h5 == laneIndex_5[4:0] ? requestBuffer_io_out_b_5 : _GEN_516; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_518 = 5'h6 == laneIndex_5[4:0] ? requestBuffer_io_out_b_6 : _GEN_517; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_519 = 5'h7 == laneIndex_5[4:0] ? requestBuffer_io_out_b_7 : _GEN_518; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_520 = 5'h8 == laneIndex_5[4:0] ? requestBuffer_io_out_b_8 : _GEN_519; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_521 = 5'h9 == laneIndex_5[4:0] ? requestBuffer_io_out_b_9 : _GEN_520; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_522 = 5'ha == laneIndex_5[4:0] ? requestBuffer_io_out_b_10 : _GEN_521; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_523 = 5'hb == laneIndex_5[4:0] ? requestBuffer_io_out_b_11 : _GEN_522; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_524 = 5'hc == laneIndex_5[4:0] ? requestBuffer_io_out_b_12 : _GEN_523; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_525 = 5'hd == laneIndex_5[4:0] ? requestBuffer_io_out_b_13 : _GEN_524; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_526 = 5'he == laneIndex_5[4:0] ? requestBuffer_io_out_b_14 : _GEN_525; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_527 = 5'hf == laneIndex_5[4:0] ? requestBuffer_io_out_b_15 : _GEN_526; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_528 = 5'h10 == laneIndex_5[4:0] ? requestBuffer_io_out_b_16 : _GEN_527; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_529 = 5'h11 == laneIndex_5[4:0] ? requestBuffer_io_out_b_17 : _GEN_528; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_530 = 5'h12 == laneIndex_5[4:0] ? requestBuffer_io_out_b_18 : _GEN_529; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_531 = 5'h13 == laneIndex_5[4:0] ? requestBuffer_io_out_b_19 : _GEN_530; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_532 = 5'h14 == laneIndex_5[4:0] ? requestBuffer_io_out_b_20 : _GEN_531; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_533 = 5'h15 == laneIndex_5[4:0] ? requestBuffer_io_out_b_21 : _GEN_532; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_534 = 5'h16 == laneIndex_5[4:0] ? requestBuffer_io_out_b_22 : _GEN_533; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_535 = 5'h17 == laneIndex_5[4:0] ? requestBuffer_io_out_b_23 : _GEN_534; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_536 = 5'h18 == laneIndex_5[4:0] ? requestBuffer_io_out_b_24 : _GEN_535; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_537 = 5'h19 == laneIndex_5[4:0] ? requestBuffer_io_out_b_25 : _GEN_536; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_538 = 5'h1a == laneIndex_5[4:0] ? requestBuffer_io_out_b_26 : _GEN_537; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_539 = 5'h1b == laneIndex_5[4:0] ? requestBuffer_io_out_b_27 : _GEN_538; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_540 = 5'h1c == laneIndex_5[4:0] ? requestBuffer_io_out_b_28 : _GEN_539; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_541 = 5'h1d == laneIndex_5[4:0] ? requestBuffer_io_out_b_29 : _GEN_540; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_542 = 5'h1e == laneIndex_5[4:0] ? requestBuffer_io_out_b_30 : _GEN_541; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_543 = 5'h1f == laneIndex_5[4:0] ? requestBuffer_io_out_b_31 : _GEN_542; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_545 = 5'h1 == laneIndex_5[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_546 = 5'h2 == laneIndex_5[4:0] ? requestBuffer_io_out_c_2 : _GEN_545; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_547 = 5'h3 == laneIndex_5[4:0] ? requestBuffer_io_out_c_3 : _GEN_546; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_548 = 5'h4 == laneIndex_5[4:0] ? requestBuffer_io_out_c_4 : _GEN_547; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_549 = 5'h5 == laneIndex_5[4:0] ? requestBuffer_io_out_c_5 : _GEN_548; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_550 = 5'h6 == laneIndex_5[4:0] ? requestBuffer_io_out_c_6 : _GEN_549; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_551 = 5'h7 == laneIndex_5[4:0] ? requestBuffer_io_out_c_7 : _GEN_550; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_552 = 5'h8 == laneIndex_5[4:0] ? requestBuffer_io_out_c_8 : _GEN_551; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_553 = 5'h9 == laneIndex_5[4:0] ? requestBuffer_io_out_c_9 : _GEN_552; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_554 = 5'ha == laneIndex_5[4:0] ? requestBuffer_io_out_c_10 : _GEN_553; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_555 = 5'hb == laneIndex_5[4:0] ? requestBuffer_io_out_c_11 : _GEN_554; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_556 = 5'hc == laneIndex_5[4:0] ? requestBuffer_io_out_c_12 : _GEN_555; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_557 = 5'hd == laneIndex_5[4:0] ? requestBuffer_io_out_c_13 : _GEN_556; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_558 = 5'he == laneIndex_5[4:0] ? requestBuffer_io_out_c_14 : _GEN_557; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_559 = 5'hf == laneIndex_5[4:0] ? requestBuffer_io_out_c_15 : _GEN_558; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_560 = 5'h10 == laneIndex_5[4:0] ? requestBuffer_io_out_c_16 : _GEN_559; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_561 = 5'h11 == laneIndex_5[4:0] ? requestBuffer_io_out_c_17 : _GEN_560; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_562 = 5'h12 == laneIndex_5[4:0] ? requestBuffer_io_out_c_18 : _GEN_561; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_563 = 5'h13 == laneIndex_5[4:0] ? requestBuffer_io_out_c_19 : _GEN_562; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_564 = 5'h14 == laneIndex_5[4:0] ? requestBuffer_io_out_c_20 : _GEN_563; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_565 = 5'h15 == laneIndex_5[4:0] ? requestBuffer_io_out_c_21 : _GEN_564; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_566 = 5'h16 == laneIndex_5[4:0] ? requestBuffer_io_out_c_22 : _GEN_565; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_567 = 5'h17 == laneIndex_5[4:0] ? requestBuffer_io_out_c_23 : _GEN_566; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_568 = 5'h18 == laneIndex_5[4:0] ? requestBuffer_io_out_c_24 : _GEN_567; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_569 = 5'h19 == laneIndex_5[4:0] ? requestBuffer_io_out_c_25 : _GEN_568; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_570 = 5'h1a == laneIndex_5[4:0] ? requestBuffer_io_out_c_26 : _GEN_569; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_571 = 5'h1b == laneIndex_5[4:0] ? requestBuffer_io_out_c_27 : _GEN_570; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_572 = 5'h1c == laneIndex_5[4:0] ? requestBuffer_io_out_c_28 : _GEN_571; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_573 = 5'h1d == laneIndex_5[4:0] ? requestBuffer_io_out_c_29 : _GEN_572; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_574 = 5'h1e == laneIndex_5[4:0] ? requestBuffer_io_out_c_30 : _GEN_573; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_575 = 5'h1f == laneIndex_5[4:0] ? requestBuffer_io_out_c_31 : _GEN_574; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_5_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_5; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_6 = base + 6'h6; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_577 = 5'h1 == laneIndex_6[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_578 = 5'h2 == laneIndex_6[4:0] ? requestBuffer_io_out_a_2 : _GEN_577; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_579 = 5'h3 == laneIndex_6[4:0] ? requestBuffer_io_out_a_3 : _GEN_578; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_580 = 5'h4 == laneIndex_6[4:0] ? requestBuffer_io_out_a_4 : _GEN_579; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_581 = 5'h5 == laneIndex_6[4:0] ? requestBuffer_io_out_a_5 : _GEN_580; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_582 = 5'h6 == laneIndex_6[4:0] ? requestBuffer_io_out_a_6 : _GEN_581; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_583 = 5'h7 == laneIndex_6[4:0] ? requestBuffer_io_out_a_7 : _GEN_582; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_584 = 5'h8 == laneIndex_6[4:0] ? requestBuffer_io_out_a_8 : _GEN_583; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_585 = 5'h9 == laneIndex_6[4:0] ? requestBuffer_io_out_a_9 : _GEN_584; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_586 = 5'ha == laneIndex_6[4:0] ? requestBuffer_io_out_a_10 : _GEN_585; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_587 = 5'hb == laneIndex_6[4:0] ? requestBuffer_io_out_a_11 : _GEN_586; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_588 = 5'hc == laneIndex_6[4:0] ? requestBuffer_io_out_a_12 : _GEN_587; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_589 = 5'hd == laneIndex_6[4:0] ? requestBuffer_io_out_a_13 : _GEN_588; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_590 = 5'he == laneIndex_6[4:0] ? requestBuffer_io_out_a_14 : _GEN_589; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_591 = 5'hf == laneIndex_6[4:0] ? requestBuffer_io_out_a_15 : _GEN_590; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_592 = 5'h10 == laneIndex_6[4:0] ? requestBuffer_io_out_a_16 : _GEN_591; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_593 = 5'h11 == laneIndex_6[4:0] ? requestBuffer_io_out_a_17 : _GEN_592; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_594 = 5'h12 == laneIndex_6[4:0] ? requestBuffer_io_out_a_18 : _GEN_593; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_595 = 5'h13 == laneIndex_6[4:0] ? requestBuffer_io_out_a_19 : _GEN_594; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_596 = 5'h14 == laneIndex_6[4:0] ? requestBuffer_io_out_a_20 : _GEN_595; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_597 = 5'h15 == laneIndex_6[4:0] ? requestBuffer_io_out_a_21 : _GEN_596; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_598 = 5'h16 == laneIndex_6[4:0] ? requestBuffer_io_out_a_22 : _GEN_597; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_599 = 5'h17 == laneIndex_6[4:0] ? requestBuffer_io_out_a_23 : _GEN_598; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_600 = 5'h18 == laneIndex_6[4:0] ? requestBuffer_io_out_a_24 : _GEN_599; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_601 = 5'h19 == laneIndex_6[4:0] ? requestBuffer_io_out_a_25 : _GEN_600; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_602 = 5'h1a == laneIndex_6[4:0] ? requestBuffer_io_out_a_26 : _GEN_601; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_603 = 5'h1b == laneIndex_6[4:0] ? requestBuffer_io_out_a_27 : _GEN_602; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_604 = 5'h1c == laneIndex_6[4:0] ? requestBuffer_io_out_a_28 : _GEN_603; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_605 = 5'h1d == laneIndex_6[4:0] ? requestBuffer_io_out_a_29 : _GEN_604; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_606 = 5'h1e == laneIndex_6[4:0] ? requestBuffer_io_out_a_30 : _GEN_605; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_607 = 5'h1f == laneIndex_6[4:0] ? requestBuffer_io_out_a_31 : _GEN_606; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_609 = 5'h1 == laneIndex_6[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_610 = 5'h2 == laneIndex_6[4:0] ? requestBuffer_io_out_b_2 : _GEN_609; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_611 = 5'h3 == laneIndex_6[4:0] ? requestBuffer_io_out_b_3 : _GEN_610; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_612 = 5'h4 == laneIndex_6[4:0] ? requestBuffer_io_out_b_4 : _GEN_611; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_613 = 5'h5 == laneIndex_6[4:0] ? requestBuffer_io_out_b_5 : _GEN_612; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_614 = 5'h6 == laneIndex_6[4:0] ? requestBuffer_io_out_b_6 : _GEN_613; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_615 = 5'h7 == laneIndex_6[4:0] ? requestBuffer_io_out_b_7 : _GEN_614; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_616 = 5'h8 == laneIndex_6[4:0] ? requestBuffer_io_out_b_8 : _GEN_615; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_617 = 5'h9 == laneIndex_6[4:0] ? requestBuffer_io_out_b_9 : _GEN_616; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_618 = 5'ha == laneIndex_6[4:0] ? requestBuffer_io_out_b_10 : _GEN_617; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_619 = 5'hb == laneIndex_6[4:0] ? requestBuffer_io_out_b_11 : _GEN_618; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_620 = 5'hc == laneIndex_6[4:0] ? requestBuffer_io_out_b_12 : _GEN_619; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_621 = 5'hd == laneIndex_6[4:0] ? requestBuffer_io_out_b_13 : _GEN_620; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_622 = 5'he == laneIndex_6[4:0] ? requestBuffer_io_out_b_14 : _GEN_621; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_623 = 5'hf == laneIndex_6[4:0] ? requestBuffer_io_out_b_15 : _GEN_622; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_624 = 5'h10 == laneIndex_6[4:0] ? requestBuffer_io_out_b_16 : _GEN_623; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_625 = 5'h11 == laneIndex_6[4:0] ? requestBuffer_io_out_b_17 : _GEN_624; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_626 = 5'h12 == laneIndex_6[4:0] ? requestBuffer_io_out_b_18 : _GEN_625; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_627 = 5'h13 == laneIndex_6[4:0] ? requestBuffer_io_out_b_19 : _GEN_626; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_628 = 5'h14 == laneIndex_6[4:0] ? requestBuffer_io_out_b_20 : _GEN_627; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_629 = 5'h15 == laneIndex_6[4:0] ? requestBuffer_io_out_b_21 : _GEN_628; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_630 = 5'h16 == laneIndex_6[4:0] ? requestBuffer_io_out_b_22 : _GEN_629; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_631 = 5'h17 == laneIndex_6[4:0] ? requestBuffer_io_out_b_23 : _GEN_630; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_632 = 5'h18 == laneIndex_6[4:0] ? requestBuffer_io_out_b_24 : _GEN_631; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_633 = 5'h19 == laneIndex_6[4:0] ? requestBuffer_io_out_b_25 : _GEN_632; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_634 = 5'h1a == laneIndex_6[4:0] ? requestBuffer_io_out_b_26 : _GEN_633; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_635 = 5'h1b == laneIndex_6[4:0] ? requestBuffer_io_out_b_27 : _GEN_634; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_636 = 5'h1c == laneIndex_6[4:0] ? requestBuffer_io_out_b_28 : _GEN_635; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_637 = 5'h1d == laneIndex_6[4:0] ? requestBuffer_io_out_b_29 : _GEN_636; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_638 = 5'h1e == laneIndex_6[4:0] ? requestBuffer_io_out_b_30 : _GEN_637; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_639 = 5'h1f == laneIndex_6[4:0] ? requestBuffer_io_out_b_31 : _GEN_638; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_641 = 5'h1 == laneIndex_6[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_642 = 5'h2 == laneIndex_6[4:0] ? requestBuffer_io_out_c_2 : _GEN_641; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_643 = 5'h3 == laneIndex_6[4:0] ? requestBuffer_io_out_c_3 : _GEN_642; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_644 = 5'h4 == laneIndex_6[4:0] ? requestBuffer_io_out_c_4 : _GEN_643; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_645 = 5'h5 == laneIndex_6[4:0] ? requestBuffer_io_out_c_5 : _GEN_644; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_646 = 5'h6 == laneIndex_6[4:0] ? requestBuffer_io_out_c_6 : _GEN_645; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_647 = 5'h7 == laneIndex_6[4:0] ? requestBuffer_io_out_c_7 : _GEN_646; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_648 = 5'h8 == laneIndex_6[4:0] ? requestBuffer_io_out_c_8 : _GEN_647; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_649 = 5'h9 == laneIndex_6[4:0] ? requestBuffer_io_out_c_9 : _GEN_648; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_650 = 5'ha == laneIndex_6[4:0] ? requestBuffer_io_out_c_10 : _GEN_649; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_651 = 5'hb == laneIndex_6[4:0] ? requestBuffer_io_out_c_11 : _GEN_650; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_652 = 5'hc == laneIndex_6[4:0] ? requestBuffer_io_out_c_12 : _GEN_651; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_653 = 5'hd == laneIndex_6[4:0] ? requestBuffer_io_out_c_13 : _GEN_652; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_654 = 5'he == laneIndex_6[4:0] ? requestBuffer_io_out_c_14 : _GEN_653; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_655 = 5'hf == laneIndex_6[4:0] ? requestBuffer_io_out_c_15 : _GEN_654; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_656 = 5'h10 == laneIndex_6[4:0] ? requestBuffer_io_out_c_16 : _GEN_655; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_657 = 5'h11 == laneIndex_6[4:0] ? requestBuffer_io_out_c_17 : _GEN_656; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_658 = 5'h12 == laneIndex_6[4:0] ? requestBuffer_io_out_c_18 : _GEN_657; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_659 = 5'h13 == laneIndex_6[4:0] ? requestBuffer_io_out_c_19 : _GEN_658; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_660 = 5'h14 == laneIndex_6[4:0] ? requestBuffer_io_out_c_20 : _GEN_659; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_661 = 5'h15 == laneIndex_6[4:0] ? requestBuffer_io_out_c_21 : _GEN_660; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_662 = 5'h16 == laneIndex_6[4:0] ? requestBuffer_io_out_c_22 : _GEN_661; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_663 = 5'h17 == laneIndex_6[4:0] ? requestBuffer_io_out_c_23 : _GEN_662; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_664 = 5'h18 == laneIndex_6[4:0] ? requestBuffer_io_out_c_24 : _GEN_663; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_665 = 5'h19 == laneIndex_6[4:0] ? requestBuffer_io_out_c_25 : _GEN_664; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_666 = 5'h1a == laneIndex_6[4:0] ? requestBuffer_io_out_c_26 : _GEN_665; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_667 = 5'h1b == laneIndex_6[4:0] ? requestBuffer_io_out_c_27 : _GEN_666; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_668 = 5'h1c == laneIndex_6[4:0] ? requestBuffer_io_out_c_28 : _GEN_667; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_669 = 5'h1d == laneIndex_6[4:0] ? requestBuffer_io_out_c_29 : _GEN_668; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_670 = 5'h1e == laneIndex_6[4:0] ? requestBuffer_io_out_c_30 : _GEN_669; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_671 = 5'h1f == laneIndex_6[4:0] ? requestBuffer_io_out_c_31 : _GEN_670; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_6_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_6; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_7 = base + 6'h7; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_673 = 5'h1 == laneIndex_7[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_674 = 5'h2 == laneIndex_7[4:0] ? requestBuffer_io_out_a_2 : _GEN_673; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_675 = 5'h3 == laneIndex_7[4:0] ? requestBuffer_io_out_a_3 : _GEN_674; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_676 = 5'h4 == laneIndex_7[4:0] ? requestBuffer_io_out_a_4 : _GEN_675; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_677 = 5'h5 == laneIndex_7[4:0] ? requestBuffer_io_out_a_5 : _GEN_676; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_678 = 5'h6 == laneIndex_7[4:0] ? requestBuffer_io_out_a_6 : _GEN_677; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_679 = 5'h7 == laneIndex_7[4:0] ? requestBuffer_io_out_a_7 : _GEN_678; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_680 = 5'h8 == laneIndex_7[4:0] ? requestBuffer_io_out_a_8 : _GEN_679; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_681 = 5'h9 == laneIndex_7[4:0] ? requestBuffer_io_out_a_9 : _GEN_680; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_682 = 5'ha == laneIndex_7[4:0] ? requestBuffer_io_out_a_10 : _GEN_681; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_683 = 5'hb == laneIndex_7[4:0] ? requestBuffer_io_out_a_11 : _GEN_682; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_684 = 5'hc == laneIndex_7[4:0] ? requestBuffer_io_out_a_12 : _GEN_683; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_685 = 5'hd == laneIndex_7[4:0] ? requestBuffer_io_out_a_13 : _GEN_684; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_686 = 5'he == laneIndex_7[4:0] ? requestBuffer_io_out_a_14 : _GEN_685; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_687 = 5'hf == laneIndex_7[4:0] ? requestBuffer_io_out_a_15 : _GEN_686; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_688 = 5'h10 == laneIndex_7[4:0] ? requestBuffer_io_out_a_16 : _GEN_687; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_689 = 5'h11 == laneIndex_7[4:0] ? requestBuffer_io_out_a_17 : _GEN_688; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_690 = 5'h12 == laneIndex_7[4:0] ? requestBuffer_io_out_a_18 : _GEN_689; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_691 = 5'h13 == laneIndex_7[4:0] ? requestBuffer_io_out_a_19 : _GEN_690; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_692 = 5'h14 == laneIndex_7[4:0] ? requestBuffer_io_out_a_20 : _GEN_691; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_693 = 5'h15 == laneIndex_7[4:0] ? requestBuffer_io_out_a_21 : _GEN_692; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_694 = 5'h16 == laneIndex_7[4:0] ? requestBuffer_io_out_a_22 : _GEN_693; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_695 = 5'h17 == laneIndex_7[4:0] ? requestBuffer_io_out_a_23 : _GEN_694; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_696 = 5'h18 == laneIndex_7[4:0] ? requestBuffer_io_out_a_24 : _GEN_695; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_697 = 5'h19 == laneIndex_7[4:0] ? requestBuffer_io_out_a_25 : _GEN_696; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_698 = 5'h1a == laneIndex_7[4:0] ? requestBuffer_io_out_a_26 : _GEN_697; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_699 = 5'h1b == laneIndex_7[4:0] ? requestBuffer_io_out_a_27 : _GEN_698; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_700 = 5'h1c == laneIndex_7[4:0] ? requestBuffer_io_out_a_28 : _GEN_699; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_701 = 5'h1d == laneIndex_7[4:0] ? requestBuffer_io_out_a_29 : _GEN_700; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_702 = 5'h1e == laneIndex_7[4:0] ? requestBuffer_io_out_a_30 : _GEN_701; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_703 = 5'h1f == laneIndex_7[4:0] ? requestBuffer_io_out_a_31 : _GEN_702; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_705 = 5'h1 == laneIndex_7[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_706 = 5'h2 == laneIndex_7[4:0] ? requestBuffer_io_out_b_2 : _GEN_705; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_707 = 5'h3 == laneIndex_7[4:0] ? requestBuffer_io_out_b_3 : _GEN_706; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_708 = 5'h4 == laneIndex_7[4:0] ? requestBuffer_io_out_b_4 : _GEN_707; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_709 = 5'h5 == laneIndex_7[4:0] ? requestBuffer_io_out_b_5 : _GEN_708; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_710 = 5'h6 == laneIndex_7[4:0] ? requestBuffer_io_out_b_6 : _GEN_709; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_711 = 5'h7 == laneIndex_7[4:0] ? requestBuffer_io_out_b_7 : _GEN_710; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_712 = 5'h8 == laneIndex_7[4:0] ? requestBuffer_io_out_b_8 : _GEN_711; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_713 = 5'h9 == laneIndex_7[4:0] ? requestBuffer_io_out_b_9 : _GEN_712; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_714 = 5'ha == laneIndex_7[4:0] ? requestBuffer_io_out_b_10 : _GEN_713; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_715 = 5'hb == laneIndex_7[4:0] ? requestBuffer_io_out_b_11 : _GEN_714; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_716 = 5'hc == laneIndex_7[4:0] ? requestBuffer_io_out_b_12 : _GEN_715; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_717 = 5'hd == laneIndex_7[4:0] ? requestBuffer_io_out_b_13 : _GEN_716; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_718 = 5'he == laneIndex_7[4:0] ? requestBuffer_io_out_b_14 : _GEN_717; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_719 = 5'hf == laneIndex_7[4:0] ? requestBuffer_io_out_b_15 : _GEN_718; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_720 = 5'h10 == laneIndex_7[4:0] ? requestBuffer_io_out_b_16 : _GEN_719; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_721 = 5'h11 == laneIndex_7[4:0] ? requestBuffer_io_out_b_17 : _GEN_720; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_722 = 5'h12 == laneIndex_7[4:0] ? requestBuffer_io_out_b_18 : _GEN_721; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_723 = 5'h13 == laneIndex_7[4:0] ? requestBuffer_io_out_b_19 : _GEN_722; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_724 = 5'h14 == laneIndex_7[4:0] ? requestBuffer_io_out_b_20 : _GEN_723; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_725 = 5'h15 == laneIndex_7[4:0] ? requestBuffer_io_out_b_21 : _GEN_724; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_726 = 5'h16 == laneIndex_7[4:0] ? requestBuffer_io_out_b_22 : _GEN_725; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_727 = 5'h17 == laneIndex_7[4:0] ? requestBuffer_io_out_b_23 : _GEN_726; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_728 = 5'h18 == laneIndex_7[4:0] ? requestBuffer_io_out_b_24 : _GEN_727; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_729 = 5'h19 == laneIndex_7[4:0] ? requestBuffer_io_out_b_25 : _GEN_728; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_730 = 5'h1a == laneIndex_7[4:0] ? requestBuffer_io_out_b_26 : _GEN_729; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_731 = 5'h1b == laneIndex_7[4:0] ? requestBuffer_io_out_b_27 : _GEN_730; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_732 = 5'h1c == laneIndex_7[4:0] ? requestBuffer_io_out_b_28 : _GEN_731; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_733 = 5'h1d == laneIndex_7[4:0] ? requestBuffer_io_out_b_29 : _GEN_732; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_734 = 5'h1e == laneIndex_7[4:0] ? requestBuffer_io_out_b_30 : _GEN_733; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_735 = 5'h1f == laneIndex_7[4:0] ? requestBuffer_io_out_b_31 : _GEN_734; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_737 = 5'h1 == laneIndex_7[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_738 = 5'h2 == laneIndex_7[4:0] ? requestBuffer_io_out_c_2 : _GEN_737; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_739 = 5'h3 == laneIndex_7[4:0] ? requestBuffer_io_out_c_3 : _GEN_738; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_740 = 5'h4 == laneIndex_7[4:0] ? requestBuffer_io_out_c_4 : _GEN_739; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_741 = 5'h5 == laneIndex_7[4:0] ? requestBuffer_io_out_c_5 : _GEN_740; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_742 = 5'h6 == laneIndex_7[4:0] ? requestBuffer_io_out_c_6 : _GEN_741; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_743 = 5'h7 == laneIndex_7[4:0] ? requestBuffer_io_out_c_7 : _GEN_742; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_744 = 5'h8 == laneIndex_7[4:0] ? requestBuffer_io_out_c_8 : _GEN_743; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_745 = 5'h9 == laneIndex_7[4:0] ? requestBuffer_io_out_c_9 : _GEN_744; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_746 = 5'ha == laneIndex_7[4:0] ? requestBuffer_io_out_c_10 : _GEN_745; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_747 = 5'hb == laneIndex_7[4:0] ? requestBuffer_io_out_c_11 : _GEN_746; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_748 = 5'hc == laneIndex_7[4:0] ? requestBuffer_io_out_c_12 : _GEN_747; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_749 = 5'hd == laneIndex_7[4:0] ? requestBuffer_io_out_c_13 : _GEN_748; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_750 = 5'he == laneIndex_7[4:0] ? requestBuffer_io_out_c_14 : _GEN_749; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_751 = 5'hf == laneIndex_7[4:0] ? requestBuffer_io_out_c_15 : _GEN_750; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_752 = 5'h10 == laneIndex_7[4:0] ? requestBuffer_io_out_c_16 : _GEN_751; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_753 = 5'h11 == laneIndex_7[4:0] ? requestBuffer_io_out_c_17 : _GEN_752; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_754 = 5'h12 == laneIndex_7[4:0] ? requestBuffer_io_out_c_18 : _GEN_753; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_755 = 5'h13 == laneIndex_7[4:0] ? requestBuffer_io_out_c_19 : _GEN_754; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_756 = 5'h14 == laneIndex_7[4:0] ? requestBuffer_io_out_c_20 : _GEN_755; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_757 = 5'h15 == laneIndex_7[4:0] ? requestBuffer_io_out_c_21 : _GEN_756; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_758 = 5'h16 == laneIndex_7[4:0] ? requestBuffer_io_out_c_22 : _GEN_757; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_759 = 5'h17 == laneIndex_7[4:0] ? requestBuffer_io_out_c_23 : _GEN_758; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_760 = 5'h18 == laneIndex_7[4:0] ? requestBuffer_io_out_c_24 : _GEN_759; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_761 = 5'h19 == laneIndex_7[4:0] ? requestBuffer_io_out_c_25 : _GEN_760; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_762 = 5'h1a == laneIndex_7[4:0] ? requestBuffer_io_out_c_26 : _GEN_761; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_763 = 5'h1b == laneIndex_7[4:0] ? requestBuffer_io_out_c_27 : _GEN_762; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_764 = 5'h1c == laneIndex_7[4:0] ? requestBuffer_io_out_c_28 : _GEN_763; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_765 = 5'h1d == laneIndex_7[4:0] ? requestBuffer_io_out_c_29 : _GEN_764; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_766 = 5'h1e == laneIndex_7[4:0] ? requestBuffer_io_out_c_30 : _GEN_765; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_767 = 5'h1f == laneIndex_7[4:0] ? requestBuffer_io_out_c_31 : _GEN_766; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_7_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_7; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_8 = base + 6'h8; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_769 = 5'h1 == laneIndex_8[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_770 = 5'h2 == laneIndex_8[4:0] ? requestBuffer_io_out_a_2 : _GEN_769; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_771 = 5'h3 == laneIndex_8[4:0] ? requestBuffer_io_out_a_3 : _GEN_770; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_772 = 5'h4 == laneIndex_8[4:0] ? requestBuffer_io_out_a_4 : _GEN_771; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_773 = 5'h5 == laneIndex_8[4:0] ? requestBuffer_io_out_a_5 : _GEN_772; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_774 = 5'h6 == laneIndex_8[4:0] ? requestBuffer_io_out_a_6 : _GEN_773; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_775 = 5'h7 == laneIndex_8[4:0] ? requestBuffer_io_out_a_7 : _GEN_774; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_776 = 5'h8 == laneIndex_8[4:0] ? requestBuffer_io_out_a_8 : _GEN_775; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_777 = 5'h9 == laneIndex_8[4:0] ? requestBuffer_io_out_a_9 : _GEN_776; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_778 = 5'ha == laneIndex_8[4:0] ? requestBuffer_io_out_a_10 : _GEN_777; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_779 = 5'hb == laneIndex_8[4:0] ? requestBuffer_io_out_a_11 : _GEN_778; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_780 = 5'hc == laneIndex_8[4:0] ? requestBuffer_io_out_a_12 : _GEN_779; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_781 = 5'hd == laneIndex_8[4:0] ? requestBuffer_io_out_a_13 : _GEN_780; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_782 = 5'he == laneIndex_8[4:0] ? requestBuffer_io_out_a_14 : _GEN_781; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_783 = 5'hf == laneIndex_8[4:0] ? requestBuffer_io_out_a_15 : _GEN_782; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_784 = 5'h10 == laneIndex_8[4:0] ? requestBuffer_io_out_a_16 : _GEN_783; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_785 = 5'h11 == laneIndex_8[4:0] ? requestBuffer_io_out_a_17 : _GEN_784; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_786 = 5'h12 == laneIndex_8[4:0] ? requestBuffer_io_out_a_18 : _GEN_785; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_787 = 5'h13 == laneIndex_8[4:0] ? requestBuffer_io_out_a_19 : _GEN_786; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_788 = 5'h14 == laneIndex_8[4:0] ? requestBuffer_io_out_a_20 : _GEN_787; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_789 = 5'h15 == laneIndex_8[4:0] ? requestBuffer_io_out_a_21 : _GEN_788; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_790 = 5'h16 == laneIndex_8[4:0] ? requestBuffer_io_out_a_22 : _GEN_789; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_791 = 5'h17 == laneIndex_8[4:0] ? requestBuffer_io_out_a_23 : _GEN_790; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_792 = 5'h18 == laneIndex_8[4:0] ? requestBuffer_io_out_a_24 : _GEN_791; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_793 = 5'h19 == laneIndex_8[4:0] ? requestBuffer_io_out_a_25 : _GEN_792; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_794 = 5'h1a == laneIndex_8[4:0] ? requestBuffer_io_out_a_26 : _GEN_793; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_795 = 5'h1b == laneIndex_8[4:0] ? requestBuffer_io_out_a_27 : _GEN_794; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_796 = 5'h1c == laneIndex_8[4:0] ? requestBuffer_io_out_a_28 : _GEN_795; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_797 = 5'h1d == laneIndex_8[4:0] ? requestBuffer_io_out_a_29 : _GEN_796; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_798 = 5'h1e == laneIndex_8[4:0] ? requestBuffer_io_out_a_30 : _GEN_797; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_799 = 5'h1f == laneIndex_8[4:0] ? requestBuffer_io_out_a_31 : _GEN_798; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_801 = 5'h1 == laneIndex_8[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_802 = 5'h2 == laneIndex_8[4:0] ? requestBuffer_io_out_b_2 : _GEN_801; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_803 = 5'h3 == laneIndex_8[4:0] ? requestBuffer_io_out_b_3 : _GEN_802; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_804 = 5'h4 == laneIndex_8[4:0] ? requestBuffer_io_out_b_4 : _GEN_803; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_805 = 5'h5 == laneIndex_8[4:0] ? requestBuffer_io_out_b_5 : _GEN_804; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_806 = 5'h6 == laneIndex_8[4:0] ? requestBuffer_io_out_b_6 : _GEN_805; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_807 = 5'h7 == laneIndex_8[4:0] ? requestBuffer_io_out_b_7 : _GEN_806; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_808 = 5'h8 == laneIndex_8[4:0] ? requestBuffer_io_out_b_8 : _GEN_807; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_809 = 5'h9 == laneIndex_8[4:0] ? requestBuffer_io_out_b_9 : _GEN_808; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_810 = 5'ha == laneIndex_8[4:0] ? requestBuffer_io_out_b_10 : _GEN_809; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_811 = 5'hb == laneIndex_8[4:0] ? requestBuffer_io_out_b_11 : _GEN_810; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_812 = 5'hc == laneIndex_8[4:0] ? requestBuffer_io_out_b_12 : _GEN_811; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_813 = 5'hd == laneIndex_8[4:0] ? requestBuffer_io_out_b_13 : _GEN_812; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_814 = 5'he == laneIndex_8[4:0] ? requestBuffer_io_out_b_14 : _GEN_813; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_815 = 5'hf == laneIndex_8[4:0] ? requestBuffer_io_out_b_15 : _GEN_814; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_816 = 5'h10 == laneIndex_8[4:0] ? requestBuffer_io_out_b_16 : _GEN_815; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_817 = 5'h11 == laneIndex_8[4:0] ? requestBuffer_io_out_b_17 : _GEN_816; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_818 = 5'h12 == laneIndex_8[4:0] ? requestBuffer_io_out_b_18 : _GEN_817; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_819 = 5'h13 == laneIndex_8[4:0] ? requestBuffer_io_out_b_19 : _GEN_818; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_820 = 5'h14 == laneIndex_8[4:0] ? requestBuffer_io_out_b_20 : _GEN_819; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_821 = 5'h15 == laneIndex_8[4:0] ? requestBuffer_io_out_b_21 : _GEN_820; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_822 = 5'h16 == laneIndex_8[4:0] ? requestBuffer_io_out_b_22 : _GEN_821; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_823 = 5'h17 == laneIndex_8[4:0] ? requestBuffer_io_out_b_23 : _GEN_822; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_824 = 5'h18 == laneIndex_8[4:0] ? requestBuffer_io_out_b_24 : _GEN_823; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_825 = 5'h19 == laneIndex_8[4:0] ? requestBuffer_io_out_b_25 : _GEN_824; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_826 = 5'h1a == laneIndex_8[4:0] ? requestBuffer_io_out_b_26 : _GEN_825; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_827 = 5'h1b == laneIndex_8[4:0] ? requestBuffer_io_out_b_27 : _GEN_826; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_828 = 5'h1c == laneIndex_8[4:0] ? requestBuffer_io_out_b_28 : _GEN_827; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_829 = 5'h1d == laneIndex_8[4:0] ? requestBuffer_io_out_b_29 : _GEN_828; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_830 = 5'h1e == laneIndex_8[4:0] ? requestBuffer_io_out_b_30 : _GEN_829; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_831 = 5'h1f == laneIndex_8[4:0] ? requestBuffer_io_out_b_31 : _GEN_830; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_833 = 5'h1 == laneIndex_8[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_834 = 5'h2 == laneIndex_8[4:0] ? requestBuffer_io_out_c_2 : _GEN_833; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_835 = 5'h3 == laneIndex_8[4:0] ? requestBuffer_io_out_c_3 : _GEN_834; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_836 = 5'h4 == laneIndex_8[4:0] ? requestBuffer_io_out_c_4 : _GEN_835; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_837 = 5'h5 == laneIndex_8[4:0] ? requestBuffer_io_out_c_5 : _GEN_836; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_838 = 5'h6 == laneIndex_8[4:0] ? requestBuffer_io_out_c_6 : _GEN_837; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_839 = 5'h7 == laneIndex_8[4:0] ? requestBuffer_io_out_c_7 : _GEN_838; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_840 = 5'h8 == laneIndex_8[4:0] ? requestBuffer_io_out_c_8 : _GEN_839; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_841 = 5'h9 == laneIndex_8[4:0] ? requestBuffer_io_out_c_9 : _GEN_840; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_842 = 5'ha == laneIndex_8[4:0] ? requestBuffer_io_out_c_10 : _GEN_841; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_843 = 5'hb == laneIndex_8[4:0] ? requestBuffer_io_out_c_11 : _GEN_842; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_844 = 5'hc == laneIndex_8[4:0] ? requestBuffer_io_out_c_12 : _GEN_843; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_845 = 5'hd == laneIndex_8[4:0] ? requestBuffer_io_out_c_13 : _GEN_844; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_846 = 5'he == laneIndex_8[4:0] ? requestBuffer_io_out_c_14 : _GEN_845; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_847 = 5'hf == laneIndex_8[4:0] ? requestBuffer_io_out_c_15 : _GEN_846; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_848 = 5'h10 == laneIndex_8[4:0] ? requestBuffer_io_out_c_16 : _GEN_847; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_849 = 5'h11 == laneIndex_8[4:0] ? requestBuffer_io_out_c_17 : _GEN_848; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_850 = 5'h12 == laneIndex_8[4:0] ? requestBuffer_io_out_c_18 : _GEN_849; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_851 = 5'h13 == laneIndex_8[4:0] ? requestBuffer_io_out_c_19 : _GEN_850; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_852 = 5'h14 == laneIndex_8[4:0] ? requestBuffer_io_out_c_20 : _GEN_851; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_853 = 5'h15 == laneIndex_8[4:0] ? requestBuffer_io_out_c_21 : _GEN_852; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_854 = 5'h16 == laneIndex_8[4:0] ? requestBuffer_io_out_c_22 : _GEN_853; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_855 = 5'h17 == laneIndex_8[4:0] ? requestBuffer_io_out_c_23 : _GEN_854; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_856 = 5'h18 == laneIndex_8[4:0] ? requestBuffer_io_out_c_24 : _GEN_855; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_857 = 5'h19 == laneIndex_8[4:0] ? requestBuffer_io_out_c_25 : _GEN_856; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_858 = 5'h1a == laneIndex_8[4:0] ? requestBuffer_io_out_c_26 : _GEN_857; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_859 = 5'h1b == laneIndex_8[4:0] ? requestBuffer_io_out_c_27 : _GEN_858; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_860 = 5'h1c == laneIndex_8[4:0] ? requestBuffer_io_out_c_28 : _GEN_859; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_861 = 5'h1d == laneIndex_8[4:0] ? requestBuffer_io_out_c_29 : _GEN_860; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_862 = 5'h1e == laneIndex_8[4:0] ? requestBuffer_io_out_c_30 : _GEN_861; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_863 = 5'h1f == laneIndex_8[4:0] ? requestBuffer_io_out_c_31 : _GEN_862; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_8_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_8; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_9 = base + 6'h9; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_865 = 5'h1 == laneIndex_9[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_866 = 5'h2 == laneIndex_9[4:0] ? requestBuffer_io_out_a_2 : _GEN_865; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_867 = 5'h3 == laneIndex_9[4:0] ? requestBuffer_io_out_a_3 : _GEN_866; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_868 = 5'h4 == laneIndex_9[4:0] ? requestBuffer_io_out_a_4 : _GEN_867; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_869 = 5'h5 == laneIndex_9[4:0] ? requestBuffer_io_out_a_5 : _GEN_868; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_870 = 5'h6 == laneIndex_9[4:0] ? requestBuffer_io_out_a_6 : _GEN_869; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_871 = 5'h7 == laneIndex_9[4:0] ? requestBuffer_io_out_a_7 : _GEN_870; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_872 = 5'h8 == laneIndex_9[4:0] ? requestBuffer_io_out_a_8 : _GEN_871; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_873 = 5'h9 == laneIndex_9[4:0] ? requestBuffer_io_out_a_9 : _GEN_872; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_874 = 5'ha == laneIndex_9[4:0] ? requestBuffer_io_out_a_10 : _GEN_873; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_875 = 5'hb == laneIndex_9[4:0] ? requestBuffer_io_out_a_11 : _GEN_874; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_876 = 5'hc == laneIndex_9[4:0] ? requestBuffer_io_out_a_12 : _GEN_875; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_877 = 5'hd == laneIndex_9[4:0] ? requestBuffer_io_out_a_13 : _GEN_876; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_878 = 5'he == laneIndex_9[4:0] ? requestBuffer_io_out_a_14 : _GEN_877; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_879 = 5'hf == laneIndex_9[4:0] ? requestBuffer_io_out_a_15 : _GEN_878; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_880 = 5'h10 == laneIndex_9[4:0] ? requestBuffer_io_out_a_16 : _GEN_879; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_881 = 5'h11 == laneIndex_9[4:0] ? requestBuffer_io_out_a_17 : _GEN_880; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_882 = 5'h12 == laneIndex_9[4:0] ? requestBuffer_io_out_a_18 : _GEN_881; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_883 = 5'h13 == laneIndex_9[4:0] ? requestBuffer_io_out_a_19 : _GEN_882; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_884 = 5'h14 == laneIndex_9[4:0] ? requestBuffer_io_out_a_20 : _GEN_883; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_885 = 5'h15 == laneIndex_9[4:0] ? requestBuffer_io_out_a_21 : _GEN_884; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_886 = 5'h16 == laneIndex_9[4:0] ? requestBuffer_io_out_a_22 : _GEN_885; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_887 = 5'h17 == laneIndex_9[4:0] ? requestBuffer_io_out_a_23 : _GEN_886; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_888 = 5'h18 == laneIndex_9[4:0] ? requestBuffer_io_out_a_24 : _GEN_887; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_889 = 5'h19 == laneIndex_9[4:0] ? requestBuffer_io_out_a_25 : _GEN_888; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_890 = 5'h1a == laneIndex_9[4:0] ? requestBuffer_io_out_a_26 : _GEN_889; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_891 = 5'h1b == laneIndex_9[4:0] ? requestBuffer_io_out_a_27 : _GEN_890; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_892 = 5'h1c == laneIndex_9[4:0] ? requestBuffer_io_out_a_28 : _GEN_891; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_893 = 5'h1d == laneIndex_9[4:0] ? requestBuffer_io_out_a_29 : _GEN_892; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_894 = 5'h1e == laneIndex_9[4:0] ? requestBuffer_io_out_a_30 : _GEN_893; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_895 = 5'h1f == laneIndex_9[4:0] ? requestBuffer_io_out_a_31 : _GEN_894; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_897 = 5'h1 == laneIndex_9[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_898 = 5'h2 == laneIndex_9[4:0] ? requestBuffer_io_out_b_2 : _GEN_897; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_899 = 5'h3 == laneIndex_9[4:0] ? requestBuffer_io_out_b_3 : _GEN_898; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_900 = 5'h4 == laneIndex_9[4:0] ? requestBuffer_io_out_b_4 : _GEN_899; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_901 = 5'h5 == laneIndex_9[4:0] ? requestBuffer_io_out_b_5 : _GEN_900; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_902 = 5'h6 == laneIndex_9[4:0] ? requestBuffer_io_out_b_6 : _GEN_901; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_903 = 5'h7 == laneIndex_9[4:0] ? requestBuffer_io_out_b_7 : _GEN_902; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_904 = 5'h8 == laneIndex_9[4:0] ? requestBuffer_io_out_b_8 : _GEN_903; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_905 = 5'h9 == laneIndex_9[4:0] ? requestBuffer_io_out_b_9 : _GEN_904; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_906 = 5'ha == laneIndex_9[4:0] ? requestBuffer_io_out_b_10 : _GEN_905; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_907 = 5'hb == laneIndex_9[4:0] ? requestBuffer_io_out_b_11 : _GEN_906; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_908 = 5'hc == laneIndex_9[4:0] ? requestBuffer_io_out_b_12 : _GEN_907; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_909 = 5'hd == laneIndex_9[4:0] ? requestBuffer_io_out_b_13 : _GEN_908; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_910 = 5'he == laneIndex_9[4:0] ? requestBuffer_io_out_b_14 : _GEN_909; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_911 = 5'hf == laneIndex_9[4:0] ? requestBuffer_io_out_b_15 : _GEN_910; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_912 = 5'h10 == laneIndex_9[4:0] ? requestBuffer_io_out_b_16 : _GEN_911; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_913 = 5'h11 == laneIndex_9[4:0] ? requestBuffer_io_out_b_17 : _GEN_912; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_914 = 5'h12 == laneIndex_9[4:0] ? requestBuffer_io_out_b_18 : _GEN_913; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_915 = 5'h13 == laneIndex_9[4:0] ? requestBuffer_io_out_b_19 : _GEN_914; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_916 = 5'h14 == laneIndex_9[4:0] ? requestBuffer_io_out_b_20 : _GEN_915; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_917 = 5'h15 == laneIndex_9[4:0] ? requestBuffer_io_out_b_21 : _GEN_916; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_918 = 5'h16 == laneIndex_9[4:0] ? requestBuffer_io_out_b_22 : _GEN_917; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_919 = 5'h17 == laneIndex_9[4:0] ? requestBuffer_io_out_b_23 : _GEN_918; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_920 = 5'h18 == laneIndex_9[4:0] ? requestBuffer_io_out_b_24 : _GEN_919; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_921 = 5'h19 == laneIndex_9[4:0] ? requestBuffer_io_out_b_25 : _GEN_920; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_922 = 5'h1a == laneIndex_9[4:0] ? requestBuffer_io_out_b_26 : _GEN_921; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_923 = 5'h1b == laneIndex_9[4:0] ? requestBuffer_io_out_b_27 : _GEN_922; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_924 = 5'h1c == laneIndex_9[4:0] ? requestBuffer_io_out_b_28 : _GEN_923; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_925 = 5'h1d == laneIndex_9[4:0] ? requestBuffer_io_out_b_29 : _GEN_924; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_926 = 5'h1e == laneIndex_9[4:0] ? requestBuffer_io_out_b_30 : _GEN_925; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_927 = 5'h1f == laneIndex_9[4:0] ? requestBuffer_io_out_b_31 : _GEN_926; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_929 = 5'h1 == laneIndex_9[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_930 = 5'h2 == laneIndex_9[4:0] ? requestBuffer_io_out_c_2 : _GEN_929; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_931 = 5'h3 == laneIndex_9[4:0] ? requestBuffer_io_out_c_3 : _GEN_930; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_932 = 5'h4 == laneIndex_9[4:0] ? requestBuffer_io_out_c_4 : _GEN_931; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_933 = 5'h5 == laneIndex_9[4:0] ? requestBuffer_io_out_c_5 : _GEN_932; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_934 = 5'h6 == laneIndex_9[4:0] ? requestBuffer_io_out_c_6 : _GEN_933; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_935 = 5'h7 == laneIndex_9[4:0] ? requestBuffer_io_out_c_7 : _GEN_934; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_936 = 5'h8 == laneIndex_9[4:0] ? requestBuffer_io_out_c_8 : _GEN_935; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_937 = 5'h9 == laneIndex_9[4:0] ? requestBuffer_io_out_c_9 : _GEN_936; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_938 = 5'ha == laneIndex_9[4:0] ? requestBuffer_io_out_c_10 : _GEN_937; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_939 = 5'hb == laneIndex_9[4:0] ? requestBuffer_io_out_c_11 : _GEN_938; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_940 = 5'hc == laneIndex_9[4:0] ? requestBuffer_io_out_c_12 : _GEN_939; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_941 = 5'hd == laneIndex_9[4:0] ? requestBuffer_io_out_c_13 : _GEN_940; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_942 = 5'he == laneIndex_9[4:0] ? requestBuffer_io_out_c_14 : _GEN_941; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_943 = 5'hf == laneIndex_9[4:0] ? requestBuffer_io_out_c_15 : _GEN_942; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_944 = 5'h10 == laneIndex_9[4:0] ? requestBuffer_io_out_c_16 : _GEN_943; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_945 = 5'h11 == laneIndex_9[4:0] ? requestBuffer_io_out_c_17 : _GEN_944; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_946 = 5'h12 == laneIndex_9[4:0] ? requestBuffer_io_out_c_18 : _GEN_945; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_947 = 5'h13 == laneIndex_9[4:0] ? requestBuffer_io_out_c_19 : _GEN_946; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_948 = 5'h14 == laneIndex_9[4:0] ? requestBuffer_io_out_c_20 : _GEN_947; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_949 = 5'h15 == laneIndex_9[4:0] ? requestBuffer_io_out_c_21 : _GEN_948; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_950 = 5'h16 == laneIndex_9[4:0] ? requestBuffer_io_out_c_22 : _GEN_949; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_951 = 5'h17 == laneIndex_9[4:0] ? requestBuffer_io_out_c_23 : _GEN_950; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_952 = 5'h18 == laneIndex_9[4:0] ? requestBuffer_io_out_c_24 : _GEN_951; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_953 = 5'h19 == laneIndex_9[4:0] ? requestBuffer_io_out_c_25 : _GEN_952; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_954 = 5'h1a == laneIndex_9[4:0] ? requestBuffer_io_out_c_26 : _GEN_953; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_955 = 5'h1b == laneIndex_9[4:0] ? requestBuffer_io_out_c_27 : _GEN_954; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_956 = 5'h1c == laneIndex_9[4:0] ? requestBuffer_io_out_c_28 : _GEN_955; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_957 = 5'h1d == laneIndex_9[4:0] ? requestBuffer_io_out_c_29 : _GEN_956; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_958 = 5'h1e == laneIndex_9[4:0] ? requestBuffer_io_out_c_30 : _GEN_957; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_959 = 5'h1f == laneIndex_9[4:0] ? requestBuffer_io_out_c_31 : _GEN_958; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_9_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_9; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_10 = base + 6'ha; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_961 = 5'h1 == laneIndex_10[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_962 = 5'h2 == laneIndex_10[4:0] ? requestBuffer_io_out_a_2 : _GEN_961; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_963 = 5'h3 == laneIndex_10[4:0] ? requestBuffer_io_out_a_3 : _GEN_962; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_964 = 5'h4 == laneIndex_10[4:0] ? requestBuffer_io_out_a_4 : _GEN_963; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_965 = 5'h5 == laneIndex_10[4:0] ? requestBuffer_io_out_a_5 : _GEN_964; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_966 = 5'h6 == laneIndex_10[4:0] ? requestBuffer_io_out_a_6 : _GEN_965; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_967 = 5'h7 == laneIndex_10[4:0] ? requestBuffer_io_out_a_7 : _GEN_966; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_968 = 5'h8 == laneIndex_10[4:0] ? requestBuffer_io_out_a_8 : _GEN_967; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_969 = 5'h9 == laneIndex_10[4:0] ? requestBuffer_io_out_a_9 : _GEN_968; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_970 = 5'ha == laneIndex_10[4:0] ? requestBuffer_io_out_a_10 : _GEN_969; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_971 = 5'hb == laneIndex_10[4:0] ? requestBuffer_io_out_a_11 : _GEN_970; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_972 = 5'hc == laneIndex_10[4:0] ? requestBuffer_io_out_a_12 : _GEN_971; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_973 = 5'hd == laneIndex_10[4:0] ? requestBuffer_io_out_a_13 : _GEN_972; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_974 = 5'he == laneIndex_10[4:0] ? requestBuffer_io_out_a_14 : _GEN_973; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_975 = 5'hf == laneIndex_10[4:0] ? requestBuffer_io_out_a_15 : _GEN_974; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_976 = 5'h10 == laneIndex_10[4:0] ? requestBuffer_io_out_a_16 : _GEN_975; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_977 = 5'h11 == laneIndex_10[4:0] ? requestBuffer_io_out_a_17 : _GEN_976; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_978 = 5'h12 == laneIndex_10[4:0] ? requestBuffer_io_out_a_18 : _GEN_977; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_979 = 5'h13 == laneIndex_10[4:0] ? requestBuffer_io_out_a_19 : _GEN_978; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_980 = 5'h14 == laneIndex_10[4:0] ? requestBuffer_io_out_a_20 : _GEN_979; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_981 = 5'h15 == laneIndex_10[4:0] ? requestBuffer_io_out_a_21 : _GEN_980; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_982 = 5'h16 == laneIndex_10[4:0] ? requestBuffer_io_out_a_22 : _GEN_981; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_983 = 5'h17 == laneIndex_10[4:0] ? requestBuffer_io_out_a_23 : _GEN_982; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_984 = 5'h18 == laneIndex_10[4:0] ? requestBuffer_io_out_a_24 : _GEN_983; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_985 = 5'h19 == laneIndex_10[4:0] ? requestBuffer_io_out_a_25 : _GEN_984; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_986 = 5'h1a == laneIndex_10[4:0] ? requestBuffer_io_out_a_26 : _GEN_985; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_987 = 5'h1b == laneIndex_10[4:0] ? requestBuffer_io_out_a_27 : _GEN_986; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_988 = 5'h1c == laneIndex_10[4:0] ? requestBuffer_io_out_a_28 : _GEN_987; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_989 = 5'h1d == laneIndex_10[4:0] ? requestBuffer_io_out_a_29 : _GEN_988; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_990 = 5'h1e == laneIndex_10[4:0] ? requestBuffer_io_out_a_30 : _GEN_989; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_991 = 5'h1f == laneIndex_10[4:0] ? requestBuffer_io_out_a_31 : _GEN_990; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_993 = 5'h1 == laneIndex_10[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_994 = 5'h2 == laneIndex_10[4:0] ? requestBuffer_io_out_b_2 : _GEN_993; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_995 = 5'h3 == laneIndex_10[4:0] ? requestBuffer_io_out_b_3 : _GEN_994; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_996 = 5'h4 == laneIndex_10[4:0] ? requestBuffer_io_out_b_4 : _GEN_995; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_997 = 5'h5 == laneIndex_10[4:0] ? requestBuffer_io_out_b_5 : _GEN_996; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_998 = 5'h6 == laneIndex_10[4:0] ? requestBuffer_io_out_b_6 : _GEN_997; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_999 = 5'h7 == laneIndex_10[4:0] ? requestBuffer_io_out_b_7 : _GEN_998; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1000 = 5'h8 == laneIndex_10[4:0] ? requestBuffer_io_out_b_8 : _GEN_999; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1001 = 5'h9 == laneIndex_10[4:0] ? requestBuffer_io_out_b_9 : _GEN_1000; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1002 = 5'ha == laneIndex_10[4:0] ? requestBuffer_io_out_b_10 : _GEN_1001; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1003 = 5'hb == laneIndex_10[4:0] ? requestBuffer_io_out_b_11 : _GEN_1002; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1004 = 5'hc == laneIndex_10[4:0] ? requestBuffer_io_out_b_12 : _GEN_1003; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1005 = 5'hd == laneIndex_10[4:0] ? requestBuffer_io_out_b_13 : _GEN_1004; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1006 = 5'he == laneIndex_10[4:0] ? requestBuffer_io_out_b_14 : _GEN_1005; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1007 = 5'hf == laneIndex_10[4:0] ? requestBuffer_io_out_b_15 : _GEN_1006; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1008 = 5'h10 == laneIndex_10[4:0] ? requestBuffer_io_out_b_16 : _GEN_1007; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1009 = 5'h11 == laneIndex_10[4:0] ? requestBuffer_io_out_b_17 : _GEN_1008; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1010 = 5'h12 == laneIndex_10[4:0] ? requestBuffer_io_out_b_18 : _GEN_1009; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1011 = 5'h13 == laneIndex_10[4:0] ? requestBuffer_io_out_b_19 : _GEN_1010; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1012 = 5'h14 == laneIndex_10[4:0] ? requestBuffer_io_out_b_20 : _GEN_1011; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1013 = 5'h15 == laneIndex_10[4:0] ? requestBuffer_io_out_b_21 : _GEN_1012; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1014 = 5'h16 == laneIndex_10[4:0] ? requestBuffer_io_out_b_22 : _GEN_1013; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1015 = 5'h17 == laneIndex_10[4:0] ? requestBuffer_io_out_b_23 : _GEN_1014; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1016 = 5'h18 == laneIndex_10[4:0] ? requestBuffer_io_out_b_24 : _GEN_1015; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1017 = 5'h19 == laneIndex_10[4:0] ? requestBuffer_io_out_b_25 : _GEN_1016; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1018 = 5'h1a == laneIndex_10[4:0] ? requestBuffer_io_out_b_26 : _GEN_1017; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1019 = 5'h1b == laneIndex_10[4:0] ? requestBuffer_io_out_b_27 : _GEN_1018; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1020 = 5'h1c == laneIndex_10[4:0] ? requestBuffer_io_out_b_28 : _GEN_1019; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1021 = 5'h1d == laneIndex_10[4:0] ? requestBuffer_io_out_b_29 : _GEN_1020; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1022 = 5'h1e == laneIndex_10[4:0] ? requestBuffer_io_out_b_30 : _GEN_1021; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1023 = 5'h1f == laneIndex_10[4:0] ? requestBuffer_io_out_b_31 : _GEN_1022; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1025 = 5'h1 == laneIndex_10[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1026 = 5'h2 == laneIndex_10[4:0] ? requestBuffer_io_out_c_2 : _GEN_1025; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1027 = 5'h3 == laneIndex_10[4:0] ? requestBuffer_io_out_c_3 : _GEN_1026; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1028 = 5'h4 == laneIndex_10[4:0] ? requestBuffer_io_out_c_4 : _GEN_1027; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1029 = 5'h5 == laneIndex_10[4:0] ? requestBuffer_io_out_c_5 : _GEN_1028; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1030 = 5'h6 == laneIndex_10[4:0] ? requestBuffer_io_out_c_6 : _GEN_1029; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1031 = 5'h7 == laneIndex_10[4:0] ? requestBuffer_io_out_c_7 : _GEN_1030; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1032 = 5'h8 == laneIndex_10[4:0] ? requestBuffer_io_out_c_8 : _GEN_1031; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1033 = 5'h9 == laneIndex_10[4:0] ? requestBuffer_io_out_c_9 : _GEN_1032; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1034 = 5'ha == laneIndex_10[4:0] ? requestBuffer_io_out_c_10 : _GEN_1033; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1035 = 5'hb == laneIndex_10[4:0] ? requestBuffer_io_out_c_11 : _GEN_1034; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1036 = 5'hc == laneIndex_10[4:0] ? requestBuffer_io_out_c_12 : _GEN_1035; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1037 = 5'hd == laneIndex_10[4:0] ? requestBuffer_io_out_c_13 : _GEN_1036; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1038 = 5'he == laneIndex_10[4:0] ? requestBuffer_io_out_c_14 : _GEN_1037; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1039 = 5'hf == laneIndex_10[4:0] ? requestBuffer_io_out_c_15 : _GEN_1038; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1040 = 5'h10 == laneIndex_10[4:0] ? requestBuffer_io_out_c_16 : _GEN_1039; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1041 = 5'h11 == laneIndex_10[4:0] ? requestBuffer_io_out_c_17 : _GEN_1040; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1042 = 5'h12 == laneIndex_10[4:0] ? requestBuffer_io_out_c_18 : _GEN_1041; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1043 = 5'h13 == laneIndex_10[4:0] ? requestBuffer_io_out_c_19 : _GEN_1042; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1044 = 5'h14 == laneIndex_10[4:0] ? requestBuffer_io_out_c_20 : _GEN_1043; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1045 = 5'h15 == laneIndex_10[4:0] ? requestBuffer_io_out_c_21 : _GEN_1044; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1046 = 5'h16 == laneIndex_10[4:0] ? requestBuffer_io_out_c_22 : _GEN_1045; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1047 = 5'h17 == laneIndex_10[4:0] ? requestBuffer_io_out_c_23 : _GEN_1046; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1048 = 5'h18 == laneIndex_10[4:0] ? requestBuffer_io_out_c_24 : _GEN_1047; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1049 = 5'h19 == laneIndex_10[4:0] ? requestBuffer_io_out_c_25 : _GEN_1048; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1050 = 5'h1a == laneIndex_10[4:0] ? requestBuffer_io_out_c_26 : _GEN_1049; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1051 = 5'h1b == laneIndex_10[4:0] ? requestBuffer_io_out_c_27 : _GEN_1050; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1052 = 5'h1c == laneIndex_10[4:0] ? requestBuffer_io_out_c_28 : _GEN_1051; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1053 = 5'h1d == laneIndex_10[4:0] ? requestBuffer_io_out_c_29 : _GEN_1052; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1054 = 5'h1e == laneIndex_10[4:0] ? requestBuffer_io_out_c_30 : _GEN_1053; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1055 = 5'h1f == laneIndex_10[4:0] ? requestBuffer_io_out_c_31 : _GEN_1054; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_10_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_10; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_11 = base + 6'hb; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_1057 = 5'h1 == laneIndex_11[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1058 = 5'h2 == laneIndex_11[4:0] ? requestBuffer_io_out_a_2 : _GEN_1057; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1059 = 5'h3 == laneIndex_11[4:0] ? requestBuffer_io_out_a_3 : _GEN_1058; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1060 = 5'h4 == laneIndex_11[4:0] ? requestBuffer_io_out_a_4 : _GEN_1059; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1061 = 5'h5 == laneIndex_11[4:0] ? requestBuffer_io_out_a_5 : _GEN_1060; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1062 = 5'h6 == laneIndex_11[4:0] ? requestBuffer_io_out_a_6 : _GEN_1061; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1063 = 5'h7 == laneIndex_11[4:0] ? requestBuffer_io_out_a_7 : _GEN_1062; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1064 = 5'h8 == laneIndex_11[4:0] ? requestBuffer_io_out_a_8 : _GEN_1063; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1065 = 5'h9 == laneIndex_11[4:0] ? requestBuffer_io_out_a_9 : _GEN_1064; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1066 = 5'ha == laneIndex_11[4:0] ? requestBuffer_io_out_a_10 : _GEN_1065; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1067 = 5'hb == laneIndex_11[4:0] ? requestBuffer_io_out_a_11 : _GEN_1066; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1068 = 5'hc == laneIndex_11[4:0] ? requestBuffer_io_out_a_12 : _GEN_1067; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1069 = 5'hd == laneIndex_11[4:0] ? requestBuffer_io_out_a_13 : _GEN_1068; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1070 = 5'he == laneIndex_11[4:0] ? requestBuffer_io_out_a_14 : _GEN_1069; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1071 = 5'hf == laneIndex_11[4:0] ? requestBuffer_io_out_a_15 : _GEN_1070; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1072 = 5'h10 == laneIndex_11[4:0] ? requestBuffer_io_out_a_16 : _GEN_1071; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1073 = 5'h11 == laneIndex_11[4:0] ? requestBuffer_io_out_a_17 : _GEN_1072; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1074 = 5'h12 == laneIndex_11[4:0] ? requestBuffer_io_out_a_18 : _GEN_1073; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1075 = 5'h13 == laneIndex_11[4:0] ? requestBuffer_io_out_a_19 : _GEN_1074; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1076 = 5'h14 == laneIndex_11[4:0] ? requestBuffer_io_out_a_20 : _GEN_1075; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1077 = 5'h15 == laneIndex_11[4:0] ? requestBuffer_io_out_a_21 : _GEN_1076; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1078 = 5'h16 == laneIndex_11[4:0] ? requestBuffer_io_out_a_22 : _GEN_1077; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1079 = 5'h17 == laneIndex_11[4:0] ? requestBuffer_io_out_a_23 : _GEN_1078; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1080 = 5'h18 == laneIndex_11[4:0] ? requestBuffer_io_out_a_24 : _GEN_1079; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1081 = 5'h19 == laneIndex_11[4:0] ? requestBuffer_io_out_a_25 : _GEN_1080; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1082 = 5'h1a == laneIndex_11[4:0] ? requestBuffer_io_out_a_26 : _GEN_1081; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1083 = 5'h1b == laneIndex_11[4:0] ? requestBuffer_io_out_a_27 : _GEN_1082; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1084 = 5'h1c == laneIndex_11[4:0] ? requestBuffer_io_out_a_28 : _GEN_1083; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1085 = 5'h1d == laneIndex_11[4:0] ? requestBuffer_io_out_a_29 : _GEN_1084; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1086 = 5'h1e == laneIndex_11[4:0] ? requestBuffer_io_out_a_30 : _GEN_1085; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1087 = 5'h1f == laneIndex_11[4:0] ? requestBuffer_io_out_a_31 : _GEN_1086; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1089 = 5'h1 == laneIndex_11[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1090 = 5'h2 == laneIndex_11[4:0] ? requestBuffer_io_out_b_2 : _GEN_1089; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1091 = 5'h3 == laneIndex_11[4:0] ? requestBuffer_io_out_b_3 : _GEN_1090; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1092 = 5'h4 == laneIndex_11[4:0] ? requestBuffer_io_out_b_4 : _GEN_1091; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1093 = 5'h5 == laneIndex_11[4:0] ? requestBuffer_io_out_b_5 : _GEN_1092; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1094 = 5'h6 == laneIndex_11[4:0] ? requestBuffer_io_out_b_6 : _GEN_1093; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1095 = 5'h7 == laneIndex_11[4:0] ? requestBuffer_io_out_b_7 : _GEN_1094; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1096 = 5'h8 == laneIndex_11[4:0] ? requestBuffer_io_out_b_8 : _GEN_1095; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1097 = 5'h9 == laneIndex_11[4:0] ? requestBuffer_io_out_b_9 : _GEN_1096; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1098 = 5'ha == laneIndex_11[4:0] ? requestBuffer_io_out_b_10 : _GEN_1097; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1099 = 5'hb == laneIndex_11[4:0] ? requestBuffer_io_out_b_11 : _GEN_1098; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1100 = 5'hc == laneIndex_11[4:0] ? requestBuffer_io_out_b_12 : _GEN_1099; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1101 = 5'hd == laneIndex_11[4:0] ? requestBuffer_io_out_b_13 : _GEN_1100; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1102 = 5'he == laneIndex_11[4:0] ? requestBuffer_io_out_b_14 : _GEN_1101; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1103 = 5'hf == laneIndex_11[4:0] ? requestBuffer_io_out_b_15 : _GEN_1102; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1104 = 5'h10 == laneIndex_11[4:0] ? requestBuffer_io_out_b_16 : _GEN_1103; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1105 = 5'h11 == laneIndex_11[4:0] ? requestBuffer_io_out_b_17 : _GEN_1104; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1106 = 5'h12 == laneIndex_11[4:0] ? requestBuffer_io_out_b_18 : _GEN_1105; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1107 = 5'h13 == laneIndex_11[4:0] ? requestBuffer_io_out_b_19 : _GEN_1106; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1108 = 5'h14 == laneIndex_11[4:0] ? requestBuffer_io_out_b_20 : _GEN_1107; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1109 = 5'h15 == laneIndex_11[4:0] ? requestBuffer_io_out_b_21 : _GEN_1108; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1110 = 5'h16 == laneIndex_11[4:0] ? requestBuffer_io_out_b_22 : _GEN_1109; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1111 = 5'h17 == laneIndex_11[4:0] ? requestBuffer_io_out_b_23 : _GEN_1110; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1112 = 5'h18 == laneIndex_11[4:0] ? requestBuffer_io_out_b_24 : _GEN_1111; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1113 = 5'h19 == laneIndex_11[4:0] ? requestBuffer_io_out_b_25 : _GEN_1112; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1114 = 5'h1a == laneIndex_11[4:0] ? requestBuffer_io_out_b_26 : _GEN_1113; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1115 = 5'h1b == laneIndex_11[4:0] ? requestBuffer_io_out_b_27 : _GEN_1114; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1116 = 5'h1c == laneIndex_11[4:0] ? requestBuffer_io_out_b_28 : _GEN_1115; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1117 = 5'h1d == laneIndex_11[4:0] ? requestBuffer_io_out_b_29 : _GEN_1116; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1118 = 5'h1e == laneIndex_11[4:0] ? requestBuffer_io_out_b_30 : _GEN_1117; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1119 = 5'h1f == laneIndex_11[4:0] ? requestBuffer_io_out_b_31 : _GEN_1118; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1121 = 5'h1 == laneIndex_11[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1122 = 5'h2 == laneIndex_11[4:0] ? requestBuffer_io_out_c_2 : _GEN_1121; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1123 = 5'h3 == laneIndex_11[4:0] ? requestBuffer_io_out_c_3 : _GEN_1122; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1124 = 5'h4 == laneIndex_11[4:0] ? requestBuffer_io_out_c_4 : _GEN_1123; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1125 = 5'h5 == laneIndex_11[4:0] ? requestBuffer_io_out_c_5 : _GEN_1124; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1126 = 5'h6 == laneIndex_11[4:0] ? requestBuffer_io_out_c_6 : _GEN_1125; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1127 = 5'h7 == laneIndex_11[4:0] ? requestBuffer_io_out_c_7 : _GEN_1126; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1128 = 5'h8 == laneIndex_11[4:0] ? requestBuffer_io_out_c_8 : _GEN_1127; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1129 = 5'h9 == laneIndex_11[4:0] ? requestBuffer_io_out_c_9 : _GEN_1128; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1130 = 5'ha == laneIndex_11[4:0] ? requestBuffer_io_out_c_10 : _GEN_1129; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1131 = 5'hb == laneIndex_11[4:0] ? requestBuffer_io_out_c_11 : _GEN_1130; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1132 = 5'hc == laneIndex_11[4:0] ? requestBuffer_io_out_c_12 : _GEN_1131; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1133 = 5'hd == laneIndex_11[4:0] ? requestBuffer_io_out_c_13 : _GEN_1132; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1134 = 5'he == laneIndex_11[4:0] ? requestBuffer_io_out_c_14 : _GEN_1133; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1135 = 5'hf == laneIndex_11[4:0] ? requestBuffer_io_out_c_15 : _GEN_1134; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1136 = 5'h10 == laneIndex_11[4:0] ? requestBuffer_io_out_c_16 : _GEN_1135; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1137 = 5'h11 == laneIndex_11[4:0] ? requestBuffer_io_out_c_17 : _GEN_1136; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1138 = 5'h12 == laneIndex_11[4:0] ? requestBuffer_io_out_c_18 : _GEN_1137; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1139 = 5'h13 == laneIndex_11[4:0] ? requestBuffer_io_out_c_19 : _GEN_1138; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1140 = 5'h14 == laneIndex_11[4:0] ? requestBuffer_io_out_c_20 : _GEN_1139; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1141 = 5'h15 == laneIndex_11[4:0] ? requestBuffer_io_out_c_21 : _GEN_1140; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1142 = 5'h16 == laneIndex_11[4:0] ? requestBuffer_io_out_c_22 : _GEN_1141; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1143 = 5'h17 == laneIndex_11[4:0] ? requestBuffer_io_out_c_23 : _GEN_1142; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1144 = 5'h18 == laneIndex_11[4:0] ? requestBuffer_io_out_c_24 : _GEN_1143; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1145 = 5'h19 == laneIndex_11[4:0] ? requestBuffer_io_out_c_25 : _GEN_1144; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1146 = 5'h1a == laneIndex_11[4:0] ? requestBuffer_io_out_c_26 : _GEN_1145; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1147 = 5'h1b == laneIndex_11[4:0] ? requestBuffer_io_out_c_27 : _GEN_1146; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1148 = 5'h1c == laneIndex_11[4:0] ? requestBuffer_io_out_c_28 : _GEN_1147; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1149 = 5'h1d == laneIndex_11[4:0] ? requestBuffer_io_out_c_29 : _GEN_1148; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1150 = 5'h1e == laneIndex_11[4:0] ? requestBuffer_io_out_c_30 : _GEN_1149; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1151 = 5'h1f == laneIndex_11[4:0] ? requestBuffer_io_out_c_31 : _GEN_1150; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_11_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_11; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_12 = base + 6'hc; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_1153 = 5'h1 == laneIndex_12[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1154 = 5'h2 == laneIndex_12[4:0] ? requestBuffer_io_out_a_2 : _GEN_1153; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1155 = 5'h3 == laneIndex_12[4:0] ? requestBuffer_io_out_a_3 : _GEN_1154; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1156 = 5'h4 == laneIndex_12[4:0] ? requestBuffer_io_out_a_4 : _GEN_1155; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1157 = 5'h5 == laneIndex_12[4:0] ? requestBuffer_io_out_a_5 : _GEN_1156; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1158 = 5'h6 == laneIndex_12[4:0] ? requestBuffer_io_out_a_6 : _GEN_1157; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1159 = 5'h7 == laneIndex_12[4:0] ? requestBuffer_io_out_a_7 : _GEN_1158; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1160 = 5'h8 == laneIndex_12[4:0] ? requestBuffer_io_out_a_8 : _GEN_1159; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1161 = 5'h9 == laneIndex_12[4:0] ? requestBuffer_io_out_a_9 : _GEN_1160; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1162 = 5'ha == laneIndex_12[4:0] ? requestBuffer_io_out_a_10 : _GEN_1161; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1163 = 5'hb == laneIndex_12[4:0] ? requestBuffer_io_out_a_11 : _GEN_1162; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1164 = 5'hc == laneIndex_12[4:0] ? requestBuffer_io_out_a_12 : _GEN_1163; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1165 = 5'hd == laneIndex_12[4:0] ? requestBuffer_io_out_a_13 : _GEN_1164; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1166 = 5'he == laneIndex_12[4:0] ? requestBuffer_io_out_a_14 : _GEN_1165; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1167 = 5'hf == laneIndex_12[4:0] ? requestBuffer_io_out_a_15 : _GEN_1166; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1168 = 5'h10 == laneIndex_12[4:0] ? requestBuffer_io_out_a_16 : _GEN_1167; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1169 = 5'h11 == laneIndex_12[4:0] ? requestBuffer_io_out_a_17 : _GEN_1168; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1170 = 5'h12 == laneIndex_12[4:0] ? requestBuffer_io_out_a_18 : _GEN_1169; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1171 = 5'h13 == laneIndex_12[4:0] ? requestBuffer_io_out_a_19 : _GEN_1170; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1172 = 5'h14 == laneIndex_12[4:0] ? requestBuffer_io_out_a_20 : _GEN_1171; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1173 = 5'h15 == laneIndex_12[4:0] ? requestBuffer_io_out_a_21 : _GEN_1172; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1174 = 5'h16 == laneIndex_12[4:0] ? requestBuffer_io_out_a_22 : _GEN_1173; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1175 = 5'h17 == laneIndex_12[4:0] ? requestBuffer_io_out_a_23 : _GEN_1174; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1176 = 5'h18 == laneIndex_12[4:0] ? requestBuffer_io_out_a_24 : _GEN_1175; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1177 = 5'h19 == laneIndex_12[4:0] ? requestBuffer_io_out_a_25 : _GEN_1176; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1178 = 5'h1a == laneIndex_12[4:0] ? requestBuffer_io_out_a_26 : _GEN_1177; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1179 = 5'h1b == laneIndex_12[4:0] ? requestBuffer_io_out_a_27 : _GEN_1178; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1180 = 5'h1c == laneIndex_12[4:0] ? requestBuffer_io_out_a_28 : _GEN_1179; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1181 = 5'h1d == laneIndex_12[4:0] ? requestBuffer_io_out_a_29 : _GEN_1180; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1182 = 5'h1e == laneIndex_12[4:0] ? requestBuffer_io_out_a_30 : _GEN_1181; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1183 = 5'h1f == laneIndex_12[4:0] ? requestBuffer_io_out_a_31 : _GEN_1182; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1185 = 5'h1 == laneIndex_12[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1186 = 5'h2 == laneIndex_12[4:0] ? requestBuffer_io_out_b_2 : _GEN_1185; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1187 = 5'h3 == laneIndex_12[4:0] ? requestBuffer_io_out_b_3 : _GEN_1186; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1188 = 5'h4 == laneIndex_12[4:0] ? requestBuffer_io_out_b_4 : _GEN_1187; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1189 = 5'h5 == laneIndex_12[4:0] ? requestBuffer_io_out_b_5 : _GEN_1188; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1190 = 5'h6 == laneIndex_12[4:0] ? requestBuffer_io_out_b_6 : _GEN_1189; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1191 = 5'h7 == laneIndex_12[4:0] ? requestBuffer_io_out_b_7 : _GEN_1190; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1192 = 5'h8 == laneIndex_12[4:0] ? requestBuffer_io_out_b_8 : _GEN_1191; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1193 = 5'h9 == laneIndex_12[4:0] ? requestBuffer_io_out_b_9 : _GEN_1192; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1194 = 5'ha == laneIndex_12[4:0] ? requestBuffer_io_out_b_10 : _GEN_1193; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1195 = 5'hb == laneIndex_12[4:0] ? requestBuffer_io_out_b_11 : _GEN_1194; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1196 = 5'hc == laneIndex_12[4:0] ? requestBuffer_io_out_b_12 : _GEN_1195; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1197 = 5'hd == laneIndex_12[4:0] ? requestBuffer_io_out_b_13 : _GEN_1196; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1198 = 5'he == laneIndex_12[4:0] ? requestBuffer_io_out_b_14 : _GEN_1197; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1199 = 5'hf == laneIndex_12[4:0] ? requestBuffer_io_out_b_15 : _GEN_1198; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1200 = 5'h10 == laneIndex_12[4:0] ? requestBuffer_io_out_b_16 : _GEN_1199; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1201 = 5'h11 == laneIndex_12[4:0] ? requestBuffer_io_out_b_17 : _GEN_1200; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1202 = 5'h12 == laneIndex_12[4:0] ? requestBuffer_io_out_b_18 : _GEN_1201; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1203 = 5'h13 == laneIndex_12[4:0] ? requestBuffer_io_out_b_19 : _GEN_1202; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1204 = 5'h14 == laneIndex_12[4:0] ? requestBuffer_io_out_b_20 : _GEN_1203; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1205 = 5'h15 == laneIndex_12[4:0] ? requestBuffer_io_out_b_21 : _GEN_1204; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1206 = 5'h16 == laneIndex_12[4:0] ? requestBuffer_io_out_b_22 : _GEN_1205; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1207 = 5'h17 == laneIndex_12[4:0] ? requestBuffer_io_out_b_23 : _GEN_1206; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1208 = 5'h18 == laneIndex_12[4:0] ? requestBuffer_io_out_b_24 : _GEN_1207; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1209 = 5'h19 == laneIndex_12[4:0] ? requestBuffer_io_out_b_25 : _GEN_1208; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1210 = 5'h1a == laneIndex_12[4:0] ? requestBuffer_io_out_b_26 : _GEN_1209; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1211 = 5'h1b == laneIndex_12[4:0] ? requestBuffer_io_out_b_27 : _GEN_1210; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1212 = 5'h1c == laneIndex_12[4:0] ? requestBuffer_io_out_b_28 : _GEN_1211; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1213 = 5'h1d == laneIndex_12[4:0] ? requestBuffer_io_out_b_29 : _GEN_1212; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1214 = 5'h1e == laneIndex_12[4:0] ? requestBuffer_io_out_b_30 : _GEN_1213; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1215 = 5'h1f == laneIndex_12[4:0] ? requestBuffer_io_out_b_31 : _GEN_1214; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1217 = 5'h1 == laneIndex_12[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1218 = 5'h2 == laneIndex_12[4:0] ? requestBuffer_io_out_c_2 : _GEN_1217; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1219 = 5'h3 == laneIndex_12[4:0] ? requestBuffer_io_out_c_3 : _GEN_1218; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1220 = 5'h4 == laneIndex_12[4:0] ? requestBuffer_io_out_c_4 : _GEN_1219; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1221 = 5'h5 == laneIndex_12[4:0] ? requestBuffer_io_out_c_5 : _GEN_1220; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1222 = 5'h6 == laneIndex_12[4:0] ? requestBuffer_io_out_c_6 : _GEN_1221; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1223 = 5'h7 == laneIndex_12[4:0] ? requestBuffer_io_out_c_7 : _GEN_1222; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1224 = 5'h8 == laneIndex_12[4:0] ? requestBuffer_io_out_c_8 : _GEN_1223; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1225 = 5'h9 == laneIndex_12[4:0] ? requestBuffer_io_out_c_9 : _GEN_1224; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1226 = 5'ha == laneIndex_12[4:0] ? requestBuffer_io_out_c_10 : _GEN_1225; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1227 = 5'hb == laneIndex_12[4:0] ? requestBuffer_io_out_c_11 : _GEN_1226; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1228 = 5'hc == laneIndex_12[4:0] ? requestBuffer_io_out_c_12 : _GEN_1227; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1229 = 5'hd == laneIndex_12[4:0] ? requestBuffer_io_out_c_13 : _GEN_1228; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1230 = 5'he == laneIndex_12[4:0] ? requestBuffer_io_out_c_14 : _GEN_1229; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1231 = 5'hf == laneIndex_12[4:0] ? requestBuffer_io_out_c_15 : _GEN_1230; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1232 = 5'h10 == laneIndex_12[4:0] ? requestBuffer_io_out_c_16 : _GEN_1231; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1233 = 5'h11 == laneIndex_12[4:0] ? requestBuffer_io_out_c_17 : _GEN_1232; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1234 = 5'h12 == laneIndex_12[4:0] ? requestBuffer_io_out_c_18 : _GEN_1233; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1235 = 5'h13 == laneIndex_12[4:0] ? requestBuffer_io_out_c_19 : _GEN_1234; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1236 = 5'h14 == laneIndex_12[4:0] ? requestBuffer_io_out_c_20 : _GEN_1235; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1237 = 5'h15 == laneIndex_12[4:0] ? requestBuffer_io_out_c_21 : _GEN_1236; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1238 = 5'h16 == laneIndex_12[4:0] ? requestBuffer_io_out_c_22 : _GEN_1237; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1239 = 5'h17 == laneIndex_12[4:0] ? requestBuffer_io_out_c_23 : _GEN_1238; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1240 = 5'h18 == laneIndex_12[4:0] ? requestBuffer_io_out_c_24 : _GEN_1239; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1241 = 5'h19 == laneIndex_12[4:0] ? requestBuffer_io_out_c_25 : _GEN_1240; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1242 = 5'h1a == laneIndex_12[4:0] ? requestBuffer_io_out_c_26 : _GEN_1241; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1243 = 5'h1b == laneIndex_12[4:0] ? requestBuffer_io_out_c_27 : _GEN_1242; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1244 = 5'h1c == laneIndex_12[4:0] ? requestBuffer_io_out_c_28 : _GEN_1243; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1245 = 5'h1d == laneIndex_12[4:0] ? requestBuffer_io_out_c_29 : _GEN_1244; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1246 = 5'h1e == laneIndex_12[4:0] ? requestBuffer_io_out_c_30 : _GEN_1245; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1247 = 5'h1f == laneIndex_12[4:0] ? requestBuffer_io_out_c_31 : _GEN_1246; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_12_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_12; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_13 = base + 6'hd; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_1249 = 5'h1 == laneIndex_13[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1250 = 5'h2 == laneIndex_13[4:0] ? requestBuffer_io_out_a_2 : _GEN_1249; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1251 = 5'h3 == laneIndex_13[4:0] ? requestBuffer_io_out_a_3 : _GEN_1250; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1252 = 5'h4 == laneIndex_13[4:0] ? requestBuffer_io_out_a_4 : _GEN_1251; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1253 = 5'h5 == laneIndex_13[4:0] ? requestBuffer_io_out_a_5 : _GEN_1252; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1254 = 5'h6 == laneIndex_13[4:0] ? requestBuffer_io_out_a_6 : _GEN_1253; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1255 = 5'h7 == laneIndex_13[4:0] ? requestBuffer_io_out_a_7 : _GEN_1254; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1256 = 5'h8 == laneIndex_13[4:0] ? requestBuffer_io_out_a_8 : _GEN_1255; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1257 = 5'h9 == laneIndex_13[4:0] ? requestBuffer_io_out_a_9 : _GEN_1256; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1258 = 5'ha == laneIndex_13[4:0] ? requestBuffer_io_out_a_10 : _GEN_1257; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1259 = 5'hb == laneIndex_13[4:0] ? requestBuffer_io_out_a_11 : _GEN_1258; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1260 = 5'hc == laneIndex_13[4:0] ? requestBuffer_io_out_a_12 : _GEN_1259; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1261 = 5'hd == laneIndex_13[4:0] ? requestBuffer_io_out_a_13 : _GEN_1260; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1262 = 5'he == laneIndex_13[4:0] ? requestBuffer_io_out_a_14 : _GEN_1261; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1263 = 5'hf == laneIndex_13[4:0] ? requestBuffer_io_out_a_15 : _GEN_1262; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1264 = 5'h10 == laneIndex_13[4:0] ? requestBuffer_io_out_a_16 : _GEN_1263; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1265 = 5'h11 == laneIndex_13[4:0] ? requestBuffer_io_out_a_17 : _GEN_1264; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1266 = 5'h12 == laneIndex_13[4:0] ? requestBuffer_io_out_a_18 : _GEN_1265; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1267 = 5'h13 == laneIndex_13[4:0] ? requestBuffer_io_out_a_19 : _GEN_1266; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1268 = 5'h14 == laneIndex_13[4:0] ? requestBuffer_io_out_a_20 : _GEN_1267; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1269 = 5'h15 == laneIndex_13[4:0] ? requestBuffer_io_out_a_21 : _GEN_1268; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1270 = 5'h16 == laneIndex_13[4:0] ? requestBuffer_io_out_a_22 : _GEN_1269; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1271 = 5'h17 == laneIndex_13[4:0] ? requestBuffer_io_out_a_23 : _GEN_1270; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1272 = 5'h18 == laneIndex_13[4:0] ? requestBuffer_io_out_a_24 : _GEN_1271; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1273 = 5'h19 == laneIndex_13[4:0] ? requestBuffer_io_out_a_25 : _GEN_1272; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1274 = 5'h1a == laneIndex_13[4:0] ? requestBuffer_io_out_a_26 : _GEN_1273; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1275 = 5'h1b == laneIndex_13[4:0] ? requestBuffer_io_out_a_27 : _GEN_1274; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1276 = 5'h1c == laneIndex_13[4:0] ? requestBuffer_io_out_a_28 : _GEN_1275; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1277 = 5'h1d == laneIndex_13[4:0] ? requestBuffer_io_out_a_29 : _GEN_1276; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1278 = 5'h1e == laneIndex_13[4:0] ? requestBuffer_io_out_a_30 : _GEN_1277; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1279 = 5'h1f == laneIndex_13[4:0] ? requestBuffer_io_out_a_31 : _GEN_1278; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1281 = 5'h1 == laneIndex_13[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1282 = 5'h2 == laneIndex_13[4:0] ? requestBuffer_io_out_b_2 : _GEN_1281; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1283 = 5'h3 == laneIndex_13[4:0] ? requestBuffer_io_out_b_3 : _GEN_1282; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1284 = 5'h4 == laneIndex_13[4:0] ? requestBuffer_io_out_b_4 : _GEN_1283; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1285 = 5'h5 == laneIndex_13[4:0] ? requestBuffer_io_out_b_5 : _GEN_1284; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1286 = 5'h6 == laneIndex_13[4:0] ? requestBuffer_io_out_b_6 : _GEN_1285; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1287 = 5'h7 == laneIndex_13[4:0] ? requestBuffer_io_out_b_7 : _GEN_1286; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1288 = 5'h8 == laneIndex_13[4:0] ? requestBuffer_io_out_b_8 : _GEN_1287; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1289 = 5'h9 == laneIndex_13[4:0] ? requestBuffer_io_out_b_9 : _GEN_1288; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1290 = 5'ha == laneIndex_13[4:0] ? requestBuffer_io_out_b_10 : _GEN_1289; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1291 = 5'hb == laneIndex_13[4:0] ? requestBuffer_io_out_b_11 : _GEN_1290; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1292 = 5'hc == laneIndex_13[4:0] ? requestBuffer_io_out_b_12 : _GEN_1291; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1293 = 5'hd == laneIndex_13[4:0] ? requestBuffer_io_out_b_13 : _GEN_1292; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1294 = 5'he == laneIndex_13[4:0] ? requestBuffer_io_out_b_14 : _GEN_1293; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1295 = 5'hf == laneIndex_13[4:0] ? requestBuffer_io_out_b_15 : _GEN_1294; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1296 = 5'h10 == laneIndex_13[4:0] ? requestBuffer_io_out_b_16 : _GEN_1295; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1297 = 5'h11 == laneIndex_13[4:0] ? requestBuffer_io_out_b_17 : _GEN_1296; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1298 = 5'h12 == laneIndex_13[4:0] ? requestBuffer_io_out_b_18 : _GEN_1297; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1299 = 5'h13 == laneIndex_13[4:0] ? requestBuffer_io_out_b_19 : _GEN_1298; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1300 = 5'h14 == laneIndex_13[4:0] ? requestBuffer_io_out_b_20 : _GEN_1299; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1301 = 5'h15 == laneIndex_13[4:0] ? requestBuffer_io_out_b_21 : _GEN_1300; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1302 = 5'h16 == laneIndex_13[4:0] ? requestBuffer_io_out_b_22 : _GEN_1301; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1303 = 5'h17 == laneIndex_13[4:0] ? requestBuffer_io_out_b_23 : _GEN_1302; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1304 = 5'h18 == laneIndex_13[4:0] ? requestBuffer_io_out_b_24 : _GEN_1303; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1305 = 5'h19 == laneIndex_13[4:0] ? requestBuffer_io_out_b_25 : _GEN_1304; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1306 = 5'h1a == laneIndex_13[4:0] ? requestBuffer_io_out_b_26 : _GEN_1305; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1307 = 5'h1b == laneIndex_13[4:0] ? requestBuffer_io_out_b_27 : _GEN_1306; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1308 = 5'h1c == laneIndex_13[4:0] ? requestBuffer_io_out_b_28 : _GEN_1307; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1309 = 5'h1d == laneIndex_13[4:0] ? requestBuffer_io_out_b_29 : _GEN_1308; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1310 = 5'h1e == laneIndex_13[4:0] ? requestBuffer_io_out_b_30 : _GEN_1309; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1311 = 5'h1f == laneIndex_13[4:0] ? requestBuffer_io_out_b_31 : _GEN_1310; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1313 = 5'h1 == laneIndex_13[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1314 = 5'h2 == laneIndex_13[4:0] ? requestBuffer_io_out_c_2 : _GEN_1313; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1315 = 5'h3 == laneIndex_13[4:0] ? requestBuffer_io_out_c_3 : _GEN_1314; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1316 = 5'h4 == laneIndex_13[4:0] ? requestBuffer_io_out_c_4 : _GEN_1315; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1317 = 5'h5 == laneIndex_13[4:0] ? requestBuffer_io_out_c_5 : _GEN_1316; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1318 = 5'h6 == laneIndex_13[4:0] ? requestBuffer_io_out_c_6 : _GEN_1317; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1319 = 5'h7 == laneIndex_13[4:0] ? requestBuffer_io_out_c_7 : _GEN_1318; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1320 = 5'h8 == laneIndex_13[4:0] ? requestBuffer_io_out_c_8 : _GEN_1319; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1321 = 5'h9 == laneIndex_13[4:0] ? requestBuffer_io_out_c_9 : _GEN_1320; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1322 = 5'ha == laneIndex_13[4:0] ? requestBuffer_io_out_c_10 : _GEN_1321; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1323 = 5'hb == laneIndex_13[4:0] ? requestBuffer_io_out_c_11 : _GEN_1322; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1324 = 5'hc == laneIndex_13[4:0] ? requestBuffer_io_out_c_12 : _GEN_1323; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1325 = 5'hd == laneIndex_13[4:0] ? requestBuffer_io_out_c_13 : _GEN_1324; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1326 = 5'he == laneIndex_13[4:0] ? requestBuffer_io_out_c_14 : _GEN_1325; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1327 = 5'hf == laneIndex_13[4:0] ? requestBuffer_io_out_c_15 : _GEN_1326; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1328 = 5'h10 == laneIndex_13[4:0] ? requestBuffer_io_out_c_16 : _GEN_1327; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1329 = 5'h11 == laneIndex_13[4:0] ? requestBuffer_io_out_c_17 : _GEN_1328; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1330 = 5'h12 == laneIndex_13[4:0] ? requestBuffer_io_out_c_18 : _GEN_1329; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1331 = 5'h13 == laneIndex_13[4:0] ? requestBuffer_io_out_c_19 : _GEN_1330; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1332 = 5'h14 == laneIndex_13[4:0] ? requestBuffer_io_out_c_20 : _GEN_1331; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1333 = 5'h15 == laneIndex_13[4:0] ? requestBuffer_io_out_c_21 : _GEN_1332; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1334 = 5'h16 == laneIndex_13[4:0] ? requestBuffer_io_out_c_22 : _GEN_1333; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1335 = 5'h17 == laneIndex_13[4:0] ? requestBuffer_io_out_c_23 : _GEN_1334; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1336 = 5'h18 == laneIndex_13[4:0] ? requestBuffer_io_out_c_24 : _GEN_1335; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1337 = 5'h19 == laneIndex_13[4:0] ? requestBuffer_io_out_c_25 : _GEN_1336; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1338 = 5'h1a == laneIndex_13[4:0] ? requestBuffer_io_out_c_26 : _GEN_1337; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1339 = 5'h1b == laneIndex_13[4:0] ? requestBuffer_io_out_c_27 : _GEN_1338; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1340 = 5'h1c == laneIndex_13[4:0] ? requestBuffer_io_out_c_28 : _GEN_1339; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1341 = 5'h1d == laneIndex_13[4:0] ? requestBuffer_io_out_c_29 : _GEN_1340; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1342 = 5'h1e == laneIndex_13[4:0] ? requestBuffer_io_out_c_30 : _GEN_1341; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1343 = 5'h1f == laneIndex_13[4:0] ? requestBuffer_io_out_c_31 : _GEN_1342; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_13_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_13; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_14 = base + 6'he; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_1345 = 5'h1 == laneIndex_14[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1346 = 5'h2 == laneIndex_14[4:0] ? requestBuffer_io_out_a_2 : _GEN_1345; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1347 = 5'h3 == laneIndex_14[4:0] ? requestBuffer_io_out_a_3 : _GEN_1346; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1348 = 5'h4 == laneIndex_14[4:0] ? requestBuffer_io_out_a_4 : _GEN_1347; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1349 = 5'h5 == laneIndex_14[4:0] ? requestBuffer_io_out_a_5 : _GEN_1348; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1350 = 5'h6 == laneIndex_14[4:0] ? requestBuffer_io_out_a_6 : _GEN_1349; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1351 = 5'h7 == laneIndex_14[4:0] ? requestBuffer_io_out_a_7 : _GEN_1350; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1352 = 5'h8 == laneIndex_14[4:0] ? requestBuffer_io_out_a_8 : _GEN_1351; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1353 = 5'h9 == laneIndex_14[4:0] ? requestBuffer_io_out_a_9 : _GEN_1352; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1354 = 5'ha == laneIndex_14[4:0] ? requestBuffer_io_out_a_10 : _GEN_1353; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1355 = 5'hb == laneIndex_14[4:0] ? requestBuffer_io_out_a_11 : _GEN_1354; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1356 = 5'hc == laneIndex_14[4:0] ? requestBuffer_io_out_a_12 : _GEN_1355; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1357 = 5'hd == laneIndex_14[4:0] ? requestBuffer_io_out_a_13 : _GEN_1356; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1358 = 5'he == laneIndex_14[4:0] ? requestBuffer_io_out_a_14 : _GEN_1357; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1359 = 5'hf == laneIndex_14[4:0] ? requestBuffer_io_out_a_15 : _GEN_1358; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1360 = 5'h10 == laneIndex_14[4:0] ? requestBuffer_io_out_a_16 : _GEN_1359; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1361 = 5'h11 == laneIndex_14[4:0] ? requestBuffer_io_out_a_17 : _GEN_1360; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1362 = 5'h12 == laneIndex_14[4:0] ? requestBuffer_io_out_a_18 : _GEN_1361; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1363 = 5'h13 == laneIndex_14[4:0] ? requestBuffer_io_out_a_19 : _GEN_1362; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1364 = 5'h14 == laneIndex_14[4:0] ? requestBuffer_io_out_a_20 : _GEN_1363; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1365 = 5'h15 == laneIndex_14[4:0] ? requestBuffer_io_out_a_21 : _GEN_1364; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1366 = 5'h16 == laneIndex_14[4:0] ? requestBuffer_io_out_a_22 : _GEN_1365; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1367 = 5'h17 == laneIndex_14[4:0] ? requestBuffer_io_out_a_23 : _GEN_1366; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1368 = 5'h18 == laneIndex_14[4:0] ? requestBuffer_io_out_a_24 : _GEN_1367; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1369 = 5'h19 == laneIndex_14[4:0] ? requestBuffer_io_out_a_25 : _GEN_1368; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1370 = 5'h1a == laneIndex_14[4:0] ? requestBuffer_io_out_a_26 : _GEN_1369; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1371 = 5'h1b == laneIndex_14[4:0] ? requestBuffer_io_out_a_27 : _GEN_1370; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1372 = 5'h1c == laneIndex_14[4:0] ? requestBuffer_io_out_a_28 : _GEN_1371; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1373 = 5'h1d == laneIndex_14[4:0] ? requestBuffer_io_out_a_29 : _GEN_1372; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1374 = 5'h1e == laneIndex_14[4:0] ? requestBuffer_io_out_a_30 : _GEN_1373; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1375 = 5'h1f == laneIndex_14[4:0] ? requestBuffer_io_out_a_31 : _GEN_1374; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1377 = 5'h1 == laneIndex_14[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1378 = 5'h2 == laneIndex_14[4:0] ? requestBuffer_io_out_b_2 : _GEN_1377; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1379 = 5'h3 == laneIndex_14[4:0] ? requestBuffer_io_out_b_3 : _GEN_1378; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1380 = 5'h4 == laneIndex_14[4:0] ? requestBuffer_io_out_b_4 : _GEN_1379; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1381 = 5'h5 == laneIndex_14[4:0] ? requestBuffer_io_out_b_5 : _GEN_1380; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1382 = 5'h6 == laneIndex_14[4:0] ? requestBuffer_io_out_b_6 : _GEN_1381; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1383 = 5'h7 == laneIndex_14[4:0] ? requestBuffer_io_out_b_7 : _GEN_1382; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1384 = 5'h8 == laneIndex_14[4:0] ? requestBuffer_io_out_b_8 : _GEN_1383; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1385 = 5'h9 == laneIndex_14[4:0] ? requestBuffer_io_out_b_9 : _GEN_1384; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1386 = 5'ha == laneIndex_14[4:0] ? requestBuffer_io_out_b_10 : _GEN_1385; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1387 = 5'hb == laneIndex_14[4:0] ? requestBuffer_io_out_b_11 : _GEN_1386; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1388 = 5'hc == laneIndex_14[4:0] ? requestBuffer_io_out_b_12 : _GEN_1387; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1389 = 5'hd == laneIndex_14[4:0] ? requestBuffer_io_out_b_13 : _GEN_1388; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1390 = 5'he == laneIndex_14[4:0] ? requestBuffer_io_out_b_14 : _GEN_1389; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1391 = 5'hf == laneIndex_14[4:0] ? requestBuffer_io_out_b_15 : _GEN_1390; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1392 = 5'h10 == laneIndex_14[4:0] ? requestBuffer_io_out_b_16 : _GEN_1391; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1393 = 5'h11 == laneIndex_14[4:0] ? requestBuffer_io_out_b_17 : _GEN_1392; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1394 = 5'h12 == laneIndex_14[4:0] ? requestBuffer_io_out_b_18 : _GEN_1393; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1395 = 5'h13 == laneIndex_14[4:0] ? requestBuffer_io_out_b_19 : _GEN_1394; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1396 = 5'h14 == laneIndex_14[4:0] ? requestBuffer_io_out_b_20 : _GEN_1395; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1397 = 5'h15 == laneIndex_14[4:0] ? requestBuffer_io_out_b_21 : _GEN_1396; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1398 = 5'h16 == laneIndex_14[4:0] ? requestBuffer_io_out_b_22 : _GEN_1397; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1399 = 5'h17 == laneIndex_14[4:0] ? requestBuffer_io_out_b_23 : _GEN_1398; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1400 = 5'h18 == laneIndex_14[4:0] ? requestBuffer_io_out_b_24 : _GEN_1399; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1401 = 5'h19 == laneIndex_14[4:0] ? requestBuffer_io_out_b_25 : _GEN_1400; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1402 = 5'h1a == laneIndex_14[4:0] ? requestBuffer_io_out_b_26 : _GEN_1401; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1403 = 5'h1b == laneIndex_14[4:0] ? requestBuffer_io_out_b_27 : _GEN_1402; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1404 = 5'h1c == laneIndex_14[4:0] ? requestBuffer_io_out_b_28 : _GEN_1403; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1405 = 5'h1d == laneIndex_14[4:0] ? requestBuffer_io_out_b_29 : _GEN_1404; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1406 = 5'h1e == laneIndex_14[4:0] ? requestBuffer_io_out_b_30 : _GEN_1405; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1407 = 5'h1f == laneIndex_14[4:0] ? requestBuffer_io_out_b_31 : _GEN_1406; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1409 = 5'h1 == laneIndex_14[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1410 = 5'h2 == laneIndex_14[4:0] ? requestBuffer_io_out_c_2 : _GEN_1409; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1411 = 5'h3 == laneIndex_14[4:0] ? requestBuffer_io_out_c_3 : _GEN_1410; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1412 = 5'h4 == laneIndex_14[4:0] ? requestBuffer_io_out_c_4 : _GEN_1411; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1413 = 5'h5 == laneIndex_14[4:0] ? requestBuffer_io_out_c_5 : _GEN_1412; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1414 = 5'h6 == laneIndex_14[4:0] ? requestBuffer_io_out_c_6 : _GEN_1413; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1415 = 5'h7 == laneIndex_14[4:0] ? requestBuffer_io_out_c_7 : _GEN_1414; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1416 = 5'h8 == laneIndex_14[4:0] ? requestBuffer_io_out_c_8 : _GEN_1415; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1417 = 5'h9 == laneIndex_14[4:0] ? requestBuffer_io_out_c_9 : _GEN_1416; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1418 = 5'ha == laneIndex_14[4:0] ? requestBuffer_io_out_c_10 : _GEN_1417; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1419 = 5'hb == laneIndex_14[4:0] ? requestBuffer_io_out_c_11 : _GEN_1418; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1420 = 5'hc == laneIndex_14[4:0] ? requestBuffer_io_out_c_12 : _GEN_1419; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1421 = 5'hd == laneIndex_14[4:0] ? requestBuffer_io_out_c_13 : _GEN_1420; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1422 = 5'he == laneIndex_14[4:0] ? requestBuffer_io_out_c_14 : _GEN_1421; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1423 = 5'hf == laneIndex_14[4:0] ? requestBuffer_io_out_c_15 : _GEN_1422; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1424 = 5'h10 == laneIndex_14[4:0] ? requestBuffer_io_out_c_16 : _GEN_1423; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1425 = 5'h11 == laneIndex_14[4:0] ? requestBuffer_io_out_c_17 : _GEN_1424; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1426 = 5'h12 == laneIndex_14[4:0] ? requestBuffer_io_out_c_18 : _GEN_1425; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1427 = 5'h13 == laneIndex_14[4:0] ? requestBuffer_io_out_c_19 : _GEN_1426; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1428 = 5'h14 == laneIndex_14[4:0] ? requestBuffer_io_out_c_20 : _GEN_1427; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1429 = 5'h15 == laneIndex_14[4:0] ? requestBuffer_io_out_c_21 : _GEN_1428; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1430 = 5'h16 == laneIndex_14[4:0] ? requestBuffer_io_out_c_22 : _GEN_1429; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1431 = 5'h17 == laneIndex_14[4:0] ? requestBuffer_io_out_c_23 : _GEN_1430; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1432 = 5'h18 == laneIndex_14[4:0] ? requestBuffer_io_out_c_24 : _GEN_1431; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1433 = 5'h19 == laneIndex_14[4:0] ? requestBuffer_io_out_c_25 : _GEN_1432; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1434 = 5'h1a == laneIndex_14[4:0] ? requestBuffer_io_out_c_26 : _GEN_1433; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1435 = 5'h1b == laneIndex_14[4:0] ? requestBuffer_io_out_c_27 : _GEN_1434; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1436 = 5'h1c == laneIndex_14[4:0] ? requestBuffer_io_out_c_28 : _GEN_1435; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1437 = 5'h1d == laneIndex_14[4:0] ? requestBuffer_io_out_c_29 : _GEN_1436; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1438 = 5'h1e == laneIndex_14[4:0] ? requestBuffer_io_out_c_30 : _GEN_1437; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1439 = 5'h1f == laneIndex_14[4:0] ? requestBuffer_io_out_c_31 : _GEN_1438; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_14_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_14; // @[AecEightLaneIntUnit.scala 83:72]
-  wire [5:0] laneIndex_15 = base + 6'hf; // @[AecEightLaneIntUnit.scala 75:26]
-  wire [63:0] _GEN_1441 = 5'h1 == laneIndex_15[4:0] ? requestBuffer_io_out_a_1 : _GEN_0; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1442 = 5'h2 == laneIndex_15[4:0] ? requestBuffer_io_out_a_2 : _GEN_1441; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1443 = 5'h3 == laneIndex_15[4:0] ? requestBuffer_io_out_a_3 : _GEN_1442; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1444 = 5'h4 == laneIndex_15[4:0] ? requestBuffer_io_out_a_4 : _GEN_1443; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1445 = 5'h5 == laneIndex_15[4:0] ? requestBuffer_io_out_a_5 : _GEN_1444; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1446 = 5'h6 == laneIndex_15[4:0] ? requestBuffer_io_out_a_6 : _GEN_1445; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1447 = 5'h7 == laneIndex_15[4:0] ? requestBuffer_io_out_a_7 : _GEN_1446; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1448 = 5'h8 == laneIndex_15[4:0] ? requestBuffer_io_out_a_8 : _GEN_1447; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1449 = 5'h9 == laneIndex_15[4:0] ? requestBuffer_io_out_a_9 : _GEN_1448; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1450 = 5'ha == laneIndex_15[4:0] ? requestBuffer_io_out_a_10 : _GEN_1449; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1451 = 5'hb == laneIndex_15[4:0] ? requestBuffer_io_out_a_11 : _GEN_1450; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1452 = 5'hc == laneIndex_15[4:0] ? requestBuffer_io_out_a_12 : _GEN_1451; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1453 = 5'hd == laneIndex_15[4:0] ? requestBuffer_io_out_a_13 : _GEN_1452; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1454 = 5'he == laneIndex_15[4:0] ? requestBuffer_io_out_a_14 : _GEN_1453; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1455 = 5'hf == laneIndex_15[4:0] ? requestBuffer_io_out_a_15 : _GEN_1454; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1456 = 5'h10 == laneIndex_15[4:0] ? requestBuffer_io_out_a_16 : _GEN_1455; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1457 = 5'h11 == laneIndex_15[4:0] ? requestBuffer_io_out_a_17 : _GEN_1456; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1458 = 5'h12 == laneIndex_15[4:0] ? requestBuffer_io_out_a_18 : _GEN_1457; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1459 = 5'h13 == laneIndex_15[4:0] ? requestBuffer_io_out_a_19 : _GEN_1458; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1460 = 5'h14 == laneIndex_15[4:0] ? requestBuffer_io_out_a_20 : _GEN_1459; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1461 = 5'h15 == laneIndex_15[4:0] ? requestBuffer_io_out_a_21 : _GEN_1460; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1462 = 5'h16 == laneIndex_15[4:0] ? requestBuffer_io_out_a_22 : _GEN_1461; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1463 = 5'h17 == laneIndex_15[4:0] ? requestBuffer_io_out_a_23 : _GEN_1462; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1464 = 5'h18 == laneIndex_15[4:0] ? requestBuffer_io_out_a_24 : _GEN_1463; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1465 = 5'h19 == laneIndex_15[4:0] ? requestBuffer_io_out_a_25 : _GEN_1464; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1466 = 5'h1a == laneIndex_15[4:0] ? requestBuffer_io_out_a_26 : _GEN_1465; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1467 = 5'h1b == laneIndex_15[4:0] ? requestBuffer_io_out_a_27 : _GEN_1466; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1468 = 5'h1c == laneIndex_15[4:0] ? requestBuffer_io_out_a_28 : _GEN_1467; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1469 = 5'h1d == laneIndex_15[4:0] ? requestBuffer_io_out_a_29 : _GEN_1468; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1470 = 5'h1e == laneIndex_15[4:0] ? requestBuffer_io_out_a_30 : _GEN_1469; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1471 = 5'h1f == laneIndex_15[4:0] ? requestBuffer_io_out_a_31 : _GEN_1470; // @[AecEightLaneIntUnit.scala 79:{55,55}]
-  wire [63:0] _GEN_1473 = 5'h1 == laneIndex_15[4:0] ? requestBuffer_io_out_b_1 : _GEN_32; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1474 = 5'h2 == laneIndex_15[4:0] ? requestBuffer_io_out_b_2 : _GEN_1473; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1475 = 5'h3 == laneIndex_15[4:0] ? requestBuffer_io_out_b_3 : _GEN_1474; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1476 = 5'h4 == laneIndex_15[4:0] ? requestBuffer_io_out_b_4 : _GEN_1475; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1477 = 5'h5 == laneIndex_15[4:0] ? requestBuffer_io_out_b_5 : _GEN_1476; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1478 = 5'h6 == laneIndex_15[4:0] ? requestBuffer_io_out_b_6 : _GEN_1477; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1479 = 5'h7 == laneIndex_15[4:0] ? requestBuffer_io_out_b_7 : _GEN_1478; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1480 = 5'h8 == laneIndex_15[4:0] ? requestBuffer_io_out_b_8 : _GEN_1479; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1481 = 5'h9 == laneIndex_15[4:0] ? requestBuffer_io_out_b_9 : _GEN_1480; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1482 = 5'ha == laneIndex_15[4:0] ? requestBuffer_io_out_b_10 : _GEN_1481; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1483 = 5'hb == laneIndex_15[4:0] ? requestBuffer_io_out_b_11 : _GEN_1482; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1484 = 5'hc == laneIndex_15[4:0] ? requestBuffer_io_out_b_12 : _GEN_1483; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1485 = 5'hd == laneIndex_15[4:0] ? requestBuffer_io_out_b_13 : _GEN_1484; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1486 = 5'he == laneIndex_15[4:0] ? requestBuffer_io_out_b_14 : _GEN_1485; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1487 = 5'hf == laneIndex_15[4:0] ? requestBuffer_io_out_b_15 : _GEN_1486; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1488 = 5'h10 == laneIndex_15[4:0] ? requestBuffer_io_out_b_16 : _GEN_1487; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1489 = 5'h11 == laneIndex_15[4:0] ? requestBuffer_io_out_b_17 : _GEN_1488; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1490 = 5'h12 == laneIndex_15[4:0] ? requestBuffer_io_out_b_18 : _GEN_1489; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1491 = 5'h13 == laneIndex_15[4:0] ? requestBuffer_io_out_b_19 : _GEN_1490; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1492 = 5'h14 == laneIndex_15[4:0] ? requestBuffer_io_out_b_20 : _GEN_1491; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1493 = 5'h15 == laneIndex_15[4:0] ? requestBuffer_io_out_b_21 : _GEN_1492; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1494 = 5'h16 == laneIndex_15[4:0] ? requestBuffer_io_out_b_22 : _GEN_1493; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1495 = 5'h17 == laneIndex_15[4:0] ? requestBuffer_io_out_b_23 : _GEN_1494; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1496 = 5'h18 == laneIndex_15[4:0] ? requestBuffer_io_out_b_24 : _GEN_1495; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1497 = 5'h19 == laneIndex_15[4:0] ? requestBuffer_io_out_b_25 : _GEN_1496; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1498 = 5'h1a == laneIndex_15[4:0] ? requestBuffer_io_out_b_26 : _GEN_1497; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1499 = 5'h1b == laneIndex_15[4:0] ? requestBuffer_io_out_b_27 : _GEN_1498; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1500 = 5'h1c == laneIndex_15[4:0] ? requestBuffer_io_out_b_28 : _GEN_1499; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1501 = 5'h1d == laneIndex_15[4:0] ? requestBuffer_io_out_b_29 : _GEN_1500; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1502 = 5'h1e == laneIndex_15[4:0] ? requestBuffer_io_out_b_30 : _GEN_1501; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1503 = 5'h1f == laneIndex_15[4:0] ? requestBuffer_io_out_b_31 : _GEN_1502; // @[AecEightLaneIntUnit.scala 80:{55,55}]
-  wire [63:0] _GEN_1505 = 5'h1 == laneIndex_15[4:0] ? requestBuffer_io_out_c_1 : _GEN_64; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1506 = 5'h2 == laneIndex_15[4:0] ? requestBuffer_io_out_c_2 : _GEN_1505; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1507 = 5'h3 == laneIndex_15[4:0] ? requestBuffer_io_out_c_3 : _GEN_1506; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1508 = 5'h4 == laneIndex_15[4:0] ? requestBuffer_io_out_c_4 : _GEN_1507; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1509 = 5'h5 == laneIndex_15[4:0] ? requestBuffer_io_out_c_5 : _GEN_1508; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1510 = 5'h6 == laneIndex_15[4:0] ? requestBuffer_io_out_c_6 : _GEN_1509; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1511 = 5'h7 == laneIndex_15[4:0] ? requestBuffer_io_out_c_7 : _GEN_1510; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1512 = 5'h8 == laneIndex_15[4:0] ? requestBuffer_io_out_c_8 : _GEN_1511; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1513 = 5'h9 == laneIndex_15[4:0] ? requestBuffer_io_out_c_9 : _GEN_1512; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1514 = 5'ha == laneIndex_15[4:0] ? requestBuffer_io_out_c_10 : _GEN_1513; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1515 = 5'hb == laneIndex_15[4:0] ? requestBuffer_io_out_c_11 : _GEN_1514; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1516 = 5'hc == laneIndex_15[4:0] ? requestBuffer_io_out_c_12 : _GEN_1515; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1517 = 5'hd == laneIndex_15[4:0] ? requestBuffer_io_out_c_13 : _GEN_1516; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1518 = 5'he == laneIndex_15[4:0] ? requestBuffer_io_out_c_14 : _GEN_1517; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1519 = 5'hf == laneIndex_15[4:0] ? requestBuffer_io_out_c_15 : _GEN_1518; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1520 = 5'h10 == laneIndex_15[4:0] ? requestBuffer_io_out_c_16 : _GEN_1519; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1521 = 5'h11 == laneIndex_15[4:0] ? requestBuffer_io_out_c_17 : _GEN_1520; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1522 = 5'h12 == laneIndex_15[4:0] ? requestBuffer_io_out_c_18 : _GEN_1521; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1523 = 5'h13 == laneIndex_15[4:0] ? requestBuffer_io_out_c_19 : _GEN_1522; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1524 = 5'h14 == laneIndex_15[4:0] ? requestBuffer_io_out_c_20 : _GEN_1523; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1525 = 5'h15 == laneIndex_15[4:0] ? requestBuffer_io_out_c_21 : _GEN_1524; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1526 = 5'h16 == laneIndex_15[4:0] ? requestBuffer_io_out_c_22 : _GEN_1525; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1527 = 5'h17 == laneIndex_15[4:0] ? requestBuffer_io_out_c_23 : _GEN_1526; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1528 = 5'h18 == laneIndex_15[4:0] ? requestBuffer_io_out_c_24 : _GEN_1527; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1529 = 5'h19 == laneIndex_15[4:0] ? requestBuffer_io_out_c_25 : _GEN_1528; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1530 = 5'h1a == laneIndex_15[4:0] ? requestBuffer_io_out_c_26 : _GEN_1529; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1531 = 5'h1b == laneIndex_15[4:0] ? requestBuffer_io_out_c_27 : _GEN_1530; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1532 = 5'h1c == laneIndex_15[4:0] ? requestBuffer_io_out_c_28 : _GEN_1531; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1533 = 5'h1d == laneIndex_15[4:0] ? requestBuffer_io_out_c_29 : _GEN_1532; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1534 = 5'h1e == laneIndex_15[4:0] ? requestBuffer_io_out_c_30 : _GEN_1533; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [63:0] _GEN_1535 = 5'h1f == laneIndex_15[4:0] ? requestBuffer_io_out_c_31 : _GEN_1534; // @[AecEightLaneIntUnit.scala 81:{55,55}]
-  wire [31:0] _requestStages_15_io_in_bits_selectPredicate_T = requestBuffer_io_out_predicateValues >> laneIndex_15; // @[AecEightLaneIntUnit.scala 83:72]
-  wire  _retireWrite_0_T = stateWait & allValid; // @[AecEightLaneIntUnit.scala 89:17]
-  wire  _retireWrite_0_T_2 = stateWait & allValid & ~group; // @[AecEightLaneIntUnit.scala 89:29]
-  wire  _retireWrite_4_T_2 = stateWait & allValid & group; // @[AecEightLaneIntUnit.scala 89:29]
-  wire  _issueWrite_0_T = stateIssue & allReady; // @[AecEightLaneIntUnit.scala 92:39]
-  wire [9:0] _GEN_1536 = armCapture ? 10'h2 : state; // @[AecEightLaneIntUnit.scala 104:{21,29} 29:22]
-  wire [9:0] _GEN_1537 = stateArm ? 10'h4 : _GEN_1536; // @[AecEightLaneIntUnit.scala 105:{19,27}]
-  wire [15:0] _laneOp_1_T = io_req_bits_op ^ 16'h1; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_1_T = io_req_bits_dtype ^ 4'h1; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_1_T = io_req_bits_dest ^ 8'h1; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_2_T = io_req_bits_op ^ 16'h2; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_2_T = io_req_bits_dtype ^ 4'h2; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_2_T = io_req_bits_dest ^ 8'h2; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_3_T = io_req_bits_op ^ 16'h3; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_3_T = io_req_bits_dtype ^ 4'h3; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_3_T = io_req_bits_dest ^ 8'h3; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_4_T = io_req_bits_op ^ 16'h4; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_4_T = io_req_bits_dtype ^ 4'h4; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_4_T = io_req_bits_dest ^ 8'h4; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_5_T = io_req_bits_op ^ 16'h5; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_5_T = io_req_bits_dtype ^ 4'h5; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_5_T = io_req_bits_dest ^ 8'h5; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_6_T = io_req_bits_op ^ 16'h6; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_6_T = io_req_bits_dtype ^ 4'h6; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_6_T = io_req_bits_dest ^ 8'h6; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_7_T = io_req_bits_op ^ 16'h7; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_7_T = io_req_bits_dtype ^ 4'h7; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_7_T = io_req_bits_dest ^ 8'h7; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_8_T = io_req_bits_op ^ 16'h8; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_8_T = io_req_bits_dtype ^ 4'h8; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_8_T = io_req_bits_dest ^ 8'h8; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_9_T = io_req_bits_op ^ 16'h9; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_9_T = io_req_bits_dtype ^ 4'h9; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_9_T = io_req_bits_dest ^ 8'h9; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_10_T = io_req_bits_op ^ 16'ha; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_10_T = io_req_bits_dtype ^ 4'ha; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_10_T = io_req_bits_dest ^ 8'ha; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_11_T = io_req_bits_op ^ 16'hb; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_11_T = io_req_bits_dtype ^ 4'hb; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_11_T = io_req_bits_dest ^ 8'hb; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_12_T = io_req_bits_op ^ 16'hc; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_12_T = io_req_bits_dtype ^ 4'hc; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_12_T = io_req_bits_dest ^ 8'hc; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_13_T = io_req_bits_op ^ 16'hd; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_13_T = io_req_bits_dtype ^ 4'hd; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_13_T = io_req_bits_dest ^ 8'hd; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_14_T = io_req_bits_op ^ 16'he; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_14_T = io_req_bits_dtype ^ 4'he; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_14_T = io_req_bits_dest ^ 8'he; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [15:0] _laneOp_15_T = io_req_bits_op ^ 16'hf; // @[AecEightLaneIntUnit.scala 109:35]
-  wire [3:0] _laneDtype_15_T = io_req_bits_dtype ^ 4'hf; // @[AecEightLaneIntUnit.scala 110:41]
-  wire [7:0] _laneDest_15_T = io_req_bits_dest ^ 8'hf; // @[AecEightLaneIntUnit.scala 111:39]
-  wire [9:0] _state_T_1 = |io_req_bits_activeMask ? 10'h8 : 10'h200; // @[AecEightLaneIntUnit.scala 115:17]
-  wire  _GEN_1586 = _requestBuffer_io_capture_T ? 1'h0 : group; // @[AecEightLaneIntUnit.scala 106:22 113:11 28:22]
-  wire [9:0] _GEN_1588 = _requestBuffer_io_capture_T ? _state_T_1 : _GEN_1537; // @[AecEightLaneIntUnit.scala 106:22 115:11]
-  wire [9:0] _GEN_1589 = _issueWrite_0_T ? 10'h10 : _GEN_1588; // @[AecEightLaneIntUnit.scala 117:33 118:11]
-  wire [9:0] _GEN_1590 = stateIssueFanout ? 10'h20 : _GEN_1589; // @[AecEightLaneIntUnit.scala 120:27 121:11]
-  wire [9:0] _GEN_1591 = _retireWrite_0_T ? 10'h40 : _GEN_1590; // @[AecEightLaneIntUnit.scala 123:32 124:11]
-  wire [9:0] _GEN_1592 = stateWaitFanout ? 10'h80 : _GEN_1591; // @[AecEightLaneIntUnit.scala 126:26 127:11]
-  wire [48:0] _groupMask_T_2 = 49'h10000 - 49'h1; // @[AecEightLaneIntUnit.scala 133:53]
-  wire [111:0] _GEN_96 = {{63'd0}, _groupMask_T_2}; // @[AecEightLaneIntUnit.scala 133:60]
-  wire [111:0] _groupMask_T_3 = _GEN_96 << base; // @[AecEightLaneIntUnit.scala 133:60]
-  wire [31:0] groupMask = _groupMask_T_3[31:0]; // @[AecEightLaneIntUnit.scala 133:68]
-  wire [31:0] _writeMask_T = requestBuffer_io_out_activeMask & groupMask; // @[AecEightLaneIntUnit.scala 134:47]
-  wire [31:0] _writeMask_T_1 = writeMask | _writeMask_T; // @[AecEightLaneIntUnit.scala 134:28]
-  wire  _T_68 = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
+    lanes_12_io_resp_valid & lanes_13_io_resp_valid & lanes_14_io_resp_valid & lanes_15_io_resp_valid; // @[AecEightLaneIntUnit.scala 72:54]
+  wire  _retireWrite_0_T = stateWait & allValid; // @[AecEightLaneIntUnit.scala 91:17]
+  wire  _retireWrite_0_T_2 = stateWait & allValid & ~group; // @[AecEightLaneIntUnit.scala 91:29]
+  wire  _retireWrite_4_T_2 = stateWait & allValid & group; // @[AecEightLaneIntUnit.scala 91:29]
+  wire  _issueWrite_0_T = stateIssue & allReady; // @[AecEightLaneIntUnit.scala 94:39]
+  wire [63:0] _resultBanks_0_io_writeResult_T_1 = {32'h0,lanes_0_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_1_io_writeResult_T_1 = {32'h0,lanes_1_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_2_io_writeResult_T_1 = {32'h0,lanes_2_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_3_io_writeResult_T_1 = {32'h0,lanes_3_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_4_io_writeResult_T_1 = {32'h0,lanes_4_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_5_io_writeResult_T_1 = {32'h0,lanes_5_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_6_io_writeResult_T_1 = {32'h0,lanes_6_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_7_io_writeResult_T_1 = {32'h0,lanes_7_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_8_io_writeResult_T_1 = {32'h0,lanes_8_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_9_io_writeResult_T_1 = {32'h0,lanes_9_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_10_io_writeResult_T_1 = {32'h0,lanes_10_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_11_io_writeResult_T_1 = {32'h0,lanes_11_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_12_io_writeResult_T_1 = {32'h0,lanes_12_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_13_io_writeResult_T_1 = {32'h0,lanes_13_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_14_io_writeResult_T_1 = {32'h0,lanes_14_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [63:0] _resultBanks_15_io_writeResult_T_1 = {32'h0,lanes_15_io_resp_bits_result}; // @[Cat.scala 33:92]
+  wire [9:0] _GEN_0 = armCapture ? 10'h2 : state; // @[AecEightLaneIntUnit.scala 107:{21,29} 29:22]
+  wire [9:0] _GEN_1 = stateArm ? 10'h4 : _GEN_0; // @[AecEightLaneIntUnit.scala 108:{19,27}]
+  wire [15:0] _laneOp_1_T = io_req_bits_op ^ 16'h1; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_1_T = io_req_bits_dtype ^ 4'h1; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_1_T = io_req_bits_dest ^ 8'h1; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_2_T = io_req_bits_op ^ 16'h2; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_2_T = io_req_bits_dtype ^ 4'h2; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_2_T = io_req_bits_dest ^ 8'h2; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_3_T = io_req_bits_op ^ 16'h3; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_3_T = io_req_bits_dtype ^ 4'h3; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_3_T = io_req_bits_dest ^ 8'h3; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_4_T = io_req_bits_op ^ 16'h4; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_4_T = io_req_bits_dtype ^ 4'h4; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_4_T = io_req_bits_dest ^ 8'h4; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_5_T = io_req_bits_op ^ 16'h5; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_5_T = io_req_bits_dtype ^ 4'h5; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_5_T = io_req_bits_dest ^ 8'h5; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_6_T = io_req_bits_op ^ 16'h6; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_6_T = io_req_bits_dtype ^ 4'h6; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_6_T = io_req_bits_dest ^ 8'h6; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_7_T = io_req_bits_op ^ 16'h7; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_7_T = io_req_bits_dtype ^ 4'h7; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_7_T = io_req_bits_dest ^ 8'h7; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_8_T = io_req_bits_op ^ 16'h8; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_8_T = io_req_bits_dtype ^ 4'h8; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_8_T = io_req_bits_dest ^ 8'h8; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_9_T = io_req_bits_op ^ 16'h9; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_9_T = io_req_bits_dtype ^ 4'h9; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_9_T = io_req_bits_dest ^ 8'h9; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_10_T = io_req_bits_op ^ 16'ha; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_10_T = io_req_bits_dtype ^ 4'ha; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_10_T = io_req_bits_dest ^ 8'ha; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_11_T = io_req_bits_op ^ 16'hb; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_11_T = io_req_bits_dtype ^ 4'hb; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_11_T = io_req_bits_dest ^ 8'hb; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_12_T = io_req_bits_op ^ 16'hc; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_12_T = io_req_bits_dtype ^ 4'hc; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_12_T = io_req_bits_dest ^ 8'hc; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_13_T = io_req_bits_op ^ 16'hd; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_13_T = io_req_bits_dtype ^ 4'hd; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_13_T = io_req_bits_dest ^ 8'hd; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_14_T = io_req_bits_op ^ 16'he; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_14_T = io_req_bits_dtype ^ 4'he; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_14_T = io_req_bits_dest ^ 8'he; // @[AecEightLaneIntUnit.scala 114:39]
+  wire [15:0] _laneOp_15_T = io_req_bits_op ^ 16'hf; // @[AecEightLaneIntUnit.scala 112:35]
+  wire [3:0] _laneDtype_15_T = io_req_bits_dtype ^ 4'hf; // @[AecEightLaneIntUnit.scala 113:41]
+  wire [7:0] _laneDest_15_T = io_req_bits_dest ^ 8'hf; // @[AecEightLaneIntUnit.scala 114:39]
+  wire  _GEN_50 = _requestBuffer_io_capture_T ? 1'h0 : group; // @[AecEightLaneIntUnit.scala 109:22 116:11 28:22]
+  wire [9:0] _GEN_51 = _requestBuffer_io_capture_T ? 10'h8 : _GEN_1; // @[AecEightLaneIntUnit.scala 109:22 117:11]
+  wire [9:0] _GEN_52 = _issueWrite_0_T ? 10'h10 : _GEN_51; // @[AecEightLaneIntUnit.scala 119:33 120:11]
+  wire [9:0] _GEN_53 = stateIssueFanout ? 10'h20 : _GEN_52; // @[AecEightLaneIntUnit.scala 122:27 123:11]
+  wire [9:0] _GEN_54 = _retireWrite_0_T ? 10'h40 : _GEN_53; // @[AecEightLaneIntUnit.scala 125:32 126:11]
+  wire [9:0] _GEN_55 = stateWaitFanout ? 10'h80 : _GEN_54; // @[AecEightLaneIntUnit.scala 128:26 129:11]
+  wire  _T_4 = io_resp_ready & io_resp_valid; // @[Decoupled.scala 51:35]
   AecIntAlu lanes_0 ( // @[AecEightLaneIntUnit.scala 22:45]
     .clock(lanes_0_clock),
     .reset(lanes_0_reset),
@@ -11633,17 +10303,24 @@ module AecEightLaneIntUnit(
     .io_resp_bits_predicateResult(lanes_15_io_resp_bits_predicateResult),
     .io_resp_bits_error(lanes_15_io_resp_bits_error)
   );
-  AecIntRequestStage requestStages_0 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_0 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_0_clock),
     .reset(requestStages_0_reset),
-    .io_in_ready(requestStages_0_io_in_ready),
-    .io_in_valid(requestStages_0_io_in_valid),
-    .io_in_bits_op(requestStages_0_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_0_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_0_io_in_bits_a),
-    .io_in_bits_b(requestStages_0_io_in_bits_b),
-    .io_in_bits_c(requestStages_0_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_0_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_0_io_inValid),
+    .io_inReady(requestStages_0_io_inReady),
+    .io_group(requestStages_0_io_group),
+    .io_data_0_op(requestStages_0_io_data_0_op),
+    .io_data_0_dtype(requestStages_0_io_data_0_dtype),
+    .io_data_0_a(requestStages_0_io_data_0_a),
+    .io_data_0_b(requestStages_0_io_data_0_b),
+    .io_data_0_c(requestStages_0_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_0_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_0_io_data_1_op),
+    .io_data_1_dtype(requestStages_0_io_data_1_dtype),
+    .io_data_1_a(requestStages_0_io_data_1_a),
+    .io_data_1_b(requestStages_0_io_data_1_b),
+    .io_data_1_c(requestStages_0_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_0_io_data_1_selectPredicate),
     .io_out_ready(requestStages_0_io_out_ready),
     .io_out_valid(requestStages_0_io_out_valid),
     .io_out_bits_op(requestStages_0_io_out_bits_op),
@@ -11653,17 +10330,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_0_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_0_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_1 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_1 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_1_clock),
     .reset(requestStages_1_reset),
-    .io_in_ready(requestStages_1_io_in_ready),
-    .io_in_valid(requestStages_1_io_in_valid),
-    .io_in_bits_op(requestStages_1_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_1_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_1_io_in_bits_a),
-    .io_in_bits_b(requestStages_1_io_in_bits_b),
-    .io_in_bits_c(requestStages_1_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_1_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_1_io_inValid),
+    .io_inReady(requestStages_1_io_inReady),
+    .io_group(requestStages_1_io_group),
+    .io_data_0_op(requestStages_1_io_data_0_op),
+    .io_data_0_dtype(requestStages_1_io_data_0_dtype),
+    .io_data_0_a(requestStages_1_io_data_0_a),
+    .io_data_0_b(requestStages_1_io_data_0_b),
+    .io_data_0_c(requestStages_1_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_1_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_1_io_data_1_op),
+    .io_data_1_dtype(requestStages_1_io_data_1_dtype),
+    .io_data_1_a(requestStages_1_io_data_1_a),
+    .io_data_1_b(requestStages_1_io_data_1_b),
+    .io_data_1_c(requestStages_1_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_1_io_data_1_selectPredicate),
     .io_out_ready(requestStages_1_io_out_ready),
     .io_out_valid(requestStages_1_io_out_valid),
     .io_out_bits_op(requestStages_1_io_out_bits_op),
@@ -11673,17 +10357,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_1_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_1_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_2 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_2 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_2_clock),
     .reset(requestStages_2_reset),
-    .io_in_ready(requestStages_2_io_in_ready),
-    .io_in_valid(requestStages_2_io_in_valid),
-    .io_in_bits_op(requestStages_2_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_2_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_2_io_in_bits_a),
-    .io_in_bits_b(requestStages_2_io_in_bits_b),
-    .io_in_bits_c(requestStages_2_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_2_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_2_io_inValid),
+    .io_inReady(requestStages_2_io_inReady),
+    .io_group(requestStages_2_io_group),
+    .io_data_0_op(requestStages_2_io_data_0_op),
+    .io_data_0_dtype(requestStages_2_io_data_0_dtype),
+    .io_data_0_a(requestStages_2_io_data_0_a),
+    .io_data_0_b(requestStages_2_io_data_0_b),
+    .io_data_0_c(requestStages_2_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_2_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_2_io_data_1_op),
+    .io_data_1_dtype(requestStages_2_io_data_1_dtype),
+    .io_data_1_a(requestStages_2_io_data_1_a),
+    .io_data_1_b(requestStages_2_io_data_1_b),
+    .io_data_1_c(requestStages_2_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_2_io_data_1_selectPredicate),
     .io_out_ready(requestStages_2_io_out_ready),
     .io_out_valid(requestStages_2_io_out_valid),
     .io_out_bits_op(requestStages_2_io_out_bits_op),
@@ -11693,17 +10384,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_2_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_2_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_3 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_3 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_3_clock),
     .reset(requestStages_3_reset),
-    .io_in_ready(requestStages_3_io_in_ready),
-    .io_in_valid(requestStages_3_io_in_valid),
-    .io_in_bits_op(requestStages_3_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_3_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_3_io_in_bits_a),
-    .io_in_bits_b(requestStages_3_io_in_bits_b),
-    .io_in_bits_c(requestStages_3_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_3_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_3_io_inValid),
+    .io_inReady(requestStages_3_io_inReady),
+    .io_group(requestStages_3_io_group),
+    .io_data_0_op(requestStages_3_io_data_0_op),
+    .io_data_0_dtype(requestStages_3_io_data_0_dtype),
+    .io_data_0_a(requestStages_3_io_data_0_a),
+    .io_data_0_b(requestStages_3_io_data_0_b),
+    .io_data_0_c(requestStages_3_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_3_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_3_io_data_1_op),
+    .io_data_1_dtype(requestStages_3_io_data_1_dtype),
+    .io_data_1_a(requestStages_3_io_data_1_a),
+    .io_data_1_b(requestStages_3_io_data_1_b),
+    .io_data_1_c(requestStages_3_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_3_io_data_1_selectPredicate),
     .io_out_ready(requestStages_3_io_out_ready),
     .io_out_valid(requestStages_3_io_out_valid),
     .io_out_bits_op(requestStages_3_io_out_bits_op),
@@ -11713,17 +10411,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_3_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_3_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_4 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_4 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_4_clock),
     .reset(requestStages_4_reset),
-    .io_in_ready(requestStages_4_io_in_ready),
-    .io_in_valid(requestStages_4_io_in_valid),
-    .io_in_bits_op(requestStages_4_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_4_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_4_io_in_bits_a),
-    .io_in_bits_b(requestStages_4_io_in_bits_b),
-    .io_in_bits_c(requestStages_4_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_4_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_4_io_inValid),
+    .io_inReady(requestStages_4_io_inReady),
+    .io_group(requestStages_4_io_group),
+    .io_data_0_op(requestStages_4_io_data_0_op),
+    .io_data_0_dtype(requestStages_4_io_data_0_dtype),
+    .io_data_0_a(requestStages_4_io_data_0_a),
+    .io_data_0_b(requestStages_4_io_data_0_b),
+    .io_data_0_c(requestStages_4_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_4_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_4_io_data_1_op),
+    .io_data_1_dtype(requestStages_4_io_data_1_dtype),
+    .io_data_1_a(requestStages_4_io_data_1_a),
+    .io_data_1_b(requestStages_4_io_data_1_b),
+    .io_data_1_c(requestStages_4_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_4_io_data_1_selectPredicate),
     .io_out_ready(requestStages_4_io_out_ready),
     .io_out_valid(requestStages_4_io_out_valid),
     .io_out_bits_op(requestStages_4_io_out_bits_op),
@@ -11733,17 +10438,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_4_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_4_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_5 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_5 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_5_clock),
     .reset(requestStages_5_reset),
-    .io_in_ready(requestStages_5_io_in_ready),
-    .io_in_valid(requestStages_5_io_in_valid),
-    .io_in_bits_op(requestStages_5_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_5_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_5_io_in_bits_a),
-    .io_in_bits_b(requestStages_5_io_in_bits_b),
-    .io_in_bits_c(requestStages_5_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_5_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_5_io_inValid),
+    .io_inReady(requestStages_5_io_inReady),
+    .io_group(requestStages_5_io_group),
+    .io_data_0_op(requestStages_5_io_data_0_op),
+    .io_data_0_dtype(requestStages_5_io_data_0_dtype),
+    .io_data_0_a(requestStages_5_io_data_0_a),
+    .io_data_0_b(requestStages_5_io_data_0_b),
+    .io_data_0_c(requestStages_5_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_5_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_5_io_data_1_op),
+    .io_data_1_dtype(requestStages_5_io_data_1_dtype),
+    .io_data_1_a(requestStages_5_io_data_1_a),
+    .io_data_1_b(requestStages_5_io_data_1_b),
+    .io_data_1_c(requestStages_5_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_5_io_data_1_selectPredicate),
     .io_out_ready(requestStages_5_io_out_ready),
     .io_out_valid(requestStages_5_io_out_valid),
     .io_out_bits_op(requestStages_5_io_out_bits_op),
@@ -11753,17 +10465,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_5_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_5_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_6 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_6 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_6_clock),
     .reset(requestStages_6_reset),
-    .io_in_ready(requestStages_6_io_in_ready),
-    .io_in_valid(requestStages_6_io_in_valid),
-    .io_in_bits_op(requestStages_6_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_6_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_6_io_in_bits_a),
-    .io_in_bits_b(requestStages_6_io_in_bits_b),
-    .io_in_bits_c(requestStages_6_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_6_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_6_io_inValid),
+    .io_inReady(requestStages_6_io_inReady),
+    .io_group(requestStages_6_io_group),
+    .io_data_0_op(requestStages_6_io_data_0_op),
+    .io_data_0_dtype(requestStages_6_io_data_0_dtype),
+    .io_data_0_a(requestStages_6_io_data_0_a),
+    .io_data_0_b(requestStages_6_io_data_0_b),
+    .io_data_0_c(requestStages_6_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_6_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_6_io_data_1_op),
+    .io_data_1_dtype(requestStages_6_io_data_1_dtype),
+    .io_data_1_a(requestStages_6_io_data_1_a),
+    .io_data_1_b(requestStages_6_io_data_1_b),
+    .io_data_1_c(requestStages_6_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_6_io_data_1_selectPredicate),
     .io_out_ready(requestStages_6_io_out_ready),
     .io_out_valid(requestStages_6_io_out_valid),
     .io_out_bits_op(requestStages_6_io_out_bits_op),
@@ -11773,17 +10492,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_6_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_6_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_7 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_7 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_7_clock),
     .reset(requestStages_7_reset),
-    .io_in_ready(requestStages_7_io_in_ready),
-    .io_in_valid(requestStages_7_io_in_valid),
-    .io_in_bits_op(requestStages_7_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_7_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_7_io_in_bits_a),
-    .io_in_bits_b(requestStages_7_io_in_bits_b),
-    .io_in_bits_c(requestStages_7_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_7_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_7_io_inValid),
+    .io_inReady(requestStages_7_io_inReady),
+    .io_group(requestStages_7_io_group),
+    .io_data_0_op(requestStages_7_io_data_0_op),
+    .io_data_0_dtype(requestStages_7_io_data_0_dtype),
+    .io_data_0_a(requestStages_7_io_data_0_a),
+    .io_data_0_b(requestStages_7_io_data_0_b),
+    .io_data_0_c(requestStages_7_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_7_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_7_io_data_1_op),
+    .io_data_1_dtype(requestStages_7_io_data_1_dtype),
+    .io_data_1_a(requestStages_7_io_data_1_a),
+    .io_data_1_b(requestStages_7_io_data_1_b),
+    .io_data_1_c(requestStages_7_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_7_io_data_1_selectPredicate),
     .io_out_ready(requestStages_7_io_out_ready),
     .io_out_valid(requestStages_7_io_out_valid),
     .io_out_bits_op(requestStages_7_io_out_bits_op),
@@ -11793,17 +10519,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_7_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_7_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_8 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_8 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_8_clock),
     .reset(requestStages_8_reset),
-    .io_in_ready(requestStages_8_io_in_ready),
-    .io_in_valid(requestStages_8_io_in_valid),
-    .io_in_bits_op(requestStages_8_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_8_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_8_io_in_bits_a),
-    .io_in_bits_b(requestStages_8_io_in_bits_b),
-    .io_in_bits_c(requestStages_8_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_8_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_8_io_inValid),
+    .io_inReady(requestStages_8_io_inReady),
+    .io_group(requestStages_8_io_group),
+    .io_data_0_op(requestStages_8_io_data_0_op),
+    .io_data_0_dtype(requestStages_8_io_data_0_dtype),
+    .io_data_0_a(requestStages_8_io_data_0_a),
+    .io_data_0_b(requestStages_8_io_data_0_b),
+    .io_data_0_c(requestStages_8_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_8_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_8_io_data_1_op),
+    .io_data_1_dtype(requestStages_8_io_data_1_dtype),
+    .io_data_1_a(requestStages_8_io_data_1_a),
+    .io_data_1_b(requestStages_8_io_data_1_b),
+    .io_data_1_c(requestStages_8_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_8_io_data_1_selectPredicate),
     .io_out_ready(requestStages_8_io_out_ready),
     .io_out_valid(requestStages_8_io_out_valid),
     .io_out_bits_op(requestStages_8_io_out_bits_op),
@@ -11813,17 +10546,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_8_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_8_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_9 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_9 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_9_clock),
     .reset(requestStages_9_reset),
-    .io_in_ready(requestStages_9_io_in_ready),
-    .io_in_valid(requestStages_9_io_in_valid),
-    .io_in_bits_op(requestStages_9_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_9_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_9_io_in_bits_a),
-    .io_in_bits_b(requestStages_9_io_in_bits_b),
-    .io_in_bits_c(requestStages_9_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_9_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_9_io_inValid),
+    .io_inReady(requestStages_9_io_inReady),
+    .io_group(requestStages_9_io_group),
+    .io_data_0_op(requestStages_9_io_data_0_op),
+    .io_data_0_dtype(requestStages_9_io_data_0_dtype),
+    .io_data_0_a(requestStages_9_io_data_0_a),
+    .io_data_0_b(requestStages_9_io_data_0_b),
+    .io_data_0_c(requestStages_9_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_9_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_9_io_data_1_op),
+    .io_data_1_dtype(requestStages_9_io_data_1_dtype),
+    .io_data_1_a(requestStages_9_io_data_1_a),
+    .io_data_1_b(requestStages_9_io_data_1_b),
+    .io_data_1_c(requestStages_9_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_9_io_data_1_selectPredicate),
     .io_out_ready(requestStages_9_io_out_ready),
     .io_out_valid(requestStages_9_io_out_valid),
     .io_out_bits_op(requestStages_9_io_out_bits_op),
@@ -11833,17 +10573,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_9_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_9_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_10 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_10 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_10_clock),
     .reset(requestStages_10_reset),
-    .io_in_ready(requestStages_10_io_in_ready),
-    .io_in_valid(requestStages_10_io_in_valid),
-    .io_in_bits_op(requestStages_10_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_10_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_10_io_in_bits_a),
-    .io_in_bits_b(requestStages_10_io_in_bits_b),
-    .io_in_bits_c(requestStages_10_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_10_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_10_io_inValid),
+    .io_inReady(requestStages_10_io_inReady),
+    .io_group(requestStages_10_io_group),
+    .io_data_0_op(requestStages_10_io_data_0_op),
+    .io_data_0_dtype(requestStages_10_io_data_0_dtype),
+    .io_data_0_a(requestStages_10_io_data_0_a),
+    .io_data_0_b(requestStages_10_io_data_0_b),
+    .io_data_0_c(requestStages_10_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_10_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_10_io_data_1_op),
+    .io_data_1_dtype(requestStages_10_io_data_1_dtype),
+    .io_data_1_a(requestStages_10_io_data_1_a),
+    .io_data_1_b(requestStages_10_io_data_1_b),
+    .io_data_1_c(requestStages_10_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_10_io_data_1_selectPredicate),
     .io_out_ready(requestStages_10_io_out_ready),
     .io_out_valid(requestStages_10_io_out_valid),
     .io_out_bits_op(requestStages_10_io_out_bits_op),
@@ -11853,17 +10600,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_10_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_10_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_11 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_11 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_11_clock),
     .reset(requestStages_11_reset),
-    .io_in_ready(requestStages_11_io_in_ready),
-    .io_in_valid(requestStages_11_io_in_valid),
-    .io_in_bits_op(requestStages_11_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_11_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_11_io_in_bits_a),
-    .io_in_bits_b(requestStages_11_io_in_bits_b),
-    .io_in_bits_c(requestStages_11_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_11_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_11_io_inValid),
+    .io_inReady(requestStages_11_io_inReady),
+    .io_group(requestStages_11_io_group),
+    .io_data_0_op(requestStages_11_io_data_0_op),
+    .io_data_0_dtype(requestStages_11_io_data_0_dtype),
+    .io_data_0_a(requestStages_11_io_data_0_a),
+    .io_data_0_b(requestStages_11_io_data_0_b),
+    .io_data_0_c(requestStages_11_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_11_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_11_io_data_1_op),
+    .io_data_1_dtype(requestStages_11_io_data_1_dtype),
+    .io_data_1_a(requestStages_11_io_data_1_a),
+    .io_data_1_b(requestStages_11_io_data_1_b),
+    .io_data_1_c(requestStages_11_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_11_io_data_1_selectPredicate),
     .io_out_ready(requestStages_11_io_out_ready),
     .io_out_valid(requestStages_11_io_out_valid),
     .io_out_bits_op(requestStages_11_io_out_bits_op),
@@ -11873,17 +10627,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_11_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_11_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_12 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_12 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_12_clock),
     .reset(requestStages_12_reset),
-    .io_in_ready(requestStages_12_io_in_ready),
-    .io_in_valid(requestStages_12_io_in_valid),
-    .io_in_bits_op(requestStages_12_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_12_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_12_io_in_bits_a),
-    .io_in_bits_b(requestStages_12_io_in_bits_b),
-    .io_in_bits_c(requestStages_12_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_12_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_12_io_inValid),
+    .io_inReady(requestStages_12_io_inReady),
+    .io_group(requestStages_12_io_group),
+    .io_data_0_op(requestStages_12_io_data_0_op),
+    .io_data_0_dtype(requestStages_12_io_data_0_dtype),
+    .io_data_0_a(requestStages_12_io_data_0_a),
+    .io_data_0_b(requestStages_12_io_data_0_b),
+    .io_data_0_c(requestStages_12_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_12_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_12_io_data_1_op),
+    .io_data_1_dtype(requestStages_12_io_data_1_dtype),
+    .io_data_1_a(requestStages_12_io_data_1_a),
+    .io_data_1_b(requestStages_12_io_data_1_b),
+    .io_data_1_c(requestStages_12_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_12_io_data_1_selectPredicate),
     .io_out_ready(requestStages_12_io_out_ready),
     .io_out_valid(requestStages_12_io_out_valid),
     .io_out_bits_op(requestStages_12_io_out_bits_op),
@@ -11893,17 +10654,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_12_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_12_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_13 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_13 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_13_clock),
     .reset(requestStages_13_reset),
-    .io_in_ready(requestStages_13_io_in_ready),
-    .io_in_valid(requestStages_13_io_in_valid),
-    .io_in_bits_op(requestStages_13_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_13_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_13_io_in_bits_a),
-    .io_in_bits_b(requestStages_13_io_in_bits_b),
-    .io_in_bits_c(requestStages_13_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_13_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_13_io_inValid),
+    .io_inReady(requestStages_13_io_inReady),
+    .io_group(requestStages_13_io_group),
+    .io_data_0_op(requestStages_13_io_data_0_op),
+    .io_data_0_dtype(requestStages_13_io_data_0_dtype),
+    .io_data_0_a(requestStages_13_io_data_0_a),
+    .io_data_0_b(requestStages_13_io_data_0_b),
+    .io_data_0_c(requestStages_13_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_13_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_13_io_data_1_op),
+    .io_data_1_dtype(requestStages_13_io_data_1_dtype),
+    .io_data_1_a(requestStages_13_io_data_1_a),
+    .io_data_1_b(requestStages_13_io_data_1_b),
+    .io_data_1_c(requestStages_13_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_13_io_data_1_selectPredicate),
     .io_out_ready(requestStages_13_io_out_ready),
     .io_out_valid(requestStages_13_io_out_valid),
     .io_out_bits_op(requestStages_13_io_out_bits_op),
@@ -11913,17 +10681,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_13_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_13_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_14 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_14 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_14_clock),
     .reset(requestStages_14_reset),
-    .io_in_ready(requestStages_14_io_in_ready),
-    .io_in_valid(requestStages_14_io_in_valid),
-    .io_in_bits_op(requestStages_14_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_14_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_14_io_in_bits_a),
-    .io_in_bits_b(requestStages_14_io_in_bits_b),
-    .io_in_bits_c(requestStages_14_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_14_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_14_io_inValid),
+    .io_inReady(requestStages_14_io_inReady),
+    .io_group(requestStages_14_io_group),
+    .io_data_0_op(requestStages_14_io_data_0_op),
+    .io_data_0_dtype(requestStages_14_io_data_0_dtype),
+    .io_data_0_a(requestStages_14_io_data_0_a),
+    .io_data_0_b(requestStages_14_io_data_0_b),
+    .io_data_0_c(requestStages_14_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_14_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_14_io_data_1_op),
+    .io_data_1_dtype(requestStages_14_io_data_1_dtype),
+    .io_data_1_a(requestStages_14_io_data_1_a),
+    .io_data_1_b(requestStages_14_io_data_1_b),
+    .io_data_1_c(requestStages_14_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_14_io_data_1_selectPredicate),
     .io_out_ready(requestStages_14_io_out_ready),
     .io_out_valid(requestStages_14_io_out_valid),
     .io_out_bits_op(requestStages_14_io_out_bits_op),
@@ -11933,17 +10708,24 @@ module AecEightLaneIntUnit(
     .io_out_bits_c(requestStages_14_io_out_bits_c),
     .io_out_bits_selectPredicate(requestStages_14_io_out_bits_selectPredicate)
   );
-  AecIntRequestStage requestStages_15 ( // @[AecEightLaneIntUnit.scala 23:53]
+  AecIntWarpRequestStage requestStages_15 ( // @[AecEightLaneIntUnit.scala 23:53]
     .clock(requestStages_15_clock),
     .reset(requestStages_15_reset),
-    .io_in_ready(requestStages_15_io_in_ready),
-    .io_in_valid(requestStages_15_io_in_valid),
-    .io_in_bits_op(requestStages_15_io_in_bits_op),
-    .io_in_bits_dtype(requestStages_15_io_in_bits_dtype),
-    .io_in_bits_a(requestStages_15_io_in_bits_a),
-    .io_in_bits_b(requestStages_15_io_in_bits_b),
-    .io_in_bits_c(requestStages_15_io_in_bits_c),
-    .io_in_bits_selectPredicate(requestStages_15_io_in_bits_selectPredicate),
+    .io_inValid(requestStages_15_io_inValid),
+    .io_inReady(requestStages_15_io_inReady),
+    .io_group(requestStages_15_io_group),
+    .io_data_0_op(requestStages_15_io_data_0_op),
+    .io_data_0_dtype(requestStages_15_io_data_0_dtype),
+    .io_data_0_a(requestStages_15_io_data_0_a),
+    .io_data_0_b(requestStages_15_io_data_0_b),
+    .io_data_0_c(requestStages_15_io_data_0_c),
+    .io_data_0_selectPredicate(requestStages_15_io_data_0_selectPredicate),
+    .io_data_1_op(requestStages_15_io_data_1_op),
+    .io_data_1_dtype(requestStages_15_io_data_1_dtype),
+    .io_data_1_a(requestStages_15_io_data_1_a),
+    .io_data_1_b(requestStages_15_io_data_1_b),
+    .io_data_1_c(requestStages_15_io_data_1_c),
+    .io_data_1_selectPredicate(requestStages_15_io_data_1_selectPredicate),
     .io_out_ready(requestStages_15_io_out_ready),
     .io_out_valid(requestStages_15_io_out_valid),
     .io_out_bits_op(requestStages_15_io_out_bits_op),
@@ -12518,394 +11300,506 @@ module AecEightLaneIntUnit(
   );
   assign io_req_ready = state[2]; // @[AecEightLaneIntUnit.scala 32:27]
   assign io_resp_valid = state[9]; // @[AecEightLaneIntUnit.scala 39:23]
-  assign io_resp_bits_result_0 = writeMask[0] ? resultBanks_0_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_1 = writeMask[1] ? resultBanks_1_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_2 = writeMask[2] ? resultBanks_2_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_3 = writeMask[3] ? resultBanks_3_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_4 = writeMask[4] ? resultBanks_4_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_5 = writeMask[5] ? resultBanks_5_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_6 = writeMask[6] ? resultBanks_6_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_7 = writeMask[7] ? resultBanks_7_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_8 = writeMask[8] ? resultBanks_8_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_9 = writeMask[9] ? resultBanks_9_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_10 = writeMask[10] ? resultBanks_10_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_11 = writeMask[11] ? resultBanks_11_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_12 = writeMask[12] ? resultBanks_12_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_13 = writeMask[13] ? resultBanks_13_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_14 = writeMask[14] ? resultBanks_14_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_15 = writeMask[15] ? resultBanks_15_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_16 = writeMask[16] ? resultBanks_16_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_17 = writeMask[17] ? resultBanks_17_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_18 = writeMask[18] ? resultBanks_18_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_19 = writeMask[19] ? resultBanks_19_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_20 = writeMask[20] ? resultBanks_20_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_21 = writeMask[21] ? resultBanks_21_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_22 = writeMask[22] ? resultBanks_22_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_23 = writeMask[23] ? resultBanks_23_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_24 = writeMask[24] ? resultBanks_24_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_25 = writeMask[25] ? resultBanks_25_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_26 = writeMask[26] ? resultBanks_26_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_27 = writeMask[27] ? resultBanks_27_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_28 = writeMask[28] ? resultBanks_28_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_29 = writeMask[29] ? resultBanks_29_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_30 = writeMask[30] ? resultBanks_30_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_result_31 = writeMask[31] ? resultBanks_31_io_result : 64'h0; // @[AecEightLaneIntUnit.scala 64:59]
-  assign io_resp_bits_predicateMask = {io_resp_bits_predicateMask_hi,io_resp_bits_predicateMask_lo}; // @[AecEightLaneIntUnit.scala 65:109]
-  assign io_resp_bits_errorMask = {io_resp_bits_errorMask_hi,io_resp_bits_errorMask_lo}; // @[AecEightLaneIntUnit.scala 66:101]
-  assign io_resp_bits_exceptionFlags_0 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_1 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_2 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_3 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_4 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_5 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_6 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_7 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_8 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_9 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_10 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_11 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_12 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_13 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_14 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_15 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_16 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_17 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_18 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_19 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_20 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_21 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_22 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_23 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_24 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_25 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_26 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_27 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_28 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_29 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_30 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_exceptionFlags_31 = 5'h0; // @[AecEightLaneIntUnit.scala 67:{41,41}]
-  assign io_resp_bits_activeMask = requestBuffer_io_out_activeMask; // @[AecEightLaneIntUnit.scala 68:27]
-  assign io_resp_bits_dest = requestBuffer_io_out_dest; // @[AecEightLaneIntUnit.scala 69:21]
+  assign io_resp_bits_result_0 = resultBanks_0_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_1 = resultBanks_1_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_2 = resultBanks_2_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_3 = resultBanks_3_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_4 = resultBanks_4_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_5 = resultBanks_5_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_6 = resultBanks_6_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_7 = resultBanks_7_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_8 = resultBanks_8_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_9 = resultBanks_9_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_10 = resultBanks_10_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_11 = resultBanks_11_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_12 = resultBanks_12_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_13 = resultBanks_13_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_14 = resultBanks_14_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_15 = resultBanks_15_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_16 = resultBanks_16_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_17 = resultBanks_17_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_18 = resultBanks_18_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_19 = resultBanks_19_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_20 = resultBanks_20_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_21 = resultBanks_21_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_22 = resultBanks_22_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_23 = resultBanks_23_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_24 = resultBanks_24_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_25 = resultBanks_25_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_26 = resultBanks_26_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_27 = resultBanks_27_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_28 = resultBanks_28_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_29 = resultBanks_29_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_30 = resultBanks_30_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_result_31 = resultBanks_31_io_result; // @[AecEightLaneIntUnit.scala 63:{33,33}]
+  assign io_resp_bits_predicateMask = {io_resp_bits_predicateMask_hi,io_resp_bits_predicateMask_lo}; // @[AecEightLaneIntUnit.scala 64:74]
+  assign io_resp_bits_errorMask = {io_resp_bits_errorMask_hi,io_resp_bits_errorMask_lo}; // @[AecEightLaneIntUnit.scala 65:66]
+  assign io_resp_bits_exceptionFlags_0 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_1 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_2 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_3 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_4 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_5 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_6 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_7 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_8 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_9 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_10 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_11 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_12 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_13 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_14 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_15 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_16 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_17 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_18 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_19 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_20 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_21 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_22 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_23 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_24 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_25 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_26 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_27 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_28 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_29 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_30 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_exceptionFlags_31 = 5'h0; // @[AecEightLaneIntUnit.scala 66:{41,41}]
+  assign io_resp_bits_activeMask = requestBuffer_io_out_activeMask; // @[AecEightLaneIntUnit.scala 67:27]
+  assign io_resp_bits_dest = requestBuffer_io_out_dest; // @[AecEightLaneIntUnit.scala 68:21]
   assign lanes_0_clock = clock;
   assign lanes_0_reset = reset;
-  assign lanes_0_io_req_valid = requestStages_0_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_0_io_req_bits_op = requestStages_0_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_0_io_req_bits_dtype = requestStages_0_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_0_io_req_bits_a = requestStages_0_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_0_io_req_bits_b = requestStages_0_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_0_io_req_bits_c = requestStages_0_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_0_io_req_bits_selectPredicate = requestStages_0_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_0_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_0_io_req_valid = requestStages_0_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_0_io_req_bits_op = requestStages_0_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_0_io_req_bits_dtype = requestStages_0_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_0_io_req_bits_a = requestStages_0_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_0_io_req_bits_b = requestStages_0_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_0_io_req_bits_c = requestStages_0_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_0_io_req_bits_selectPredicate = requestStages_0_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_0_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_1_clock = clock;
   assign lanes_1_reset = reset;
-  assign lanes_1_io_req_valid = requestStages_1_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_1_io_req_bits_op = requestStages_1_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_1_io_req_bits_dtype = requestStages_1_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_1_io_req_bits_a = requestStages_1_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_1_io_req_bits_b = requestStages_1_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_1_io_req_bits_c = requestStages_1_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_1_io_req_bits_selectPredicate = requestStages_1_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_1_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_1_io_req_valid = requestStages_1_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_1_io_req_bits_op = requestStages_1_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_1_io_req_bits_dtype = requestStages_1_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_1_io_req_bits_a = requestStages_1_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_1_io_req_bits_b = requestStages_1_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_1_io_req_bits_c = requestStages_1_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_1_io_req_bits_selectPredicate = requestStages_1_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_1_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_2_clock = clock;
   assign lanes_2_reset = reset;
-  assign lanes_2_io_req_valid = requestStages_2_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_2_io_req_bits_op = requestStages_2_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_2_io_req_bits_dtype = requestStages_2_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_2_io_req_bits_a = requestStages_2_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_2_io_req_bits_b = requestStages_2_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_2_io_req_bits_c = requestStages_2_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_2_io_req_bits_selectPredicate = requestStages_2_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_2_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_2_io_req_valid = requestStages_2_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_2_io_req_bits_op = requestStages_2_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_2_io_req_bits_dtype = requestStages_2_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_2_io_req_bits_a = requestStages_2_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_2_io_req_bits_b = requestStages_2_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_2_io_req_bits_c = requestStages_2_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_2_io_req_bits_selectPredicate = requestStages_2_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_2_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_3_clock = clock;
   assign lanes_3_reset = reset;
-  assign lanes_3_io_req_valid = requestStages_3_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_3_io_req_bits_op = requestStages_3_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_3_io_req_bits_dtype = requestStages_3_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_3_io_req_bits_a = requestStages_3_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_3_io_req_bits_b = requestStages_3_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_3_io_req_bits_c = requestStages_3_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_3_io_req_bits_selectPredicate = requestStages_3_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_3_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_3_io_req_valid = requestStages_3_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_3_io_req_bits_op = requestStages_3_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_3_io_req_bits_dtype = requestStages_3_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_3_io_req_bits_a = requestStages_3_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_3_io_req_bits_b = requestStages_3_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_3_io_req_bits_c = requestStages_3_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_3_io_req_bits_selectPredicate = requestStages_3_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_3_io_resp_ready = responseReady_0; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_4_clock = clock;
   assign lanes_4_reset = reset;
-  assign lanes_4_io_req_valid = requestStages_4_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_4_io_req_bits_op = requestStages_4_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_4_io_req_bits_dtype = requestStages_4_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_4_io_req_bits_a = requestStages_4_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_4_io_req_bits_b = requestStages_4_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_4_io_req_bits_c = requestStages_4_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_4_io_req_bits_selectPredicate = requestStages_4_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_4_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_4_io_req_valid = requestStages_4_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_4_io_req_bits_op = requestStages_4_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_4_io_req_bits_dtype = requestStages_4_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_4_io_req_bits_a = requestStages_4_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_4_io_req_bits_b = requestStages_4_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_4_io_req_bits_c = requestStages_4_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_4_io_req_bits_selectPredicate = requestStages_4_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_4_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_5_clock = clock;
   assign lanes_5_reset = reset;
-  assign lanes_5_io_req_valid = requestStages_5_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_5_io_req_bits_op = requestStages_5_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_5_io_req_bits_dtype = requestStages_5_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_5_io_req_bits_a = requestStages_5_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_5_io_req_bits_b = requestStages_5_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_5_io_req_bits_c = requestStages_5_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_5_io_req_bits_selectPredicate = requestStages_5_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_5_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_5_io_req_valid = requestStages_5_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_5_io_req_bits_op = requestStages_5_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_5_io_req_bits_dtype = requestStages_5_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_5_io_req_bits_a = requestStages_5_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_5_io_req_bits_b = requestStages_5_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_5_io_req_bits_c = requestStages_5_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_5_io_req_bits_selectPredicate = requestStages_5_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_5_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_6_clock = clock;
   assign lanes_6_reset = reset;
-  assign lanes_6_io_req_valid = requestStages_6_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_6_io_req_bits_op = requestStages_6_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_6_io_req_bits_dtype = requestStages_6_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_6_io_req_bits_a = requestStages_6_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_6_io_req_bits_b = requestStages_6_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_6_io_req_bits_c = requestStages_6_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_6_io_req_bits_selectPredicate = requestStages_6_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_6_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_6_io_req_valid = requestStages_6_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_6_io_req_bits_op = requestStages_6_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_6_io_req_bits_dtype = requestStages_6_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_6_io_req_bits_a = requestStages_6_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_6_io_req_bits_b = requestStages_6_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_6_io_req_bits_c = requestStages_6_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_6_io_req_bits_selectPredicate = requestStages_6_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_6_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_7_clock = clock;
   assign lanes_7_reset = reset;
-  assign lanes_7_io_req_valid = requestStages_7_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_7_io_req_bits_op = requestStages_7_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_7_io_req_bits_dtype = requestStages_7_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_7_io_req_bits_a = requestStages_7_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_7_io_req_bits_b = requestStages_7_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_7_io_req_bits_c = requestStages_7_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_7_io_req_bits_selectPredicate = requestStages_7_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_7_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_7_io_req_valid = requestStages_7_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_7_io_req_bits_op = requestStages_7_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_7_io_req_bits_dtype = requestStages_7_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_7_io_req_bits_a = requestStages_7_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_7_io_req_bits_b = requestStages_7_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_7_io_req_bits_c = requestStages_7_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_7_io_req_bits_selectPredicate = requestStages_7_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_7_io_resp_ready = responseReady_1; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_8_clock = clock;
   assign lanes_8_reset = reset;
-  assign lanes_8_io_req_valid = requestStages_8_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_8_io_req_bits_op = requestStages_8_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_8_io_req_bits_dtype = requestStages_8_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_8_io_req_bits_a = requestStages_8_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_8_io_req_bits_b = requestStages_8_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_8_io_req_bits_c = requestStages_8_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_8_io_req_bits_selectPredicate = requestStages_8_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_8_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_8_io_req_valid = requestStages_8_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_8_io_req_bits_op = requestStages_8_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_8_io_req_bits_dtype = requestStages_8_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_8_io_req_bits_a = requestStages_8_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_8_io_req_bits_b = requestStages_8_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_8_io_req_bits_c = requestStages_8_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_8_io_req_bits_selectPredicate = requestStages_8_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_8_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_9_clock = clock;
   assign lanes_9_reset = reset;
-  assign lanes_9_io_req_valid = requestStages_9_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_9_io_req_bits_op = requestStages_9_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_9_io_req_bits_dtype = requestStages_9_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_9_io_req_bits_a = requestStages_9_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_9_io_req_bits_b = requestStages_9_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_9_io_req_bits_c = requestStages_9_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_9_io_req_bits_selectPredicate = requestStages_9_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_9_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_9_io_req_valid = requestStages_9_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_9_io_req_bits_op = requestStages_9_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_9_io_req_bits_dtype = requestStages_9_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_9_io_req_bits_a = requestStages_9_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_9_io_req_bits_b = requestStages_9_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_9_io_req_bits_c = requestStages_9_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_9_io_req_bits_selectPredicate = requestStages_9_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_9_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_10_clock = clock;
   assign lanes_10_reset = reset;
-  assign lanes_10_io_req_valid = requestStages_10_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_10_io_req_bits_op = requestStages_10_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_10_io_req_bits_dtype = requestStages_10_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_10_io_req_bits_a = requestStages_10_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_10_io_req_bits_b = requestStages_10_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_10_io_req_bits_c = requestStages_10_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_10_io_req_bits_selectPredicate = requestStages_10_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_10_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_10_io_req_valid = requestStages_10_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_10_io_req_bits_op = requestStages_10_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_10_io_req_bits_dtype = requestStages_10_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_10_io_req_bits_a = requestStages_10_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_10_io_req_bits_b = requestStages_10_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_10_io_req_bits_c = requestStages_10_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_10_io_req_bits_selectPredicate = requestStages_10_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_10_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_11_clock = clock;
   assign lanes_11_reset = reset;
-  assign lanes_11_io_req_valid = requestStages_11_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_11_io_req_bits_op = requestStages_11_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_11_io_req_bits_dtype = requestStages_11_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_11_io_req_bits_a = requestStages_11_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_11_io_req_bits_b = requestStages_11_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_11_io_req_bits_c = requestStages_11_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_11_io_req_bits_selectPredicate = requestStages_11_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_11_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_11_io_req_valid = requestStages_11_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_11_io_req_bits_op = requestStages_11_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_11_io_req_bits_dtype = requestStages_11_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_11_io_req_bits_a = requestStages_11_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_11_io_req_bits_b = requestStages_11_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_11_io_req_bits_c = requestStages_11_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_11_io_req_bits_selectPredicate = requestStages_11_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_11_io_resp_ready = responseReady_2; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_12_clock = clock;
   assign lanes_12_reset = reset;
-  assign lanes_12_io_req_valid = requestStages_12_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_12_io_req_bits_op = requestStages_12_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_12_io_req_bits_dtype = requestStages_12_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_12_io_req_bits_a = requestStages_12_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_12_io_req_bits_b = requestStages_12_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_12_io_req_bits_c = requestStages_12_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_12_io_req_bits_selectPredicate = requestStages_12_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_12_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_12_io_req_valid = requestStages_12_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_12_io_req_bits_op = requestStages_12_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_12_io_req_bits_dtype = requestStages_12_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_12_io_req_bits_a = requestStages_12_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_12_io_req_bits_b = requestStages_12_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_12_io_req_bits_c = requestStages_12_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_12_io_req_bits_selectPredicate = requestStages_12_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_12_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_13_clock = clock;
   assign lanes_13_reset = reset;
-  assign lanes_13_io_req_valid = requestStages_13_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_13_io_req_bits_op = requestStages_13_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_13_io_req_bits_dtype = requestStages_13_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_13_io_req_bits_a = requestStages_13_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_13_io_req_bits_b = requestStages_13_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_13_io_req_bits_c = requestStages_13_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_13_io_req_bits_selectPredicate = requestStages_13_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_13_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_13_io_req_valid = requestStages_13_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_13_io_req_bits_op = requestStages_13_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_13_io_req_bits_dtype = requestStages_13_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_13_io_req_bits_a = requestStages_13_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_13_io_req_bits_b = requestStages_13_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_13_io_req_bits_c = requestStages_13_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_13_io_req_bits_selectPredicate = requestStages_13_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_13_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_14_clock = clock;
   assign lanes_14_reset = reset;
-  assign lanes_14_io_req_valid = requestStages_14_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_14_io_req_bits_op = requestStages_14_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_14_io_req_bits_dtype = requestStages_14_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_14_io_req_bits_a = requestStages_14_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_14_io_req_bits_b = requestStages_14_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_14_io_req_bits_c = requestStages_14_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_14_io_req_bits_selectPredicate = requestStages_14_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_14_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_14_io_req_valid = requestStages_14_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_14_io_req_bits_op = requestStages_14_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_14_io_req_bits_dtype = requestStages_14_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_14_io_req_bits_a = requestStages_14_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_14_io_req_bits_b = requestStages_14_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_14_io_req_bits_c = requestStages_14_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_14_io_req_bits_selectPredicate = requestStages_14_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_14_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 87:28]
   assign lanes_15_clock = clock;
   assign lanes_15_reset = reset;
-  assign lanes_15_io_req_valid = requestStages_15_io_out_valid; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_15_io_req_bits_op = requestStages_15_io_out_bits_op; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_15_io_req_bits_dtype = requestStages_15_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_15_io_req_bits_a = requestStages_15_io_out_bits_a; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_15_io_req_bits_b = requestStages_15_io_out_bits_b; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_15_io_req_bits_c = requestStages_15_io_out_bits_c; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_15_io_req_bits_selectPredicate = requestStages_15_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 84:21]
-  assign lanes_15_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 85:28]
+  assign lanes_15_io_req_valid = requestStages_15_io_out_valid; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_15_io_req_bits_op = requestStages_15_io_out_bits_op; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_15_io_req_bits_dtype = requestStages_15_io_out_bits_dtype; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_15_io_req_bits_a = requestStages_15_io_out_bits_a; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_15_io_req_bits_b = requestStages_15_io_out_bits_b; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_15_io_req_bits_c = requestStages_15_io_out_bits_c; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_15_io_req_bits_selectPredicate = requestStages_15_io_out_bits_selectPredicate; // @[AecEightLaneIntUnit.scala 86:21]
+  assign lanes_15_io_resp_ready = responseReady_3; // @[AecEightLaneIntUnit.scala 87:28]
   assign requestStages_0_clock = clock;
   assign requestStages_0_reset = reset;
-  assign requestStages_0_io_in_valid = issueWrite_0; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_0_io_in_bits_op = laneOp_0; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_0_io_in_bits_dtype = laneDtype_0; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_0_io_in_bits_a = _GEN_31[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_0_io_in_bits_b = _GEN_63[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_0_io_in_bits_c = _GEN_95[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_0_io_in_bits_selectPredicate = _requestStages_0_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_0_io_out_ready = lanes_0_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_0_io_inValid = issueWrite_0; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_0_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_0_io_data_0_op = laneOp_0; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_0_io_data_0_dtype = laneDtype_0; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_0_io_data_0_a = requestBuffer_io_out_a_0[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_0_io_data_0_b = requestBuffer_io_out_b_0[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_0_io_data_0_c = requestBuffer_io_out_c_0[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_0_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[0]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_0_io_data_1_op = laneOp_0; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_0_io_data_1_dtype = laneDtype_0; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_0_io_data_1_a = requestBuffer_io_out_a_16[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_0_io_data_1_b = requestBuffer_io_out_b_16[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_0_io_data_1_c = requestBuffer_io_out_c_16[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_0_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[16]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_0_io_out_ready = lanes_0_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_1_clock = clock;
   assign requestStages_1_reset = reset;
-  assign requestStages_1_io_in_valid = issueWrite_0; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_1_io_in_bits_op = laneOp_1 ^ 16'h1; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_1_io_in_bits_dtype = laneDtype_1 ^ 4'h1; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_1_io_in_bits_a = _GEN_127[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_1_io_in_bits_b = _GEN_159[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_1_io_in_bits_c = _GEN_191[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_1_io_in_bits_selectPredicate = _requestStages_1_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_1_io_out_ready = lanes_1_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_1_io_inValid = issueWrite_0; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_1_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_1_io_data_0_op = laneOp_1 ^ 16'h1; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_1_io_data_0_dtype = laneDtype_1 ^ 4'h1; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_1_io_data_0_a = requestBuffer_io_out_a_1[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_1_io_data_0_b = requestBuffer_io_out_b_1[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_1_io_data_0_c = requestBuffer_io_out_c_1[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_1_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[1]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_1_io_data_1_op = laneOp_1 ^ 16'h1; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_1_io_data_1_dtype = laneDtype_1 ^ 4'h1; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_1_io_data_1_a = requestBuffer_io_out_a_17[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_1_io_data_1_b = requestBuffer_io_out_b_17[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_1_io_data_1_c = requestBuffer_io_out_c_17[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_1_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[17]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_1_io_out_ready = lanes_1_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_2_clock = clock;
   assign requestStages_2_reset = reset;
-  assign requestStages_2_io_in_valid = issueWrite_0; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_2_io_in_bits_op = laneOp_2 ^ 16'h2; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_2_io_in_bits_dtype = laneDtype_2 ^ 4'h2; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_2_io_in_bits_a = _GEN_223[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_2_io_in_bits_b = _GEN_255[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_2_io_in_bits_c = _GEN_287[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_2_io_in_bits_selectPredicate = _requestStages_2_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_2_io_out_ready = lanes_2_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_2_io_inValid = issueWrite_0; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_2_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_2_io_data_0_op = laneOp_2 ^ 16'h2; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_2_io_data_0_dtype = laneDtype_2 ^ 4'h2; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_2_io_data_0_a = requestBuffer_io_out_a_2[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_2_io_data_0_b = requestBuffer_io_out_b_2[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_2_io_data_0_c = requestBuffer_io_out_c_2[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_2_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[2]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_2_io_data_1_op = laneOp_2 ^ 16'h2; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_2_io_data_1_dtype = laneDtype_2 ^ 4'h2; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_2_io_data_1_a = requestBuffer_io_out_a_18[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_2_io_data_1_b = requestBuffer_io_out_b_18[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_2_io_data_1_c = requestBuffer_io_out_c_18[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_2_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[18]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_2_io_out_ready = lanes_2_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_3_clock = clock;
   assign requestStages_3_reset = reset;
-  assign requestStages_3_io_in_valid = issueWrite_0; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_3_io_in_bits_op = laneOp_3 ^ 16'h3; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_3_io_in_bits_dtype = laneDtype_3 ^ 4'h3; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_3_io_in_bits_a = _GEN_319[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_3_io_in_bits_b = _GEN_351[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_3_io_in_bits_c = _GEN_383[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_3_io_in_bits_selectPredicate = _requestStages_3_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_3_io_out_ready = lanes_3_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_3_io_inValid = issueWrite_0; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_3_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_3_io_data_0_op = laneOp_3 ^ 16'h3; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_3_io_data_0_dtype = laneDtype_3 ^ 4'h3; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_3_io_data_0_a = requestBuffer_io_out_a_3[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_3_io_data_0_b = requestBuffer_io_out_b_3[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_3_io_data_0_c = requestBuffer_io_out_c_3[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_3_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[3]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_3_io_data_1_op = laneOp_3 ^ 16'h3; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_3_io_data_1_dtype = laneDtype_3 ^ 4'h3; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_3_io_data_1_a = requestBuffer_io_out_a_19[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_3_io_data_1_b = requestBuffer_io_out_b_19[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_3_io_data_1_c = requestBuffer_io_out_c_19[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_3_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[19]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_3_io_out_ready = lanes_3_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_4_clock = clock;
   assign requestStages_4_reset = reset;
-  assign requestStages_4_io_in_valid = issueWrite_1; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_4_io_in_bits_op = laneOp_4 ^ 16'h4; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_4_io_in_bits_dtype = laneDtype_4 ^ 4'h4; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_4_io_in_bits_a = _GEN_415[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_4_io_in_bits_b = _GEN_447[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_4_io_in_bits_c = _GEN_479[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_4_io_in_bits_selectPredicate = _requestStages_4_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_4_io_out_ready = lanes_4_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_4_io_inValid = issueWrite_1; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_4_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_4_io_data_0_op = laneOp_4 ^ 16'h4; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_4_io_data_0_dtype = laneDtype_4 ^ 4'h4; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_4_io_data_0_a = requestBuffer_io_out_a_4[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_4_io_data_0_b = requestBuffer_io_out_b_4[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_4_io_data_0_c = requestBuffer_io_out_c_4[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_4_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[4]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_4_io_data_1_op = laneOp_4 ^ 16'h4; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_4_io_data_1_dtype = laneDtype_4 ^ 4'h4; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_4_io_data_1_a = requestBuffer_io_out_a_20[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_4_io_data_1_b = requestBuffer_io_out_b_20[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_4_io_data_1_c = requestBuffer_io_out_c_20[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_4_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[20]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_4_io_out_ready = lanes_4_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_5_clock = clock;
   assign requestStages_5_reset = reset;
-  assign requestStages_5_io_in_valid = issueWrite_1; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_5_io_in_bits_op = laneOp_5 ^ 16'h5; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_5_io_in_bits_dtype = laneDtype_5 ^ 4'h5; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_5_io_in_bits_a = _GEN_511[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_5_io_in_bits_b = _GEN_543[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_5_io_in_bits_c = _GEN_575[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_5_io_in_bits_selectPredicate = _requestStages_5_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_5_io_out_ready = lanes_5_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_5_io_inValid = issueWrite_1; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_5_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_5_io_data_0_op = laneOp_5 ^ 16'h5; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_5_io_data_0_dtype = laneDtype_5 ^ 4'h5; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_5_io_data_0_a = requestBuffer_io_out_a_5[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_5_io_data_0_b = requestBuffer_io_out_b_5[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_5_io_data_0_c = requestBuffer_io_out_c_5[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_5_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[5]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_5_io_data_1_op = laneOp_5 ^ 16'h5; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_5_io_data_1_dtype = laneDtype_5 ^ 4'h5; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_5_io_data_1_a = requestBuffer_io_out_a_21[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_5_io_data_1_b = requestBuffer_io_out_b_21[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_5_io_data_1_c = requestBuffer_io_out_c_21[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_5_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[21]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_5_io_out_ready = lanes_5_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_6_clock = clock;
   assign requestStages_6_reset = reset;
-  assign requestStages_6_io_in_valid = issueWrite_1; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_6_io_in_bits_op = laneOp_6 ^ 16'h6; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_6_io_in_bits_dtype = laneDtype_6 ^ 4'h6; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_6_io_in_bits_a = _GEN_607[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_6_io_in_bits_b = _GEN_639[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_6_io_in_bits_c = _GEN_671[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_6_io_in_bits_selectPredicate = _requestStages_6_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_6_io_out_ready = lanes_6_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_6_io_inValid = issueWrite_1; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_6_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_6_io_data_0_op = laneOp_6 ^ 16'h6; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_6_io_data_0_dtype = laneDtype_6 ^ 4'h6; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_6_io_data_0_a = requestBuffer_io_out_a_6[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_6_io_data_0_b = requestBuffer_io_out_b_6[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_6_io_data_0_c = requestBuffer_io_out_c_6[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_6_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[6]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_6_io_data_1_op = laneOp_6 ^ 16'h6; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_6_io_data_1_dtype = laneDtype_6 ^ 4'h6; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_6_io_data_1_a = requestBuffer_io_out_a_22[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_6_io_data_1_b = requestBuffer_io_out_b_22[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_6_io_data_1_c = requestBuffer_io_out_c_22[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_6_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[22]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_6_io_out_ready = lanes_6_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_7_clock = clock;
   assign requestStages_7_reset = reset;
-  assign requestStages_7_io_in_valid = issueWrite_1; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_7_io_in_bits_op = laneOp_7 ^ 16'h7; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_7_io_in_bits_dtype = laneDtype_7 ^ 4'h7; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_7_io_in_bits_a = _GEN_703[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_7_io_in_bits_b = _GEN_735[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_7_io_in_bits_c = _GEN_767[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_7_io_in_bits_selectPredicate = _requestStages_7_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_7_io_out_ready = lanes_7_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_7_io_inValid = issueWrite_1; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_7_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_7_io_data_0_op = laneOp_7 ^ 16'h7; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_7_io_data_0_dtype = laneDtype_7 ^ 4'h7; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_7_io_data_0_a = requestBuffer_io_out_a_7[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_7_io_data_0_b = requestBuffer_io_out_b_7[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_7_io_data_0_c = requestBuffer_io_out_c_7[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_7_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[7]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_7_io_data_1_op = laneOp_7 ^ 16'h7; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_7_io_data_1_dtype = laneDtype_7 ^ 4'h7; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_7_io_data_1_a = requestBuffer_io_out_a_23[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_7_io_data_1_b = requestBuffer_io_out_b_23[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_7_io_data_1_c = requestBuffer_io_out_c_23[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_7_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[23]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_7_io_out_ready = lanes_7_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_8_clock = clock;
   assign requestStages_8_reset = reset;
-  assign requestStages_8_io_in_valid = issueWrite_2; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_8_io_in_bits_op = laneOp_8 ^ 16'h8; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_8_io_in_bits_dtype = laneDtype_8 ^ 4'h8; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_8_io_in_bits_a = _GEN_799[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_8_io_in_bits_b = _GEN_831[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_8_io_in_bits_c = _GEN_863[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_8_io_in_bits_selectPredicate = _requestStages_8_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_8_io_out_ready = lanes_8_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_8_io_inValid = issueWrite_2; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_8_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_8_io_data_0_op = laneOp_8 ^ 16'h8; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_8_io_data_0_dtype = laneDtype_8 ^ 4'h8; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_8_io_data_0_a = requestBuffer_io_out_a_8[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_8_io_data_0_b = requestBuffer_io_out_b_8[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_8_io_data_0_c = requestBuffer_io_out_c_8[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_8_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[8]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_8_io_data_1_op = laneOp_8 ^ 16'h8; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_8_io_data_1_dtype = laneDtype_8 ^ 4'h8; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_8_io_data_1_a = requestBuffer_io_out_a_24[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_8_io_data_1_b = requestBuffer_io_out_b_24[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_8_io_data_1_c = requestBuffer_io_out_c_24[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_8_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[24]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_8_io_out_ready = lanes_8_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_9_clock = clock;
   assign requestStages_9_reset = reset;
-  assign requestStages_9_io_in_valid = issueWrite_2; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_9_io_in_bits_op = laneOp_9 ^ 16'h9; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_9_io_in_bits_dtype = laneDtype_9 ^ 4'h9; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_9_io_in_bits_a = _GEN_895[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_9_io_in_bits_b = _GEN_927[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_9_io_in_bits_c = _GEN_959[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_9_io_in_bits_selectPredicate = _requestStages_9_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_9_io_out_ready = lanes_9_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_9_io_inValid = issueWrite_2; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_9_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_9_io_data_0_op = laneOp_9 ^ 16'h9; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_9_io_data_0_dtype = laneDtype_9 ^ 4'h9; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_9_io_data_0_a = requestBuffer_io_out_a_9[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_9_io_data_0_b = requestBuffer_io_out_b_9[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_9_io_data_0_c = requestBuffer_io_out_c_9[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_9_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[9]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_9_io_data_1_op = laneOp_9 ^ 16'h9; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_9_io_data_1_dtype = laneDtype_9 ^ 4'h9; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_9_io_data_1_a = requestBuffer_io_out_a_25[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_9_io_data_1_b = requestBuffer_io_out_b_25[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_9_io_data_1_c = requestBuffer_io_out_c_25[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_9_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[25]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_9_io_out_ready = lanes_9_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_10_clock = clock;
   assign requestStages_10_reset = reset;
-  assign requestStages_10_io_in_valid = issueWrite_2; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_10_io_in_bits_op = laneOp_10 ^ 16'ha; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_10_io_in_bits_dtype = laneDtype_10 ^ 4'ha; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_10_io_in_bits_a = _GEN_991[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_10_io_in_bits_b = _GEN_1023[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_10_io_in_bits_c = _GEN_1055[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_10_io_in_bits_selectPredicate = _requestStages_10_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_10_io_out_ready = lanes_10_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_10_io_inValid = issueWrite_2; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_10_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_10_io_data_0_op = laneOp_10 ^ 16'ha; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_10_io_data_0_dtype = laneDtype_10 ^ 4'ha; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_10_io_data_0_a = requestBuffer_io_out_a_10[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_10_io_data_0_b = requestBuffer_io_out_b_10[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_10_io_data_0_c = requestBuffer_io_out_c_10[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_10_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[10]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_10_io_data_1_op = laneOp_10 ^ 16'ha; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_10_io_data_1_dtype = laneDtype_10 ^ 4'ha; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_10_io_data_1_a = requestBuffer_io_out_a_26[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_10_io_data_1_b = requestBuffer_io_out_b_26[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_10_io_data_1_c = requestBuffer_io_out_c_26[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_10_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[26]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_10_io_out_ready = lanes_10_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_11_clock = clock;
   assign requestStages_11_reset = reset;
-  assign requestStages_11_io_in_valid = issueWrite_2; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_11_io_in_bits_op = laneOp_11 ^ 16'hb; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_11_io_in_bits_dtype = laneDtype_11 ^ 4'hb; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_11_io_in_bits_a = _GEN_1087[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_11_io_in_bits_b = _GEN_1119[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_11_io_in_bits_c = _GEN_1151[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_11_io_in_bits_selectPredicate = _requestStages_11_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_11_io_out_ready = lanes_11_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_11_io_inValid = issueWrite_2; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_11_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_11_io_data_0_op = laneOp_11 ^ 16'hb; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_11_io_data_0_dtype = laneDtype_11 ^ 4'hb; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_11_io_data_0_a = requestBuffer_io_out_a_11[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_11_io_data_0_b = requestBuffer_io_out_b_11[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_11_io_data_0_c = requestBuffer_io_out_c_11[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_11_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[11]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_11_io_data_1_op = laneOp_11 ^ 16'hb; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_11_io_data_1_dtype = laneDtype_11 ^ 4'hb; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_11_io_data_1_a = requestBuffer_io_out_a_27[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_11_io_data_1_b = requestBuffer_io_out_b_27[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_11_io_data_1_c = requestBuffer_io_out_c_27[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_11_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[27]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_11_io_out_ready = lanes_11_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_12_clock = clock;
   assign requestStages_12_reset = reset;
-  assign requestStages_12_io_in_valid = issueWrite_3; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_12_io_in_bits_op = laneOp_12 ^ 16'hc; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_12_io_in_bits_dtype = laneDtype_12 ^ 4'hc; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_12_io_in_bits_a = _GEN_1183[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_12_io_in_bits_b = _GEN_1215[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_12_io_in_bits_c = _GEN_1247[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_12_io_in_bits_selectPredicate = _requestStages_12_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_12_io_out_ready = lanes_12_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_12_io_inValid = issueWrite_3; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_12_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_12_io_data_0_op = laneOp_12 ^ 16'hc; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_12_io_data_0_dtype = laneDtype_12 ^ 4'hc; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_12_io_data_0_a = requestBuffer_io_out_a_12[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_12_io_data_0_b = requestBuffer_io_out_b_12[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_12_io_data_0_c = requestBuffer_io_out_c_12[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_12_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[12]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_12_io_data_1_op = laneOp_12 ^ 16'hc; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_12_io_data_1_dtype = laneDtype_12 ^ 4'hc; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_12_io_data_1_a = requestBuffer_io_out_a_28[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_12_io_data_1_b = requestBuffer_io_out_b_28[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_12_io_data_1_c = requestBuffer_io_out_c_28[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_12_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[28]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_12_io_out_ready = lanes_12_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_13_clock = clock;
   assign requestStages_13_reset = reset;
-  assign requestStages_13_io_in_valid = issueWrite_3; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_13_io_in_bits_op = laneOp_13 ^ 16'hd; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_13_io_in_bits_dtype = laneDtype_13 ^ 4'hd; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_13_io_in_bits_a = _GEN_1279[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_13_io_in_bits_b = _GEN_1311[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_13_io_in_bits_c = _GEN_1343[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_13_io_in_bits_selectPredicate = _requestStages_13_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_13_io_out_ready = lanes_13_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_13_io_inValid = issueWrite_3; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_13_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_13_io_data_0_op = laneOp_13 ^ 16'hd; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_13_io_data_0_dtype = laneDtype_13 ^ 4'hd; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_13_io_data_0_a = requestBuffer_io_out_a_13[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_13_io_data_0_b = requestBuffer_io_out_b_13[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_13_io_data_0_c = requestBuffer_io_out_c_13[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_13_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[13]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_13_io_data_1_op = laneOp_13 ^ 16'hd; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_13_io_data_1_dtype = laneDtype_13 ^ 4'hd; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_13_io_data_1_a = requestBuffer_io_out_a_29[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_13_io_data_1_b = requestBuffer_io_out_b_29[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_13_io_data_1_c = requestBuffer_io_out_c_29[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_13_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[29]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_13_io_out_ready = lanes_13_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_14_clock = clock;
   assign requestStages_14_reset = reset;
-  assign requestStages_14_io_in_valid = issueWrite_3; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_14_io_in_bits_op = laneOp_14 ^ 16'he; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_14_io_in_bits_dtype = laneDtype_14 ^ 4'he; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_14_io_in_bits_a = _GEN_1375[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_14_io_in_bits_b = _GEN_1407[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_14_io_in_bits_c = _GEN_1439[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_14_io_in_bits_selectPredicate = _requestStages_14_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_14_io_out_ready = lanes_14_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_14_io_inValid = issueWrite_3; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_14_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_14_io_data_0_op = laneOp_14 ^ 16'he; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_14_io_data_0_dtype = laneDtype_14 ^ 4'he; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_14_io_data_0_a = requestBuffer_io_out_a_14[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_14_io_data_0_b = requestBuffer_io_out_b_14[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_14_io_data_0_c = requestBuffer_io_out_c_14[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_14_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[14]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_14_io_data_1_op = laneOp_14 ^ 16'he; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_14_io_data_1_dtype = laneDtype_14 ^ 4'he; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_14_io_data_1_a = requestBuffer_io_out_a_30[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_14_io_data_1_b = requestBuffer_io_out_b_30[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_14_io_data_1_c = requestBuffer_io_out_c_30[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_14_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[30]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_14_io_out_ready = lanes_14_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestStages_15_clock = clock;
   assign requestStages_15_reset = reset;
-  assign requestStages_15_io_in_valid = issueWrite_3; // @[AecEightLaneIntUnit.scala 76:34]
-  assign requestStages_15_io_in_bits_op = laneOp_15 ^ 16'hf; // @[AecEightLaneIntUnit.scala 77:49]
-  assign requestStages_15_io_in_bits_dtype = laneDtype_15 ^ 4'hf; // @[AecEightLaneIntUnit.scala 78:55]
-  assign requestStages_15_io_in_bits_a = _GEN_1471[31:0]; // @[AecEightLaneIntUnit.scala 79:55]
-  assign requestStages_15_io_in_bits_b = _GEN_1503[31:0]; // @[AecEightLaneIntUnit.scala 80:55]
-  assign requestStages_15_io_in_bits_c = _GEN_1535[31:0]; // @[AecEightLaneIntUnit.scala 81:55]
-  assign requestStages_15_io_in_bits_selectPredicate = _requestStages_15_io_in_bits_selectPredicate_T[0]; // @[AecEightLaneIntUnit.scala 83:72]
-  assign requestStages_15_io_out_ready = lanes_15_io_req_ready; // @[AecEightLaneIntUnit.scala 84:21]
+  assign requestStages_15_io_inValid = issueWrite_3; // @[AecEightLaneIntUnit.scala 74:33]
+  assign requestStages_15_io_group = group; // @[AecEightLaneIntUnit.scala 75:31]
+  assign requestStages_15_io_data_0_op = laneOp_15 ^ 16'hf; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_15_io_data_0_dtype = laneDtype_15 ^ 4'hf; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_15_io_data_0_a = requestBuffer_io_out_a_15[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_15_io_data_0_b = requestBuffer_io_out_b_15[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_15_io_data_0_c = requestBuffer_io_out_c_15[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_15_io_data_0_selectPredicate = requestBuffer_io_out_predicateValues[15]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_15_io_data_1_op = laneOp_15 ^ 16'hf; // @[AecEightLaneIntUnit.scala 78:51]
+  assign requestStages_15_io_data_1_dtype = laneDtype_15 ^ 4'hf; // @[AecEightLaneIntUnit.scala 79:57]
+  assign requestStages_15_io_data_1_a = requestBuffer_io_out_a_31[31:0]; // @[AecEightLaneIntUnit.scala 80:57]
+  assign requestStages_15_io_data_1_b = requestBuffer_io_out_b_31[31:0]; // @[AecEightLaneIntUnit.scala 81:57]
+  assign requestStages_15_io_data_1_c = requestBuffer_io_out_c_31[31:0]; // @[AecEightLaneIntUnit.scala 82:57]
+  assign requestStages_15_io_data_1_selectPredicate = requestBuffer_io_out_predicateValues[31]; // @[AecEightLaneIntUnit.scala 84:74]
+  assign requestStages_15_io_out_ready = lanes_15_io_req_ready; // @[AecEightLaneIntUnit.scala 86:21]
   assign requestBuffer_clock = clock;
   assign requestBuffer_reset = reset;
   assign requestBuffer_io_in_activeMask = io_req_bits_activeMask; // @[AecEightLaneIntUnit.scala 25:23]
@@ -13007,504 +11901,519 @@ module AecEightLaneIntUnit(
   assign requestBuffer_io_in_c_31 = io_req_bits_c_31; // @[AecEightLaneIntUnit.scala 25:23]
   assign requestBuffer_io_in_dest = io_req_bits_dest; // @[AecEightLaneIntUnit.scala 25:23]
   assign requestBuffer_io_in_predicateValues = io_req_bits_predicateValues; // @[AecEightLaneIntUnit.scala 25:23]
-  assign requestBuffer_io_arm_0 = armClusters_0; // @[AecEightLaneIntUnit.scala 60:24]
-  assign requestBuffer_io_arm_1 = armClusters_1; // @[AecEightLaneIntUnit.scala 60:24]
-  assign requestBuffer_io_arm_2 = armClusters_2; // @[AecEightLaneIntUnit.scala 60:24]
-  assign requestBuffer_io_arm_3 = armClusters_3; // @[AecEightLaneIntUnit.scala 60:24]
-  assign requestBuffer_io_arm_4 = armClusters_4; // @[AecEightLaneIntUnit.scala 60:24]
-  assign requestBuffer_io_arm_5 = armClusters_5; // @[AecEightLaneIntUnit.scala 60:24]
-  assign requestBuffer_io_arm_6 = armClusters_6; // @[AecEightLaneIntUnit.scala 60:24]
-  assign requestBuffer_io_arm_7 = armClusters_7; // @[AecEightLaneIntUnit.scala 60:24]
+  assign requestBuffer_io_arm_0 = armClusters_0; // @[AecEightLaneIntUnit.scala 59:24]
+  assign requestBuffer_io_arm_1 = armClusters_1; // @[AecEightLaneIntUnit.scala 59:24]
+  assign requestBuffer_io_arm_2 = armClusters_2; // @[AecEightLaneIntUnit.scala 59:24]
+  assign requestBuffer_io_arm_3 = armClusters_3; // @[AecEightLaneIntUnit.scala 59:24]
+  assign requestBuffer_io_arm_4 = armClusters_4; // @[AecEightLaneIntUnit.scala 59:24]
+  assign requestBuffer_io_arm_5 = armClusters_5; // @[AecEightLaneIntUnit.scala 59:24]
+  assign requestBuffer_io_arm_6 = armClusters_6; // @[AecEightLaneIntUnit.scala 59:24]
+  assign requestBuffer_io_arm_7 = armClusters_7; // @[AecEightLaneIntUnit.scala 59:24]
   assign requestBuffer_io_capture = io_req_ready & io_req_valid; // @[Decoupled.scala 51:35]
   assign resultBanks_0_clock = clock;
   assign resultBanks_0_reset = reset;
-  assign resultBanks_0_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_0_io_writeResult = {32'h0,lanes_0_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_0_io_writePredicate = lanes_0_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_0_io_writeError = lanes_0_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_0_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_0_io_writeResult = requestBuffer_io_out_activeMask[0] ? _resultBanks_0_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_0_io_writePredicate = requestBuffer_io_out_activeMask[0] & lanes_0_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_0_io_writeError = requestBuffer_io_out_activeMask[0] & lanes_0_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_1_clock = clock;
   assign resultBanks_1_reset = reset;
-  assign resultBanks_1_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_1_io_writeResult = {32'h0,lanes_1_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_1_io_writePredicate = lanes_1_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_1_io_writeError = lanes_1_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_1_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_1_io_writeResult = requestBuffer_io_out_activeMask[1] ? _resultBanks_1_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_1_io_writePredicate = requestBuffer_io_out_activeMask[1] & lanes_1_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_1_io_writeError = requestBuffer_io_out_activeMask[1] & lanes_1_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_2_clock = clock;
   assign resultBanks_2_reset = reset;
-  assign resultBanks_2_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_2_io_writeResult = {32'h0,lanes_2_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_2_io_writePredicate = lanes_2_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_2_io_writeError = lanes_2_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_2_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_2_io_writeResult = requestBuffer_io_out_activeMask[2] ? _resultBanks_2_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_2_io_writePredicate = requestBuffer_io_out_activeMask[2] & lanes_2_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_2_io_writeError = requestBuffer_io_out_activeMask[2] & lanes_2_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_3_clock = clock;
   assign resultBanks_3_reset = reset;
-  assign resultBanks_3_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_3_io_writeResult = {32'h0,lanes_3_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_3_io_writePredicate = lanes_3_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_3_io_writeError = lanes_3_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_3_io_write = retireWrite_0; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_3_io_writeResult = requestBuffer_io_out_activeMask[3] ? _resultBanks_3_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_3_io_writePredicate = requestBuffer_io_out_activeMask[3] & lanes_3_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_3_io_writeError = requestBuffer_io_out_activeMask[3] & lanes_3_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_4_clock = clock;
   assign resultBanks_4_reset = reset;
-  assign resultBanks_4_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_4_io_writeResult = {32'h0,lanes_4_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_4_io_writePredicate = lanes_4_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_4_io_writeError = lanes_4_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_4_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_4_io_writeResult = requestBuffer_io_out_activeMask[4] ? _resultBanks_4_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_4_io_writePredicate = requestBuffer_io_out_activeMask[4] & lanes_4_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_4_io_writeError = requestBuffer_io_out_activeMask[4] & lanes_4_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_5_clock = clock;
   assign resultBanks_5_reset = reset;
-  assign resultBanks_5_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_5_io_writeResult = {32'h0,lanes_5_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_5_io_writePredicate = lanes_5_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_5_io_writeError = lanes_5_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_5_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_5_io_writeResult = requestBuffer_io_out_activeMask[5] ? _resultBanks_5_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_5_io_writePredicate = requestBuffer_io_out_activeMask[5] & lanes_5_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_5_io_writeError = requestBuffer_io_out_activeMask[5] & lanes_5_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_6_clock = clock;
   assign resultBanks_6_reset = reset;
-  assign resultBanks_6_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_6_io_writeResult = {32'h0,lanes_6_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_6_io_writePredicate = lanes_6_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_6_io_writeError = lanes_6_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_6_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_6_io_writeResult = requestBuffer_io_out_activeMask[6] ? _resultBanks_6_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_6_io_writePredicate = requestBuffer_io_out_activeMask[6] & lanes_6_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_6_io_writeError = requestBuffer_io_out_activeMask[6] & lanes_6_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_7_clock = clock;
   assign resultBanks_7_reset = reset;
-  assign resultBanks_7_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_7_io_writeResult = {32'h0,lanes_7_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_7_io_writePredicate = lanes_7_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_7_io_writeError = lanes_7_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_7_io_write = retireWrite_1; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_7_io_writeResult = requestBuffer_io_out_activeMask[7] ? _resultBanks_7_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_7_io_writePredicate = requestBuffer_io_out_activeMask[7] & lanes_7_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_7_io_writeError = requestBuffer_io_out_activeMask[7] & lanes_7_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_8_clock = clock;
   assign resultBanks_8_reset = reset;
-  assign resultBanks_8_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_8_io_writeResult = {32'h0,lanes_8_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_8_io_writePredicate = lanes_8_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_8_io_writeError = lanes_8_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_8_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_8_io_writeResult = requestBuffer_io_out_activeMask[8] ? _resultBanks_8_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_8_io_writePredicate = requestBuffer_io_out_activeMask[8] & lanes_8_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_8_io_writeError = requestBuffer_io_out_activeMask[8] & lanes_8_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_9_clock = clock;
   assign resultBanks_9_reset = reset;
-  assign resultBanks_9_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_9_io_writeResult = {32'h0,lanes_9_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_9_io_writePredicate = lanes_9_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_9_io_writeError = lanes_9_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_9_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_9_io_writeResult = requestBuffer_io_out_activeMask[9] ? _resultBanks_9_io_writeResult_T_1 : 64'h0; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_9_io_writePredicate = requestBuffer_io_out_activeMask[9] & lanes_9_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_9_io_writeError = requestBuffer_io_out_activeMask[9] & lanes_9_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_10_clock = clock;
   assign resultBanks_10_reset = reset;
-  assign resultBanks_10_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_10_io_writeResult = {32'h0,lanes_10_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_10_io_writePredicate = lanes_10_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_10_io_writeError = lanes_10_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_10_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_10_io_writeResult = requestBuffer_io_out_activeMask[10] ? _resultBanks_10_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_10_io_writePredicate = requestBuffer_io_out_activeMask[10] & lanes_10_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_10_io_writeError = requestBuffer_io_out_activeMask[10] & lanes_10_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_11_clock = clock;
   assign resultBanks_11_reset = reset;
-  assign resultBanks_11_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_11_io_writeResult = {32'h0,lanes_11_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_11_io_writePredicate = lanes_11_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_11_io_writeError = lanes_11_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_11_io_write = retireWrite_2; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_11_io_writeResult = requestBuffer_io_out_activeMask[11] ? _resultBanks_11_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_11_io_writePredicate = requestBuffer_io_out_activeMask[11] & lanes_11_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_11_io_writeError = requestBuffer_io_out_activeMask[11] & lanes_11_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_12_clock = clock;
   assign resultBanks_12_reset = reset;
-  assign resultBanks_12_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_12_io_writeResult = {32'h0,lanes_12_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_12_io_writePredicate = lanes_12_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_12_io_writeError = lanes_12_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_12_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_12_io_writeResult = requestBuffer_io_out_activeMask[12] ? _resultBanks_12_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_12_io_writePredicate = requestBuffer_io_out_activeMask[12] & lanes_12_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_12_io_writeError = requestBuffer_io_out_activeMask[12] & lanes_12_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_13_clock = clock;
   assign resultBanks_13_reset = reset;
-  assign resultBanks_13_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_13_io_writeResult = {32'h0,lanes_13_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_13_io_writePredicate = lanes_13_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_13_io_writeError = lanes_13_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_13_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_13_io_writeResult = requestBuffer_io_out_activeMask[13] ? _resultBanks_13_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_13_io_writePredicate = requestBuffer_io_out_activeMask[13] & lanes_13_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_13_io_writeError = requestBuffer_io_out_activeMask[13] & lanes_13_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_14_clock = clock;
   assign resultBanks_14_reset = reset;
-  assign resultBanks_14_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_14_io_writeResult = {32'h0,lanes_14_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_14_io_writePredicate = lanes_14_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_14_io_writeError = lanes_14_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_14_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_14_io_writeResult = requestBuffer_io_out_activeMask[14] ? _resultBanks_14_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_14_io_writePredicate = requestBuffer_io_out_activeMask[14] & lanes_14_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_14_io_writeError = requestBuffer_io_out_activeMask[14] & lanes_14_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_15_clock = clock;
   assign resultBanks_15_reset = reset;
-  assign resultBanks_15_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_15_io_writeResult = {32'h0,lanes_15_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_15_io_writePredicate = lanes_15_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_15_io_writeError = lanes_15_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_15_io_write = retireWrite_3; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_15_io_writeResult = requestBuffer_io_out_activeMask[15] ? _resultBanks_15_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_15_io_writePredicate = requestBuffer_io_out_activeMask[15] & lanes_15_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_15_io_writeError = requestBuffer_io_out_activeMask[15] & lanes_15_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_16_clock = clock;
   assign resultBanks_16_reset = reset;
-  assign resultBanks_16_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_16_io_writeResult = {32'h0,lanes_0_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_16_io_writePredicate = lanes_0_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_16_io_writeError = lanes_0_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_16_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_16_io_writeResult = requestBuffer_io_out_activeMask[16] ? _resultBanks_0_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_16_io_writePredicate = requestBuffer_io_out_activeMask[16] & lanes_0_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_16_io_writeError = requestBuffer_io_out_activeMask[16] & lanes_0_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_17_clock = clock;
   assign resultBanks_17_reset = reset;
-  assign resultBanks_17_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_17_io_writeResult = {32'h0,lanes_1_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_17_io_writePredicate = lanes_1_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_17_io_writeError = lanes_1_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_17_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_17_io_writeResult = requestBuffer_io_out_activeMask[17] ? _resultBanks_1_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_17_io_writePredicate = requestBuffer_io_out_activeMask[17] & lanes_1_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_17_io_writeError = requestBuffer_io_out_activeMask[17] & lanes_1_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_18_clock = clock;
   assign resultBanks_18_reset = reset;
-  assign resultBanks_18_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_18_io_writeResult = {32'h0,lanes_2_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_18_io_writePredicate = lanes_2_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_18_io_writeError = lanes_2_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_18_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_18_io_writeResult = requestBuffer_io_out_activeMask[18] ? _resultBanks_2_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_18_io_writePredicate = requestBuffer_io_out_activeMask[18] & lanes_2_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_18_io_writeError = requestBuffer_io_out_activeMask[18] & lanes_2_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_19_clock = clock;
   assign resultBanks_19_reset = reset;
-  assign resultBanks_19_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_19_io_writeResult = {32'h0,lanes_3_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_19_io_writePredicate = lanes_3_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_19_io_writeError = lanes_3_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_19_io_write = retireWrite_4; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_19_io_writeResult = requestBuffer_io_out_activeMask[19] ? _resultBanks_3_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_19_io_writePredicate = requestBuffer_io_out_activeMask[19] & lanes_3_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_19_io_writeError = requestBuffer_io_out_activeMask[19] & lanes_3_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_20_clock = clock;
   assign resultBanks_20_reset = reset;
-  assign resultBanks_20_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_20_io_writeResult = {32'h0,lanes_4_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_20_io_writePredicate = lanes_4_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_20_io_writeError = lanes_4_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_20_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_20_io_writeResult = requestBuffer_io_out_activeMask[20] ? _resultBanks_4_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_20_io_writePredicate = requestBuffer_io_out_activeMask[20] & lanes_4_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_20_io_writeError = requestBuffer_io_out_activeMask[20] & lanes_4_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_21_clock = clock;
   assign resultBanks_21_reset = reset;
-  assign resultBanks_21_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_21_io_writeResult = {32'h0,lanes_5_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_21_io_writePredicate = lanes_5_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_21_io_writeError = lanes_5_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_21_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_21_io_writeResult = requestBuffer_io_out_activeMask[21] ? _resultBanks_5_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_21_io_writePredicate = requestBuffer_io_out_activeMask[21] & lanes_5_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_21_io_writeError = requestBuffer_io_out_activeMask[21] & lanes_5_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_22_clock = clock;
   assign resultBanks_22_reset = reset;
-  assign resultBanks_22_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_22_io_writeResult = {32'h0,lanes_6_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_22_io_writePredicate = lanes_6_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_22_io_writeError = lanes_6_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_22_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_22_io_writeResult = requestBuffer_io_out_activeMask[22] ? _resultBanks_6_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_22_io_writePredicate = requestBuffer_io_out_activeMask[22] & lanes_6_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_22_io_writeError = requestBuffer_io_out_activeMask[22] & lanes_6_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_23_clock = clock;
   assign resultBanks_23_reset = reset;
-  assign resultBanks_23_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_23_io_writeResult = {32'h0,lanes_7_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_23_io_writePredicate = lanes_7_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_23_io_writeError = lanes_7_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_23_io_write = retireWrite_5; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_23_io_writeResult = requestBuffer_io_out_activeMask[23] ? _resultBanks_7_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_23_io_writePredicate = requestBuffer_io_out_activeMask[23] & lanes_7_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_23_io_writeError = requestBuffer_io_out_activeMask[23] & lanes_7_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_24_clock = clock;
   assign resultBanks_24_reset = reset;
-  assign resultBanks_24_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_24_io_writeResult = {32'h0,lanes_8_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_24_io_writePredicate = lanes_8_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_24_io_writeError = lanes_8_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_24_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_24_io_writeResult = requestBuffer_io_out_activeMask[24] ? _resultBanks_8_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_24_io_writePredicate = requestBuffer_io_out_activeMask[24] & lanes_8_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_24_io_writeError = requestBuffer_io_out_activeMask[24] & lanes_8_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_25_clock = clock;
   assign resultBanks_25_reset = reset;
-  assign resultBanks_25_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_25_io_writeResult = {32'h0,lanes_9_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_25_io_writePredicate = lanes_9_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_25_io_writeError = lanes_9_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_25_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_25_io_writeResult = requestBuffer_io_out_activeMask[25] ? _resultBanks_9_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_25_io_writePredicate = requestBuffer_io_out_activeMask[25] & lanes_9_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_25_io_writeError = requestBuffer_io_out_activeMask[25] & lanes_9_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_26_clock = clock;
   assign resultBanks_26_reset = reset;
-  assign resultBanks_26_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_26_io_writeResult = {32'h0,lanes_10_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_26_io_writePredicate = lanes_10_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_26_io_writeError = lanes_10_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_26_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_26_io_writeResult = requestBuffer_io_out_activeMask[26] ? _resultBanks_10_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_26_io_writePredicate = requestBuffer_io_out_activeMask[26] & lanes_10_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_26_io_writeError = requestBuffer_io_out_activeMask[26] & lanes_10_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_27_clock = clock;
   assign resultBanks_27_reset = reset;
-  assign resultBanks_27_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_27_io_writeResult = {32'h0,lanes_11_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_27_io_writePredicate = lanes_11_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_27_io_writeError = lanes_11_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_27_io_write = retireWrite_6; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_27_io_writeResult = requestBuffer_io_out_activeMask[27] ? _resultBanks_11_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_27_io_writePredicate = requestBuffer_io_out_activeMask[27] & lanes_11_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_27_io_writeError = requestBuffer_io_out_activeMask[27] & lanes_11_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_28_clock = clock;
   assign resultBanks_28_reset = reset;
-  assign resultBanks_28_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_28_io_writeResult = {32'h0,lanes_12_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_28_io_writePredicate = lanes_12_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_28_io_writeError = lanes_12_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_28_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_28_io_writeResult = requestBuffer_io_out_activeMask[28] ? _resultBanks_12_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_28_io_writePredicate = requestBuffer_io_out_activeMask[28] & lanes_12_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_28_io_writeError = requestBuffer_io_out_activeMask[28] & lanes_12_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_29_clock = clock;
   assign resultBanks_29_reset = reset;
-  assign resultBanks_29_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_29_io_writeResult = {32'h0,lanes_13_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_29_io_writePredicate = lanes_13_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_29_io_writeError = lanes_13_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_29_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_29_io_writeResult = requestBuffer_io_out_activeMask[29] ? _resultBanks_13_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_29_io_writePredicate = requestBuffer_io_out_activeMask[29] & lanes_13_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_29_io_writeError = requestBuffer_io_out_activeMask[29] & lanes_13_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_30_clock = clock;
   assign resultBanks_30_reset = reset;
-  assign resultBanks_30_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_30_io_writeResult = {32'h0,lanes_14_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_30_io_writePredicate = lanes_14_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_30_io_writeError = lanes_14_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_30_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_30_io_writeResult = requestBuffer_io_out_activeMask[30] ? _resultBanks_14_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_30_io_writePredicate = requestBuffer_io_out_activeMask[30] & lanes_14_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_30_io_writeError = requestBuffer_io_out_activeMask[30] & lanes_14_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   assign resultBanks_31_clock = clock;
   assign resultBanks_31_reset = reset;
-  assign resultBanks_31_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 97:45]
-  assign resultBanks_31_io_writeResult = {32'h0,lanes_15_io_resp_bits_result}; // @[Cat.scala 33:92]
-  assign resultBanks_31_io_writePredicate = lanes_15_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 100:54]
-  assign resultBanks_31_io_writeError = lanes_15_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 101:50]
+  assign resultBanks_31_io_write = retireWrite_7; // @[AecEightLaneIntUnit.scala 99:45]
+  assign resultBanks_31_io_writeResult = requestBuffer_io_out_activeMask[31] ? _resultBanks_15_io_writeResult_T_1 : 64'h0
+    ; // @[AecEightLaneIntUnit.scala 100:57]
+  assign resultBanks_31_io_writePredicate = requestBuffer_io_out_activeMask[31] & lanes_15_io_resp_bits_predicateResult; // @[AecEightLaneIntUnit.scala 103:92]
+  assign resultBanks_31_io_writeError = requestBuffer_io_out_activeMask[31] & lanes_15_io_resp_bits_error; // @[AecEightLaneIntUnit.scala 104:88]
   always @(posedge clock) begin
     if (reset) begin // @[AecEightLaneIntUnit.scala 28:22]
       group <= 1'h0; // @[AecEightLaneIntUnit.scala 28:22]
-    end else if (stateCommit) begin // @[AecEightLaneIntUnit.scala 132:22]
+    end else if (stateCommit) begin // @[AecEightLaneIntUnit.scala 134:22]
       if (group) begin // @[AecEightLaneIntUnit.scala 135:37]
-        group <= _GEN_1586;
+        group <= _GEN_50;
       end else begin
         group <= group + 1'h1; // @[AecEightLaneIntUnit.scala 138:13]
       end
     end else begin
-      group <= _GEN_1586;
+      group <= _GEN_50;
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 29:22]
       state <= 10'h1; // @[AecEightLaneIntUnit.scala 29:22]
-    end else if (_T_68) begin // @[AecEightLaneIntUnit.scala 142:23]
+    end else if (_T_4) begin // @[AecEightLaneIntUnit.scala 142:23]
       state <= 10'h1; // @[AecEightLaneIntUnit.scala 143:11]
-    end else if (stateCommit) begin // @[AecEightLaneIntUnit.scala 132:22]
+    end else if (stateCommit) begin // @[AecEightLaneIntUnit.scala 134:22]
       if (group) begin // @[AecEightLaneIntUnit.scala 135:37]
         state <= 10'h200; // @[AecEightLaneIntUnit.scala 136:13]
       end else begin
         state <= 10'h8; // @[AecEightLaneIntUnit.scala 139:13]
       end
-    end else if (stateRetire) begin // @[AecEightLaneIntUnit.scala 129:22]
-      state <= 10'h100; // @[AecEightLaneIntUnit.scala 130:11]
+    end else if (stateRetire) begin // @[AecEightLaneIntUnit.scala 131:22]
+      state <= 10'h100; // @[AecEightLaneIntUnit.scala 132:11]
     end else begin
-      state <= _GEN_1592;
+      state <= _GEN_55;
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_0 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_0 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_0 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_1 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_1 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_1 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_2 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_2 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_2 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_3 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_3 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_3 <= _retireWrite_0_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_4 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_4 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_4 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_5 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_5 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_5 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_6 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_6 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_6 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 42:28]
       retireWrite_7 <= 1'h0; // @[AecEightLaneIntUnit.scala 42:28]
     end else begin
-      retireWrite_7 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 88:47]
+      retireWrite_7 <= _retireWrite_4_T_2; // @[AecEightLaneIntUnit.scala 90:47]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 44:27]
       issueWrite_0 <= 1'h0; // @[AecEightLaneIntUnit.scala 44:27]
     end else begin
-      issueWrite_0 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 92:25]
+      issueWrite_0 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 94:25]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 44:27]
       issueWrite_1 <= 1'h0; // @[AecEightLaneIntUnit.scala 44:27]
     end else begin
-      issueWrite_1 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 92:25]
+      issueWrite_1 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 94:25]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 44:27]
       issueWrite_2 <= 1'h0; // @[AecEightLaneIntUnit.scala 44:27]
     end else begin
-      issueWrite_2 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 92:25]
+      issueWrite_2 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 94:25]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 44:27]
       issueWrite_3 <= 1'h0; // @[AecEightLaneIntUnit.scala 44:27]
     end else begin
-      issueWrite_3 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 92:25]
+      issueWrite_3 <= stateIssue & allReady; // @[AecEightLaneIntUnit.scala 94:25]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 46:30]
       responseReady_0 <= 1'h0; // @[AecEightLaneIntUnit.scala 46:30]
     end else begin
-      responseReady_0 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 93:28]
+      responseReady_0 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 95:28]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 46:30]
       responseReady_1 <= 1'h0; // @[AecEightLaneIntUnit.scala 46:30]
     end else begin
-      responseReady_1 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 93:28]
+      responseReady_1 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 95:28]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 46:30]
       responseReady_2 <= 1'h0; // @[AecEightLaneIntUnit.scala 46:30]
     end else begin
-      responseReady_2 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 93:28]
+      responseReady_2 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 95:28]
     end
     if (reset) begin // @[AecEightLaneIntUnit.scala 46:30]
       responseReady_3 <= 1'h0; // @[AecEightLaneIntUnit.scala 46:30]
     end else begin
-      responseReady_3 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 93:28]
+      responseReady_3 <= _retireWrite_0_T; // @[AecEightLaneIntUnit.scala 95:28]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 48:26]
-      writeMask <= 32'h0; // @[AecEightLaneIntUnit.scala 48:26]
-    end else if (stateCommit) begin // @[AecEightLaneIntUnit.scala 132:22]
-      writeMask <= _writeMask_T_1; // @[AecEightLaneIntUnit.scala 134:15]
-    end else if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      writeMask <= 32'h0; // @[AecEightLaneIntUnit.scala 114:15]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_0 <= io_req_bits_op; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_0 <= io_req_bits_op; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_1 <= _laneOp_1_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_1 <= _laneOp_1_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_2 <= _laneOp_2_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_2 <= _laneOp_2_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_3 <= _laneOp_3_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_3 <= _laneOp_3_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_4 <= _laneOp_4_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_4 <= _laneOp_4_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_5 <= _laneOp_5_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_5 <= _laneOp_5_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_6 <= _laneOp_6_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_6 <= _laneOp_6_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_7 <= _laneOp_7_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_7 <= _laneOp_7_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_8 <= _laneOp_8_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_8 <= _laneOp_8_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_9 <= _laneOp_9_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_9 <= _laneOp_9_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_10 <= _laneOp_10_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_10 <= _laneOp_10_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_11 <= _laneOp_11_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_11 <= _laneOp_11_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_12 <= _laneOp_12_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_12 <= _laneOp_12_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_13 <= _laneOp_13_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_13 <= _laneOp_13_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_14 <= _laneOp_14_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_14 <= _laneOp_14_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneOp_15 <= _laneOp_15_T; // @[AecEightLaneIntUnit.scala 112:17]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneOp_15 <= _laneOp_15_T; // @[AecEightLaneIntUnit.scala 109:17]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_0 <= io_req_bits_dtype; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_0 <= io_req_bits_dtype; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_1 <= _laneDtype_1_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_1 <= _laneDtype_1_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_2 <= _laneDtype_2_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_2 <= _laneDtype_2_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_3 <= _laneDtype_3_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_3 <= _laneDtype_3_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_4 <= _laneDtype_4_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_4 <= _laneDtype_4_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_5 <= _laneDtype_5_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_5 <= _laneDtype_5_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_6 <= _laneDtype_6_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_6 <= _laneDtype_6_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_7 <= _laneDtype_7_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_7 <= _laneDtype_7_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_8 <= _laneDtype_8_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_8 <= _laneDtype_8_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_9 <= _laneDtype_9_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_9 <= _laneDtype_9_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_10 <= _laneDtype_10_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_10 <= _laneDtype_10_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_11 <= _laneDtype_11_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_11 <= _laneDtype_11_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_12 <= _laneDtype_12_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_12 <= _laneDtype_12_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_13 <= _laneDtype_13_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_13 <= _laneDtype_13_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_14 <= _laneDtype_14_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_14 <= _laneDtype_14_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDtype_15 <= _laneDtype_15_T; // @[AecEightLaneIntUnit.scala 113:20]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDtype_15 <= _laneDtype_15_T; // @[AecEightLaneIntUnit.scala 110:20]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_0 <= io_req_bits_dest; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_0 <= io_req_bits_dest; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_1 <= _laneDest_1_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_1 <= _laneDest_1_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_2 <= _laneDest_2_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_2 <= _laneDest_2_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_3 <= _laneDest_3_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_3 <= _laneDest_3_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_4 <= _laneDest_4_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_4 <= _laneDest_4_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_5 <= _laneDest_5_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_5 <= _laneDest_5_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_6 <= _laneDest_6_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_6 <= _laneDest_6_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_7 <= _laneDest_7_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_7 <= _laneDest_7_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_8 <= _laneDest_8_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_8 <= _laneDest_8_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_9 <= _laneDest_9_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_9 <= _laneDest_9_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_10 <= _laneDest_10_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_10 <= _laneDest_10_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_11 <= _laneDest_11_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_11 <= _laneDest_11_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_12 <= _laneDest_12_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_12 <= _laneDest_12_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_13 <= _laneDest_13_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_13 <= _laneDest_13_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_14 <= _laneDest_14_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_14 <= _laneDest_14_T; // @[AecEightLaneIntUnit.scala 111:19]
+    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 109:22]
+      laneDest_15 <= _laneDest_15_T; // @[AecEightLaneIntUnit.scala 114:19]
     end
-    if (_requestBuffer_io_capture_T) begin // @[AecEightLaneIntUnit.scala 106:22]
-      laneDest_15 <= _laneDest_15_T; // @[AecEightLaneIntUnit.scala 111:19]
-    end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_0 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_0 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_0 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_0 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_1 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_1 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_1 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_1 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_2 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_2 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_2 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_2 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_3 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_3 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_3 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_3 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_4 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_4 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_4 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_4 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_5 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_5 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_5 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_5 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_6 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_6 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_6 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_6 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
-    if (reset) begin // @[AecEightLaneIntUnit.scala 57:28]
-      armClusters_7 <= 1'h0; // @[AecEightLaneIntUnit.scala 57:28]
+    if (reset) begin // @[AecEightLaneIntUnit.scala 56:28]
+      armClusters_7 <= 1'h0; // @[AecEightLaneIntUnit.scala 56:28]
     end else begin
-      armClusters_7 <= armCapture; // @[AecEightLaneIntUnit.scala 58:25]
+      armClusters_7 <= armCapture; // @[AecEightLaneIntUnit.scala 57:25]
     end
   end
 // Register and memory initialization
@@ -13580,119 +12489,117 @@ initial begin
   _RAND_17 = {1{`RANDOM}};
   responseReady_3 = _RAND_17[0:0];
   _RAND_18 = {1{`RANDOM}};
-  writeMask = _RAND_18[31:0];
+  laneOp_0 = _RAND_18[15:0];
   _RAND_19 = {1{`RANDOM}};
-  laneOp_0 = _RAND_19[15:0];
+  laneOp_1 = _RAND_19[15:0];
   _RAND_20 = {1{`RANDOM}};
-  laneOp_1 = _RAND_20[15:0];
+  laneOp_2 = _RAND_20[15:0];
   _RAND_21 = {1{`RANDOM}};
-  laneOp_2 = _RAND_21[15:0];
+  laneOp_3 = _RAND_21[15:0];
   _RAND_22 = {1{`RANDOM}};
-  laneOp_3 = _RAND_22[15:0];
+  laneOp_4 = _RAND_22[15:0];
   _RAND_23 = {1{`RANDOM}};
-  laneOp_4 = _RAND_23[15:0];
+  laneOp_5 = _RAND_23[15:0];
   _RAND_24 = {1{`RANDOM}};
-  laneOp_5 = _RAND_24[15:0];
+  laneOp_6 = _RAND_24[15:0];
   _RAND_25 = {1{`RANDOM}};
-  laneOp_6 = _RAND_25[15:0];
+  laneOp_7 = _RAND_25[15:0];
   _RAND_26 = {1{`RANDOM}};
-  laneOp_7 = _RAND_26[15:0];
+  laneOp_8 = _RAND_26[15:0];
   _RAND_27 = {1{`RANDOM}};
-  laneOp_8 = _RAND_27[15:0];
+  laneOp_9 = _RAND_27[15:0];
   _RAND_28 = {1{`RANDOM}};
-  laneOp_9 = _RAND_28[15:0];
+  laneOp_10 = _RAND_28[15:0];
   _RAND_29 = {1{`RANDOM}};
-  laneOp_10 = _RAND_29[15:0];
+  laneOp_11 = _RAND_29[15:0];
   _RAND_30 = {1{`RANDOM}};
-  laneOp_11 = _RAND_30[15:0];
+  laneOp_12 = _RAND_30[15:0];
   _RAND_31 = {1{`RANDOM}};
-  laneOp_12 = _RAND_31[15:0];
+  laneOp_13 = _RAND_31[15:0];
   _RAND_32 = {1{`RANDOM}};
-  laneOp_13 = _RAND_32[15:0];
+  laneOp_14 = _RAND_32[15:0];
   _RAND_33 = {1{`RANDOM}};
-  laneOp_14 = _RAND_33[15:0];
+  laneOp_15 = _RAND_33[15:0];
   _RAND_34 = {1{`RANDOM}};
-  laneOp_15 = _RAND_34[15:0];
+  laneDtype_0 = _RAND_34[3:0];
   _RAND_35 = {1{`RANDOM}};
-  laneDtype_0 = _RAND_35[3:0];
+  laneDtype_1 = _RAND_35[3:0];
   _RAND_36 = {1{`RANDOM}};
-  laneDtype_1 = _RAND_36[3:0];
+  laneDtype_2 = _RAND_36[3:0];
   _RAND_37 = {1{`RANDOM}};
-  laneDtype_2 = _RAND_37[3:0];
+  laneDtype_3 = _RAND_37[3:0];
   _RAND_38 = {1{`RANDOM}};
-  laneDtype_3 = _RAND_38[3:0];
+  laneDtype_4 = _RAND_38[3:0];
   _RAND_39 = {1{`RANDOM}};
-  laneDtype_4 = _RAND_39[3:0];
+  laneDtype_5 = _RAND_39[3:0];
   _RAND_40 = {1{`RANDOM}};
-  laneDtype_5 = _RAND_40[3:0];
+  laneDtype_6 = _RAND_40[3:0];
   _RAND_41 = {1{`RANDOM}};
-  laneDtype_6 = _RAND_41[3:0];
+  laneDtype_7 = _RAND_41[3:0];
   _RAND_42 = {1{`RANDOM}};
-  laneDtype_7 = _RAND_42[3:0];
+  laneDtype_8 = _RAND_42[3:0];
   _RAND_43 = {1{`RANDOM}};
-  laneDtype_8 = _RAND_43[3:0];
+  laneDtype_9 = _RAND_43[3:0];
   _RAND_44 = {1{`RANDOM}};
-  laneDtype_9 = _RAND_44[3:0];
+  laneDtype_10 = _RAND_44[3:0];
   _RAND_45 = {1{`RANDOM}};
-  laneDtype_10 = _RAND_45[3:0];
+  laneDtype_11 = _RAND_45[3:0];
   _RAND_46 = {1{`RANDOM}};
-  laneDtype_11 = _RAND_46[3:0];
+  laneDtype_12 = _RAND_46[3:0];
   _RAND_47 = {1{`RANDOM}};
-  laneDtype_12 = _RAND_47[3:0];
+  laneDtype_13 = _RAND_47[3:0];
   _RAND_48 = {1{`RANDOM}};
-  laneDtype_13 = _RAND_48[3:0];
+  laneDtype_14 = _RAND_48[3:0];
   _RAND_49 = {1{`RANDOM}};
-  laneDtype_14 = _RAND_49[3:0];
+  laneDtype_15 = _RAND_49[3:0];
   _RAND_50 = {1{`RANDOM}};
-  laneDtype_15 = _RAND_50[3:0];
+  laneDest_0 = _RAND_50[7:0];
   _RAND_51 = {1{`RANDOM}};
-  laneDest_0 = _RAND_51[7:0];
+  laneDest_1 = _RAND_51[7:0];
   _RAND_52 = {1{`RANDOM}};
-  laneDest_1 = _RAND_52[7:0];
+  laneDest_2 = _RAND_52[7:0];
   _RAND_53 = {1{`RANDOM}};
-  laneDest_2 = _RAND_53[7:0];
+  laneDest_3 = _RAND_53[7:0];
   _RAND_54 = {1{`RANDOM}};
-  laneDest_3 = _RAND_54[7:0];
+  laneDest_4 = _RAND_54[7:0];
   _RAND_55 = {1{`RANDOM}};
-  laneDest_4 = _RAND_55[7:0];
+  laneDest_5 = _RAND_55[7:0];
   _RAND_56 = {1{`RANDOM}};
-  laneDest_5 = _RAND_56[7:0];
+  laneDest_6 = _RAND_56[7:0];
   _RAND_57 = {1{`RANDOM}};
-  laneDest_6 = _RAND_57[7:0];
+  laneDest_7 = _RAND_57[7:0];
   _RAND_58 = {1{`RANDOM}};
-  laneDest_7 = _RAND_58[7:0];
+  laneDest_8 = _RAND_58[7:0];
   _RAND_59 = {1{`RANDOM}};
-  laneDest_8 = _RAND_59[7:0];
+  laneDest_9 = _RAND_59[7:0];
   _RAND_60 = {1{`RANDOM}};
-  laneDest_9 = _RAND_60[7:0];
+  laneDest_10 = _RAND_60[7:0];
   _RAND_61 = {1{`RANDOM}};
-  laneDest_10 = _RAND_61[7:0];
+  laneDest_11 = _RAND_61[7:0];
   _RAND_62 = {1{`RANDOM}};
-  laneDest_11 = _RAND_62[7:0];
+  laneDest_12 = _RAND_62[7:0];
   _RAND_63 = {1{`RANDOM}};
-  laneDest_12 = _RAND_63[7:0];
+  laneDest_13 = _RAND_63[7:0];
   _RAND_64 = {1{`RANDOM}};
-  laneDest_13 = _RAND_64[7:0];
+  laneDest_14 = _RAND_64[7:0];
   _RAND_65 = {1{`RANDOM}};
-  laneDest_14 = _RAND_65[7:0];
+  laneDest_15 = _RAND_65[7:0];
   _RAND_66 = {1{`RANDOM}};
-  laneDest_15 = _RAND_66[7:0];
+  armClusters_0 = _RAND_66[0:0];
   _RAND_67 = {1{`RANDOM}};
-  armClusters_0 = _RAND_67[0:0];
+  armClusters_1 = _RAND_67[0:0];
   _RAND_68 = {1{`RANDOM}};
-  armClusters_1 = _RAND_68[0:0];
+  armClusters_2 = _RAND_68[0:0];
   _RAND_69 = {1{`RANDOM}};
-  armClusters_2 = _RAND_69[0:0];
+  armClusters_3 = _RAND_69[0:0];
   _RAND_70 = {1{`RANDOM}};
-  armClusters_3 = _RAND_70[0:0];
+  armClusters_4 = _RAND_70[0:0];
   _RAND_71 = {1{`RANDOM}};
-  armClusters_4 = _RAND_71[0:0];
+  armClusters_5 = _RAND_71[0:0];
   _RAND_72 = {1{`RANDOM}};
-  armClusters_5 = _RAND_72[0:0];
+  armClusters_6 = _RAND_72[0:0];
   _RAND_73 = {1{`RANDOM}};
-  armClusters_6 = _RAND_73[0:0];
-  _RAND_74 = {1{`RANDOM}};
-  armClusters_7 = _RAND_74[0:0];
+  armClusters_7 = _RAND_73[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial

@@ -9,7 +9,7 @@ import struct
 import subprocess
 from pathlib import Path
 
-from cmodel.runner import load_yaml
+from cmodel.runner import derive_capacities, load_yaml
 
 
 def dump_name(address: int) -> str:
@@ -58,6 +58,7 @@ case = Path(args.case).resolve()
 out = Path(args.output).resolve()
 out.mkdir(parents=True, exist_ok=True)
 manifest = load_yaml(case)
+capacities = derive_capacities(case, manifest)
 repo = Path(__file__).resolve().parents[2]
 build = Path(args.build_dir).resolve() if args.build_dir else repo / "build" / "rtl_eval"
 runner = build / "aec_eval_runner"
@@ -74,6 +75,8 @@ limit = args.max_cycles if args.max_cycles is not None else manifest.get("max_cy
 cmd = [str(runner), str(program), str(instructions),
        *(str(v) for v in launch["grid"]), *(str(v) for v in launch["block"]),
        str(limit), str(out)]
+for target, name in ((1, "gmem"), (2, "pmem"), (3, "cmem")):
+    cmd += ["--capacity", str(target), str(capacities[name])]
 
 target_map = {"gmem": 1, "pmem": 2, "cmem": 3}
 for image in manifest.get("memory_init", []):
@@ -87,7 +90,8 @@ for image in manifest.get("memory_init", []):
 
 expected = manifest.get("expected", {})
 for dump in expected.get("memory", []):
-    cmd += ["--dump", hex(dump["address"]), str(dump["size"])]
+    if dump.get("target", "gmem") == "gmem":
+        cmd += ["--dump", hex(dump["address"]), str(dump["size"])]
 if args.trace:
     trace = Path(args.trace).resolve()
     trace.parent.mkdir(parents=True, exist_ok=True)
@@ -106,8 +110,16 @@ if result.get("status") != want_status:
 policy = expected.get("comparison", "exact")
 tolerance = float(expected.get("relative_tolerance", expected.get("absolute_tolerance", 0.0)))
 for dump in expected.get("memory", []):
-    actual_path = out / dump_name(dump["address"])
+    target = dump.get("target", "gmem")
+    actual_path = out / (dump_name(dump["address"]) if target == "gmem" else f"{target}_{dump['address']:016x}.bin")
     expected_path = case.parent / dump["file"]
+    if target != "gmem":
+        shadow = bytearray(capacities[target])
+        for image in manifest.get("memory_init", []):
+            if image.get("target", "gmem") == target:
+                payload = (case.parent / image["file"]).read_bytes()
+                shadow[image["address"]:image["address"] + len(payload)] = payload
+        actual_path.write_bytes(shadow[dump["address"]:dump["address"] + dump["size"]])
     if not actual_path.is_file():
         failures.append(f"missing GMEM dump 0x{dump['address']:08x} (execution did not reach readable completion)")
         continue

@@ -23,12 +23,23 @@
   preflight phase for precise errors. Requests from different coalesced lines
   within one warp instruction are still issued conservatively rather than all
   being outstanding at once.
-- Each partition still permits only one instruction in its frontend FSM; long
-  backend latency is reduced but not yet hidden by issuing the sibling warp.
+- Each warp has a depth-4 ROB and backend wait time is hidden across sibling
+  warps and independent same-warp instructions. Each partition intentionally
+  retains one wide operand collector and one instruction per backend, so a
+  busy same-class backend can still create head-of-line issue pressure.
 - Conversion and several multi-cycle functions favor small shared resources
   over maximum lane throughput.
-- The runner uses a deterministic 1 MiB GMEM backing vector. Hidden evaluation
-  may provide different legal memory contents through the same fixed ABI.
+- GMEM/CMEM/PMEM capacities are derived from the maximum end of their init and
+  expected artifacts; no artifact means zero capacity. Expected artifacts
+  extend a range but never initialize it. Expected-only CMEM/PMEM extension is
+  rejected because the published launch/load ABI has no capacity-announcement
+  channel; CMEM/PMEM remain limited to 64 KiB.
+- The external read ABI carries a 128-byte line address but no byte-use mask or
+  GMEM capacity input. Consequently, a read wholly inside the rounded final
+  service line cannot distinguish bytes below the exact capacity from tail
+  bytes above it. The runner returns zero for such tail bytes and enforces the
+  exact capacity on every strobed write byte. An official capacity/read-mask
+  signal would be required for exact tail-read errors.
 
 ## PPA evidence
 
@@ -42,9 +53,10 @@ archive and should be retained as external evidence for the final run.
 
 ## Compliance
 
-- The contest-facing RTL ports and result status encoding are unchanged.
-- GMEM is owned by the harness; no full GMEM mirror is included in the judged
-  core.
+- The QA-required `mem_req_space` request-payload port is present in judged and
+  debug wrappers; result status encoding is unchanged.
+- GMEM and LMEM are owned by independent harness stores; no full mirror is
+  included in the judged core.
 - Testcase IDs, filenames, hashes and fixed expected outputs are not used by
   RTL or CModel execution.
 - Locked SRAM wrappers under `Track-B/sram/` are unmodified.

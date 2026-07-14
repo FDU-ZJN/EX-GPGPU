@@ -237,8 +237,8 @@ CMP_NAMES = {
 # Atomic Subop [10:8] — ATOM
 # ===========================================================================
 ATOM_ADD  = 0  # atomic add (modulo 2^32)
-ATOM_MIN  = 1  # atomic minimum
-ATOM_MAX  = 2  # atomic maximum
+ATOM_MAX  = 1  # atomic maximum
+ATOM_MIN  = 2  # atomic minimum
 ATOM_XCHG = 3  # atomic exchange
 ATOM_AND  = 4  # atomic bitwise AND
 ATOM_OR   = 5  # atomic bitwise OR
@@ -247,8 +247,8 @@ ATOM_CAS  = 7  # atomic compare-and-swap
 
 ATOM_NAMES = {
     ATOM_ADD:  "add",
-    ATOM_MIN:  "min",
     ATOM_MAX:  "max",
+    ATOM_MIN:  "min",
     ATOM_XCHG: "xchg",
     ATOM_AND:  "and",
     ATOM_OR:   "or",
