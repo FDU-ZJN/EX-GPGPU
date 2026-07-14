@@ -63,17 +63,18 @@ class AecSfuWarpUnit(val physicalLanes: Int = 1) extends Module {
   }
   when (state === issue && allReady) { state := waitLanes }
   when (state === waitLanes && allValid) {
+    val completedMask = VecInit((0 until physicalLanes).map(i => held.activeMask(base + i.U))).asUInt << base
+    val errorGroup = VecInit((0 until physicalLanes).map(i =>
+      held.activeMask(base + i.U) && lanes(i).io.resp.bits.error)).asUInt << base
     for (i <- 0 until physicalLanes) {
       val lane = base + i.U
       when (held.activeMask(lane)) {
         results(lane) := lanes(i).io.resp.bits.result
         flags(lane) := lanes(i).io.resp.bits.exceptionFlags
-        writeMask := writeMask | (1.U(32.W) << lane)
-      }
-      when (held.activeMask(lane) && lanes(i).io.resp.bits.error) {
-        errors := errors | (1.U(32.W) << lane)
       }
     }
+    writeMask := writeMask | completedMask
+    errors := errors | errorGroup
     val consumed = (1.U(33.W) << (base + physicalLanes.U)) - 1.U
     val remaining = (Cat(0.U(1.W), held.activeMask) & ~consumed)(31, 0)
     when (!remaining.orR) { state := output }

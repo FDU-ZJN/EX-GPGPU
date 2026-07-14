@@ -5,14 +5,29 @@ import chisel3.util._
 
 /** CTA barrier with required-set semantics. */
 class AecCtaBarrier extends Module {
-  val io = IO(new Bundle { val activeWarps = Input(UInt(8.W)); val arrive = Input(Valid(UInt(3.W))); val completed = Input(UInt(8.W)); val release = Output(UInt(8.W)); val duplicate = Output(Bool()) })
+  val io = IO(new Bundle { val activeWarps = Input(UInt(8.W)); val arrive = Input(Vec(4, Valid(UInt(3.W)))); val completed = Input(UInt(8.W)); val release = Output(UInt(8.W)); val duplicate = Output(Bool()) })
   val inGeneration = RegInit(false.B); val required = RegInit(0.U(8.W)); val arrived = RegInit(0.U(8.W))
   val duplicate = WireDefault(false.B); val release = WireDefault(0.U(8.W))
-  when (io.arrive.valid) {
-    val bit = UIntToOH(io.arrive.bits, 8); val startRequired = io.activeWarps & ~io.completed
-    when (!inGeneration) { required := startRequired; arrived := bit; inGeneration := true.B; when (startRequired === bit) { release := bit; inGeneration := false.B; arrived := 0.U } }
-      .elsewhen ((arrived & bit).orR) { duplicate := true.B }
-      .otherwise { val next = arrived | bit; arrived := next; when ((next & required) === required) { release := required; arrived := 0.U; inGeneration := false.B } }
+  val arriveMask = VecInit((0 until 4).map(i => Mux(io.arrive(i).valid, UIntToOH(io.arrive(i).bits, 8), 0.U(8.W)))).reduce(_ | _)
+  val validCount = PopCount(io.arrive.map(_.valid))
+  val distinctCount = PopCount(arriveMask)
+  when (arriveMask.orR) {
+    val startRequired = io.activeWarps & ~io.completed
+    val repeatedInBatch = distinctCount =/= validCount
+    when (!inGeneration) {
+      val next = arriveMask & startRequired
+      required := startRequired; arrived := next; inGeneration := true.B
+      duplicate := repeatedInBatch || (arriveMask & ~startRequired).orR
+      when ((next & startRequired) === startRequired) { release := startRequired; inGeneration := false.B; arrived := 0.U }
+    }.otherwise {
+      val repeated = (arrived & arriveMask).orR || repeatedInBatch
+      val next = arrived | (arriveMask & required)
+      duplicate := repeated || (arriveMask & ~required).orR
+      when (!repeated) {
+        arrived := next
+        when ((next & required) === required) { release := required; arrived := 0.U; inGeneration := false.B }
+      }
+    }
   }
   io.release := release; io.duplicate := duplicate
 }

@@ -22,15 +22,11 @@ SV_ROOT := sv
 GENERATED_ROOT := $(SV_ROOT)/generated
 EVAL_TOP := $(SV_ROOT)/aec_eval_top.sv
 SRAM_WRAPPERS := $(SV_ROOT)/asap7_sram_wrappers.sv
-ifeq ($(strip $(ASAP7_SRAM_ROOT)),)
-SRAM_MODELS := $(SV_ROOT)/asap7_sram_sim.sv
-else
 SRAM_MODELS := \
-	$(ASAP7_SRAM_ROOT)/generated/verilog/srambank_64x4x32_6t122.v \
-	$(ASAP7_SRAM_ROOT)/generated/verilog/srambank_128x4x32_6t122.v \
-	$(ASAP7_SRAM_ROOT)/generated/verilog/srambank_256x4x32_6t122.v \
-	$(ASAP7_SRAM_ROOT)/generated/verilog/srambank_64x4x64_6t122.v
-endif
+	$(SV_ROOT)/asap7_sram/srambank_64x4x32_6t122.v \
+	$(SV_ROOT)/asap7_sram/srambank_128x4x32_6t122.v \
+	$(SV_ROOT)/asap7_sram/srambank_256x4x32_6t122.v \
+	$(SV_ROOT)/asap7_sram/srambank_64x4x64_6t122.v
 PERIOD_PS ?= 1000
 ASAP7_ROOT ?=
 ASAP7_SRAM_ROOT ?=
@@ -42,7 +38,7 @@ RTL_SOURCES ?= $(GENERATED_ROOT)/fp32/*.sv
 ACTIVITY_VCD ?=
 ACTIVITY_SCOPE ?= $(PPA_TOP)
 
-.PHONY: all build generate sfu-generate sfu-test sfu-diff sfu-lint eval-generate eval-runner lint eval-lint synth ppa ppa-help diff fp32-diff fp64-diff int-lint test clean
+.PHONY: all build generate sfu-generate sfu-test sfu-diff sfu-lint eval-generate eval-runner lint eval-lint synth ppa ppa-help diff fp32-diff fp64-diff int-lint test clean verify-sram-models
 all: test
 build:
 	$(SBT) $(SBT_FLAGS) compile
@@ -72,10 +68,13 @@ $(EVAL_GENERATED): $(EVAL_SCALA_SOURCES) build.sbt project/build.properties
 
 eval-generate: $(EVAL_GENERATED)
 
+verify-sram-models:
+	scripts/verify_sram_models.sh
+
 ../cmodel/libaec_cmodel_api.a:
 	$(MAKE) -C ../cmodel all
 
-$(EVAL_BUILD_DIR)/aec_eval_runner: $(EVAL_GENERATED) $(EVAL_TOP) $(SRAM_WRAPPERS) $(SRAM_MODELS) tests/aec_eval_runner.cpp ../cmodel/libaec_cmodel_api.a
+$(EVAL_BUILD_DIR)/aec_eval_runner: $(EVAL_GENERATED) $(EVAL_TOP) $(SRAM_WRAPPERS) $(SRAM_MODELS) tests/aec_eval_runner.cpp ../cmodel/libaec_cmodel_api.a | verify-sram-models
 	mkdir -p $(EVAL_BUILD_DIR)
 	+$(VERILATOR) --quiet --trace --trace-structs --cc --exe --build -j 16 -Wall --Wno-fatal --Wno-WIDTHEXPAND --Wno-DECLFILENAME --Wno-UNUSEDSIGNAL --top-module aec_eval_debug_top --Mdir $(EVAL_BUILD_DIR) -o aec_eval_runner -CFLAGS '-I$(CMODEL_ROOT) $(shell $(PYTHON_CONFIG) --includes)' -LDFLAGS '$(CMODEL_ROOT)/libaec_cmodel_api.a $(shell $(PYTHON_CONFIG) --embed --ldflags)' $(EVAL_GENERATED) $(EVAL_TOP) $(SRAM_WRAPPERS) $(SRAM_MODELS) tests/aec_eval_runner.cpp
 eval-runner: $(EVAL_BUILD_DIR)/aec_eval_runner
@@ -83,7 +82,7 @@ lint: generate
 	$(VERILATOR) --lint-only -Wall --Wno-fatal --Wno-DECLFILENAME --Wno-UNUSEDSIGNAL $(GENERATED_ROOT)/fp32/AecFp32Unit.sv
 	$(VERILATOR) --lint-only -Wall --Wno-fatal --Wno-DECLFILENAME --Wno-UNUSEDSIGNAL $(GENERATED_ROOT)/fp64/AecFp64Unit.sv
 	$(VERILATOR) --lint-only -Wall --Wno-fatal --Wno-DECLFILENAME --Wno-UNUSEDSIGNAL $(GENERATED_ROOT)/int/AecEightLaneIntUnit.sv
-eval-lint: eval-generate
+eval-lint: eval-generate verify-sram-models
 	$(VERILATOR) --lint-only -Wall --Wno-fatal --Wno-DECLFILENAME --Wno-UNUSEDSIGNAL --top-module aec_eval_top $(EVAL_GENERATED) $(EVAL_TOP) $(SRAM_WRAPPERS) $(SRAM_MODELS)
 synth: generate
 	$(YOSYS) -p 'read_verilog -sv $(GENERATED_ROOT)/fp32/*.sv; hierarchy -top AecFp32Unit; proc; opt'

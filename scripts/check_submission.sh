@@ -10,6 +10,11 @@ required=(
   rtl/build.sbt
   rtl/sv/aec_eval_top.sv
   rtl/sv/asap7_sram_wrappers.sv
+  rtl/sv/asap7_sram/srambank_64x4x32_6t122.v
+  rtl/sv/asap7_sram/srambank_128x4x32_6t122.v
+  rtl/sv/asap7_sram/srambank_256x4x32_6t122.v
+  rtl/sv/asap7_sram/srambank_64x4x64_6t122.v
+  rtl/scripts/verify_sram_models.sh
   rtl/sv/generated/eval/AecEvalTop.sv
   rtl/tests/aec_eval_runner.cpp
   cmodel/Makefile
@@ -40,7 +45,11 @@ if ! cmp -s rtl/sv/asap7_sram_wrappers.sv Track-B/sram/asap7_sram_wrappers.sv; t
   failed=1
 fi
 
-for script in scripts/build.sh scripts/run_cmodel.sh scripts/run_rtl.sh scripts/run_tests.sh scripts/run_ppa.sh scripts/run_diff.sh scripts/run_realtime_diff_tests.sh; do
+if ! rtl/scripts/verify_sram_models.sh; then
+  failed=1
+fi
+
+for script in scripts/build.sh scripts/run_cmodel.sh scripts/run_rtl.sh scripts/run_tests.sh scripts/run_ppa.sh scripts/run_diff.sh scripts/run_realtime_diff_tests.sh rtl/scripts/verify_sram_models.sh; do
   if [[ ! -x "$script" ]]; then
     echo "entry point is not executable: $script" >&2
     failed=1

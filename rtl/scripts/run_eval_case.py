@@ -60,7 +60,9 @@ out.mkdir(parents=True, exist_ok=True)
 manifest = load_yaml(case)
 repo = Path(__file__).resolve().parents[2]
 build = Path(args.build_dir).resolve() if args.build_dir else repo / "build" / "rtl_eval"
-subprocess.run(["make", "-C", str(repo / "rtl"), "eval-runner", f"EVAL_BUILD_DIR={build}"], check=True)
+runner = build / "aec_eval_runner"
+if not runner.is_file():
+    subprocess.run(["make", "-C", str(repo / "rtl"), "eval-runner", f"EVAL_BUILD_DIR={build}"], check=True)
 
 program = case.parent / manifest["program"]
 program_bytes = program.read_bytes()
@@ -69,7 +71,7 @@ if len(program_bytes) % 16:
 launch = manifest["launch"]
 instructions = launch.get("program_instructions", len(program_bytes) // 16)
 limit = args.max_cycles if args.max_cycles is not None else manifest.get("max_cycles", 100000)
-cmd = [str(build / "aec_eval_runner"), str(program), str(instructions),
+cmd = [str(runner), str(program), str(instructions),
        *(str(v) for v in launch["grid"]), *(str(v) for v in launch["block"]),
        str(limit), str(out)]
 

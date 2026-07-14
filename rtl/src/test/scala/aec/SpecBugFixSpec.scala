@@ -3,7 +3,7 @@ package aec
 import chisel3._
 import chiseltest._
 import org.scalatest.flatspec.AnyFlatSpec
-import aec.int.AecIntAlu
+import aec.int.{AecEightLaneIntUnit, AecIntAlu}
 
 class DecodeValidatorHarness extends Module {
   val io = IO(new Bundle {
@@ -96,6 +96,44 @@ class SpecBugFixSpec extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
 
+  it should "retire both physical INT lane groups in parallel" in {
+    test(new AecEightLaneIntUnit) { dut =>
+      dut.io.req.valid.poke(false.B)
+      dut.io.resp.ready.poke(false.B)
+      dut.clock.step()
+
+      dut.io.req.bits.op.poke(AecOpcode.add)
+      dut.io.req.bits.dtype.poke(2.U)
+      dut.io.req.bits.activeMask.poke("hffffffff".U)
+      dut.io.req.bits.dest.poke(9.U)
+      dut.io.req.bits.predicateSelect.poke(0.U)
+      dut.io.req.bits.predicateValues.poke(0.U)
+      for (lane <- 0 until 32) {
+        dut.io.req.bits.a(lane).poke(lane.U)
+        dut.io.req.bits.b(lane).poke(1000.U)
+        dut.io.req.bits.c(lane).poke(0.U)
+      }
+      dut.io.req.valid.poke(true.B)
+      while (!dut.io.req.ready.peek().litToBoolean) dut.clock.step()
+      dut.clock.step()
+      dut.io.req.valid.poke(false.B)
+
+      var cycles = 0
+      while (!dut.io.resp.valid.peek().litToBoolean && cycles < 200) {
+        dut.clock.step()
+        cycles += 1
+      }
+      assert(cycles < 200)
+      dut.io.resp.bits.activeMask.expect("hffffffff".U)
+      dut.io.resp.bits.dest.expect(9.U)
+      for (lane <- 0 until 32) {
+        dut.io.resp.bits.result(lane).expect((1000 + lane).U)
+      }
+      dut.io.resp.ready.poke(true.B)
+      dut.clock.step()
+    }
+  }
+
   it should "extend narrow sources and clamp narrow FP-to-int destinations" in {
     test(new AecConvertLane) { dut =>
       dut.io.kind.poke(1.U); dut.io.dstType.poke(4.U); dut.io.srcType.poke(8.U)
@@ -109,6 +147,61 @@ class SpecBugFixSpec extends AnyFlatSpec with ChiselScalatestTester {
       dut.io.kind.poke(2.U); dut.io.dstType.poke(8.U); dut.io.srcType.poke(5.U)
       dut.io.in.poke(0x80.U)
       dut.io.out.expect("h00000000c3000000".U) // sign-extended -128 -> f32
+    }
+  }
+
+  behavior of "AEC barrier and GMEM boundary handling"
+
+  it should "accept all four simultaneous scheduler barrier arrivals" in {
+    test(new AecCtaBarrier) { dut =>
+      dut.io.activeWarps.poke("hff".U); dut.io.completed.poke(0.U)
+      for (i <- 0 until 4) {
+        dut.io.arrive(i).valid.poke(true.B)
+        dut.io.arrive(i).bits.poke((i * 2).U)
+      }
+      dut.io.release.expect(0.U)
+      dut.clock.step()
+      for (i <- 0 until 4) { dut.io.arrive(i).bits.poke((i * 2 + 1).U) }
+      dut.io.release.expect("hff".U)
+      dut.io.duplicate.expect(false.B)
+    }
+  }
+
+  it should "assemble a 64-bit GMEM load across a 128-byte line" in {
+    test(new AecGmemLsu(1)) { dut =>
+      dut.io.start.valid.poke(false.B); dut.io.lineOut.ready.poke(true.B)
+      dut.io.lineComplete.valid.poke(false.B); dut.io.done.ready.poke(true.B)
+      dut.io.start.bits.warp.poke(0.U); dut.io.start.bits.load.poke(true.B)
+      dut.io.start.bits.width64.poke(true.B); dut.io.start.bits.mask.poke(1.U)
+      dut.io.start.bits.atomic.poke(false.B); dut.io.start.bits.atomicOp.poke(0.U)
+      dut.io.start.bits.signed.poke(false.B)
+      for (lane <- 0 until 32) {
+        dut.io.start.bits.address(lane).poke((if (lane == 0) 125 else 0).U)
+        dut.io.start.bits.storeData(lane).poke(0.U)
+        dut.io.start.bits.compareData(lane).poke(0.U)
+      }
+      dut.io.start.valid.poke(true.B); dut.clock.step(); dut.io.start.valid.poke(false.B)
+
+      var waitCycles = 0
+      while (!dut.io.lineOut.valid.peek().litToBoolean && waitCycles < 20) { dut.clock.step(); waitCycles += 1 }
+      assert(waitCycles < 20, "first coalesced line request did not issue")
+      dut.io.lineOut.bits.address.expect(0.U); dut.clock.step()
+      val first = (1 to 3).zipWithIndex.foldLeft(BigInt(0)) { case (v, (b, i)) => v | (BigInt(b) << (8 * (125 + i))) }
+      dut.io.lineComplete.bits.warp.poke(0.U); dut.io.lineComplete.bits.tag.poke(0.U)
+      dut.io.lineComplete.bits.write.poke(false.B); dut.io.lineComplete.bits.lastForInstruction.poke(false.B)
+      dut.io.lineComplete.bits.error.poke(false.B); dut.io.lineComplete.bits.rdata.poke(first.U)
+      dut.io.lineComplete.valid.poke(true.B); dut.clock.step(); dut.io.lineComplete.valid.poke(false.B)
+
+      waitCycles = 0
+      while (!dut.io.lineOut.valid.peek().litToBoolean && waitCycles < 20) { dut.clock.step(); waitCycles += 1 }
+      assert(waitCycles < 20, "second coalesced line request did not issue")
+      dut.io.lineOut.bits.address.expect(128.U); dut.clock.step()
+      val second = (4 to 8).zipWithIndex.foldLeft(BigInt(0)) { case (v, (b, i)) => v | (BigInt(b) << (8 * i)) }
+      dut.io.lineComplete.bits.rdata.poke(second.U); dut.io.lineComplete.valid.poke(true.B)
+      dut.clock.step(); dut.io.lineComplete.valid.poke(false.B)
+      dut.io.done.valid.expect(true.B)
+      dut.io.done.bits.loadData(0).expect("h0807060504030201".U)
+      dut.io.done.bits.error.expect(false.B)
     }
   }
 }

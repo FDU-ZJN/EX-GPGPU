@@ -97,6 +97,10 @@ scripts/run_ppa.sh \
 
 ## 单位和指标
 
+当前结构使用128个512x32 GPR macro和384个1024x32 resident-memory macro。
+按锁定LEF计算，SRAM footprint约`591,911 um²`，为优化前704个1024x32 macro
+基线`922,968 um²`的64.1%。这只是macro面积，不替代完整top标准单元、时序和功耗报告。
+
 ASAP7 Liberty 声明：
 
 ```text

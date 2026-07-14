@@ -46,11 +46,14 @@ separate `passed` verdict.
 
 ## Additional checks
 
-The following were run after the functional fixes:
+The following were run after the SRAM/vector/coalescer optimization:
 
-- Verilator `eval-lint` passed, with only documented coordinate-division width
-  warnings.
-- Chisel `SpecBugFixSpec` passed 4/4.
+- Verilator `eval-lint` passed without RTL warnings.
+- Chisel `SpecBugFixSpec` passed 8/8, including four-way barrier arrival and
+  a 64-bit load crossing a 128-byte line.
+- Public RTL regression passed 36/36 with each manifest's native cycle budget.
+  Representative cycles: ABI smoke 159, ADD 406, LD 286, ST 282, ATOM 372,
+  DIV 574, RCP 853, GEMM 936.
 - Python CModel unit tests passed 14/14.
 - `git diff --check` passed.
 

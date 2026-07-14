@@ -4,6 +4,24 @@
 > 范围：`rtl/src/main/scala/aec/`，并对照 `Track-B/spec.md`。本文审查当前
 > source-of-truth；`CHISEL_SPEC_BUG_REVIEW.md` 中已标记 Fixed 的历史问题不重复计数。
 
+## 实施更新（2026-07-14）
+
+本审查之后已完成以下整改；下文保留原始问题描述作为基线：
+
+- BUG-01～06：补齐GMEM b64、修复CTA restart和四路barrier、按byte处理preload，
+  增加abort/drain soft reset，并为LMEM packed tag增加epoch回绕scrub。
+- GPR改为每partition 32个lane-local 512x32 SRAM，支持完整warp vector read/write；
+  LMEM tag由256个macro降到64个。
+- GMEM按128-byte line coalesce，store保留全量preflight，atomic同line聚合RMW；
+  Local LSU增加aligned word fast path，local/external仲裁改为round-robin。
+- special coordinate改为共享注册单元，MTCH改为逐destination lane迭代，SFU扩展到4个physical lanes。
+
+当前macro footprint约`591,911 um²`，是审查基线`922,968 um²`的64.1%。public regression
+36/36通过；ABI smoke由877降到159 cycles，ADD由2384降到406，ATOM由6628降到372。
+
+尚未完成：EFF-01的完整multi-instruction-in-flight/Decoupled queue重构、其余local valid
+bitmap RAM化，以及锁定ASAP7环境下的完整top post-buffer STA/PPA。
+
 ## 1. 结论摘要
 
 当前代码能通过已有 5 个 Chisel 定向测试，仓库证据也记录了 36/36 public case

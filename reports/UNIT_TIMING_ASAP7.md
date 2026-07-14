@@ -18,7 +18,7 @@ and SIMPLE Liberty archives were loaded separately. Timing uses ideal clocks
 and has no extracted wire parasitics. No switching VCD was supplied, so power
 and complete PPA validity are false while the timing reports are valid.
 
-## Results
+## Baseline results
 
 | Unit | Area (um2) | Cells | Critical path (ps) | Fmax (MHz) | 500 MHz |
 |---|---:|---:|---:|---:|---|
@@ -46,54 +46,84 @@ boundaries, so OpenSTA exposes multi-pF loads on minimum-drive cells. A normal
 physical-design flow would insert buffer trees, but relying only on that is
 not sufficient for a defensible 500 MHz target.
 
-## Optimization plan
+## Optimized results
 
-### P0: Warp wrapper control distribution
+The warp request buffer now uses lane-local 16-bit operand banks, result arrays
+use write masks instead of full-array clears, INT multiply/shift/bitfield
+operations are multi-cycle, and physical-lane metadata is locally encoded so
+Yosys cannot merge every copy back into one register. The physical widths
+remain INT32=16, FP32=16, FP64=2, and SFU=1.
 
-1. Replace each monolithic `held := io.req.bits` with 32 lane banks. Register
-   and preserve local capture strobes per lane and per operand so one control
-   net drives at most 64 data bits. Add a capture state because latency is not
-   constrained.
-2. Stop clearing all 32 result and exception entries on every request and
-   response. Track a valid/write mask and overwrite only retired lanes.
-3. Replicate the state decode locally at each bank with `dontTouch` or an
-   explicit hierarchy so synthesis cannot merge all local enables back into a
-   single high-fanout net.
-4. Add a fanout-aware physical stage, preferably OpenROAD `repair_design`,
-   before signoff STA. Enforce max fanout and max transition constraints and
-   use the post-repair netlist for timing.
+| Unit | Area (um2) | Cells | Critical path (ps) | Fmax (MHz) | Improvement |
+|---|---:|---:|---:|---:|---:|
+| INT32 | 9,062.46 | 101,912 | 19,444.38 | 51.43 | 11.2x |
+| FP32 | 25,188.29 | 303,899 | 22,353.18 | 44.74 | 9.8x |
+| FP64 | 12,911.23 | 143,260 | 13,494.99 | 74.10 | 29.9x |
+| DIV/SFU | 7,495.78 | 82,292 | 9,075.66 | 110.18 | 30.8x |
 
-This work is mandatory before arithmetic datapath timing can be measured
-meaningfully. The first acceptance criterion is that no data/control pin sees
-more than the chosen fanout limit and no slew exceeds the characterized table.
+All four still fail 500 MHz. INT32 and FP32 remain dominated by shared wrapper
+control nets: their worst mapped x1 drivers see approximately 1.0-1.1 pF and
+feed another 0.45-0.51 pF stage. FP64 spends about 10.5 ns in a 272 fF/138 fF
+control decode before entering the arithmetic cone. SFU no longer has a
+single catastrophic request-capture load; its 9.1 ns path is a long mix of
+control, iterative arithmetic, normalization, and packing logic.
 
-### P1: Reduce physical parallelism
+Adding ABC `buffer` after mapping was evaluated and rejected. With the five
+Liberty files loaded separately ABC did not detect a usable buffer gate early
+enough, selected minimum-drive inverters, and degraded INT32 from 19.4 ns to
+48.7 ns. A real fanout repair stage must therefore use a unified characterized
+library or a physical synthesis tool such as OpenROAD, followed by timing on
+the repaired netlist. The unsuccessful flow change is not retained.
 
-Because throughput and latency are not objectives, configure INT32 and FP32
-to one physical lane and retain one FP64 and one SFU lane. This removes 15
-duplicated INT/FP32 datapaths and makes operand/result selection local. It
-also reduces the number of destinations driven by ready/valid/state control.
+## 100 MHz timing closure
 
-### P2: Datapath-specific timing
+The next optimization pass retained all 16/16/2/1 physical lanes and did not
+serialize retirement. Each architectural result lane has a local result/flag
+bank with a one-bit pending write control. At the end of a physical group all
+16 INT32 lanes, all 16 FP32 lanes, both FP64 lanes, or the SFU lane write in
+parallel. The 32-bank GPR interface can therefore consume the complete group;
+no lane-by-lane writeback FSM was introduced.
 
-- INT32: make multiply iterative and split variable shift into 8/4/2/1 stages
-  or a multi-cycle shifter. Register compare/select results before retirement.
-- FP32: retain one FMA and add registers between exponent alignment,
-  significand multiply/add, leading-zero normalization, and final rounding.
-- FP64: use one lane and similarly isolate alignment, 53-bit significand
-  arithmetic, normalization, and rounding. Avoid a same-cycle format-select
-  mux after rounding.
-- DIV/SFU: the 53-bit DIV/SQRT core is already iterative. Replace the remaining
-  combinational 48x48 Q34 multiplier with a shift-add or 16x16 chunked
-  multi-cycle multiplier, and make leading-zero/packing an iterative step.
+The request side now registers group selection locally per physical FP lane,
+then selects the statically connected architectural-lane operand bank in a
+second elastic stage. FP64 elaboration removes the unused narrow-format
+widening converters from its native-only pipes. Inside the shared FPUv2 FMA,
+synchronized one-entry elastic queues register the selected add operands and
+FMA product metadata before the alignment stage. These queues use replacement
+on dequeue, so the pipe retains one-request-per-cycle capacity per lane even
+though arithmetic latency increases by one cycle.
 
-### P3: Re-evaluation gates
+The final run used a 10,000 ps constraint and hierarchical mapping
+(`PPA_FLATTEN=0`) so the local lane-bank and pipeline boundaries remain
+visible. All four units have positive setup slack and zero TNS:
 
-1. Re-run unit differential tests after every pipeline or multi-cycle change.
-2. Re-run ASAP7 timing with 2,000 ps, then 1,800 ps to retain margin for clock
-   uncertainty and routed interconnect.
-3. Require positive setup slack, bounded transition/fanout, no unconstrained
-   endpoints, and post-route rather than logic-only STA before claiming
-   500 MHz.
+| Unit | Area (um2) | Cells | Critical path (ps) | Slack at 10 ns (ps) | Fmax (MHz) | 100 MHz |
+|---|---:|---:|---:|---:|---:|---|
+| INT32 | 12,424.23 | 126,757 | 8,678.04 | 1,305.11 | 115.23 | Pass |
+| FP32 | 34,797.18 | 400,774 | 3,856.05 | 6,113.88 | 259.33 | Pass |
+| FP64 | 14,602.34 | 154,889 | 8,604.27 | 1,365.61 | 116.22 | Pass |
+| DIV/SFU | 6,933.31 | 73,320 | 8,262.13 | 1,716.53 | 121.03 | Pass |
 
-Detailed reports and mapped netlists are under `rtl/reports/ppa_units/`.
+FP64 improved from 10,424.45 ps (95.93 MHz) to 8,604.27 ps after the internal
+FMA register boundary. FP32 also benefits from the shared FMA change. These
+are pre-layout NLDM results with ideal clocks and no extracted interconnect;
+they establish synthesis-level 100 MHz closure, not signoff timing. No
+switching VCD was supplied, so power remains invalid and `ppa_valid` remains
+false even though timing and area are valid.
+
+## Verification
+
+- `SpecBugFixSpec`: 8/8 passed, including 32 active INT lanes and parallel
+  retirement of both 16-lane physical groups.
+- FP32 differential: 4,636 vectors, 0 failures, 35% random backpressure.
+- FP64 differential: 1,612 vectors, 0 failures, 35% random backpressure.
+- SFU differential: 3,355 vectors, 0 failures, 35% random backpressure.
+- INT32 Verilator lint: passed with Verilator 5.049 devel
+  (`v5.048-179-gc878a7e73`).
+
+Final reports and mapped netlists are under
+`rtl/reports/ppa_100mhz_final2/{int,fp32,fp64,sfu}/`. The earlier reports under
+`rtl/reports/ppa_optimized_encoded/` and `rtl/reports/ppa_final/` are retained
+as optimization history. A future 500 MHz attempt still requires additional
+arithmetic retiming plus placed buffer-tree and interconnect-aware analysis;
+the current work claims only the requested greater-than-100 MHz target.

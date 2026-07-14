@@ -2,9 +2,7 @@ package aec.int
 
 import chisel3._
 import chisel3.util._
-import chisel3.experimental.{ChiselAnnotation, annotate}
 import aec.AecOpcode
-import firrtl.AttributeAnnotation
 
 /** Lane-local request for the integer/logical execution unit. */
 class AecIntRequest extends Bundle {
@@ -24,6 +22,21 @@ class AecIntResponse extends Bundle {
   val error = Bool()
 }
 
+/** Elastic lane-local request register with an unconditionally sampled payload. */
+class AecIntRequestStage extends Module {
+  val io = IO(new Bundle {
+    val in = Flipped(Decoupled(new AecIntRequest))
+    val out = Decoupled(new AecIntRequest)
+  })
+
+  val data = RegNext(io.in.bits)
+  val valid = RegInit(false.B)
+  io.in.ready := !valid || io.out.ready
+  io.out.valid := valid
+  io.out.bits := data
+  when (io.in.ready) { valid := io.in.valid }
+}
+
 /**
   * One lane's integer and bit-manipulation ALU.
   *
@@ -32,7 +45,7 @@ class AecIntResponse extends Bundle {
   * keeping this boundary independent allows a restoring divider to replace
   * the current implementation without changing Warp.
   */
-class AecIntAlu(val laneId: Int = 0) extends Module {
+class AecIntAlu extends Module {
   val io = IO(new Bundle {
     val req = Flipped(Decoupled(new AecIntRequest))
     val resp = Decoupled(new AecIntResponse)
@@ -40,12 +53,7 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
 
   val (idle :: multiply :: shiftRun :: bitfieldShift :: bitfieldMask ::
     bitfieldMaskShift :: respond :: Nil) = Enum(7)
-  val stateCode = RegInit(idle)
-  val stateKey = RegInit(0.U(3.W))
-  val state = stateCode ^ stateKey
-  annotate(new ChiselAnnotation {
-    override def toFirrtl = AttributeAnnotation(stateCode.toTarget, "keep = \"true\"")
-  })
+  val state = RegInit(idle)
   val result = RegInit(0.U(32.W))
   val predicateResult = RegInit(false.B)
   val dest = RegInit(0.U(8.W))
@@ -148,8 +156,6 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
   }
 
   when (io.req.fire) {
-    val requestStateKey = a(2, 0) ^ b(2, 0) ^ c(2, 0) ^ (laneId & 7).U(3.W)
-    stateKey := requestStateKey
     dest := io.req.bits.dest
     predicateResult := false.B
     error := false.B
@@ -160,14 +166,14 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
       multiplyCount := 0.U
       multiplyAddend := c
       multiplyMad := io.req.bits.op === AecOpcode.mad
-      stateCode := multiply ^ requestStateKey
+      state := multiply
     }.elsewhen (io.req.bits.op === AecOpcode.shl || io.req.bits.op === AecOpcode.shr) {
       shiftValue := a
       shiftAmount := shift
       shiftStep := 0.U
       shiftRight := io.req.bits.op === AecOpcode.shr
       shiftArithmetic := io.req.bits.op === AecOpcode.shr && isSigned
-      stateCode := shiftRun ^ requestStateKey
+      state := shiftRun
     }.elsewhen (io.req.bits.op === AecOpcode.bfx || io.req.bits.op === AecOpcode.bins) {
       val lsb = c(7, 0)
       val width = c(15, 8)
@@ -175,7 +181,7 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
       when (!valid) {
         result := 0.U
         error := true.B
-        stateCode := respond ^ requestStateKey
+        state := respond
       }.otherwise {
         bitfieldBase := a
         bitfieldValue := Mux(io.req.bits.op === AecOpcode.bins, b, a)
@@ -185,13 +191,13 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
         bitfieldWidth := width(5, 0)
         bitfieldInsert := io.req.bits.op === AecOpcode.bins
         bitfieldSigned := isSigned
-        stateCode := bitfieldShift ^ requestStateKey
+        state := bitfieldShift
       }
     }.otherwise {
       result := aluResult
       predicateResult := aluPredicate
       error := aluError
-      stateCode := respond ^ requestStateKey
+      state := respond
     }
   }
 
@@ -202,7 +208,7 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
     multiplier := multiplier >> 1
     when (multiplyCount === 31.U) {
       result := Mux(multiplyMad, nextProduct + multiplyAddend, nextProduct)
-      stateCode := respond ^ stateKey
+      state := respond
     }.otherwise { multiplyCount := multiplyCount + 1.U }
   }
 
@@ -222,14 +228,14 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
     val shifted = Mux(shiftRight, Mux(shiftArithmetic, arithmeticRight, logicalRight), left)
     val nextValue = Mux(shiftAmount(shiftStep), shifted, shiftValue)
     shiftValue := nextValue
-    when (shiftStep === 4.U) { result := nextValue; stateCode := respond ^ stateKey }
+    when (shiftStep === 4.U) { result := nextValue; state := respond }
       .otherwise { shiftStep := shiftStep + 1.U }
   }
 
   when (state === bitfieldShift) {
     when (bitfieldRemaining === 0.U) {
       bitfieldRemaining := bitfieldWidth
-      stateCode := bitfieldMask ^ stateKey
+      state := bitfieldMask
     }.otherwise {
       bitfieldValue := Mux(bitfieldInsert, bitfieldValue << 1, bitfieldValue >> 1)
       bitfieldRemaining := bitfieldRemaining - 1.U
@@ -239,12 +245,12 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
     when (bitfieldRemaining === 0.U) {
       when (bitfieldInsert) {
         bitfieldRemaining := bitfieldLsb
-        stateCode := bitfieldMaskShift ^ stateKey
+        state := bitfieldMaskShift
       }.otherwise {
         val extracted = bitfieldValue & bitfieldMaskReg
         val signBit = (extracted & ((bitfieldMaskReg + 1.U) >> 1)).orR
         result := Mux(bitfieldSigned && signBit, extracted | ~bitfieldMaskReg, extracted)
-        stateCode := respond ^ stateKey
+        state := respond
       }
     }.otherwise {
       bitfieldMaskReg := (bitfieldMaskReg << 1) | 1.U
@@ -254,12 +260,12 @@ class AecIntAlu(val laneId: Int = 0) extends Module {
   when (state === bitfieldMaskShift) {
     when (bitfieldRemaining === 0.U) {
       result := (bitfieldBase & ~bitfieldMaskReg) | (bitfieldValue & bitfieldMaskReg)
-      stateCode := respond ^ stateKey
+      state := respond
     }.otherwise {
       bitfieldMaskReg := bitfieldMaskReg << 1
       bitfieldRemaining := bitfieldRemaining - 1.U
     }
   }
 
-  when (io.resp.fire) { stateCode := idle ^ stateKey }
+  when (io.resp.fire) { state := idle }
 }

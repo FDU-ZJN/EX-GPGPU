@@ -38,6 +38,37 @@ class AecFpResponse extends Bundle {
   val error = Bool(); val exception_flags = UInt(5.W)
 }
 
+/** Elastic lane-local request register with an unconditionally sampled payload. */
+class AecFpWarpRequestStage(val groups: Int) extends Module {
+  require(groups > 0)
+  val io = IO(new Bundle {
+    val inValid = Input(Bool())
+    val inReady = Output(Bool())
+    val group = Input(UInt(log2Ceil(groups max 2).W))
+    val data = Input(Vec(groups, new AecFpRequest))
+    val out = Decoupled(new AecFpRequest)
+  })
+
+  val selectValid = RegInit(false.B)
+  val selectedGroup = Reg(UInt(log2Ceil(groups max 2).W))
+  val dataValid = RegInit(false.B)
+  val data = Reg(new AecFpRequest)
+  val dataReady = !dataValid || io.out.ready
+  val selectReady = !selectValid || dataReady
+
+  io.inReady := selectReady
+  io.out.valid := dataValid
+  io.out.bits := data
+  when (dataReady) {
+    dataValid := selectValid
+    when (selectValid) { data := io.data(selectedGroup) }
+  }
+  when (selectReady) {
+    selectValid := io.inValid
+    when (io.inValid) { selectedGroup := io.group }
+  }
+}
+
 object AecFpOp {
   val add = 1.U(7.W); val sub = 2.U(7.W); val mul = 3.U(7.W)
   val mad = 4.U(7.W); val fma = 5.U(7.W); val div = 6.U(7.W)
@@ -82,10 +113,12 @@ class AecFp64PipeUnit(val acceptNarrow: Boolean = true) extends Module {
   bf16Up.zip(reqLowOperands).foreach { case (cvt, in) => cvt.io.in := in; cvt.io.rm := 0.U }
   f32Up.zip(Seq(io.req.bits.a(31, 0), io.req.bits.b(31, 0), io.req.bits.c(31, 0))).foreach { case (cvt, in) => cvt.io.in := in; cvt.io.rm := 0.U }
   def reqOperand64(index: Int): UInt = {
-    val fp32 = Seq(io.req.bits.a(31, 0), io.req.bits.b(31, 0), io.req.bits.c(31, 0))(index)
-    MuxLookup(io.req.bits.dtype, io.req.bits.a, Seq(
-      10.U -> f16Up(index).io.result, 11.U -> bf16Up(index).io.result,
-      8.U -> f32Up(index).io.result, 9.U -> Seq(io.req.bits.a, io.req.bits.b, io.req.bits.c)(index)))
+    val native = Seq(io.req.bits.a, io.req.bits.b, io.req.bits.c)(index)
+    if (acceptNarrow) {
+      MuxLookup(io.req.bits.dtype, native, Seq(
+        10.U -> f16Up(index).io.result, 11.U -> bf16Up(index).io.result,
+        8.U -> f32Up(index).io.result, 9.U -> native))
+    } else native
   }
   def connectPipe(pipe: FMA): Unit = {
     val ctrl = pipe.io.in.bits.ctrl.get.asInstanceOf[AecFpPipeCtrl]

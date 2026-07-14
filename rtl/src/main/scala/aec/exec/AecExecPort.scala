@@ -25,6 +25,29 @@ class AecExecResponse extends Bundle {
   val dest = UInt(8.W)
 }
 
+/** One architectural lane's local result/flag register bank. */
+class AecResultLaneBank extends Module {
+  val io = IO(new Bundle {
+    val write = Input(Bool())
+    val writeResult = Input(UInt(64.W))
+    val writeFlags = Input(UInt(5.W))
+    val result = Output(UInt(64.W))
+    val flags = Output(UInt(5.W))
+  })
+
+  val result = RegInit(0.U(64.W))
+  val flags = RegInit(0.U(5.W))
+  val pending = RegNext(io.write, false.B)
+  val stagedResult = RegNext(io.writeResult)
+  val stagedFlags = RegNext(io.writeFlags)
+  when (pending) {
+    result := stagedResult
+    flags := stagedFlags
+  }
+  io.result := result
+  io.flags := flags
+}
+
 /** Two-phase warp request capture with lane-local write enables. */
 class AecWarpRequestBuffer extends Module {
   val io = IO(new Bundle {
@@ -34,13 +57,15 @@ class AecWarpRequestBuffer extends Module {
     val out = Output(new AecExecRequest)
   })
 
-  val operandCapture = RegInit(VecInit(Seq.fill(32)(VecInit(Seq.fill(12)(false.B)))))
+  private val operandBankWidth = 16
+  private val banksPerOperand = 64 / operandBankWidth
+  val operandCapture = RegInit(VecInit(Seq.fill(32)(VecInit(Seq.fill(3 * banksPerOperand)(false.B)))))
   operandCapture.foreach(_.foreach(dontTouch(_)))
   val maskCapture = RegInit(VecInit(Seq.fill(32)(false.B)))
   maskCapture.foreach(dontTouch(_))
-  val a = Reg(Vec(32, Vec(4, UInt(16.W))))
-  val b = Reg(Vec(32, Vec(4, UInt(16.W))))
-  val c = Reg(Vec(32, Vec(4, UInt(16.W))))
+  val a = Reg(Vec(32, Vec(banksPerOperand, UInt(operandBankWidth.W))))
+  val b = Reg(Vec(32, Vec(banksPerOperand, UInt(operandBankWidth.W))))
+  val c = Reg(Vec(32, Vec(banksPerOperand, UInt(operandBankWidth.W))))
   val active = Reg(Vec(32, Bool()))
   val predicates = Reg(Vec(32, Bool()))
   val op = Reg(UInt(16.W))
@@ -49,23 +74,23 @@ class AecWarpRequestBuffer extends Module {
   val predicateSelect = Reg(UInt(3.W))
 
   for (i <- 0 until 32) {
-    for (chunk <- 0 until 4) {
-      val hi = (chunk + 1) * 16 - 1
-      val lo = chunk * 16
-      when (operandCapture(i)(chunk)) { a(i)(chunk) := io.in.a(i)(hi, lo) }
-      when (operandCapture(i)(4 + chunk)) { b(i)(chunk) := io.in.b(i)(hi, lo) }
-      when (operandCapture(i)(8 + chunk)) { c(i)(chunk) := io.in.c(i)(hi, lo) }
+    for (bank <- 0 until banksPerOperand) {
+      val hi = (bank + 1) * operandBankWidth - 1
+      val lo = bank * operandBankWidth
+      when (operandCapture(i)(bank)) { a(i)(bank) := io.in.a(i)(hi, lo) }
+      when (operandCapture(i)(banksPerOperand + bank)) { b(i)(bank) := io.in.b(i)(hi, lo) }
+      when (operandCapture(i)(2 * banksPerOperand + bank)) { c(i)(bank) := io.in.c(i)(hi, lo) }
     }
     when (maskCapture(i)) {
       active(i) := io.in.activeMask(i)
       predicates(i) := io.in.predicateValues(i)
     }
     when (io.arm) {
-      operandCapture(i) := VecInit(Seq.fill(12)(true.B))
+      operandCapture(i) := VecInit(Seq.fill(3 * banksPerOperand)(true.B))
       maskCapture(i) := true.B
     }
     when (io.capture) {
-      operandCapture(i) := VecInit(Seq.fill(12)(false.B))
+      operandCapture(i) := VecInit(Seq.fill(3 * banksPerOperand)(false.B))
       maskCapture(i) := false.B
     }
   }

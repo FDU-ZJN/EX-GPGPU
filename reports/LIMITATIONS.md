@@ -19,9 +19,12 @@
 
 ## Performance and implementation
 
-- GMEM loads/stores and atomics are intentionally serialized by lane; stores
-  add a complete preflight phase. This is functionally conservative but reduces
-  memory throughput.
+- GMEM loads/stores are coalesced by 128-byte line and stores retain a complete
+  preflight phase for precise errors. Requests from different coalesced lines
+  within one warp instruction are still issued conservatively rather than all
+  being outstanding at once.
+- Each partition still permits only one instruction in its frontend FSM; long
+  backend latency is reduced but not yet hidden by issuing the sibling warp.
 - Conversion and several multi-cycle functions favor small shared resources
   over maximum lane throughput.
 - The runner uses a deterministic 1 MiB GMEM backing vector. Hidden evaluation

@@ -26,8 +26,8 @@ class AecExternalMemoryEngine extends Module {
   val warp = Reg(Vec(AecFrontendConfig.Outstanding, UInt(3.W))); val write = Reg(Vec(AecFrontendConfig.Outstanding, Bool())); val last = Reg(Vec(AecFrontendConfig.Outstanding, Bool()))
   val free = VecInit((0 until AecFrontendConfig.Outstanding).map(i => !valid(i))).asUInt
   val hasFree = free.orR; val tag = PriorityEncoder(free)
-  io.lineIn.ready := hasFree && io.memReqReady && !io.memRspValid
-  io.memReqValid := io.lineIn.valid && hasFree && !io.memRspValid
+  io.lineIn.ready := hasFree && io.memReqReady
+  io.memReqValid := io.lineIn.valid && hasFree
   io.memReqWrite := io.lineIn.bits.write; io.memReqAddr := io.lineIn.bits.address; io.memReqWdata := io.lineIn.bits.wdata; io.memReqWstrb := io.lineIn.bits.wstrb; io.memReqTag := tag
   when (io.lineIn.fire) { valid(tag) := true.B; warp(tag) := io.lineIn.bits.warp; write(tag) := io.lineIn.bits.write; last(tag) := io.lineIn.bits.lastForInstruction }
   io.lineComplete.valid := io.memRspValid && valid(io.memRspTag)

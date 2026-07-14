@@ -17,6 +17,17 @@ class AecSram1024x32 extends BlackBox {
   })
 }
 
+/** Black-box declaration for the locked Track-B 512x32 SRAM wrapper. */
+class AecSram512x32 extends BlackBox {
+  override def desiredName: String = "aec_sram_512x32"
+  val io = IO(new Bundle {
+    val clk = Input(Clock()); val en = Input(Bool())
+    val read_en = Input(Bool()); val write_en = Input(Bool())
+    val addr = Input(UInt(9.W)); val write_data = Input(UInt(32.W))
+    val read_data = Output(UInt(32.W))
+  })
+}
+
 /**
   * Synchronous single-read/write-port memory composed only from the locked
   * Track-B 1024x32 macro. Depth must be a power-of-two multiple of 1024.

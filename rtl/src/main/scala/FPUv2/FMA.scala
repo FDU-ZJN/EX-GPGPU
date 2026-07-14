@@ -140,25 +140,38 @@ class FMA(expWidth: Int, precision: Int, ctrlGen: Data = EmptyFPUCtrl())
   toAddArbiterFIFO(0).io.enq.valid := FPUOps.isFMA(mulPipe.toAdd.op) && mulPipe.io.out.valid
   toAddArbiter.io.in(0) <> toAddArbiterFIFO(0).io.deq
   toAddArbiter.io.in(1) <> toAddArbiterFIFO(1).io.deq
-  addPipe.io.in.bits.ctrl.foreach{ _ := toAddArbiter.io.out.bits.ctrl.get }
 
   val inToAddFIFO = Module(new Queue(io.in.bits.cloneType, entries = 1, pipe = true))
   inToAddFIFO.io.enq.bits := io.in.bits
   inToAddFIFO.io.enq.valid := FPUOps.isADDSUB(io.in.bits.op) && io.in.valid
-  addPipe.io.in.bits := inToAddFIFO.io.deq.bits
-  addPipe.io.in.bits.op := toAddArbiter.io.out.bits.op
   inToAddFIFO.io.deq.ready := toAddArbiter.io.in(1).ready
 
   val mulToAddFIFO = Module(new Queue(new MulToAddIO(expWidth, precision, ctrlGen), entries = 1, pipe = true))
   mulToAddFIFO.io.enq.bits := mulPipe.toAdd
   mulToAddFIFO.io.enq.valid := toAddArbiterFIFO(0).io.enq.fire
-  addPipe.fromMul := mulToAddFIFO.io.deq.bits
   mulToAddFIFO.io.deq.ready := toAddArbiter.io.in(0).ready
   //addPipe.fromMul := RegNext(mulPipe.toAdd, ArbiterInQueue(0).io.enq.fire)
 
-  toAddArbiter.io.out.ready := addPipe.io.in.ready
-  addPipe.io.in.valid := toAddArbiter.io.out.valid
-  addPipe.io.in.bits.ctrl.foreach( _ := toAddArbiter.io.out.bits.ctrl.get )
+  // Cut the FIFO/source-selection delay from the add alignment stage.  The
+  // synchronized one-entry queues remain elastic and can replace their entry
+  // every cycle, preserving the original one-request-per-cycle throughput.
+  val addInputStage = Module(new Queue(addPipe.io.in.bits.cloneType, entries = 1, pipe = true))
+  val addMulStage = Module(new Queue(new MulToAddIO(expWidth, precision, ctrlGen), entries = 1, pipe = true))
+  addInputStage.io.enq.bits := inToAddFIFO.io.deq.bits
+  addInputStage.io.enq.bits.op := toAddArbiter.io.out.bits.op
+  addInputStage.io.enq.bits.ctrl.foreach(_ := toAddArbiter.io.out.bits.ctrl.get)
+  addMulStage.io.enq.bits := mulToAddFIFO.io.deq.bits
+  val addStageReady = addInputStage.io.enq.ready && addMulStage.io.enq.ready
+  addInputStage.io.enq.valid := toAddArbiter.io.out.valid && addMulStage.io.enq.ready
+  addMulStage.io.enq.valid := toAddArbiter.io.out.valid && addInputStage.io.enq.ready
+  toAddArbiter.io.out.ready := addStageReady
+
+  addPipe.io.in.bits := addInputStage.io.deq.bits
+  addPipe.fromMul := addMulStage.io.deq.bits
+  addPipe.io.in.valid := addInputStage.io.deq.valid && addMulStage.io.deq.valid
+  val addStageDequeue = addPipe.io.in.ready && addInputStage.io.deq.valid && addMulStage.io.deq.valid
+  addInputStage.io.deq.ready := addStageDequeue
+  addMulStage.io.deq.ready := addStageDequeue
 
   // 加法为乘加让行的同时也会阻塞FMA输入，确保自己之后能够进入流水线
   // 另一种阻塞FMA输入的情况是乘法器那边卡住了

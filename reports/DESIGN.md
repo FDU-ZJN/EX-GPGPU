@@ -36,17 +36,17 @@ issues 128-byte tagged requests through a 16-tag memory engine; it does not
 maintain a full GMEM mirror. The local runner creates requested dumps directly
 from its authoritative backing vector after completing the result handshake.
 
-The conservative GMEM LSU serializes participating lanes. Stores first issue
+The GMEM LSU coalesces warp accesses by 128-byte line. Stores first issue
 side-effect-free preflight reads for every touched line, then replay writes only
-after all accesses succeed. Atomics execute as serialized read-modify-write
-transactions in ascending lane order. SMEM/LMEM/CMEM/PMEM are implemented by
+after all accesses succeed. Atomics apply active lanes in ascending order to a
+coalesced line read-modify-write. SMEM/LMEM/CMEM/PMEM are implemented by
 the local LSU; stores precheck all executing lanes before the write phase.
 CMEM/PMEM preload ports apply byte strobes.
 
-All resident data arrays use the locked Track-B `aec_sram_1024x32` wrapper
-(`srambank_256x4x32_6t122`). IMEM uses four 32-bit slices per 128-bit row and
-is replicated once per scheduler read port. Each GPR partition keeps two
-identical SRAM copies for its two reads and broadcasts every write to both.
+Resident arrays use locked Track-B SRAM wrappers. IMEM uses four 1024x32 slices
+per 128-bit row and is replicated once per scheduler read port. Each GPR
+partition uses 32 lane-local 512x32 banks, so one source read returns a complete
+warp and predicated vector writeback drives lane write enables independently.
 SMEM, LMEM, the LMEM generation tags, CMEM and PMEM use depth banking. The
 single-port local-memory sequencer performs explicit read-modify-write cycles
 for byte stores and masked CMEM/PMEM preload beats; it never asserts native

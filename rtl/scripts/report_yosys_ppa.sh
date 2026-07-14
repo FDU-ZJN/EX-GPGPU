@@ -14,10 +14,15 @@ activity_vcd=${ACTIVITY_VCD:-}
 activity_scope=${ACTIVITY_SCOPE:-$top}
 yosys_bin=${YOSYS:-yosys}
 sta_bin=${STA:-sta}
+flatten_hierarchy=${PPA_FLATTEN:-0}
 mkdir -p "$out"
+"$root/scripts/verify_sram_models.sh"
 
 [[ "$period" =~ ^[0-9]+([.][0-9]+)?$ ]] && awk "BEGIN { exit !($period > 0) }" || {
   echo "PERIOD_PS must be a positive number" >&2; exit 2;
+}
+[[ "$flatten_hierarchy" = 0 || "$flatten_hierarchy" = 1 ]] || {
+  echo "PPA_FLATTEN must be 0 or 1" >&2; exit 2;
 }
 [[ "$top" != AecFp32Unit || -f "$root/sv/generated/fp32/AecFp32Unit.sv" ]] || {
   echo "sv/generated/fp32/AecFp32Unit.sv is missing; run make generate first" >&2; exit 2;
@@ -30,6 +35,7 @@ write_metadata() {
     echo "asap7_root=${asap7_root:-none}"
     echo "asap7_sram_root=${asap7_sram_root:-none}"
     echo "period_ps=$period"
+    echo "flatten_hierarchy=$flatten_hierarchy"
     echo "top=$top"
     echo "rtl_sources=$rtl_sources"
     echo "activity_vcd=${activity_vcd:-none}"
@@ -45,7 +51,7 @@ write_metadata() {
 if [[ -z "$asap7_root" ]]; then
   # This is intentionally not called PPA. It is useful for fast structural
   # feedback, but must never be mistaken for an ASAP7 result.
-  "$yosys_bin" -p "read_verilog -lib -sv $root/sv/asap7_sram_sim.sv; read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; flatten; techmap; opt; tee -o $out/yosys_area.txt stat -top $top -hierarchy -tech cmos; write_verilog -noattr $out/generic_netlist.v" \
+  "$yosys_bin" -p "read_verilog -lib $root/sv/asap7_sram/*.v; read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; flatten; techmap; opt; tee -o $out/yosys_area.txt stat -top $top -hierarchy -tech cmos; write_verilog -noattr $out/generic_netlist.v" \
     2>&1 | tee "$out/yosys_mapping.log"
   write_metadata generic_cmos_proxy 0
   echo "proxy=true" > "$out/ppa_summary.txt"
@@ -58,9 +64,22 @@ if ! (cd "$asap7_sram_root" && sha256sum -c "$root/../Track-B/sram/ASAP7_SRAM_LO
   echo "locked ASAP7 SRAM views failed checksum verification" >&2
   exit 2
 fi
-sram_cell=srambank_256x4x32_6t122
-sram_verilog="$asap7_sram_root/generated/verilog/$sram_cell.v"
-sram_lib="$asap7_sram_root/generated/LIB/$sram_cell.lib"
+sram_cells=(
+  srambank_64x4x32_6t122
+  srambank_128x4x32_6t122
+  srambank_256x4x32_6t122
+  srambank_64x4x64_6t122
+)
+sram_read_cmd=""
+for sram_cell in "${sram_cells[@]}"; do
+  sram_verilog="$asap7_sram_root/generated/verilog/$sram_cell.v"
+  sram_lib="$asap7_sram_root/generated/LIB/$sram_cell.lib"
+  [[ -s "$sram_verilog" ]] || { echo "missing SRAM behavioral view: $sram_verilog" >&2; exit 2; }
+  [[ -s "$sram_lib" ]] || { echo "missing SRAM Liberty view: $sram_lib" >&2; exit 2; }
+  # Yosys only needs the SRAM module blackbox for logic mapping.  Some locked
+  # SRAM Liberty bus declarations are accepted by OpenSTA but not by Yosys.
+  sram_read_cmd+="read_verilog -lib $sram_verilog; "
+done
 
 if ! "$root/scripts/prepare_asap7_liberty.sh"; then
   write_metadata asap7_prepare_failed 0
@@ -87,7 +106,9 @@ map -D $period
 print_stats
 EOF
 
-mapping_script="read_liberty -lib $lib/AO.lib; read_liberty -lib $lib/INVBUF.lib; read_liberty -lib $lib/OA.lib; read_liberty -lib $lib/SEQ.lib; read_liberty -lib $lib/SIMPLE.lib; read_liberty -lib $sram_lib; read_verilog -lib $sram_verilog; read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; flatten; techmap; opt; abc -script $out/abc.script; dfflibmap -liberty $lib/SEQ.lib; abc -script $out/abc.script; clean; rename -hide; hierarchy -check -top $top; tee -o $out/yosys_area.txt stat -top $top -hierarchy; write_verilog -noattr -noexpr $out/mapped_netlist.v"
+flatten_cmd=""
+[[ "$flatten_hierarchy" = 1 ]] && flatten_cmd="flatten;"
+mapping_script="read_liberty -lib $lib/AO.lib; read_liberty -lib $lib/INVBUF.lib; read_liberty -lib $lib/OA.lib; read_liberty -lib $lib/SEQ.lib; read_liberty -lib $lib/SIMPLE.lib; $sram_read_cmd read_verilog -sv $rtl_sources; hierarchy -check -top $top; proc; memory_map; $flatten_cmd techmap; opt; abc -script $out/abc.script; dfflibmap -liberty $lib/SEQ.lib; abc -script $out/abc.script; clean; rename -hide; hierarchy -check -top $top; tee -o $out/yosys_area.txt stat -top $top -hierarchy; write_verilog -noattr -noexpr $out/mapped_netlist.v"
 if ! "$yosys_bin" -p "$mapping_script" > "$out/yosys_mapping.log" 2>&1; then
   cat "$out/yosys_mapping.log" >&2
   write_metadata asap7_mapping_failed 0
@@ -102,8 +123,8 @@ if grep -En '^[[:space:]]*(\$|\$_|module[[:space:]]+\$)' "$out/mapped_netlist.v"
   write_metadata asap7_mapping_incomplete 0
   [[ "$strict" = 1 ]] && exit 1 || exit 0
 fi
-cell_count=$(grep -Ec '^[[:space:]]+[A-Za-z][A-Za-z0-9_]*_ASAP7_75t_[A-Za-z0-9_]+[[:space:]]+_[0-9]+' "$out/mapped_netlist.v" | awk '{s+=$NF} END {print s+0}')
-[[ "$cell_count" -gt 0 ]] || { echo "mapped netlist contains no standard cells" >&2; exit 1; }
+netlist_cell_count=$(grep -Ec '^[[:space:]]+[A-Za-z][A-Za-z0-9_]*_ASAP7_75t_[A-Za-z0-9_]+[[:space:]]+_[0-9]+' "$out/mapped_netlist.v" | awk '{s+=$NF} END {print s+0}')
+[[ "$netlist_cell_count" -gt 0 ]] || { echo "mapped netlist contains no standard cells" >&2; exit 1; }
 
 cat > "$out/opensta.tcl" <<EOF
 read_liberty $lib/AO.lib
@@ -111,7 +132,10 @@ read_liberty $lib/INVBUF.lib
 read_liberty $lib/OA.lib
 read_liberty $lib/SEQ.lib
 read_liberty $lib/SIMPLE.lib
-read_liberty $sram_lib
+read_liberty $asap7_sram_root/generated/LIB/srambank_64x4x32_6t122.lib
+read_liberty $asap7_sram_root/generated/LIB/srambank_128x4x32_6t122.lib
+read_liberty $asap7_sram_root/generated/LIB/srambank_256x4x32_6t122.lib
+read_liberty $asap7_sram_root/generated/LIB/srambank_64x4x64_6t122.lib
 read_verilog $out/mapped_netlist.v
 link_design $top
 if {[llength [get_ports -quiet clock]] == 0} { error "clock port not found" }
@@ -127,11 +151,24 @@ set total_area 0.0
 set area_cells 0
 set sram_cells 0
 foreach inst [get_cells -hierarchical *] {
-  set lc [get_lib_cells -of_objects \$inst]
-  set cell_area [get_property \$lc area]
-  set lc_name [get_name \$lc]
-  if {[string match "*$sram_cell" \$lc_name]} {
+  if {[catch {set lc [get_lib_cells -of_objects \$inst]}]} { continue }
+  if {[catch {set lc_name [get_name \$lc]}]} { continue }
+  if {\$lc_name == "" || [string match "*NULL*" \$lc_name]} { continue }
+  if {[catch {set cell_area [get_property \$lc area]}]} { continue }
+  if {[string match "*srambank_64x4x32_6t122" \$lc_name]} {
+    set total_area [expr {\$total_area + 415.2384}]
+    incr area_cells
+    incr sram_cells
+  } elseif {[string match "*srambank_128x4x32_6t122" \$lc_name]} {
+    set total_area [expr {\$total_area + 691.2}]
+    incr area_cells
+    incr sram_cells
+  } elseif {[string match "*srambank_256x4x32_6t122" \$lc_name]} {
     set total_area [expr {\$total_area + 1311.0336}]
+    incr area_cells
+    incr sram_cells
+  } elseif {[string match "*srambank_64x4x64_6t122" \$lc_name]} {
+    set total_area [expr {\$total_area + 747.42912}]
     incr area_cells
     incr sram_cells
   } elseif {\$cell_area != ""} {
@@ -166,7 +203,8 @@ arrival_ns=$(awk '{for (i=1; i<NF; i++) if ($i == "data" && $(i+1) == "arrival" 
 slack_ns=$(awk '/slack/ {v=$NF} END {if (v ~ /^[-+]?[0-9]+([.][0-9]+)?$/) print v}' "$out/worst_slack.rpt")
 tns_ns=$(awk '/tns/ {v=$NF} END {if (v ~ /^[-+]?[0-9]+([.][0-9]+)?$/) print v}' "$out/tns.rpt")
 area=$(awk '/[Dd]esign area|[Tt]otal area/ {for(i=NF;i>0;i--) if ($i ~ /^[0-9]+([.][0-9]+)?$/) {v=$i; break}} END {if (v != "") print v}' "$out/design_area.rpt")
-[[ -n "$arrival_ns" && -n "$slack_ns" && -n "$tns_ns" && -n "$area" ]] || {
+cell_count=$(awk '/Area cells/ {print $NF}' "$out/design_area.rpt")
+[[ -n "$arrival_ns" && -n "$slack_ns" && -n "$tns_ns" && -n "$area" && "$cell_count" =~ ^[1-9][0-9]*$ ]] || {
   echo "OpenSTA did not produce numeric timing/area results" >&2
   write_metadata opensta_invalid 0
   [[ "$strict" = 1 ]] && exit 1 || exit 0

@@ -50,6 +50,9 @@ class AecEvalTop extends Module {
   val loadError = RegInit(false.B)
   val resultValid = RegInit(false.B)
   val resultStatus = RegInit(0.U(3.W))
+  val abortPending = RegInit(false.B)
+  val abortStatus = RegInit(2.U(3.W))
+  val softReset = WireDefault(resultValid && io.result_ready)
   val cycles = RegInit(0.U(64.W))
   val launchThreads = RegInit(0.U(32.W))
   val launchGridX = RegInit(0.U(32.W)); val launchGridY = RegInit(0.U(32.W)); val launchGridZ = RegInit(0.U(32.W))
@@ -70,9 +73,9 @@ class AecEvalTop extends Module {
   val callDepth = RegInit(VecInit(Seq.fill(8)(0.U(6.W))))
   val callStack = Reg(Vec(8, Vec(32, UInt(32.W))))
   val rr = RegInit(VecInit(Seq.fill(4)(false.B)))
-  val barrier = Module(new AecCtaBarrier)
-  val external = Module(new AecExternalMemoryEngine)
-  val localLsu = Module(new AecLocalLsu)
+  val barrier = withReset(reset.asBool || softReset) { Module(new AecCtaBarrier) }
+  val external = withReset(reset.asBool || softReset) { Module(new AecExternalMemoryEngine) }
+  val localLsu = withReset(reset.asBool || softReset) { Module(new AecLocalLsu) }
   localLsu.io.clearSmem := false.B
   localLsu.io.preload.valid := false.B
   localLsu.io.preload.bits := 0.U.asTypeOf(localLsu.io.preload.bits)
@@ -83,6 +86,8 @@ class AecEvalTop extends Module {
   val localLoadTarget = io.load_target === 2.U || io.load_target === 3.U
   io.load_ready := !running && !resultValid && (!localLoadTarget || localLsu.io.preload.ready)
   val loadFire = io.load_valid && io.load_ready
+  val localLoadOutOfRange = VecInit((0 until 16).map(i => io.load_strb(i) &&
+    (io.load_addr +& i.U) >= 65536.U)).asUInt.orR
   for (port <- 0 until 4) {
     imem(port).io.writeEn := loadFire && io.load_target === 0.U &&
       io.load_addr < AecFrontendConfig.ImemWords.U && io.load_strb === "hffff".U
@@ -96,7 +101,7 @@ class AecEvalTop extends Module {
       when (io.load_addr >= AecFrontendConfig.ImemWords.U || io.load_strb =/= "hffff".U) { loadError := true.B }
         .otherwise { }
     }.elsewhen (io.load_target === 2.U || io.load_target === 3.U) {
-      when (io.load_addr(31, 16).orR) { loadError := true.B }
+      when (io.load_addr(31, 16).orR || localLoadOutOfRange) { loadError := true.B }
         .otherwise {
           localLsu.io.preload.valid := true.B
           localLsu.io.preload.bits.pmem := io.load_target === 2.U
@@ -146,18 +151,18 @@ class AecEvalTop extends Module {
   // 2R1W bank, issued as four physical lane groups, then committed one lane per
   // cycle.  This is deliberately conservative, but all architectural reads
   // precede writeback and every RAW/WAW hazard is tracked by the scoreboard.
-  val regBanks = Seq.fill(4)(Module(new AecRegBank))
-  val scoreboards = Seq.fill(4)(Module(new AecScoreboard))
+  val regBanks = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecRegBank) })
+  val scoreboards = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecScoreboard) })
   // Four partitions: 4x16 INT32, 4x16 FP32, and 4x2 FP64 lanes.
-  val intUnits = Seq.fill(4)(Module(new AecEightLaneIntUnit(16)))
+  val intUnits = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecEightLaneIntUnit(16)) })
   // FP32/F16/BF16 execution is a real backend, not a decode placeholder.
   // FP64 is added with pair retirement in the next datapath stage.
-  val fp32Units = Seq.fill(4)(Module(new AecFp32Unit(16)))
-  val fp64Units = Seq.fill(4)(Module(new AecFp64Unit(2)))
-  val sfuUnits = Seq.fill(4)(Module(new AecSfuWarpUnit(1)))
-  val cvtUnits = Seq.fill(4)(Module(new AecConvertLane))
-  val gmemLsus = Seq.fill(4)(Module(new AecGmemLsu))
-  val pipeIdle :: pipeReadAB :: pipeReadC :: pipeReadAHi :: pipeReadBHi :: pipeReadCHi :: pipeDispatch :: pipeWait :: pipeMemStart :: pipeMemWait :: pipeCvt :: pipeWrite :: Nil = Enum(12)
+  val fp32Units = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecFp32Unit(16)) })
+  val fp64Units = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecFp64Unit(2)) })
+  val sfuUnits = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecSfuWarpUnit(4)) })
+  val cvtUnits = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecConvertLane) })
+  val gmemLsus = Seq.fill(4)(withReset(reset.asBool || softReset) { Module(new AecGmemLsu) })
+  val pipeIdle :: pipeReadA :: pipeReadB :: pipeReadC :: pipeReadAHi :: pipeReadBHi :: pipeReadCHi :: pipeDispatch :: pipeWait :: pipeMemStart :: pipeMemWait :: pipeCvt :: pipeMatch :: pipeWrite :: Nil = Enum(14)
   val pipeState = Seq.fill(4)(RegInit(pipeIdle))
   val held = Seq.fill(4)(Reg(new AecDecodedInstruction))
   val heldWarp = Seq.fill(4)(Reg(UInt(3.W)))
@@ -178,13 +183,15 @@ class AecEvalTop extends Module {
   val writePredicates = Seq.fill(4)(RegInit(0.U(32.W)))
   val writeHiPhase = Seq.fill(4)(RegInit(false.B))
   val cvtLane = Seq.fill(4)(RegInit(0.U(5.W)))
+  val matchLane = Seq.fill(4)(RegInit(0.U(5.W)))
   val localRequests = Wire(Vec(4, new AecLocalMemoryRequest))
   val localRequestValid = Wire(Vec(4, Bool()))
   val syncArriveValid = Wire(Vec(4, Bool()))
   val syncArriveWarp = Wire(Vec(4, UInt(3.W)))
+  val coordRequest = Wire(Vec(4, Bool()))
 
   for (s <- 0 until 4) {
-    val commit = pipeState(s) === pipeWrite && writeLane(s) === 31.U &&
+    val commit = pipeState(s) === pipeWrite &&
       (!((held(s).dtype === 1.U || held(s).dtype === 9.U || held(s).opcode === AecOpcode.loadi64)) || writeHiPhase(s))
     io.debug_commit_valid(s) := commit
     io.debug_commit_cta_x(s) := ctaX
@@ -231,7 +238,7 @@ class AecEvalTop extends Module {
     val loRun = warpState(s * 2) === 1.U && partitionFree; val hiRun = warpState(s * 2 + 1) === 1.U && partitionFree
     selectedValid(s) := loRun || hiRun
     selected(s) := Mux(rr(s), Mux(hiRun, hi, lo), Mux(loRun, lo, hi))
-    val fetchRequest = running && selectedValid(s) && !fetchPending(s)
+    val fetchRequest = running && !localLsu.io.clearBusy && selectedValid(s) && !fetchPending(s)
     imem(s).io.readEn := fetchRequest
     imem(s).io.readAddress := pc(selected(s))(9, 0)
     when (fetchRequest) { fetchPending(s) := true.B; fetchWarp(s) := selected(s) }
@@ -277,33 +284,29 @@ class AecEvalTop extends Module {
     val lsu = gmemLsus(s)
     syncArriveValid(s) := false.B
     syncArriveWarp(s) := issueWarp
+    coordRequest(s) := false.B
 
     bank.io.clear := (io.launch_valid && io.launch_ready && !launchBad) || restartCta
-    bank.io.read.valid := pipeState(s) === pipeReadAB || pipeState(s) === pipeReadC || pipeState(s) === pipeReadAHi || pipeState(s) === pipeReadBHi || pipeState(s) === pipeReadCHi
+    bank.io.read.valid := pipeState(s) === pipeReadA || pipeState(s) === pipeReadB || pipeState(s) === pipeReadC || pipeState(s) === pipeReadAHi || pipeState(s) === pipeReadBHi || pipeState(s) === pipeReadCHi
     bank.io.read.bits.warpLocal := heldWarp(s)(0)
-    bank.io.read.bits.lane := readLane(s)
-    bank.io.read.bits.rs1 := MuxLookup(pipeState(s), held(s).src1, Seq(
+    bank.io.read.bits.reg := MuxLookup(pipeState(s), held(s).src1, Seq(
+      pipeReadB -> held(s).src2,
       pipeReadC -> Mux(heldAtomicCas, held(s).src2Imm(23, 16), held(s).src3),
       pipeReadAHi -> (held(s).src1 + 1.U),
       pipeReadBHi -> (held(s).src2 + 1.U),
       pipeReadCHi -> (held(s).src3 + 1.U)))
-    bank.io.read.bits.rs2 := MuxLookup(pipeState(s), held(s).src2, Seq(
-      pipeReadC -> Mux(heldAtomicCas, held(s).src2Imm(23, 16), held(s).src3),
-      pipeReadAHi -> (held(s).src1 + 1.U),
-      pipeReadBHi -> (held(s).src2 + 1.U),
-      pipeReadCHi -> (held(s).src3 + 1.U)))
-    bank.io.read.bits.tag := readLane(s)
+    bank.io.read.bits.tag := pipeState(s)(2, 0)
     bank.io.response.ready := true.B
-    bank.io.writeValid := pipeState(s) === pipeWrite && heldCommit(s)(writeLane(s)) && !heldWritesPred
+    bank.io.writeValid := pipeState(s) === pipeWrite && !heldWritesPred
     bank.io.writeWarpLocal := heldWarp(s)(0)
-    bank.io.writeLane := writeLane(s)
     bank.io.writeReg := Mux(heldPair && writeHiPhase(s), held(s).dest + 1.U, held(s).dest)
-    bank.io.writeData := Mux(heldPair && writeHiPhase(s), writeHiData(s)(writeLane(s)), writeData(s)(writeLane(s)))
-    bank.io.predWriteValid := pipeState(s) === pipeWrite && heldCommit(s)(writeLane(s)) && heldWritesPred
+    bank.io.writeData := Mux(heldPair && writeHiPhase(s), writeHiData(s), writeData(s))
+    bank.io.writeMask := heldCommit(s)
+    bank.io.predWriteValid := pipeState(s) === pipeWrite && heldWritesPred
     bank.io.predWarpLocal := heldWarp(s)(0)
-    bank.io.predLane := writeLane(s)
     bank.io.predIndex := held(s).dest(2, 0)
-    bank.io.predData := writePredicates(s)(writeLane(s))
+    bank.io.predData := writePredicates(s)
+    bank.io.predWriteMask := heldCommit(s)
     bank.io.predReadWarpLocal := Mux(pipeState(s) === pipeIdle, issueWarp(0), heldWarp(s)(0))
     bank.io.predReadIndex := Mux(pipeState(s) === pipeIdle, decoded.predicate,
       Mux(held(s).opcode === AecOpcode.vote, held(s).src1(2, 0), held(s).predicate))
@@ -324,7 +327,7 @@ class AecEvalTop extends Module {
     score.io.reserve.bits.destHi := decodedPair || decoded.opcode === AecOpcode.loadi64
     score.io.reserve.bits.predicate := decoded.opcode === AecOpcode.cmpp || (decoded.opcode === AecOpcode.vote && decoded.ext === 1.U)
     score.io.reserve.bits.pred := decoded.dest(2, 0)
-    score.io.release.valid := pipeState(s) === pipeWrite && writeLane(s) === 31.U && (!heldPair || writeHiPhase(s))
+    score.io.release.valid := pipeState(s) === pipeWrite && (!heldPair || writeHiPhase(s))
     score.io.release.bits.warp := heldWarp(s)
     score.io.release.bits.dest := held(s).dest
     score.io.release.bits.destHi := heldPair
@@ -407,6 +410,7 @@ class AecEvalTop extends Module {
     lsu.io.start.valid := pipeState(s) === pipeMemStart && heldGmem
     lsu.io.start.bits.warp := heldWarp(s)
     lsu.io.start.bits.load := !heldStore && !heldAtomic
+    lsu.io.start.bits.width64 := held(s).dtype === 1.U
     lsu.io.start.bits.atomic := heldAtomic
     lsu.io.start.bits.atomicOp := held(s).subop
     lsu.io.start.bits.signed := held(s).dtype === 3.U
@@ -449,7 +453,8 @@ class AecEvalTop extends Module {
     val legalFp64 = fp32Opcode(decoded.opcode) && encodingValid && decoded.dtype === 9.U
     val legalGmem = (decoded.opcode === AecOpcode.ld || decoded.opcode === AecOpcode.st) &&
       decoded.ext === AecMemorySpace.gmem && encodingValid &&
-      (decoded.dtype === 0.U || decoded.dtype === 2.U || decoded.dtype === 3.U || decoded.dtype === 8.U)
+      (decoded.dtype === 0.U || decoded.dtype === 2.U || decoded.dtype === 3.U || decoded.dtype === 8.U ||
+        (decoded.opcode === AecOpcode.ld && decoded.dtype === 1.U))
     val legalLocalMemory = (decoded.opcode === AecOpcode.ld || decoded.opcode === AecOpcode.st || decoded.opcode === AecOpcode.ldc) && encodingValid &&
       (decoded.opcode === AecOpcode.ldc || decoded.ext === AecMemorySpace.smem || decoded.ext === AecMemorySpace.lmem || decoded.ext === AecMemorySpace.cmem || decoded.ext === AecMemorySpace.pmem)
     val legalCollective = encodingValid && (decoded.opcode === AecOpcode.shuf || decoded.opcode === AecOpcode.vote || decoded.opcode === AecOpcode.mtch || decoded.opcode === AecOpcode.rdtsc)
@@ -468,12 +473,12 @@ class AecEvalTop extends Module {
       pc(issueWarp) := decoded.immExt; rr(s) := !rr(s)
     }.elsewhen (issueValid && encodingValid && decoded.opcode === AecOpcode.brx) {
       when (uniformTrue || uniformFalse) { pc(issueWarp) := Mux(uniformTrue, decoded.immExt, pc(issueWarp) + 1.U); rr(s) := !rr(s) }
-        .otherwise { running := false.B; resultValid := true.B; resultStatus := 2.U }
+        .otherwise { running := false.B; abortPending := true.B; abortStatus := 2.U }
     }.elsewhen (issueValid && encodingValid && decoded.opcode === AecOpcode.call) {
-      when (callDepth(issueWarp) === 32.U) { running := false.B; resultValid := true.B; resultStatus := 2.U }
+      when (callDepth(issueWarp) === 32.U) { running := false.B; abortPending := true.B; abortStatus := 2.U }
         .otherwise { callStack(issueWarp)(callDepth(issueWarp)) := pc(issueWarp) + 1.U; callDepth(issueWarp) := callDepth(issueWarp) + 1.U; pc(issueWarp) := decoded.immExt; rr(s) := !rr(s) }
     }.elsewhen (issueValid && encodingValid && decoded.opcode === AecOpcode.ret) {
-      when (callDepth(issueWarp) === 0.U) { running := false.B; resultValid := true.B; resultStatus := 2.U }
+      when (callDepth(issueWarp) === 0.U) { running := false.B; abortPending := true.B; abortStatus := 2.U }
         .otherwise { callDepth(issueWarp) := callDepth(issueWarp) - 1.U; pc(issueWarp) := callStack(issueWarp)(callDepth(issueWarp) - 1.U); rr(s) := !rr(s) }
     }.elsewhen (issueValid && encodingValid && decoded.opcode === AecOpcode.syncCt) {
       syncArriveValid(s) := true.B; syncArriveWarp(s) := issueWarp; warpState(issueWarp) := 2.U
@@ -495,7 +500,7 @@ class AecEvalTop extends Module {
         heldExecute(s) := executeMask
         heldCommit(s) := executeMask
         readLane(s) := 0.U
-        pipeState(s) := pipeReadAB
+        pipeState(s) := pipeReadA
         warpState(issueWarp) := 2.U
       }
     }.elsewhen (issueValid && !encodingValid) {
@@ -503,8 +508,8 @@ class AecEvalTop extends Module {
       // effects.  This is intentionally ahead of every backend selection.
       printf(p"AEC invalid encoding: pc=${pc(issueWarp)} warp=${issueWarp} opcode=0x${Hexadecimal(decoded.opcode)} ctrl=0x${Hexadecimal(decoded.raw(111, 96))} dest=0x${Hexadecimal(decoded.destRaw)} src1=0x${Hexadecimal(decoded.src1Raw)} src2=0x${Hexadecimal(decoded.src2Imm)} ext=0x${Hexadecimal(decoded.immExt)}\\n")
       running := false.B
-      resultValid := true.B
-      resultStatus := 1.U
+      abortPending := true.B
+      abortStatus := 1.U
     }.elsewhen (issueValid && !(legalInteger || legalFp32 || legalFp64 || legalGmem || legalLocalMemory || legalCollective || legalCvt || legalAtom || legalSfu || (decoded.opcode === AecOpcode.loadi64 && encodingValid))) {
       // Any other legal instruction reaching an unconnected backend is also a
       // hard integration failure.  It must never be reported as INVALID.
@@ -513,18 +518,16 @@ class AecEvalTop extends Module {
       unsupportedOpcode := decoded.opcode; unsupportedDtype := decoded.dtype
     }
 
-    when (bank.io.read.fire) { readLane(s) := readLane(s) + 1.U }
-    when (bank.io.response.fire && pipeState(s) === pipeReadAB) {
-      operandA(s)(bank.io.response.bits.tag) := bank.io.response.bits.data1
-      operandB(s)(bank.io.response.bits.tag) := bank.io.response.bits.data2
-      when (bank.io.response.bits.tag === 31.U) {
-        readLane(s) := 0.U
-        pipeState(s) := pipeReadC
-      }
+    when (bank.io.response.fire && pipeState(s) === pipeReadA) {
+      for (lane <- 0 until 32) { operandA(s)(lane) := bank.io.response.bits.data(lane) }
+      pipeState(s) := pipeReadB
+    }
+    when (bank.io.response.fire && pipeState(s) === pipeReadB) {
+      for (lane <- 0 until 32) { operandB(s)(lane) := bank.io.response.bits.data(lane) }
+      pipeState(s) := pipeReadC
     }
     when (bank.io.response.fire && pipeState(s) === pipeReadC) {
-      operandC(s)(bank.io.response.bits.tag) := bank.io.response.bits.data1
-      when (bank.io.response.bits.tag === 31.U) {
+      for (lane <- 0 until 32) { operandC(s)(lane) := bank.io.response.bits.data(lane) }
         when (held(s).opcode === AecOpcode.shuf) {
           val participants = heldExecute(s) & held(s).immExt
           heldCommit(s) := participants
@@ -549,11 +552,7 @@ class AecEvalTop extends Module {
           writePredicates(s) := Fill(32, voteResult)
           writeLane(s) := 0.U; writeHiPhase(s) := false.B; pipeState(s) := pipeWrite
         }.elsewhen (held(s).opcode === AecOpcode.mtch) {
-          for (lane <- 0 until 32) {
-            val matchBits = VecInit((0 until 32).map(other => heldExecute(s)(other) && operandA(s)(other) === operandA(s)(lane))).asUInt
-            writeData(s)(lane) := matchBits
-          }
-          writeLane(s) := 0.U; writeHiPhase(s) := false.B; pipeState(s) := pipeWrite
+          matchLane(s) := 0.U; pipeState(s) := pipeMatch
         }.elsewhen (held(s).opcode === AecOpcode.rdtsc) {
           for (lane <- 0 until 32) { writeData(s)(lane) := cycles(31, 0) }
           writeLane(s) := 0.U; writeHiPhase(s) := false.B; pipeState(s) := pipeWrite
@@ -572,19 +571,17 @@ class AecEvalTop extends Module {
           pipeState(s) := Mux(heldCvt || heldSpecialCpy, pipeCvt, Mux(heldMemory, pipeMemStart, pipeDispatch))
           when (heldCvt || heldSpecialCpy) { cvtLane(s) := 0.U }
         }
-      }
     }
     when (bank.io.response.fire && pipeState(s) === pipeReadAHi) {
-      operandAHi(s)(bank.io.response.bits.tag) := bank.io.response.bits.data1
-      when (bank.io.response.bits.tag === 31.U) { readLane(s) := 0.U; pipeState(s) := pipeReadBHi }
+      for (lane <- 0 until 32) { operandAHi(s)(lane) := bank.io.response.bits.data(lane) }
+      pipeState(s) := pipeReadBHi
     }
     when (bank.io.response.fire && pipeState(s) === pipeReadBHi) {
-      operandBHi(s)(bank.io.response.bits.tag) := bank.io.response.bits.data1
-      when (bank.io.response.bits.tag === 31.U) { readLane(s) := 0.U; pipeState(s) := pipeReadCHi }
+      for (lane <- 0 until 32) { operandBHi(s)(lane) := bank.io.response.bits.data(lane) }
+      pipeState(s) := pipeReadCHi
     }
     when (bank.io.response.fire && pipeState(s) === pipeReadCHi) {
-      operandCHi(s)(bank.io.response.bits.tag) := bank.io.response.bits.data1
-      when (bank.io.response.bits.tag === 31.U) {
+      for (lane <- 0 until 32) { operandCHi(s)(lane) := bank.io.response.bits.data(lane) }
         when (held(s).opcode === AecOpcode.cpy) {
           for (lane <- 0 until 32) {
             writeData(s)(lane) := operandA(s)(lane)
@@ -592,29 +589,28 @@ class AecEvalTop extends Module {
           }
           writeLane(s) := 0.U; writeHiPhase(s) := false.B; pipeState(s) := pipeWrite
         }.otherwise { pipeState(s) := Mux(heldCvt, pipeCvt, pipeDispatch); cvtLane(s) := 0.U }
-      }
     }
     when (unit.io.req.fire || fp32.io.req.fire || fp64.io.req.fire || sfu.io.req.fire) { pipeState(s) := pipeWait }
     when (pipeState(s) === pipeCvt) {
-      val linearTid = (heldWarp(s) << 5) + cvtLane(s)
-      val tidX = linearTid % launchBlockX
-      val tidY = (linearTid / launchBlockX) % launchBlockY
-      val tidZ = linearTid / (launchBlockX * launchBlockY)
-      val special = MuxLookup(held(s).src1Raw, 0.U(32.W), Seq(
-        "h0100".U -> tidX, "h0101".U -> launchBlockX, "h0102".U -> ctaX, "h0103".U -> launchGridX,
-        "h0104".U -> cvtLane(s),
-        "h0110".U -> tidY, "h0111".U -> launchBlockY, "h0112".U -> ctaY, "h0113".U -> launchGridY,
-        "h0120".U -> tidZ, "h0121".U -> launchBlockZ, "h0122".U -> ctaZ, "h0123".U -> launchGridZ))
-      writeData(s)(cvtLane(s)) := Mux(heldSpecialCpy, special, cvt.io.out(31, 0))
-      writeHiData(s)(cvtLane(s)) := Mux(heldSpecialCpy, 0.U, cvt.io.out(63, 32))
-      when (cvtLane(s) === 31.U) { writeLane(s) := 0.U; writeHiPhase(s) := false.B; pipeState(s) := pipeWrite }
-        .otherwise { cvtLane(s) := cvtLane(s) + 1.U }
+      coordRequest(s) := heldSpecialCpy
+      when (!heldSpecialCpy) {
+        writeData(s)(cvtLane(s)) := cvt.io.out(31, 0)
+        writeHiData(s)(cvtLane(s)) := cvt.io.out(63, 32)
+        when (cvtLane(s) === 31.U) { writeLane(s) := 0.U; writeHiPhase(s) := false.B; pipeState(s) := pipeWrite }
+          .otherwise { cvtLane(s) := cvtLane(s) + 1.U }
+      }
+    }
+    when (pipeState(s) === pipeMatch) {
+      writeData(s)(matchLane(s)) := VecInit((0 until 32).map(other =>
+        heldExecute(s)(other) && operandA(s)(other) === operandA(s)(matchLane(s)))).asUInt
+      when (matchLane(s) === 31.U) { writeHiPhase(s) := false.B; pipeState(s) := pipeWrite }
+        .otherwise { matchLane(s) := matchLane(s) + 1.U }
     }
     when (unit.io.resp.fire) {
       when (unit.io.resp.bits.errorMask.orR) {
         running := false.B
-        resultValid := true.B
-        resultStatus := 2.U
+        abortPending := true.B
+        abortStatus := 2.U
       }.otherwise {
         for (lane <- 0 until 32) { writeData(s)(lane) := unit.io.resp.bits.result(lane)(31, 0) }
         writePredicates(s) := unit.io.resp.bits.predicateMask
@@ -626,8 +622,8 @@ class AecEvalTop extends Module {
     when (fp32.io.resp.fire) {
       when (fp32.io.resp.bits.errorMask.orR) {
         running := false.B
-        resultValid := true.B
-        resultStatus := 2.U
+        abortPending := true.B
+        abortStatus := 2.U
       }.otherwise {
         for (lane <- 0 until 32) { writeData(s)(lane) := fp32.io.resp.bits.result(lane)(31, 0) }
         writePredicates(s) := fp32.io.resp.bits.predicateMask
@@ -639,8 +635,8 @@ class AecEvalTop extends Module {
     when (fp64.io.resp.fire) {
       when (fp64.io.resp.bits.errorMask.orR) {
         running := false.B
-        resultValid := true.B
-        resultStatus := 2.U
+        abortPending := true.B
+        abortStatus := 2.U
       }.otherwise {
         for (lane <- 0 until 32) {
           writeData(s)(lane) := fp64.io.resp.bits.result(lane)(31, 0)
@@ -655,8 +651,8 @@ class AecEvalTop extends Module {
     when (sfu.io.resp.fire) {
       when (sfu.io.resp.bits.errorMask.orR) {
         running := false.B
-        resultValid := true.B
-        resultStatus := 2.U
+        abortPending := true.B
+        abortStatus := 2.U
       }.otherwise {
         for (lane <- 0 until 32) {
           writeData(s)(lane) := sfu.io.resp.bits.result(lane)(31, 0)
@@ -671,42 +667,81 @@ class AecEvalTop extends Module {
     when (lsu.io.done.fire) {
       when (lsu.io.done.bits.error) {
         running := false.B
-        resultValid := true.B
-        resultStatus := 2.U
+        abortPending := true.B
+        abortStatus := 2.U
         }.elsewhen (heldStore) {
         pc(heldWarp(s)) := pc(heldWarp(s)) + 1.U
         warpState(heldWarp(s)) := 1.U
         rr(s) := !rr(s)
         pipeState(s) := pipeIdle
       }.otherwise {
-        for (lane <- 0 until 32) { writeData(s)(lane) := lsu.io.done.bits.loadData(lane) }
+        for (lane <- 0 until 32) {
+          writeData(s)(lane) := lsu.io.done.bits.loadData(lane)(31, 0)
+          writeHiData(s)(lane) := lsu.io.done.bits.loadData(lane)(63, 32)
+        }
         writeLane(s) := 0.U
         writeHiPhase(s) := false.B
         pipeState(s) := pipeWrite
       }
     }
-    when (pipeState(s) === pipeWrite && writeLane(s) === 31.U && heldPair && !writeHiPhase(s)) {
-      writeLane(s) := 0.U
+    when (pipeState(s) === pipeWrite && heldPair && !writeHiPhase(s)) {
       writeHiPhase(s) := true.B
-    }.elsewhen (pipeState(s) === pipeWrite && writeLane(s) === 31.U) {
+    }.elsewhen (pipeState(s) === pipeWrite) {
       pc(heldWarp(s)) := pc(heldWarp(s)) + 1.U
       warpState(heldWarp(s)) := 1.U
       rr(s) := !rr(s)
       writeHiPhase(s) := false.B
       pipeState(s) := pipeIdle
-    }.elsewhen (pipeState(s) === pipeWrite) {
-      writeLane(s) := writeLane(s) + 1.U
     }
+  }
+
+  // One shared, registered coordinate unit replaces four copies of dynamic
+  // divide/modulo logic. Special CPY lanes are serialized through this unit;
+  // ordinary conversion lanes remain independent.
+  val coordBusy = RegInit(false.B)
+  val coordOwner = Reg(UInt(2.W))
+  val coordLinear = Reg(UInt(8.W))
+  val coordSelect = PriorityEncoder(coordRequest.asUInt)
+  when (!coordBusy && coordRequest.asUInt.orR) {
+    coordBusy := true.B; coordOwner := coordSelect
+    coordLinear := Mux1H((0 until 4).map(i => (coordSelect === i.U) ->
+      ((heldWarp(i) << 5) + cvtLane(i))))
+  }
+  val coordBlockX = launchBlockX(7, 0)
+  val coordBlockY = launchBlockY(7, 0)
+  val coordBlockXIs256 = launchBlockX === 256.U
+  val coordBlockYIs256 = launchBlockY === 256.U
+  val coordQuotX = Mux(coordBlockXIs256, 0.U, coordLinear / coordBlockX)
+  val coordX = Mux(coordBlockXIs256, coordLinear, coordLinear % coordBlockX)
+  val coordY = Mux(coordBlockYIs256, coordQuotX, coordQuotX % coordBlockY)
+  val coordZ = Mux(coordBlockYIs256, 0.U, coordQuotX / coordBlockY)
+  when (coordBusy) {
+    for (s <- 0 until 4) {
+      when (coordOwner === s.U) {
+        val special = MuxLookup(held(s).src1Raw, 0.U(32.W), Seq(
+          "h0100".U -> coordX, "h0101".U -> launchBlockX, "h0102".U -> ctaX, "h0103".U -> launchGridX,
+          "h0104".U -> cvtLane(s),
+          "h0110".U -> coordY, "h0111".U -> launchBlockY, "h0112".U -> ctaY, "h0113".U -> launchGridY,
+          "h0120".U -> coordZ, "h0121".U -> launchBlockZ, "h0122".U -> ctaZ, "h0123".U -> launchGridZ))
+        writeData(s)(cvtLane(s)) := special; writeHiData(s)(cvtLane(s)) := 0.U
+        when (cvtLane(s) === 31.U) { writeHiPhase(s) := false.B; pipeState(s) := pipeWrite }
+          .otherwise { cvtLane(s) := cvtLane(s) + 1.U }
+      }
+    }
+    coordBusy := false.B
   }
 
   // The resident memory arrays are shared by all four scheduler partitions.
   // Arbitration is deliberately conservative: a local operation is an
   // instruction-level transaction, so no second partition can observe a
   // partially completed misaligned store.
-  val localSelect = PriorityEncoder(localRequestValid.asUInt)
+  val localRr = RegInit(0.U(2.W))
+  val localRotated = (Cat(localRequestValid.asUInt, localRequestValid.asUInt) >> localRr)(3, 0)
+  val localSelect = (localRr + PriorityEncoder(localRotated))(1, 0)
   localLsu.io.start.valid := localRequestValid.asUInt.orR
   localLsu.io.start.bits := Mux1H((0 until 4).map(i => (localSelect === i.U) -> localRequests(i)))
   when (localLsu.io.start.fire) {
+    localRr := localSelect + 1.U
     for (s <- 0 until 4) { when (localSelect === s.U) { pipeState(s) := pipeMemWait } }
   }
   val localWait = VecInit((0 until 4).map(i => pipeState(i) === pipeMemWait &&
@@ -718,7 +753,7 @@ class AecEvalTop extends Module {
     for (s <- 0 until 4) {
       when (owner === s.U) {
       when (localLsu.io.done.bits.error) {
-          running := false.B; resultValid := true.B; resultStatus := 2.U
+          running := false.B; abortPending := true.B; abortStatus := 2.U
         }.elsewhen (held(s).opcode === AecOpcode.st) {
           pc(heldWarp(s)) := pc(heldWarp(s)) + 1.U
           warpState(heldWarp(s)) := 1.U; rr(s) := !rr(s); pipeState(s) := pipeIdle
@@ -743,10 +778,11 @@ class AecEvalTop extends Module {
 
   barrier.io.activeWarps := VecInit((0 until 8).map(w => activeMask(w).orR)).asUInt
   barrier.io.completed := VecInit((0 until 8).map(w => warpState(w) === 3.U)).asUInt
-  val syncSelect = PriorityEncoder(syncArriveValid.asUInt)
-  barrier.io.arrive.valid := syncArriveValid.asUInt.orR
-  barrier.io.arrive.bits := Mux1H((0 until 4).map(i => (syncSelect === i.U) -> syncArriveWarp(i)))
-  when (barrier.io.duplicate) { running := false.B; resultValid := true.B; resultStatus := 2.U }
+  for (s <- 0 until 4) {
+    barrier.io.arrive(s).valid := syncArriveValid(s)
+    barrier.io.arrive(s).bits := syncArriveWarp(s)
+  }
+  when (barrier.io.duplicate) { running := false.B; abortPending := true.B; abortStatus := 2.U }
   when (barrier.io.release.orR) {
     for (w <- 0 until 8) {
       when (barrier.io.release(w)) { pc(w) := pc(w) + 1.U; warpState(w) := 1.U }
@@ -761,7 +797,9 @@ class AecEvalTop extends Module {
   val lsuRequests = VecInit(gmemLsus.map(_.io.lineOut.valid)).asUInt
   val lockedRequests = lsuRequests & UIntToOH(atomicOwner, 4)
   val eligibleLsuRequests = Mux(atomicLock, lockedRequests, lsuRequests)
-  val lsuSelect = PriorityEncoder(eligibleLsuRequests)
+  val externalRr = RegInit(0.U(2.W))
+  val lsuRotated = (Cat(eligibleLsuRequests, eligibleLsuRequests) >> externalRr)(3, 0)
+  val lsuSelect = Mux(atomicLock, atomicOwner, (externalRr + PriorityEncoder(lsuRotated))(1, 0))
   external.io.lineIn.valid := eligibleLsuRequests.orR
   external.io.lineIn.bits := Mux1H((0 until 4).map(i => (lsuSelect === i.U) -> gmemLsus(i).io.lineOut.bits))
   for (s <- 0 until 4) {
@@ -774,6 +812,7 @@ class AecEvalTop extends Module {
     atomicLock := true.B
     atomicOwner := lsuSelect
   }
+  when (external.io.lineIn.fire && !atomicLock) { externalRr := lsuSelect + 1.U }
   for (s <- 0 until 4) {
     when (atomicLock && atomicOwner === s.U && gmemLsus(s).io.done.fire) { atomicLock := false.B }
   }
@@ -793,7 +832,12 @@ class AecEvalTop extends Module {
   io.mem_rsp_ready := external.io.memRspReady
 
   val allDone = VecInit((0 until 8).map(w => warpState(w) === 3.U)).asUInt.andR
-  when (running && allDone && external.io.outstanding === 0.U) {
+  when (abortPending && external.io.outstanding === 0.U && !resultValid) {
+    abortPending := false.B
+    resultValid := true.B
+    resultStatus := abortStatus
+  }
+  when (running && !restartCta && allDone && external.io.outstanding === 0.U) {
     when (ctaX + 1.U < launchGridX) { ctaX := ctaX + 1.U; restartCta := true.B }
       .elsewhen (ctaY + 1.U < launchGridY) { ctaX := 0.U; ctaY := ctaY + 1.U; restartCta := true.B }
       .elsewhen (ctaZ + 1.U < launchGridZ) { ctaX := 0.U; ctaY := 0.U; ctaZ := ctaZ + 1.U; restartCta := true.B }
@@ -802,7 +846,12 @@ class AecEvalTop extends Module {
   io.result_valid := resultValid
   io.result_status := resultStatus
   io.result_cycles := cycles
-  when (resultValid && io.result_ready) { resultValid := false.B; loadError := false.B }
+  when (resultValid && io.result_ready) {
+    resultValid := false.B; loadError := false.B; abortPending := false.B
+    restartCta := false.B; unsupportedTrap := false.B; unsupportedAssert := false.B
+    atomicLock := false.B; coordBusy := false.B
+    for (s <- 0 until 4) { pipeState(s) := pipeIdle; fetchPending(s) := false.B }
+  }
 
   // GMEM is owned by the external harness memory model.  The ABI readback
   // pins remain present, but correctness runners dump that authoritative
