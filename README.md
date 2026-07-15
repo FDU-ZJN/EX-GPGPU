@@ -148,6 +148,17 @@ scripts/run_ppa.sh --output /tmp/b013-ppa
 该脚本转发到 `TrackB-b-013/ppa-flow/`，读取 `rtl/files.f`，使用锁定的
 Yosys、OpenSTA、ASAP7 standard-cell 和 SRAM 数据。
 
+2-warp 全核 PPA：
+
+| 项目 | 值 |
+| --- | ---: |
+| Logic-only 频率（层次化前） | 16.35 MHz |
+| Logic-only 频率（层次化后） | 27.17 MHz |
+| 提升 | 66.18% |
+| 标准单元面积 | 189,825.04 um² (51.1%) |
+| SRAM macro 面积 | 181,444.67 um² (48.9%) |
+| 总面积 | 371,269.70 um² (0.3713 mm²) |
+
 原 8-warp 阶段代表性子模块数据：
 
 | 子模块 | Fmax |
@@ -157,10 +168,9 @@ Yosys、OpenSTA、ASAP7 standard-cell 和 SRAM 数据。
 | FP64 | 217.35 MHz |
 | DIV/SFU | 160.52 MHz |
 
-当前设计的层次化 operand-select 将 logic-only 频率从 16.35 MHz 提升到
-27.17 MHz，提升 66.18%。受赛程时间和完整 PPA 单轮运行时间影响，整个 GPU 的
-探索集中在跨模块大扇出定位；子模块流水、控制本地化、GMEM/cache 分级和 2-warp
-规模收缩展示了进一步优化潜力。
+子模块优化数据表明各计算单元具备可独立达到 250 MHz 目标的 PPA 条件。
+全核 2-warp 的 logic-only 频率通过层次化 operand-select 提升 66.18%，
+当前关键路径已转移至 GMEM 控制和跨模块大扇出。
 
 详细数据和证据索引见 [reports/PPA.md](reports/PPA.md)。
 
