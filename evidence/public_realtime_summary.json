@@ -1,0 +1,11 @@
+{
+  "suite": "all",
+  "mode": "in_process_realtime",
+  "fail_fast": true,
+  "max_cycles_per_case": 10000,
+  "total": 36,
+  "passed": 36,
+  "failed": 0,
+  "remaining": 0,
+  "first_failure": null
+}

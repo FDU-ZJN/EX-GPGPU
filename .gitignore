@@ -1,0 +1,53 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Build and toolchain artifacts
+.toolchain-src/
+local/
+build/
+dist/
+*.o
+*.a
+*.so
+*.vcd
+*.fst
+*.wlf
+rtl/target/
+rtl/project/target/
+rtl/project/project/
+rtl/test_run_dir/
+rtl/.sbt-global/
+rtl/.*_obj/
+**/.*_obj/
+rtl/.eval_obj/
+rtl/rtl/
+rtl/reports/
+rtl/sv/generated/**/*.fir
+rtl/sv/generated/**/*.anno.json
+
+# Generated regression output and reports
+output/
+*.log
+*.out
+*.jsonl
+evidence/generated/
+reports/ppa_*/
+reports/yosys/
+
+# Generated archives and temporary files
+*.tar
+*.tar.gz
+*.zip
+*.tmp
+*.swp
+
+# OS/editor metadata
+.DS_Store
+.idea/
+.vscode/
+.ssh/
