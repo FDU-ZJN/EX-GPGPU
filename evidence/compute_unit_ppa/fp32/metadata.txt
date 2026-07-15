@@ -1,0 +1,15 @@
+yosys_version=Yosys 0.64+308 (git sha1 78e05dfb0, Release, GNU /usr/bin/c++ 13.3.0)
+opensta_version=3.1.0
+asap7_root=/workspace/gpgpu/.toolchain-src/asap7sc7p5t_28
+period_ps=2000
+top=AecFp32Unit
+rtl_sources=generated/fp32/AecFp32Unit.sv
+activity_vcd=none
+mapping_mode=asap7_rvt_tt_nldm
+strict=1
+report_valid=0
+AO	archive=/workspace/gpgpu/.toolchain-src/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_AO_RVT_TT_nldm_211120.lib.7z	lib=/workspace/gpgpu/rtl/reports/ppa_units/fp32/liberty/AO.lib	sha256=b1ece108c0a2acd8d01c05cee6daee2834425037b1d9aad625d6f1dd640f1940	cells=42
+INVBUF	archive=/workspace/gpgpu/.toolchain-src/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_INVBUF_RVT_TT_nldm_220122.lib.7z	lib=/workspace/gpgpu/rtl/reports/ppa_units/fp32/liberty/INVBUF.lib	sha256=a4ceb32e418e1aac8667e28fbd8e9e46baf520180be4db075598a4d7c681a56e	cells=37
+OA	archive=/workspace/gpgpu/.toolchain-src/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_OA_RVT_TT_nldm_211120.lib.7z	lib=/workspace/gpgpu/rtl/reports/ppa_units/fp32/liberty/OA.lib	sha256=6529c6c72465cd133dfbfb03952327ab2774bb6aa4be866d78fd7bc6c58c9f6f	cells=34
+SEQ	archive=/workspace/gpgpu/.toolchain-src/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_SEQ_RVT_TT_nldm_220123.lib.7z	lib=/workspace/gpgpu/rtl/reports/ppa_units/fp32/liberty/SEQ.lib	sha256=57a0b403485b99ebd676942af4673ac086b86c7c75fbdc3e5c0038501dd22ba3	cells=33
+SIMPLE	archive=/workspace/gpgpu/.toolchain-src/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120.lib.7z	lib=/workspace/gpgpu/rtl/reports/ppa_units/fp32/liberty/SIMPLE.lib	sha256=fa92e6ab1481810602811b1eea54bc016a341f11fb5188d7512c026599adf038	cells=56

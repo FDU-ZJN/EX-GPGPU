@@ -1,0 +1,8 @@
+# Warp 0 waits at SYNC.CT while warp 1 completes.
+CPY R1,%tid
+LOADI R2,32
+CMPP.lt P1,R1,R2
+BRX P1,barrier
+HALT
+barrier: SYNC.CT
+HALT

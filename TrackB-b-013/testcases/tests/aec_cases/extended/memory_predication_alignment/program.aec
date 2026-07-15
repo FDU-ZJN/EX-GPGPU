@@ -1,0 +1,28 @@
+# Predicate-false invalid addresses must not fault; normal LD may be misaligned.
+CPY.u32 R1, %laneid
+LOADI R2, 16
+CMPP.lt.u32 P1, R1, R2
+LOADI R3, 4
+MUL.u32 R4, R1, R3
+LOADI R5, 0xfffffffc
+@P1 CPY.u32 R5, R4
+LOADI R10, 0xdeadbeef
+@P1 LD.gmem.u32 R10, [R5]
+LOADI R6, 3
+MUL.u32 R7, R1, R6
+LOADI R8, 1
+ADD.u32 R7, R7, R8
+LD.gmem.u32 R11, [R7]
+ST.lmem.u32 [R2], R1
+LD.lmem.u32 R12, [R2]
+LOADI R40, 12
+MUL.u32 R41, R1, R40
+LOADI R42, 0x100
+ADD.u32 R43, R42, R41
+LOADI R44, 4
+ST.gmem.u32 [R43], R10
+ADD.u32 R43, R43, R44
+ST.gmem.u32 [R43], R11
+ADD.u32 R43, R43, R44
+ST.gmem.u32 [R43], R12
+HALT

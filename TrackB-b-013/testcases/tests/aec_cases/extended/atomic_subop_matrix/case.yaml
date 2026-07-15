@@ -1,0 +1,19 @@
+case_id: EXT.ISA.ATOM.SUBOP.MATRIX
+category: extended_isa_gap
+program: program.bin
+launch:
+  grid: [1, 1, 1]
+  block: [1, 1, 1]
+  program_instructions: 199
+memory_init:
+  - target: gmem
+    address: 0x00000000
+    file: input/gmem_00000000.bin
+expected:
+  status: done
+  memory:
+    - address: 0x00000000
+      size: 1024
+      file: expected/gmem_00000000.bin
+  comparison: exact
+max_cycles: 200000

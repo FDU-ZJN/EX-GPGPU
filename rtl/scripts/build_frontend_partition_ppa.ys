@@ -1,0 +1,7 @@
+read_verilog -sv rtl/sv/generated/frontend_partition_ppa/AecFrontendPartitionPpaTop.sv
+hierarchy -top AecFrontendPartitionPpaTop
+chformal -remove
+proc
+opt
+clean -purge
+write_verilog -noattr rtl/sv/generated/frontend_partition_ppa_clean/AecFrontendPartitionPpaTop.sv

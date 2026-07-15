@@ -1,0 +1,18 @@
+# All lanes contend on one GMEM word and one SMEM word.
+CPY.u32 R1, %laneid
+LOADI R2, 0
+LOADI R3, 1
+ATOM.gmem.add.u32 R10, [R2], R3
+ATOM.smem.add.u32 R11, [R2], R3
+LD.smem.u32 R12, [R2]
+LOADI R40, 12
+MUL.u32 R41, R1, R40
+LOADI R42, 0x100
+ADD.u32 R43, R42, R41
+LOADI R44, 4
+ST.gmem.u32 [R43], R10
+ADD.u32 R43, R43, R44
+ST.gmem.u32 [R43], R11
+ADD.u32 R43, R43, R44
+ST.gmem.u32 [R43], R12
+HALT

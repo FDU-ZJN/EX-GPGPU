@@ -1,0 +1,6 @@
+CPY R1,%laneid
+LOADI R2,16
+CMPP.lt P1,R1,R2
+BRX P1,target
+HALT
+target: HALT

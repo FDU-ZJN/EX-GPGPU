@@ -1,0 +1,11 @@
+case_id: EXT.ISA.FAIL.DIV.ZERO
+category: extended_isa_gap
+program: program.bin
+launch:
+  grid: [1, 1, 1]
+  block: [1, 1, 1]
+  program_instructions: 3
+memory_init: []
+expected:
+  status: fail
+max_cycles: 1000

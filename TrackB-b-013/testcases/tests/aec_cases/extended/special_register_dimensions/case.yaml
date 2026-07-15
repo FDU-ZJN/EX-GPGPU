@@ -1,0 +1,16 @@
+case_id: EXT.ISA.SPECIAL.XYZ
+category: extended_isa_gap
+program: program.bin
+launch:
+  grid: [2, 2, 2]
+  block: [2, 2, 2]
+  program_instructions: 55
+memory_init: []
+expected:
+  status: done
+  memory:
+    - address: 0x00000000
+      size: 3584
+      file: expected/gmem_00000000.bin
+  comparison: exact
+max_cycles: 300000

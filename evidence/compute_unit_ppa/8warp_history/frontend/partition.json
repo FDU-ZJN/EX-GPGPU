@@ -1,0 +1,76 @@
+{
+  "abc_delay_ps": 10000,
+  "abc_map_liberty_sha256": "4d8bf446c221163b931e821277cd9965433bdfd55b35cc391c4d9c6a75c10e10",
+  "configuration": {
+    "PPA_ABC_DELAY_PS": "10000",
+    "PPA_INPUT_DELAY_MIN_NS": "0.050",
+    "PPA_INPUT_TRANSITION_NS": "0.010",
+    "PPA_IO_DELAY_RATIO": "0.10",
+    "PPA_MAX_PERIOD_NS": "1000.000",
+    "PPA_MIN_PERIOD_NS": "0.050",
+    "PPA_OUTPUT_LOAD_FF": "1.0",
+    "PPA_PERIOD_STEP_NS": "0.001",
+    "PPA_RESET_STYLE": "async",
+    "PPA_UNCERTAINTY_RATIO": "0.05"
+  },
+  "flow_scope": "synthesis_sta_area",
+  "fmax_mhz": 3.797213604656903,
+  "hold_wns_ns": 0.001229,
+  "interface_contract": "nonstandard-smoke-top",
+  "libraries": {
+    "files": {
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LEF/srambank_128x4x32_6t122.lef": "7ce48392379ef079235d5779291968d8ce5d9a56ba12be8be68b165976eacb8f",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LEF/srambank_256x4x32_6t122.lef": "36c5e37468e4fa1a971b27a0e6893cb7472ff0b165a0dddfeba7bdc2daba7ac7",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LEF/srambank_64x4x32_6t122.lef": "15ce8352303ddf999aff20b1d82550cf28ac792610efd7874c0705204b83a6c3",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LEF/srambank_64x4x64_6t122.lef": "497002d3593528156129e8b9648945ff98f2edf2831a38d44d51873e555d5df5",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LIB/srambank_128x4x32_6t122.lib": "6498190c476828969177ca2856bd3a596a990582a8b3a52b98c0f96284e24981",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LIB/srambank_256x4x32_6t122.lib": "43c5c8396817c534d0d14a379908bba94aa80612936457495659439c27315224",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LIB/srambank_64x4x32_6t122.lib": "6c9e1752370c1f857437e5b3d42edd628496fedb2b4e4b7a45a6044000e55021",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/LIB/srambank_64x4x64_6t122.lib": "ea69e8d52f4f5d92e1c5c87dd5380f4e3fdc4f669e0bde1484af4527fafc84c5",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/verilog/srambank_128x4x32_6t122.v": "936fa180b87b3db45b95830173a5bfe0836eaa75a84b68cedfc079051a6ca4a7",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/verilog/srambank_256x4x32_6t122.v": "8fd89ad2ae34f40650d02985f19a70b4a28a2cdf5ad0a8b9db1e71c2a94593ba",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/verilog/srambank_64x4x32_6t122.v": "462dab78a945da97fada3d45ca410722e33516b116a4d2fb66c5760e60a0337f",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7_sram_0p0/generated/verilog/srambank_64x4x64_6t122.v": "c0d63f6652f67fba6263e48b660adb369ccf059b1ea4f2e7155390131846b23b",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_AO_RVT_TT_nldm_211120.lib": "b1ece108c0a2acd8d01c05cee6daee2834425037b1d9aad625d6f1dd640f1940",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_INVBUF_RVT_TT_nldm_220122.lib": "a4ceb32e418e1aac8667e28fbd8e9e46baf520180be4db075598a4d7c681a56e",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_OA_RVT_TT_nldm_211120.lib": "6529c6c72465cd133dfbfb03952327ab2774bb6aa4be866d78fd7bc6c58c9f6f",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_SEQ_RVT_TT_nldm_220123.lib": "57a0b403485b99ebd676942af4673ac086b86c7c75fbdc3e5c0038501dd22ba3",
+      "/tmp/aec-release-250mhz/ppa-flow/lib/asap7sc7p5t_28/LIB/NLDM/asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120.lib": "fa92e6ab1481810602811b1eea54bc016a341f11fb5188d7512c026599adf038"
+    },
+    "sram_lock_sha256": "2ecca73f02c0b40a51ccf90cef82ed4c138e428e97a2829c7159676841e6eca0",
+    "stdcell_lock_sha256": "17d9eb1ce3ac3e9708f3278221b7d853d46e00f3e81b3dc6730c3fc0d37cf09c"
+  },
+  "mapped_netlist_sha256": "4c5b08ac7e8e095e0df8daff004387d57b2600dee35fcffcdeb0b0434687d750",
+  "minimum_passing_period_ns": 263.351,
+  "official_defaults": false,
+  "power": {
+    "status": "not_implemented"
+  },
+  "resolved_filelist_sha256": "233a0957b843b2a6859f27b1152d449496e997b05663a2b01269058d8e1ce8c3",
+  "schema_version": 1,
+  "setup_wns_ns": 0.000512,
+  "sram_area_um2": 22118.4,
+  "sram_instances": {
+    "srambank_128x4x32_6t122": 32,
+    "srambank_256x4x32_6t122": 0,
+    "srambank_64x4x32_6t122": 0,
+    "srambank_64x4x64_6t122": 0
+  },
+  "sta_runs": 23,
+  "standard_cell_area_um2": 28936.751040040144,
+  "status": "pass",
+  "tools": {
+    "opensta": {
+      "path": "/workspace/gpgpu/.toolchain-src/OpenSTA/build/sta",
+      "sha256": "6658b2bc06d257cc0d4f8d7f175af3c29986d70984a3fb2788606086b9c1a6ad",
+      "version": "OpenSTA 3.1.0 66c2930332 Copyright (c) 2026, Parallax Software, Inc."
+    },
+    "yosys": {
+      "path": "/workspace/gpgpu/.toolchain-src/yosys/build/yosys",
+      "sha256": "31c5b16a77add3afc47c089a8e1e4969c16293708595867d03009e72dd41490b",
+      "version": "Yosys 0.64+308 (git sha1 78e05dfb0, Release, GNU /usr/bin/c++ 13.3.0)"
+    }
+  },
+  "top": "AecFrontendPartitionPpaTop",
+  "total_area_um2": 51055.151040040146
+}

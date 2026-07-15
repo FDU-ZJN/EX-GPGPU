@@ -1,0 +1,2640 @@
+
+17. Printing statistics.
+
+=== BoothEncoderF64F32F16 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     8207 wires
+    11173 wire bits
+       36 public wires
+     3002 public wire bits
+       31 ports
+     2997 port bits
+     9682 cells
+      108   AND2x2_ASAP7_75t_R
+       20   AND3x1_ASAP7_75t_R
+      239   INVx1_ASAP7_75t_R
+     2448   NAND2xp33_ASAP7_75t_R
+      380   NAND3xp33_ASAP7_75t_R
+      478   NAND4xp25_ASAP7_75t_R
+       13   NAND5xp2_ASAP7_75t_R
+     4306   NOR2xp33_ASAP7_75t_R
+      129   NOR3xp33_ASAP7_75t_R
+     1561   NOR4xp25_ASAP7_75t_R
+
+=== CSA_Nto2With3to2MainPipeline ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      504 wires
+     8454 wire bits
+       76 public wires
+     8026 public wire bits
+       30 ports
+     3104 port bits
+      856 cells
+      428   DFFHQNx1_ASAP7_75t_R
+      428   INVx1_ASAP7_75t_R
+       22 submodules
+       19   CSA3to2
+        3   CSA4to2
+
+=== CSA3to2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      112 wires
+      642 wire bits
+        5 public wires
+      535 public wire bits
+        5 ports
+      535 port bits
+      320 cells
+      106   MAJx3_ASAP7_75t_R
+      214   XOR2x2_ASAP7_75t_R
+
+=== AecTransMultiplier ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     4399 wires
+     4830 wire bits
+       10 public wires
+      294 public wire bits
+        9 ports
+      198 port bits
+     4730 cells
+        1   AND2x2_ASAP7_75t_R
+        3   AND3x1_ASAP7_75t_R
+        2   AND4x2_ASAP7_75t_R
+        2   DFFASRHQNx1_ASAP7_75t_R
+      343   DFFHQNx1_ASAP7_75t_R
+      480   INVx1_ASAP7_75t_R
+       83   MAJIxp5_ASAP7_75t_R
+     2606   NAND2xp33_ASAP7_75t_R
+      327   NAND3xp33_ASAP7_75t_R
+        8   NAND4xp25_ASAP7_75t_R
+        9   NAND5xp2_ASAP7_75t_R
+      330   NOR2xp33_ASAP7_75t_R
+       70   NOR3xp33_ASAP7_75t_R
+       43   NOR4xp25_ASAP7_75t_R
+       13   NOR5xp2_ASAP7_75t_R
+       14   OR3x1_ASAP7_75t_R
+       10   OR4x2_ASAP7_75t_R
+      196   XNOR2x2_ASAP7_75t_R
+      190   XOR2x2_ASAP7_75t_R
+
+=== AecQ34ToF32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2751 wires
+     2957 wire bits
+       11 public wires
+      151 public wire bits
+        9 ports
+       98 port bits
+     2893 cells
+        1   AND2x2_ASAP7_75t_R
+        3   AND3x1_ASAP7_75t_R
+      130   DFFASRHQNx1_ASAP7_75t_R
+      315   INVx1_ASAP7_75t_R
+     2068   NAND2xp33_ASAP7_75t_R
+      132   NAND3xp33_ASAP7_75t_R
+       16   NAND4xp25_ASAP7_75t_R
+        9   NAND5xp2_ASAP7_75t_R
+       38   NOR2xp33_ASAP7_75t_R
+       17   NOR3xp33_ASAP7_75t_R
+       24   NOR4xp25_ASAP7_75t_R
+       13   NOR5xp2_ASAP7_75t_R
+        4   OR3x1_ASAP7_75t_R
+       26   XNOR2x2_ASAP7_75t_R
+       97   XOR2x2_ASAP7_75t_R
+
+=== RoundAnyRawFNToRecFN_ie11_is55_oe11_os53 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1087 wires
+     1218 wire bits
+       10 public wires
+      141 public wire bits
+        9 ports
+      140 port bits
+     1142 cells
+       57   AND2x2_ASAP7_75t_R
+        5   AND3x1_ASAP7_75t_R
+        5   AND4x2_ASAP7_75t_R
+      123   INVx1_ASAP7_75t_R
+        2   MAJIxp5_ASAP7_75t_R
+      399   NAND2xp33_ASAP7_75t_R
+      224   NAND3xp33_ASAP7_75t_R
+       46   NAND4xp25_ASAP7_75t_R
+       32   NAND5xp2_ASAP7_75t_R
+      111   NOR2xp33_ASAP7_75t_R
+       47   NOR3xp33_ASAP7_75t_R
+        9   NOR4xp25_ASAP7_75t_R
+       10   NOR5xp2_ASAP7_75t_R
+        5   OR3x1_ASAP7_75t_R
+       25   XNOR2x2_ASAP7_75t_R
+       42   XOR2x2_ASAP7_75t_R
+
+=== DivSqrtRawFN_small_e11_s53 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2386 wires
+     2583 wire bits
+       28 public wires
+      225 public wire bits
+       27 ports
+      224 port bits
+     2436 cells
+       16   AND2x2_ASAP7_75t_R
+       45   AND3x1_ASAP7_75t_R
+        3   AND4x2_ASAP7_75t_R
+        8   DFFASRHQNx1_ASAP7_75t_R
+      183   DFFHQNx1_ASAP7_75t_R
+      293   INVx1_ASAP7_75t_R
+       61   MAJIxp5_ASAP7_75t_R
+        1   MAJx3_ASAP7_75t_R
+     1251   NAND2xp33_ASAP7_75t_R
+      143   NAND3xp33_ASAP7_75t_R
+       14   NAND4xp25_ASAP7_75t_R
+       16   NAND5xp2_ASAP7_75t_R
+      130   NOR2xp33_ASAP7_75t_R
+       28   NOR3xp33_ASAP7_75t_R
+       25   NOR4xp25_ASAP7_75t_R
+        5   NOR5xp2_ASAP7_75t_R
+        3   OR2x4_ASAP7_75t_R
+       62   OR3x1_ASAP7_75t_R
+        6   OR4x2_ASAP7_75t_R
+       82   XNOR2x2_ASAP7_75t_R
+       61   XOR2x2_ASAP7_75t_R
+
+=== RoundAnyRawFNToRecFN_ie8_is24_oe11_os53 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       23 wires
+      120 wire bits
+        9 public wires
+      106 public wire bits
+        8 ports
+      105 port bits
+       42 cells
+        1   AND2x2_ASAP7_75t_R
+       22   AND3x1_ASAP7_75t_R
+        6   INVx1_ASAP7_75t_R
+        6   NAND2xp33_ASAP7_75t_R
+        4   NAND3xp33_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+
+=== FloatFMA_16 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    11418 wires
+    15318 wire bits
+       48 public wires
+     3767 public wire bits
+        7 ports
+      262 port bits
+    11790 cells
+       78   AND2x2_ASAP7_75t_R
+       69   AND3x1_ASAP7_75t_R
+       68   AND4x2_ASAP7_75t_R
+        2   DFFASRHQNx1_ASAP7_75t_R
+      824   DFFHQNx1_ASAP7_75t_R
+     1315   INVx1_ASAP7_75t_R
+      119   MAJIxp5_ASAP7_75t_R
+        1   MAJx3_ASAP7_75t_R
+     6053   NAND2xp33_ASAP7_75t_R
+      852   NAND3xp33_ASAP7_75t_R
+      149   NAND4xp25_ASAP7_75t_R
+      356   NAND5xp2_ASAP7_75t_R
+      534   NOR2xp33_ASAP7_75t_R
+      161   NOR3xp33_ASAP7_75t_R
+      152   NOR4xp25_ASAP7_75t_R
+      203   NOR5xp2_ASAP7_75t_R
+       41   OR2x4_ASAP7_75t_R
+       57   OR3x1_ASAP7_75t_R
+        8   OR4x2_ASAP7_75t_R
+      225   XNOR2x2_ASAP7_75t_R
+      523   XOR2x2_ASAP7_75t_R
+        3 submodules
+        1   BoothEncoderF64F32F16
+        1   CSA3to2
+        1   CSA_Nto2With3to2MainPipeline
+
+=== FPDownConverter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      127 wires
+      213 wire bits
+       14 public wires
+      100 public wire bits
+        2 ports
+       48 port bits
+      139 cells
+       11   AND2x2_ASAP7_75t_R
+       14   INVx1_ASAP7_75t_R
+       59   NAND2xp33_ASAP7_75t_R
+        9   NAND3xp33_ASAP7_75t_R
+        5   NAND4xp25_ASAP7_75t_R
+        4   NAND5xp2_ASAP7_75t_R
+        8   NOR2xp33_ASAP7_75t_R
+        4   NOR3xp33_ASAP7_75t_R
+        8   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        1   OR4x2_ASAP7_75t_R
+        2   XNOR2x2_ASAP7_75t_R
+       13   XOR2x2_ASAP7_75t_R
+        3 submodules
+        2   RoundingUnit
+        1   ShiftRightJam
+
+=== FPUpConverter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      124 wires
+      173 wire bits
+        4 public wires
+       53 public wire bits
+        2 ports
+       48 port bits
+      138 cells
+        1   AND2x2_ASAP7_75t_R
+       13   INVx1_ASAP7_75t_R
+       92   NAND2xp33_ASAP7_75t_R
+       15   NAND3xp33_ASAP7_75t_R
+        4   NAND4xp25_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+        3   NOR2xp33_ASAP7_75t_R
+        2   NOR3xp33_ASAP7_75t_R
+        3   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        3   XOR2x2_ASAP7_75t_R
+        1 submodules
+        1   CLZ
+
+=== FloatFMA ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     5436 wires
+     9150 wire bits
+       51 public wires
+     3765 public wire bits
+        7 ports
+      262 port bits
+     5593 cells
+       41   AND2x2_ASAP7_75t_R
+       29   AND3x1_ASAP7_75t_R
+       32   AND4x2_ASAP7_75t_R
+        2   DFFASRHQNx1_ASAP7_75t_R
+      425   DFFHQNx1_ASAP7_75t_R
+      662   INVx1_ASAP7_75t_R
+       64   MAJIxp5_ASAP7_75t_R
+        1   MAJx3_ASAP7_75t_R
+     2748   NAND2xp33_ASAP7_75t_R
+      402   NAND3xp33_ASAP7_75t_R
+      119   NAND4xp25_ASAP7_75t_R
+      130   NAND5xp2_ASAP7_75t_R
+      276   NOR2xp33_ASAP7_75t_R
+       74   NOR3xp33_ASAP7_75t_R
+       69   NOR4xp25_ASAP7_75t_R
+       74   NOR5xp2_ASAP7_75t_R
+       21   OR2x4_ASAP7_75t_R
+       41   OR3x1_ASAP7_75t_R
+        4   OR4x2_ASAP7_75t_R
+      126   XNOR2x2_ASAP7_75t_R
+      253   XOR2x2_ASAP7_75t_R
+        3 submodules
+        1   BoothEncoderF64F32F16
+        1   CSA3to2
+        1   CSA_Nto2With3to2MainPipeline
+
+=== Queue ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      921 wires
+     1063 wire bits
+       12 public wires
+      154 public wire bits
+       12 ports
+      154 port bits
+      985 cells
+        3   DFFASRHQNx1_ASAP7_75t_R
+      148   DFFHQNx1_ASAP7_75t_R
+      157   INVx1_ASAP7_75t_R
+        1   MAJIxp5_ASAP7_75t_R
+      671   NAND2xp33_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+        1   XOR2x2_ASAP7_75t_R
+
+=== CLZ ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       21 wires
+       33 wire bits
+        2 public wires
+       14 public wire bits
+        2 ports
+       14 port bits
+       23 cells
+        1   AND2x2_ASAP7_75t_R
+        7   INVx1_ASAP7_75t_R
+        6   NAND2xp33_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        3   NOR3xp33_ASAP7_75t_R
+        2   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+
+=== CLZ_99 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        9 wires
+       17 wire bits
+        2 public wires
+       10 public wire bits
+        2 ports
+       10 port bits
+       10 cells
+        1   INVx1_ASAP7_75t_R
+        6   NOR2xp33_ASAP7_75t_R
+        2   NOR3xp33_ASAP7_75t_R
+        1   NOR4xp25_ASAP7_75t_R
+
+=== CLZ_5 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       63 wires
+       89 wire bits
+        2 public wires
+       28 public wire bits
+        2 ports
+       28 port bits
+       66 cells
+        1   AND2x2_ASAP7_75t_R
+        1   AND3x1_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+       21   INVx1_ASAP7_75t_R
+       20   NAND2xp33_ASAP7_75t_R
+        8   NAND3xp33_ASAP7_75t_R
+        3   NAND5xp2_ASAP7_75t_R
+        1   NOR2xp33_ASAP7_75t_R
+        2   NOR4xp25_ASAP7_75t_R
+        7   NOR5xp2_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+
+=== ShiftRightJam_32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      210 wires
+      242 wire bits
+        4 public wires
+       36 public wire bits
+        4 ports
+       36 port bits
+      219 cells
+        1   AND2x2_ASAP7_75t_R
+        4   AND3x1_ASAP7_75t_R
+        4   AND4x2_ASAP7_75t_R
+       21   INVx1_ASAP7_75t_R
+      103   NAND2xp33_ASAP7_75t_R
+       36   NAND3xp33_ASAP7_75t_R
+        4   NAND4xp25_ASAP7_75t_R
+        4   NAND5xp2_ASAP7_75t_R
+        8   NOR2xp33_ASAP7_75t_R
+       10   NOR3xp33_ASAP7_75t_R
+       16   NOR4xp25_ASAP7_75t_R
+        2   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+        5   OR3x1_ASAP7_75t_R
+
+=== RoundingUnit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       49 wires
+       67 wire bits
+        5 public wires
+       23 public wire bits
+        5 ports
+       23 port bits
+       55 cells
+        1   AND3x1_ASAP7_75t_R
+        5   INVx1_ASAP7_75t_R
+       33   NAND2xp33_ASAP7_75t_R
+        1   NAND3xp33_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        2   NOR3xp33_ASAP7_75t_R
+        2   XNOR2x2_ASAP7_75t_R
+        8   XOR2x2_ASAP7_75t_R
+
+=== ShiftRightJam_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      150 wires
+      176 wire bits
+        4 public wires
+       30 public wire bits
+        4 ports
+       30 port bits
+      156 cells
+        3   AND2x2_ASAP7_75t_R
+        1   AND3x1_ASAP7_75t_R
+        4   AND4x2_ASAP7_75t_R
+       20   INVx1_ASAP7_75t_R
+       47   NAND2xp33_ASAP7_75t_R
+       26   NAND3xp33_ASAP7_75t_R
+        5   NAND4xp25_ASAP7_75t_R
+        4   NAND5xp2_ASAP7_75t_R
+       21   NOR2xp33_ASAP7_75t_R
+        8   NOR3xp33_ASAP7_75t_R
+       10   NOR4xp25_ASAP7_75t_R
+        2   NOR5xp2_ASAP7_75t_R
+        5   XOR2x2_ASAP7_75t_R
+
+=== RoundingUnit_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       36 wires
+       48 wire bits
+        5 public wires
+       17 public wire bits
+        5 ports
+       17 port bits
+       39 cells
+        4   INVx1_ASAP7_75t_R
+       22   NAND2xp33_ASAP7_75t_R
+        2   NAND3xp33_ASAP7_75t_R
+        1   NAND4xp25_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+        2   XNOR2x2_ASAP7_75t_R
+        5   XOR2x2_ASAP7_75t_R
+
+=== ShiftRightJam_34 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      520 wires
+      578 wire bits
+        4 public wires
+       62 public wire bits
+        4 ports
+       62 port bits
+      542 cells
+        5   AND2x2_ASAP7_75t_R
+       10   AND3x1_ASAP7_75t_R
+       11   AND4x2_ASAP7_75t_R
+       46   INVx1_ASAP7_75t_R
+      282   NAND2xp33_ASAP7_75t_R
+       86   NAND3xp33_ASAP7_75t_R
+        9   NAND4xp25_ASAP7_75t_R
+       25   NOR2xp33_ASAP7_75t_R
+       22   NOR3xp33_ASAP7_75t_R
+       12   NOR4xp25_ASAP7_75t_R
+       28   NOR5xp2_ASAP7_75t_R
+        5   OR3x1_ASAP7_75t_R
+        1   XOR2x2_ASAP7_75t_R
+
+=== RoundingUnit_68 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      110 wires
+      154 wire bits
+        5 public wires
+       49 public wire bits
+        5 ports
+       49 port bits
+      129 cells
+        2   AND3x1_ASAP7_75t_R
+        2   AND4x2_ASAP7_75t_R
+       11   INVx1_ASAP7_75t_R
+       76   NAND2xp33_ASAP7_75t_R
+        3   NAND3xp33_ASAP7_75t_R
+        4   NAND4xp25_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+        4   NOR2xp33_ASAP7_75t_R
+        3   NOR3xp33_ASAP7_75t_R
+        9   XNOR2x2_ASAP7_75t_R
+       14   XOR2x2_ASAP7_75t_R
+
+=== YunSuanFmaPipe ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      334 wires
+      805 wire bits
+       26 public wires
+      497 public wire bits
+       15 ports
+      289 port bits
+      452 cells
+       56   AND3x1_ASAP7_75t_R
+        5   DFFASRHQNx1_ASAP7_75t_R
+       30   DFFHQNx1_ASAP7_75t_R
+        1   HB1xp67_ASAP7_75t_R
+       55   INVx1_ASAP7_75t_R
+      295   NAND2xp33_ASAP7_75t_R
+        3   NAND5xp2_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+        4   XOR2x2_ASAP7_75t_R
+        2 submodules
+        1   FloatFMA
+        1   Queue
+
+=== FPToFP ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       48 wire bits
+        2 public wires
+       48 public wire bits
+        2 ports
+       48 port bits
+        1 submodules
+        1   FPUpConverter
+
+=== FPToFP_5 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       48 wire bits
+        2 public wires
+       48 public wire bits
+        2 ports
+       48 port bits
+        1 submodules
+        1   FPDownConverter
+
+=== YunSuanFmaPipe_16 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      337 wires
+      808 wire bits
+       26 public wires
+      497 public wire bits
+       15 ports
+      289 port bits
+      455 cells
+       53   AND3x1_ASAP7_75t_R
+        5   DFFASRHQNx1_ASAP7_75t_R
+       30   DFFHQNx1_ASAP7_75t_R
+        1   HB1xp67_ASAP7_75t_R
+       58   INVx1_ASAP7_75t_R
+      298   NAND2xp33_ASAP7_75t_R
+        3   NAND5xp2_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+        4   XOR2x2_ASAP7_75t_R
+        2 submodules
+        1   FloatFMA_16
+        1   Queue
+
+=== Queue_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      101 wires
+      111 wire bits
+        8 public wires
+       18 public wire bits
+        8 ports
+       18 port bits
+      101 cells
+        3   DFFASRHQNx1_ASAP7_75t_R
+       12   DFFHQNx1_ASAP7_75t_R
+       21   INVx1_ASAP7_75t_R
+        1   MAJIxp5_ASAP7_75t_R
+       60   NAND2xp33_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+        1   XOR2x2_ASAP7_75t_R
+
+=== Queue_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      602 wires
+      882 wire bits
+       16 public wires
+      296 public wire bits
+       16 ports
+      296 port bits
+      733 cells
+        1   AND2x2_ASAP7_75t_R
+        1   DFFASRHQNx1_ASAP7_75t_R
+      145   DFFHQNx1_ASAP7_75t_R
+        1   HB1xp67_ASAP7_75t_R
+      148   INVx1_ASAP7_75t_R
+        1   MAJIxp5_ASAP7_75t_R
+      436   NAND2xp33_ASAP7_75t_R
+
+=== CompareRecFN ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      109 wires
+      141 wire bits
+        5 public wires
+       37 public wire bits
+        5 ports
+       37 port bits
+      107 cells
+        1   AND3x1_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+       25   INVx1_ASAP7_75t_R
+        7   MAJIxp5_ASAP7_75t_R
+       24   NAND2xp33_ASAP7_75t_R
+        3   NAND3xp33_ASAP7_75t_R
+        2   NAND4xp25_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+       21   NOR2xp33_ASAP7_75t_R
+        4   NOR3xp33_ASAP7_75t_R
+        1   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        4   XNOR2x2_ASAP7_75t_R
+       12   XOR2x2_ASAP7_75t_R
+
+=== CompareRecFN_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      168 wires
+      232 wire bits
+        5 public wires
+       69 public wire bits
+        5 ports
+       69 port bits
+      166 cells
+        2   AND2x2_ASAP7_75t_R
+        1   AND3x1_ASAP7_75t_R
+       36   INVx1_ASAP7_75t_R
+       15   MAJIxp5_ASAP7_75t_R
+       32   NAND2xp33_ASAP7_75t_R
+        6   NAND3xp33_ASAP7_75t_R
+        2   NAND4xp25_ASAP7_75t_R
+        2   NAND5xp2_ASAP7_75t_R
+       23   NOR2xp33_ASAP7_75t_R
+        6   NOR3xp33_ASAP7_75t_R
+        6   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+       14   XNOR2x2_ASAP7_75t_R
+       19   XOR2x2_ASAP7_75t_R
+
+=== CompareRecFN_34 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      319 wires
+      447 wire bits
+        5 public wires
+      133 public wire bits
+        5 ports
+      133 port bits
+      317 cells
+        1   AND2x2_ASAP7_75t_R
+        4   AND3x1_ASAP7_75t_R
+       70   INVx1_ASAP7_75t_R
+       32   MAJIxp5_ASAP7_75t_R
+       66   NAND2xp33_ASAP7_75t_R
+        6   NAND3xp33_ASAP7_75t_R
+        7   NAND4xp25_ASAP7_75t_R
+        3   NAND5xp2_ASAP7_75t_R
+       46   NOR2xp33_ASAP7_75t_R
+       11   NOR3xp33_ASAP7_75t_R
+        3   NOR4xp25_ASAP7_75t_R
+        3   OR2x4_ASAP7_75t_R
+       32   XNOR2x2_ASAP7_75t_R
+       33   XOR2x2_ASAP7_75t_R
+
+=== AecIntDivider ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2002 wires
+     2126 wire bits
+       11 public wires
+      104 public wire bits
+       11 ports
+      104 port bits
+     2057 cells
+        2   AND3x1_ASAP7_75t_R
+      106   DFFASRHQNx1_ASAP7_75t_R
+       64   DFFHQNx1_ASAP7_75t_R
+      317   INVx1_ASAP7_75t_R
+       27   MAJIxp5_ASAP7_75t_R
+     1121   NAND2xp33_ASAP7_75t_R
+      122   NAND3xp33_ASAP7_75t_R
+        7   NAND4xp25_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+       66   NOR2xp33_ASAP7_75t_R
+       26   NOR3xp33_ASAP7_75t_R
+       17   NOR4xp25_ASAP7_75t_R
+       13   NOR5xp2_ASAP7_75t_R
+        6   OR3x1_ASAP7_75t_R
+        3   OR4x2_ASAP7_75t_R
+       41   XNOR2x2_ASAP7_75t_R
+      118   XOR2x2_ASAP7_75t_R
+
+=== RecFNToRecFN ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       10 wires
+      106 wire bits
+        7 public wires
+      103 public wire bits
+        2 ports
+       98 port bits
+        8 cells
+        4   INVx1_ASAP7_75t_R
+        3   NOR3xp33_ASAP7_75t_R
+        1   NOR4xp25_ASAP7_75t_R
+        1 submodules
+        1   RoundAnyRawFNToRecFN_ie8_is24_oe11_os53
+
+=== DivSqrtRecFMToRaw_small_e11_s53 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       27 wires
+      222 wire bits
+       25 public wires
+      220 public wire bits
+       17 ports
+      212 port bits
+       10 cells
+        2   AND3x1_ASAP7_75t_R
+        2   INVx1_ASAP7_75t_R
+        2   NAND2xp33_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        2   NOR3xp33_ASAP7_75t_R
+        1 submodules
+        1   DivSqrtRawFN_small_e11_s53
+
+=== RoundAnyRawFNToRecFN_ie11_is55_oe8_os24 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      539 wires
+      638 wire bits
+       10 public wires
+      109 public wire bits
+        9 ports
+      108 port bits
+      562 cells
+       24   AND2x2_ASAP7_75t_R
+        9   AND3x1_ASAP7_75t_R
+        4   AND4x2_ASAP7_75t_R
+       65   INVx1_ASAP7_75t_R
+        3   MAJIxp5_ASAP7_75t_R
+      195   NAND2xp33_ASAP7_75t_R
+       94   NAND3xp33_ASAP7_75t_R
+       21   NAND4xp25_ASAP7_75t_R
+        8   NAND5xp2_ASAP7_75t_R
+       43   NOR2xp33_ASAP7_75t_R
+       27   NOR3xp33_ASAP7_75t_R
+       16   NOR4xp25_ASAP7_75t_R
+        9   NOR5xp2_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+       12   XNOR2x2_ASAP7_75t_R
+       31   XOR2x2_ASAP7_75t_R
+
+=== RoundRawFNToRecFN_e11_s53 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        9 wires
+      140 wire bits
+        9 public wires
+      140 public wire bits
+        9 ports
+      140 port bits
+        1 submodules
+        1   RoundAnyRawFNToRecFN_ie11_is55_oe11_os53
+
+=== AecTranscendental ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    17488 wires
+    17971 wire bits
+       22 public wires
+      377 public wire bits
+        9 ports
+       86 port bits
+    17787 cells
+      105   AND2x2_ASAP7_75t_R
+       23   AND3x1_ASAP7_75t_R
+       15   AND4x2_ASAP7_75t_R
+       55   DFFASRHQNx1_ASAP7_75t_R
+      332   DFFHQNx1_ASAP7_75t_R
+      840   INVx1_ASAP7_75t_R
+      175   MAJIxp5_ASAP7_75t_R
+    13345   NAND2xp33_ASAP7_75t_R
+      883   NAND3xp33_ASAP7_75t_R
+      236   NAND4xp25_ASAP7_75t_R
+       62   NAND5xp2_ASAP7_75t_R
+      558   NOR2xp33_ASAP7_75t_R
+      218   NOR3xp33_ASAP7_75t_R
+      111   NOR4xp25_ASAP7_75t_R
+       56   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+       30   OR3x1_ASAP7_75t_R
+       20   OR4x2_ASAP7_75t_R
+      201   XNOR2x2_ASAP7_75t_R
+      521   XOR2x2_ASAP7_75t_R
+        2 submodules
+        1   AecQ34ToF32
+        1   AecTransMultiplier
+
+=== AecRowInitializedGroup ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      260 wires
+      295 wire bits
+        6 public wires
+       41 public wire bits
+        6 ports
+       41 port bits
+      286 cells
+        1   DFFASRHQNx1_ASAP7_75t_R
+       37   DFFHQNx1_ASAP7_75t_R
+       40   INVx1_ASAP7_75t_R
+      175   NAND2xp33_ASAP7_75t_R
+       32   NAND5xp2_ASAP7_75t_R
+        1   NOR2xp33_ASAP7_75t_R
+
+=== aec_sram_1024x32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        7 wires
+       78 wire bits
+        7 public wires
+       78 public wire bits
+        7 ports
+       78 port bits
+        1 cells
+        1   srambank_256x4x32_6t122
+
+=== AecWarpRequestLaneBank ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     3146 wires
+     4670 wire bits
+       39 public wires
+     1563 public wire bits
+       31 ports
+     1555 port bits
+     3883 cells
+        1   DFFASRHQNx1_ASAP7_75t_R
+      776   DFFHQNx1_ASAP7_75t_R
+      778   INVx1_ASAP7_75t_R
+     2328   NAND2xp33_ASAP7_75t_R
+
+=== AESSFU ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     6900 wires
+     7964 wire bits
+       56 public wires
+     1057 public wire bits
+       12 ports
+      219 port bits
+     7257 cells
+       98   AND2x2_ASAP7_75t_R
+       35   AND3x1_ASAP7_75t_R
+        5   AND4x2_ASAP7_75t_R
+       75   DFFASRHQNx1_ASAP7_75t_R
+      180   DFFHQNx1_ASAP7_75t_R
+      489   INVx1_ASAP7_75t_R
+        2   MAJIxp5_ASAP7_75t_R
+        2   MAJx3_ASAP7_75t_R
+     5209   NAND2xp33_ASAP7_75t_R
+      581   NAND3xp33_ASAP7_75t_R
+       94   NAND4xp25_ASAP7_75t_R
+      118   NAND5xp2_ASAP7_75t_R
+      140   NOR2xp33_ASAP7_75t_R
+       32   NOR3xp33_ASAP7_75t_R
+       49   NOR4xp25_ASAP7_75t_R
+       67   NOR5xp2_ASAP7_75t_R
+        9   OR3x1_ASAP7_75t_R
+        3   OR4x2_ASAP7_75t_R
+       14   XNOR2x2_ASAP7_75t_R
+       55   XOR2x2_ASAP7_75t_R
+        7 submodules
+        1   AecIntDivider
+        1   AecTranscendental
+        1   DivSqrtRecFMToRaw_small_e11_s53
+        2   RecFNToRecFN
+        1   RoundAnyRawFNToRecFN_ie11_is55_oe8_os24
+        1   RoundRawFNToRecFN_e11_s53
+
+=== AecFp64PipeUnit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     5130 wires
+     5915 wire bits
+       76 public wires
+      861 public wire bits
+       14 ports
+      275 port bits
+     5362 cells
+       31   AND2x2_ASAP7_75t_R
+       28   AND3x1_ASAP7_75t_R
+        7   AND4x2_ASAP7_75t_R
+        6   DFFASRHQNx1_ASAP7_75t_R
+      305   INVx1_ASAP7_75t_R
+        4   MAJIxp5_ASAP7_75t_R
+        2   MAJx3_ASAP7_75t_R
+     3899   NAND2xp33_ASAP7_75t_R
+      575   NAND3xp33_ASAP7_75t_R
+       73   NAND4xp25_ASAP7_75t_R
+      155   NAND5xp2_ASAP7_75t_R
+       65   NOR2xp33_ASAP7_75t_R
+       19   NOR3xp33_ASAP7_75t_R
+       56   NOR4xp25_ASAP7_75t_R
+       50   NOR5xp2_ASAP7_75t_R
+        2   OR3x1_ASAP7_75t_R
+        2   OR4x2_ASAP7_75t_R
+       26   XNOR2x2_ASAP7_75t_R
+       57   XOR2x2_ASAP7_75t_R
+        9 submodules
+        1   CompareRecFN
+        1   CompareRecFN_1
+        1   CompareRecFN_34
+        1   FPToFP_137
+        1   FPToFP_139
+        1   FPToFP_7
+        1   Queue_1
+        1   Queue_2
+        1   YunSuanFmaPipe_16
+
+=== AecFpWarpRequestStage_16 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2702 wires
+     3693 wire bits
+       32 public wires
+     1023 public wire bits
+       32 ports
+     1023 port bits
+     2875 cells
+        2   DFFASRHQNx1_ASAP7_75t_R
+      205   DFFHQNx1_ASAP7_75t_R
+      215   INVx1_ASAP7_75t_R
+     2447   NAND2xp33_ASAP7_75t_R
+        5   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+
+=== AecFp32PipeUnit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     3185 wires
+     4116 wire bits
+       71 public wires
+     1002 public wire bits
+       14 ports
+      275 port bits
+     3356 cells
+       60   AND2x2_ASAP7_75t_R
+        9   AND3x1_ASAP7_75t_R
+        3   AND4x2_ASAP7_75t_R
+        6   DFFASRHQNx1_ASAP7_75t_R
+      234   INVx1_ASAP7_75t_R
+        4   MAJIxp5_ASAP7_75t_R
+     2341   NAND2xp33_ASAP7_75t_R
+      300   NAND3xp33_ASAP7_75t_R
+       69   NAND4xp25_ASAP7_75t_R
+       33   NAND5xp2_ASAP7_75t_R
+      161   NOR2xp33_ASAP7_75t_R
+       21   NOR3xp33_ASAP7_75t_R
+       34   NOR4xp25_ASAP7_75t_R
+       18   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+        4   OR3x1_ASAP7_75t_R
+       13   XNOR2x2_ASAP7_75t_R
+       45   XOR2x2_ASAP7_75t_R
+       13 submodules
+        1   CompareRecFN
+        1   CompareRecFN_1
+        5   FPToFP
+        1   FPToFP_5
+        1   FPToFP_6
+        1   FPToFP_7
+        1   Queue_1
+        1   Queue_2
+        1   YunSuanFmaPipe
+
+=== AecFpWarpRequestStage ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1461 wires
+     2055 wire bits
+       22 public wires
+      616 public wire bits
+       22 ports
+      616 port bits
+     1644 cells
+        2   DFFASRHQNx1_ASAP7_75t_R
+      204   DFFHQNx1_ASAP7_75t_R
+      209   INVx1_ASAP7_75t_R
+     1226   NAND2xp33_ASAP7_75t_R
+        1   NAND3xp33_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+
+=== AecIntAlu ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     8263 wires
+     8503 wire bits
+       17 public wires
+      221 public wire bits
+       15 ports
+      157 port bits
+     8382 cells
+       20   AND2x2_ASAP7_75t_R
+        9   AND3x1_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+       41   DFFASRHQNx1_ASAP7_75t_R
+      151   DFFHQNx1_ASAP7_75t_R
+      492   INVx1_ASAP7_75t_R
+      141   MAJIxp5_ASAP7_75t_R
+     6287   NAND2xp33_ASAP7_75t_R
+      345   NAND3xp33_ASAP7_75t_R
+       74   NAND4xp25_ASAP7_75t_R
+       26   NAND5xp2_ASAP7_75t_R
+      317   NOR2xp33_ASAP7_75t_R
+       60   NOR3xp33_ASAP7_75t_R
+       37   NOR4xp25_ASAP7_75t_R
+       17   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+       12   OR3x1_ASAP7_75t_R
+        5   OR4x2_ASAP7_75t_R
+       90   XNOR2x2_ASAP7_75t_R
+      256   XOR2x2_ASAP7_75t_R
+
+=== AecIntWarpRequestStage ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      862 wires
+     1195 wire bits
+       25 public wires
+      358 public wire bits
+       25 ports
+      358 port bits
+      956 cells
+        2   DFFASRHQNx1_ASAP7_75t_R
+      118   DFFHQNx1_ASAP7_75t_R
+      123   INVx1_ASAP7_75t_R
+      710   NAND2xp33_ASAP7_75t_R
+        1   NAND3xp33_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+
+=== AecResultLaneBank ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      474 wires
+      600 wire bits
+        9 public wires
+      135 public wire bits
+        9 ports
+      135 port bits
+      531 cells
+       67   DFFASRHQNx1_ASAP7_75t_R
+       66   DFFHQNx1_ASAP7_75t_R
+      200   INVx1_ASAP7_75t_R
+      198   NAND2xp33_ASAP7_75t_R
+
+=== RoundAnyRawFNToRecFN_ie6_is32_oe11_os53 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       38 wires
+      141 wire bits
+        5 public wires
+      108 public wire bits
+        5 ports
+      108 port bits
+       69 cells
+       33   INVx1_ASAP7_75t_R
+        1   NAND2xp33_ASAP7_75t_R
+       33   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+
+=== FPDownConverter_34 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      213 wires
+      392 wire bits
+       14 public wires
+      193 public wire bits
+        2 ports
+       96 port bits
+      244 cells
+       23   AND2x2_ASAP7_75t_R
+       23   INVx1_ASAP7_75t_R
+      109   NAND2xp33_ASAP7_75t_R
+       17   NAND3xp33_ASAP7_75t_R
+        4   NAND4xp25_ASAP7_75t_R
+        3   NAND5xp2_ASAP7_75t_R
+       13   NOR2xp33_ASAP7_75t_R
+        6   NOR3xp33_ASAP7_75t_R
+       17   NOR4xp25_ASAP7_75t_R
+        5   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+        1   OR4x2_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+       21   XOR2x2_ASAP7_75t_R
+        3 submodules
+        2   RoundingUnit_68
+        1   ShiftRightJam_34
+
+=== FPDownConverter_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      165 wires
+      280 wire bits
+       14 public wires
+      129 public wire bits
+        2 ports
+       80 port bits
+      180 cells
+        8   AND2x2_ASAP7_75t_R
+        1   AND3x1_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+       23   INVx1_ASAP7_75t_R
+       63   NAND2xp33_ASAP7_75t_R
+       17   NAND3xp33_ASAP7_75t_R
+        3   NAND4xp25_ASAP7_75t_R
+        7   NAND5xp2_ASAP7_75t_R
+       10   NOR2xp33_ASAP7_75t_R
+        6   NOR3xp33_ASAP7_75t_R
+       16   NOR4xp25_ASAP7_75t_R
+        2   NOR5xp2_ASAP7_75t_R
+        1   OR4x2_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+       21   XOR2x2_ASAP7_75t_R
+        3 submodules
+        2   RoundingUnit_2
+        1   ShiftRightJam_1
+
+=== FPDownConverter_32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      165 wires
+      286 wire bits
+       14 public wires
+      135 public wire bits
+        2 ports
+       80 port bits
+      180 cells
+       10   AND2x2_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+       27   INVx1_ASAP7_75t_R
+       62   NAND2xp33_ASAP7_75t_R
+        7   NAND3xp33_ASAP7_75t_R
+        3   NAND4xp25_ASAP7_75t_R
+        7   NAND5xp2_ASAP7_75t_R
+       11   NOR2xp33_ASAP7_75t_R
+        7   NOR3xp33_ASAP7_75t_R
+       19   NOR4xp25_ASAP7_75t_R
+        5   NOR5xp2_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+       20   XOR2x2_ASAP7_75t_R
+        3 submodules
+        2   RoundingUnit
+        1   ShiftRightJam_32
+
+=== FPUpConverter_5 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      340 wires
+      438 wire bits
+        4 public wires
+      102 public wire bits
+        2 ports
+       96 port bits
+      370 cells
+        2   AND2x2_ASAP7_75t_R
+        2   AND3x1_ASAP7_75t_R
+        2   AND4x2_ASAP7_75t_R
+       10   INVx1_ASAP7_75t_R
+      301   NAND2xp33_ASAP7_75t_R
+       29   NAND3xp33_ASAP7_75t_R
+        4   NAND4xp25_ASAP7_75t_R
+        2   NAND5xp2_ASAP7_75t_R
+        2   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+        6   NOR4xp25_ASAP7_75t_R
+        2   NOR5xp2_ASAP7_75t_R
+        2   OR3x1_ASAP7_75t_R
+        1   OR4x2_ASAP7_75t_R
+        4   XOR2x2_ASAP7_75t_R
+        1 submodules
+        1   CLZ_5
+
+=== FPUpConverter_99 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       86 wires
+      166 wire bits
+        4 public wires
+       84 public wire bits
+        2 ports
+       80 port bits
+      100 cells
+        1   AND2x2_ASAP7_75t_R
+        2   AND3x1_ASAP7_75t_R
+        7   INVx1_ASAP7_75t_R
+       64   NAND2xp33_ASAP7_75t_R
+       11   NAND3xp33_ASAP7_75t_R
+        3   NAND4xp25_ASAP7_75t_R
+        2   NAND5xp2_ASAP7_75t_R
+        3   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+        3   NOR4xp25_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+        2   XOR2x2_ASAP7_75t_R
+        1 submodules
+        1   CLZ_99
+
+=== FPUpConverter_96 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      124 wires
+      205 wire bits
+        4 public wires
+       85 public wire bits
+        2 ports
+       80 port bits
+      138 cells
+        1   AND2x2_ASAP7_75t_R
+       13   INVx1_ASAP7_75t_R
+       92   NAND2xp33_ASAP7_75t_R
+       15   NAND3xp33_ASAP7_75t_R
+        4   NAND4xp25_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+        3   NOR2xp33_ASAP7_75t_R
+        2   NOR3xp33_ASAP7_75t_R
+        3   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        3   XOR2x2_ASAP7_75t_R
+        1 submodules
+        1   CLZ
+
+=== AecResultStoreLane ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      261 wires
+      387 wire bits
+        4 public wires
+      130 public wire bits
+        4 ports
+      130 port bits
+      321 cells
+       64   DFFHQNx1_ASAP7_75t_R
+       65   INVx1_ASAP7_75t_R
+      192   NAND2xp33_ASAP7_75t_R
+
+=== AecResultStoreEntry ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       66 wires
+     4098 wire bits
+       66 public wires
+     4098 public wire bits
+       66 ports
+     4098 port bits
+       32 submodules
+       32   AecResultStoreLane
+
+=== AecResultStoreReadLane ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1307 wires
+     1876 wire bits
+       10 public wires
+      579 public wire bits
+       10 ports
+      579 port bits
+     1361 cells
+       10   INVx1_ASAP7_75t_R
+     1344   NAND2xp33_ASAP7_75t_R
+        7   NOR3xp33_ASAP7_75t_R
+
+=== AecCompletionLaneStage ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1615 wires
+     2121 wire bits
+       11 public wires
+      517 public wire bits
+       11 ports
+      517 port bits
+     1668 cells
+       64   DFFHQNx1_ASAP7_75t_R
+       68   INVx1_ASAP7_75t_R
+     1536   NAND2xp33_ASAP7_75t_R
+
+=== AecUnsignedDivider8 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      380 wires
+      409 wire bits
+        8 public wires
+       37 public wire bits
+        8 ports
+       37 port bits
+      389 cells
+        8   AND2x2_ASAP7_75t_R
+        5   DFFASRHQNx1_ASAP7_75t_R
+       48   DFFHQNx1_ASAP7_75t_R
+       68   INVx1_ASAP7_75t_R
+        7   MAJIxp5_ASAP7_75t_R
+      183   NAND2xp33_ASAP7_75t_R
+        6   NAND3xp33_ASAP7_75t_R
+        1   NAND4xp25_ASAP7_75t_R
+       43   NOR2xp33_ASAP7_75t_R
+        2   NOR3xp33_ASAP7_75t_R
+        3   XNOR2x2_ASAP7_75t_R
+       15   XOR2x2_ASAP7_75t_R
+
+=== AecGmemLineWord ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      609 wires
+      773 wire bits
+       14 public wires
+      178 public wire bits
+       14 ports
+      178 port bits
+      631 cells
+       36   DFFHQNx1_ASAP7_75t_R
+      113   INVx1_ASAP7_75t_R
+      436   NAND2xp33_ASAP7_75t_R
+       44   NAND3xp33_ASAP7_75t_R
+        1   NOR2xp33_ASAP7_75t_R
+        1   NOR4xp25_ASAP7_75t_R
+
+=== FPToFP_128 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       80 wire bits
+        2 public wires
+       80 public wire bits
+        2 ports
+       80 port bits
+        1 submodules
+        1   FPUpConverter_96
+
+=== FPToFP_131 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       80 wire bits
+        2 public wires
+       80 public wire bits
+        2 ports
+       80 port bits
+        1 submodules
+        1   FPUpConverter_99
+
+=== FPToFP_6 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       96 wire bits
+        2 public wires
+       96 public wire bits
+        2 ports
+       96 port bits
+        1 submodules
+        1   FPUpConverter_5
+
+=== INToRecFN_i32_e11_s53 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      652 wires
+      813 wire bits
+        7 public wires
+      168 public wire bits
+        3 ports
+       98 port bits
+      684 cells
+       13   AND2x2_ASAP7_75t_R
+        6   AND3x1_ASAP7_75t_R
+        3   AND4x2_ASAP7_75t_R
+       62   INVx1_ASAP7_75t_R
+      430   NAND2xp33_ASAP7_75t_R
+       27   NAND3xp33_ASAP7_75t_R
+        7   NAND4xp25_ASAP7_75t_R
+       10   NAND5xp2_ASAP7_75t_R
+       77   NOR2xp33_ASAP7_75t_R
+        5   NOR3xp33_ASAP7_75t_R
+        5   NOR4xp25_ASAP7_75t_R
+        7   NOR5xp2_ASAP7_75t_R
+        2   OR3x1_ASAP7_75t_R
+        3   XNOR2x2_ASAP7_75t_R
+       27   XOR2x2_ASAP7_75t_R
+        1 submodules
+        1   RoundAnyRawFNToRecFN_ie6_is32_oe11_os53
+
+=== FPToFP_137 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       80 wire bits
+        2 public wires
+       80 public wire bits
+        2 ports
+       80 port bits
+        1 submodules
+        1   FPDownConverter_32
+
+=== FPToFP_7 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       80 wire bits
+        2 public wires
+       80 public wire bits
+        2 ports
+       80 port bits
+        1 submodules
+        1   FPDownConverter_1
+
+=== FPToFP_139 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       96 wire bits
+        2 public wires
+       96 public wire bits
+        2 ports
+       96 port bits
+        1 submodules
+        1   FPDownConverter_34
+
+=== RecFNToIN_e11_s53_i32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      721 wires
+      816 wire bits
+        3 public wires
+       98 public wire bits
+        3 ports
+       98 port bits
+      750 cells
+        5   AND2x2_ASAP7_75t_R
+        4   AND3x1_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+       38   INVx1_ASAP7_75t_R
+      566   NAND2xp33_ASAP7_75t_R
+       20   NAND3xp33_ASAP7_75t_R
+        8   NAND4xp25_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+       24   NOR2xp33_ASAP7_75t_R
+        7   NOR3xp33_ASAP7_75t_R
+        8   NOR4xp25_ASAP7_75t_R
+        2   NOR5xp2_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+        1   OR4x2_ASAP7_75t_R
+        7   XNOR2x2_ASAP7_75t_R
+       57   XOR2x2_ASAP7_75t_R
+
+=== RecFNToIN_e11_s53_i8 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      155 wires
+      226 wire bits
+        3 public wires
+       74 public wire bits
+        3 ports
+       74 port bits
+      160 cells
+       18   INVx1_ASAP7_75t_R
+       91   NAND2xp33_ASAP7_75t_R
+        9   NAND3xp33_ASAP7_75t_R
+        2   NAND4xp25_ASAP7_75t_R
+        4   NAND5xp2_ASAP7_75t_R
+       10   NOR2xp33_ASAP7_75t_R
+        4   NOR3xp33_ASAP7_75t_R
+        4   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        1   OR4x2_ASAP7_75t_R
+        2   XNOR2x2_ASAP7_75t_R
+       14   XOR2x2_ASAP7_75t_R
+
+=== AecEightLaneIntUnit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1171 wires
+    12650 wire bits
+      515 public wires
+    11985 public wire bits
+      140 ports
+     8346 port bits
+     1756 cells
+        1   AND2x2_ASAP7_75t_R
+        1   AND3x1_ASAP7_75t_R
+        3   AND4x2_ASAP7_75t_R
+       13   DFFASRHQNx1_ASAP7_75t_R
+      611   INVx1_ASAP7_75t_R
+       15   NAND2xp33_ASAP7_75t_R
+        4   NAND3xp33_ASAP7_75t_R
+        3   NAND4xp25_ASAP7_75t_R
+        5   NAND5xp2_ASAP7_75t_R
+     1091   NOR2xp33_ASAP7_75t_R
+        5   NOR3xp33_ASAP7_75t_R
+        2   NOR4xp25_ASAP7_75t_R
+        2   NOR5xp2_ASAP7_75t_R
+       64 submodules
+       16   AecIntAlu
+       16   AecIntWarpRequestStage
+       32   AecResultLaneBank
+
+=== AecFp32Unit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1637 wires
+    16004 wire bits
+      496 public wires
+    14863 public wire bits
+      139 ports
+     8314 port bits
+     3260 cells
+        1   AND2x2_ASAP7_75t_R
+        3   AND4x2_ASAP7_75t_R
+        5   DFFASRHQNx1_ASAP7_75t_R
+     1105   INVx1_ASAP7_75t_R
+       10   NAND2xp33_ASAP7_75t_R
+        4   NAND3xp33_ASAP7_75t_R
+        4   NAND5xp2_ASAP7_75t_R
+     2124   NOR2xp33_ASAP7_75t_R
+        4   NOR4xp25_ASAP7_75t_R
+       64 submodules
+       16   AecFp32PipeUnit
+       16   AecFpWarpRequestStage
+       32   AecResultLaneBank
+
+=== AecFp64Unit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1011 wires
+    13291 wire bits
+      402 public wires
+    12682 public wire bits
+      139 ports
+     8314 port bits
+     2731 cells
+        2   AND2x2_ASAP7_75t_R
+        2   AND4x2_ASAP7_75t_R
+        6   DFFASRHQNx1_ASAP7_75t_R
+      572   INVx1_ASAP7_75t_R
+       14   NAND2xp33_ASAP7_75t_R
+        4   NAND3xp33_ASAP7_75t_R
+        1   NAND4xp25_ASAP7_75t_R
+        2   NAND5xp2_ASAP7_75t_R
+     2120   NOR2xp33_ASAP7_75t_R
+        3   NOR3xp33_ASAP7_75t_R
+        3   NOR4xp25_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+        1   XOR2x2_ASAP7_75t_R
+       48 submodules
+        8   AecFp64PipeUnit
+        8   AecFpWarpRequestStage_16
+       32   AecResultLaneBank
+
+=== AecSfuWarpUnit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    24435 wires
+    32088 wire bits
+      156 public wires
+     7796 public wire bits
+      106 ports
+     6234 port bits
+    27400 cells
+        4   AND2x2_ASAP7_75t_R
+        2   AND3x1_ASAP7_75t_R
+        3   AND4x2_ASAP7_75t_R
+     2123   DFFASRHQNx1_ASAP7_75t_R
+       24   DFFHQNx1_ASAP7_75t_R
+     4383   INVx1_ASAP7_75t_R
+    18415   NAND2xp33_ASAP7_75t_R
+      114   NAND3xp33_ASAP7_75t_R
+       13   NAND4xp25_ASAP7_75t_R
+       17   NAND5xp2_ASAP7_75t_R
+     2202   NOR2xp33_ASAP7_75t_R
+       33   NOR3xp33_ASAP7_75t_R
+       12   NOR4xp25_ASAP7_75t_R
+       13   NOR5xp2_ASAP7_75t_R
+       10   OR2x4_ASAP7_75t_R
+       32   OR3x1_ASAP7_75t_R
+        8 submodules
+        8   AESSFU
+
+=== AecWarpRequestBuffer ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      308 wires
+    12612 wire bits
+      227 public wires
+    12531 public wire bits
+      211 ports
+    12467 port bits
+      101 cells
+       20   DFFHQNx1_ASAP7_75t_R
+       21   INVx1_ASAP7_75t_R
+       60   NAND2xp33_ASAP7_75t_R
+        8 submodules
+        8   AecWarpRequestLaneBank
+
+=== AecClusterOperandSelect ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2538 wires
+     4109 wire bits
+       42 public wires
+     1613 public wire bits
+       42 ports
+     1613 port bits
+     2880 cells
+      128   AND2x2_ASAP7_75t_R
+       18   INVx1_ASAP7_75t_R
+     2317   NAND2xp33_ASAP7_75t_R
+      340   NAND3xp33_ASAP7_75t_R
+       67   NAND4xp25_ASAP7_75t_R
+        1   NOR2xp33_ASAP7_75t_R
+        1   NOR3xp33_ASAP7_75t_R
+        7   NOR4xp25_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+
+=== AecBankedSram32_7 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       89 wires
+      223 wire bits
+       15 public wires
+      149 public wire bits
+        7 ports
+       79 port bits
+      112 cells
+        1   DFFHQNx1_ASAP7_75t_R
+        5   INVx1_ASAP7_75t_R
+       99   NAND2xp33_ASAP7_75t_R
+        1   NAND3xp33_ASAP7_75t_R
+        6   NOR2xp33_ASAP7_75t_R
+        2 submodules
+        2   aec_sram_1024x32
+
+=== AecRowInitializedBank ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      681 wires
+      973 wire bits
+       23 public wires
+      315 public wire bits
+        7 ports
+       51 port bits
+      698 cells
+       11   INVx1_ASAP7_75t_R
+      672   NAND2xp33_ASAP7_75t_R
+        7   NOR2xp33_ASAP7_75t_R
+        7   NOR3xp33_ASAP7_75t_R
+        1   NOR4xp25_ASAP7_75t_R
+        8 submodules
+        8   AecRowInitializedGroup
+
+=== AecBankedSram32_4 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      855 wires
+     1426 wire bits
+       71 public wires
+      642 public wire bits
+        7 ports
+       82 port bits
+      864 cells
+       32   AND4x2_ASAP7_75t_R
+        4   DFFHQNx1_ASAP7_75t_R
+      139   INVx1_ASAP7_75t_R
+      397   NAND2xp33_ASAP7_75t_R
+        4   NAND3xp33_ASAP7_75t_R
+        4   NAND4xp25_ASAP7_75t_R
+       64   NAND5xp2_ASAP7_75t_R
+      129   NOR2xp33_ASAP7_75t_R
+        8   NOR3xp33_ASAP7_75t_R
+       24   NOR4xp25_ASAP7_75t_R
+       59   NOR5xp2_ASAP7_75t_R
+       16 submodules
+       16   aec_sram_1024x32
+
+=== AecPackedValidSram ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     5943 wires
+     6039 wire bits
+       12 public wires
+      108 public wire bits
+        8 ports
+       34 port bits
+     5974 cells
+        1   AND2x2_ASAP7_75t_R
+      512   DFFASRHQNx1_ASAP7_75t_R
+       14   DFFHQNx1_ASAP7_75t_R
+     1057   INVx1_ASAP7_75t_R
+     3296   NAND2xp33_ASAP7_75t_R
+      513   NAND3xp33_ASAP7_75t_R
+       49   NAND4xp25_ASAP7_75t_R
+      496   NAND5xp2_ASAP7_75t_R
+        1   NOR2xp33_ASAP7_75t_R
+        2   NOR3xp33_ASAP7_75t_R
+        4   NOR4xp25_ASAP7_75t_R
+       28   NOR5xp2_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+        1 submodules
+        1   aec_sram_1024x32
+
+=== aec_sram_512x32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        7 wires
+       77 wire bits
+        7 public wires
+       77 public wire bits
+        7 ports
+       77 port bits
+        1 cells
+        1   srambank_128x4x32_6t122
+
+=== AecBankedSram32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        7 wires
+       78 wire bits
+        7 public wires
+       78 public wire bits
+        7 ports
+       78 port bits
+        1 submodules
+        1   aec_sram_1024x32
+
+=== AecInstructionSram ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       35 wires
+      440 wire bits
+       13 public wires
+      418 public wire bits
+        7 ports
+      279 port bits
+       33 cells
+        2   INVx1_ASAP7_75t_R
+       31   NAND2xp33_ASAP7_75t_R
+        4 submodules
+        4   AecBankedSram32
+
+=== AecPredecoder ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      688 wires
+     1119 wire bits
+       33 public wires
+      464 public wire bits
+       33 ports
+      464 port bits
+      671 cells
+        8   AND2x2_ASAP7_75t_R
+        6   AND3x1_ASAP7_75t_R
+        2   AND4x2_ASAP7_75t_R
+      141   INVx1_ASAP7_75t_R
+       16   MAJIxp5_ASAP7_75t_R
+       90   NAND2xp33_ASAP7_75t_R
+       58   NAND3xp33_ASAP7_75t_R
+       16   NAND4xp25_ASAP7_75t_R
+       53   NAND5xp2_ASAP7_75t_R
+       65   NOR2xp33_ASAP7_75t_R
+       81   NOR3xp33_ASAP7_75t_R
+       65   NOR4xp25_ASAP7_75t_R
+       22   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+       12   OR3x1_ASAP7_75t_R
+        5   OR4x2_ASAP7_75t_R
+       16   XNOR2x2_ASAP7_75t_R
+       14   XOR2x2_ASAP7_75t_R
+
+=== AecLaunchValidator ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     8020 wires
+     8460 wire bits
+       24 public wires
+      464 public wire bits
+       23 ports
+      457 port bits
+     8223 cells
+       22   AND2x2_ASAP7_75t_R
+        4   AND3x1_ASAP7_75t_R
+        7   AND4x2_ASAP7_75t_R
+        8   DFFASRHQNx1_ASAP7_75t_R
+      240   DFFHQNx1_ASAP7_75t_R
+        1   HB1xp67_ASAP7_75t_R
+     1139   INVx1_ASAP7_75t_R
+     1095   MAJIxp5_ASAP7_75t_R
+       10   MAJx3_ASAP7_75t_R
+     1156   NAND2xp33_ASAP7_75t_R
+       57   NAND3xp33_ASAP7_75t_R
+       26   NAND4xp25_ASAP7_75t_R
+       37   NAND5xp2_ASAP7_75t_R
+     1596   NOR2xp33_ASAP7_75t_R
+       79   NOR3xp33_ASAP7_75t_R
+       54   NOR4xp25_ASAP7_75t_R
+       41   NOR5xp2_ASAP7_75t_R
+        7   OR2x4_ASAP7_75t_R
+       25   OR3x1_ASAP7_75t_R
+       23   OR4x2_ASAP7_75t_R
+     1049   XNOR2x2_ASAP7_75t_R
+     1547   XOR2x2_ASAP7_75t_R
+
+=== AecCtaBarrier ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      305 wires
+      328 wire bits
+        8 public wires
+       31 public wire bits
+        8 ports
+       31 port bits
+      306 cells
+        7   AND2x2_ASAP7_75t_R
+       17   DFFASRHQNx1_ASAP7_75t_R
+       69   INVx1_ASAP7_75t_R
+        3   MAJIxp5_ASAP7_75t_R
+      102   NAND2xp33_ASAP7_75t_R
+        9   NAND3xp33_ASAP7_75t_R
+        8   NAND4xp25_ASAP7_75t_R
+        5   NAND5xp2_ASAP7_75t_R
+       48   NOR2xp33_ASAP7_75t_R
+        8   NOR3xp33_ASAP7_75t_R
+       22   NOR4xp25_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+        7   XOR2x2_ASAP7_75t_R
+
+=== AecExternalMemoryEngine ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     5115 wires
+     9533 wire bits
+       27 public wires
+     4445 public wire bits
+       27 ports
+     4445 port bits
+     6287 cells
+        3   AND2x2_ASAP7_75t_R
+       17   DFFASRHQNx1_ASAP7_75t_R
+     1190   DFFHQNx1_ASAP7_75t_R
+     1244   INVx1_ASAP7_75t_R
+       12   MAJIxp5_ASAP7_75t_R
+     3719   NAND2xp33_ASAP7_75t_R
+       22   NAND3xp33_ASAP7_75t_R
+       27   NAND4xp25_ASAP7_75t_R
+       10   NAND5xp2_ASAP7_75t_R
+        5   NOR2xp33_ASAP7_75t_R
+        6   NOR3xp33_ASAP7_75t_R
+        3   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+        6   XNOR2x2_ASAP7_75t_R
+       21   XOR2x2_ASAP7_75t_R
+
+=== AecLineCache ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    19074 wires
+    25034 wire bits
+       66 public wires
+     5530 public wire bits
+       25 ports
+     4433 port bits
+    21759 cells
+       35   AND2x2_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+       19   DFFASRHQNx1_ASAP7_75t_R
+     1699   DFFHQNx1_ASAP7_75t_R
+     1769   INVx1_ASAP7_75t_R
+    18115   NAND2xp33_ASAP7_75t_R
+       21   NAND3xp33_ASAP7_75t_R
+        6   NAND4xp25_ASAP7_75t_R
+       33   NAND5xp2_ASAP7_75t_R
+       29   NOR2xp33_ASAP7_75t_R
+       14   NOR3xp33_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        1   XNOR2x2_ASAP7_75t_R
+       16   XOR2x2_ASAP7_75t_R
+       33 submodules
+       33   aec_sram_512x32
+
+=== AecLocalLsu ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    70507 wires
+    78981 wire bits
+      176 public wires
+     6624 public wire bits
+      149 ports
+     6357 port bits
+    74543 cells
+       97   AND2x2_ASAP7_75t_R
+       72   AND3x1_ASAP7_75t_R
+       91   AND4x2_ASAP7_75t_R
+     2143   DFFASRHQNx1_ASAP7_75t_R
+     4299   DFFHQNx1_ASAP7_75t_R
+     9187   INVx1_ASAP7_75t_R
+       66   MAJIxp5_ASAP7_75t_R
+        3   MAJx3_ASAP7_75t_R
+    50714   NAND2xp33_ASAP7_75t_R
+     5790   NAND3xp33_ASAP7_75t_R
+      342   NAND4xp25_ASAP7_75t_R
+      175   NAND5xp2_ASAP7_75t_R
+      637   NOR2xp33_ASAP7_75t_R
+      312   NOR3xp33_ASAP7_75t_R
+      224   NOR4xp25_ASAP7_75t_R
+      135   NOR5xp2_ASAP7_75t_R
+        9   OR2x4_ASAP7_75t_R
+       19   OR3x1_ASAP7_75t_R
+       15   OR4x2_ASAP7_75t_R
+       62   XNOR2x2_ASAP7_75t_R
+      151   XOR2x2_ASAP7_75t_R
+        6 submodules
+        3   AecBankedSram32_4
+        3   AecPackedValidSram
+
+=== AecRegBank ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    28345 wires
+    32911 wire bits
+      248 public wires
+     4758 public wire bits
+       86 ports
+     2220 port bits
+    30438 cells
+       32   AND2x2_ASAP7_75t_R
+     1032   AND3x1_ASAP7_75t_R
+      132   DFFASRHQNx1_ASAP7_75t_R
+     3166   DFFHQNx1_ASAP7_75t_R
+     3764   INVx1_ASAP7_75t_R
+    21788   NAND2xp33_ASAP7_75t_R
+      212   NAND3xp33_ASAP7_75t_R
+       14   NAND4xp25_ASAP7_75t_R
+        2   NAND5xp2_ASAP7_75t_R
+      258   NOR2xp33_ASAP7_75t_R
+       31   NOR3xp33_ASAP7_75t_R
+        7   NOR4xp25_ASAP7_75t_R
+       41 submodules
+       33   AecBankedSram32_7
+        8   AecRowInitializedBank
+
+=== AecScoreboard ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    20715 wires
+    20762 wire bits
+       28 public wires
+       75 public wire bits
+       28 ports
+       75 port bits
+    20689 cells
+        7   AND2x2_ASAP7_75t_R
+       33   AND3x1_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+      528   DFFASRHQNx1_ASAP7_75t_R
+     1515   INVx1_ASAP7_75t_R
+    15830   NAND2xp33_ASAP7_75t_R
+      948   NAND3xp33_ASAP7_75t_R
+      432   NAND4xp25_ASAP7_75t_R
+       70   NAND5xp2_ASAP7_75t_R
+     1050   NOR2xp33_ASAP7_75t_R
+       88   NOR3xp33_ASAP7_75t_R
+      118   NOR4xp25_ASAP7_75t_R
+       32   NOR5xp2_ASAP7_75t_R
+        4   XNOR2x2_ASAP7_75t_R
+       33   XOR2x2_ASAP7_75t_R
+
+=== AecPartitionBackend ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1913 wires
+    28784 wire bits
+      589 public wires
+    27460 public wire bits
+      371 ports
+    14854 port bits
+     1635 cells
+        3   AND2x2_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+        2   DFFASRHQNx1_ASAP7_75t_R
+      282   DFFHQNx1_ASAP7_75t_R
+      312   INVx1_ASAP7_75t_R
+      907   NAND2xp33_ASAP7_75t_R
+       35   NAND3xp33_ASAP7_75t_R
+       16   NAND4xp25_ASAP7_75t_R
+       12   NAND5xp2_ASAP7_75t_R
+        6   NOR2xp33_ASAP7_75t_R
+       15   NOR3xp33_ASAP7_75t_R
+       17   NOR4xp25_ASAP7_75t_R
+       14   NOR5xp2_ASAP7_75t_R
+        1   OR3x1_ASAP7_75t_R
+       12   OR4x2_ASAP7_75t_R
+       13 submodules
+        8   AecClusterOperandSelect
+        1   AecEightLaneIntUnit
+        1   AecFp32Unit
+        1   AecFp64Unit
+        1   AecSfuWarpUnit
+        1   AecWarpRequestBuffer
+
+=== AecConvertLane ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     4388 wires
+     5272 wire bits
+       29 public wires
+      913 public wire bits
+        5 ports
+      138 port bits
+     4641 cells
+       79   AND2x2_ASAP7_75t_R
+       16   AND3x1_ASAP7_75t_R
+        1   AND4x2_ASAP7_75t_R
+      105   INVx1_ASAP7_75t_R
+        1   MAJIxp5_ASAP7_75t_R
+     3819   NAND2xp33_ASAP7_75t_R
+      370   NAND3xp33_ASAP7_75t_R
+       51   NAND4xp25_ASAP7_75t_R
+       93   NAND5xp2_ASAP7_75t_R
+       24   NOR2xp33_ASAP7_75t_R
+       11   NOR3xp33_ASAP7_75t_R
+       23   NOR4xp25_ASAP7_75t_R
+       18   NOR5xp2_ASAP7_75t_R
+        2   OR3x1_ASAP7_75t_R
+       10   XNOR2x2_ASAP7_75t_R
+       18   XOR2x2_ASAP7_75t_R
+       12 submodules
+        1   FPToFP_128
+        1   FPToFP_131
+        2   FPToFP_137
+        2   FPToFP_139
+        1   FPToFP_6
+        2   FPToFP_7
+        1   INToRecFN_i32_e11_s53
+        1   RecFNToIN_e11_s53_i32
+        1   RecFNToIN_e11_s53_i8
+
+=== AecGmemLsu ===
+
+        +----------Local Count, excluding submodules.
+        | 
+   105906 wires
+   120582 wire bits
+      511 public wires
+    13009 public wire bits
+      156 ports
+     7406 port bits
+   113849 cells
+      176   AND2x2_ASAP7_75t_R
+       96   AND3x1_ASAP7_75t_R
+     2095   AND4x2_ASAP7_75t_R
+     2458   DFFASRHQNx1_ASAP7_75t_R
+     6215   DFFHQNx1_ASAP7_75t_R
+    12649   INVx1_ASAP7_75t_R
+      542   MAJIxp5_ASAP7_75t_R
+        3   MAJx3_ASAP7_75t_R
+    76688   NAND2xp33_ASAP7_75t_R
+     2794   NAND3xp33_ASAP7_75t_R
+     1472   NAND4xp25_ASAP7_75t_R
+      381   NAND5xp2_ASAP7_75t_R
+     1544   NOR2xp33_ASAP7_75t_R
+      912   NOR3xp33_ASAP7_75t_R
+     2376   NOR4xp25_ASAP7_75t_R
+      361   NOR5xp2_ASAP7_75t_R
+        2   OR2x4_ASAP7_75t_R
+       48   OR3x1_ASAP7_75t_R
+       27   OR4x2_ASAP7_75t_R
+      241   XNOR2x2_ASAP7_75t_R
+     2769   XOR2x2_ASAP7_75t_R
+       32 submodules
+       32   AecGmemLineWord
+
+=== AecWarpRob ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     4601 wires
+     5004 wire bits
+       45 public wires
+      324 public wire bits
+       45 ports
+      324 port bits
+     4778 cells
+        5   AND2x2_ASAP7_75t_R
+       21   DFFASRHQNx1_ASAP7_75t_R
+      504   DFFHQNx1_ASAP7_75t_R
+      567   INVx1_ASAP7_75t_R
+        1   MAJIxp5_ASAP7_75t_R
+     3390   NAND2xp33_ASAP7_75t_R
+      147   NAND3xp33_ASAP7_75t_R
+       11   NAND4xp25_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+       53   NOR2xp33_ASAP7_75t_R
+       14   NOR3xp33_ASAP7_75t_R
+        3   NOR4xp25_ASAP7_75t_R
+        1   NOR5xp2_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+       49   XNOR2x2_ASAP7_75t_R
+       10   XOR2x2_ASAP7_75t_R
+
+=== AecOperandStore ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    24819 wires
+    31765 wire bits
+      227 public wires
+     7173 public wire bits
+      227 ports
+     7173 port bits
+    30736 cells
+     6144   DFFHQNx1_ASAP7_75t_R
+     6154   INVx1_ASAP7_75t_R
+    18432   NAND2xp33_ASAP7_75t_R
+        6   NOR4xp25_ASAP7_75t_R
+
+=== AecWritebackLaneScratch ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      330 wires
+      454 wire bits
+        8 public wires
+      132 public wire bits
+        8 ports
+      132 port bits
+      386 cells
+       64   DFFASRHQNx1_ASAP7_75t_R
+      130   INVx1_ASAP7_75t_R
+      192   NAND2xp33_ASAP7_75t_R
+
+=== AecCoordinateFabric ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1714 wires
+     2108 wire bits
+       26 public wires
+      395 public wire bits
+       20 ports
+      360 port bits
+     1770 cells
+        9   AND2x2_ASAP7_75t_R
+        1   AND3x1_ASAP7_75t_R
+        2   AND4x2_ASAP7_75t_R
+        5   DFFASRHQNx1_ASAP7_75t_R
+       54   DFFHQNx1_ASAP7_75t_R
+       96   INVx1_ASAP7_75t_R
+     1337   NAND2xp33_ASAP7_75t_R
+      106   NAND3xp33_ASAP7_75t_R
+       43   NAND4xp25_ASAP7_75t_R
+       10   NAND5xp2_ASAP7_75t_R
+       24   NOR2xp33_ASAP7_75t_R
+       14   NOR3xp33_ASAP7_75t_R
+       14   NOR4xp25_ASAP7_75t_R
+        6   NOR5xp2_ASAP7_75t_R
+       13   OR3x1_ASAP7_75t_R
+        6   OR4x2_ASAP7_75t_R
+        6   XNOR2x2_ASAP7_75t_R
+       24   XOR2x2_ASAP7_75t_R
+        1 submodules
+        1   AecUnsignedDivider8
+
+=== AecCompletionArbiter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1954 wires
+    18607 wire bits
+      327 public wires
+    16980 public wire bits
+      325 ports
+    16976 port bits
+     1723 cells
+        2   DFFASRHQNx1_ASAP7_75t_R
+       94   DFFHQNx1_ASAP7_75t_R
+      105   INVx1_ASAP7_75t_R
+     1437   NAND2xp33_ASAP7_75t_R
+       39   NAND3xp33_ASAP7_75t_R
+       35   NAND4xp25_ASAP7_75t_R
+       10   NOR2xp33_ASAP7_75t_R
+        1   NOR4xp25_ASAP7_75t_R
+       32 submodules
+       32   AecCompletionLaneStage
+
+=== AecPartitionResultStore ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      338 wires
+    20502 wire bits
+      334 public wires
+    20498 public wire bits
+       70 ports
+     4106 port bits
+       12 cells
+        4   INVx1_ASAP7_75t_R
+        8   NOR4xp25_ASAP7_75t_R
+       40 submodules
+        8   AecResultStoreEntry
+       32   AecResultStoreReadLane
+
+=== AecCommitSelector ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      246 wires
+      468 wire bits
+       44 public wires
+      266 public wire bits
+       44 ports
+      266 port bits
+      293 cells
+        2   DFFASRHQNx1_ASAP7_75t_R
+        1   DFFHQNx1_ASAP7_75t_R
+       11   INVx1_ASAP7_75t_R
+      275   NAND2xp33_ASAP7_75t_R
+        1   NAND5xp2_ASAP7_75t_R
+        1   NOR2xp33_ASAP7_75t_R
+        2   NOR4xp25_ASAP7_75t_R
+
+=== AecEvalCore ===
+
+        +----------Local Count, excluding submodules.
+        | 
+   257903 wires
+   296249 wire bits
+     1064 public wires
+    38945 public wire bits
+       39 ports
+     2864 port bits
+   261754 cells
+     1078   AND2x2_ASAP7_75t_R
+      151   AND3x1_ASAP7_75t_R
+       43   AND4x2_ASAP7_75t_R
+     1115   DFFASRHQNx1_ASAP7_75t_R
+     8687   DFFHQNx1_ASAP7_75t_R
+    13825   INVx1_ASAP7_75t_R
+       55   MAJIxp5_ASAP7_75t_R
+   224353   NAND2xp33_ASAP7_75t_R
+     3206   NAND3xp33_ASAP7_75t_R
+      819   NAND4xp25_ASAP7_75t_R
+      367   NAND5xp2_ASAP7_75t_R
+     3389   NOR2xp33_ASAP7_75t_R
+      975   NOR3xp33_ASAP7_75t_R
+      428   NOR4xp25_ASAP7_75t_R
+      756   NOR5xp2_ASAP7_75t_R
+       15   OR2x4_ASAP7_75t_R
+       42   OR3x1_ASAP7_75t_R
+       17   OR4x2_ASAP7_75t_R
+     1059   XNOR2x2_ASAP7_75t_R
+     1374   XOR2x2_ASAP7_75t_R
+       51 submodules
+        1   AecCommitSelector
+        1   AecCompletionArbiter
+        1   AecConvertLane
+        1   AecCoordinateFabric
+        1   AecCtaBarrier
+        1   AecExternalMemoryEngine
+        1   AecGmemLsu
+        1   AecInstructionSram
+        1   AecLaunchValidator
+        1   AecLineCache
+        1   AecLocalLsu
+        1   AecOperandStore
+        1   AecPartitionBackend
+        1   AecPartitionResultStore
+        1   AecPredecoder
+        1   AecRegBank
+        1   AecScoreboard
+        2   AecWarpRob
+       32   AecWritebackLaneScratch
+
+=== aec_eval_top ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       40 wires
+     2865 wire bits
+       39 public wires
+     2864 public wire bits
+       39 ports
+     2864 port bits
+        1 cells
+        1   INVx1_ASAP7_75t_R
+        1 submodules
+        1   AecEvalCore
+
+=== CSA4to2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      751 wires
+     1387 wire bits
+      219 public wires
+      855 public wire bits
+        6 ports
+      642 port bits
+      745 cells
+      106   INVx1_ASAP7_75t_R
+      211   MAJIxp5_ASAP7_75t_R
+        1   NOR2xp33_ASAP7_75t_R
+      107   XNOR2x2_ASAP7_75t_R
+      320   XOR2x2_ASAP7_75t_R
+
+=== ShiftRightJam ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      199 wires
+      228 wire bits
+        4 public wires
+       33 public wire bits
+        4 ports
+       33 port bits
+      208 cells
+        4   AND3x1_ASAP7_75t_R
+        4   AND4x2_ASAP7_75t_R
+       19   INVx1_ASAP7_75t_R
+      109   NAND2xp33_ASAP7_75t_R
+       36   NAND3xp33_ASAP7_75t_R
+        5   NAND4xp25_ASAP7_75t_R
+        5   NAND5xp2_ASAP7_75t_R
+        3   NOR2xp33_ASAP7_75t_R
+        7   NOR3xp33_ASAP7_75t_R
+       11   NOR4xp25_ASAP7_75t_R
+        1   OR2x4_ASAP7_75t_R
+        4   OR3x1_ASAP7_75t_R
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+  2360040 aec_eval_top
+   261754 AecEvalCore
+      293   AecCommitSelector
+     1723   AecCompletionArbiter
+     1668     AecCompletionLaneStage
+     4641   AecConvertLane
+      138       FPUpConverter_96
+       23         CLZ
+      100       FPUpConverter_99
+       10         CLZ_99
+      180       FPDownConverter_32
+       55         RoundingUnit
+      219         ShiftRightJam_32
+      244       FPDownConverter_34
+      129         RoundingUnit_68
+      542         ShiftRightJam_34
+      370       FPUpConverter_5
+       66         CLZ_5
+      180       FPDownConverter_1
+       39         RoundingUnit_2
+      156         ShiftRightJam_1
+      684     INToRecFN_i32_e11_s53
+       69       RoundAnyRawFNToRecFN_ie6_is32_oe11_os53
+      750     RecFNToIN_e11_s53_i32
+      160     RecFNToIN_e11_s53_i8
+     1770   AecCoordinateFabric
+      389     AecUnsignedDivider8
+      306   AecCtaBarrier
+     6287   AecExternalMemoryEngine
+   113849   AecGmemLsu
+      631     AecGmemLineWord
+       33   AecInstructionSram
+        1       aec_sram_1024x32
+     8223   AecLaunchValidator
+    21759   AecLineCache
+        1     aec_sram_512x32
+    74543   AecLocalLsu
+      864     AecBankedSram32_4
+        1       aec_sram_1024x32
+     5974     AecPackedValidSram
+        1       aec_sram_1024x32
+    30736   AecOperandStore
+     1635   AecPartitionBackend
+     2880     AecClusterOperandSelect
+     1756     AecEightLaneIntUnit
+     8382       AecIntAlu
+      956       AecIntWarpRequestStage
+      531       AecResultLaneBank
+     3260     AecFp32Unit
+     3356       AecFp32PipeUnit
+      107         CompareRecFN
+      166         CompareRecFN_1
+      138           FPUpConverter
+       23             CLZ
+      139           FPDownConverter
+       55             RoundingUnit
+      208             ShiftRightJam
+      370           FPUpConverter_5
+       66             CLZ_5
+      180           FPDownConverter_1
+       39             RoundingUnit_2
+      156             ShiftRightJam_1
+      101         Queue_1
+      733         Queue_2
+      452         YunSuanFmaPipe
+     5593           FloatFMA
+     9682             BoothEncoderF64F32F16
+      320             CSA3to2
+      856             CSA_Nto2With3to2MainPipeline
+      320               CSA3to2
+      745               CSA4to2
+      985           Queue
+     1644       AecFpWarpRequestStage
+      531       AecResultLaneBank
+     2731     AecFp64Unit
+     5362       AecFp64PipeUnit
+      107         CompareRecFN
+      166         CompareRecFN_1
+      317         CompareRecFN_34
+      180           FPDownConverter_32
+       55             RoundingUnit
+      219             ShiftRightJam_32
+      244           FPDownConverter_34
+      129             RoundingUnit_68
+      542             ShiftRightJam_34
+      180           FPDownConverter_1
+       39             RoundingUnit_2
+      156             ShiftRightJam_1
+      101         Queue_1
+      733         Queue_2
+      455         YunSuanFmaPipe_16
+    11790           FloatFMA_16
+     9682             BoothEncoderF64F32F16
+      320             CSA3to2
+      856             CSA_Nto2With3to2MainPipeline
+      320               CSA3to2
+      745               CSA4to2
+      985           Queue
+     2875       AecFpWarpRequestStage_16
+      531       AecResultLaneBank
+    27400     AecSfuWarpUnit
+     7257       AESSFU
+     2057         AecIntDivider
+    17787         AecTranscendental
+     2893           AecQ34ToF32
+     4730           AecTransMultiplier
+       10         DivSqrtRecFMToRaw_small_e11_s53
+     2436           DivSqrtRawFN_small_e11_s53
+        8         RecFNToRecFN
+       42           RoundAnyRawFNToRecFN_ie8_is24_oe11_os53
+      562         RoundAnyRawFNToRecFN_ie11_is55_oe8_os24
+     1142           RoundAnyRawFNToRecFN_ie11_is55_oe11_os53
+      101     AecWarpRequestBuffer
+     3883       AecWarpRequestLaneBank
+       12   AecPartitionResultStore
+      321       AecResultStoreLane
+     1361     AecResultStoreReadLane
+      671   AecPredecoder
+    30438   AecRegBank
+      112     AecBankedSram32_7
+        1       aec_sram_1024x32
+      698     AecRowInitializedBank
+      286       AecRowInitializedGroup
+    20689   AecScoreboard
+     4778   AecWarpRob
+      386   AecWritebackLaneScratch
+
+        +----------Count including submodules.
+        | 
+  2105907 wires
+  3267253 wire bits
+    43875 public wires
+  1194201 public wire bits
+    19117 ports
+   841464 port bits
+        - memories
+        - memory bits
+        - processes
+  2360040 cells
+    11605   AND2x2_ASAP7_75t_R
+     6601   AND3x1_ASAP7_75t_R
+     4272   AND4x2_ASAP7_75t_R
+    22954   DFFASRHQNx1_ASAP7_75t_R
+   117482   DFFHQNx1_ASAP7_75t_R
+       49   HB1xp67_ASAP7_75t_R
+   225261   INVx1_ASAP7_75t_R
+    24999   MAJIxp5_ASAP7_75t_R
+    50960   MAJx3_ASAP7_75t_R
+  1360387   NAND2xp33_ASAP7_75t_R
+    82926   NAND3xp33_ASAP7_75t_R
+    26282   NAND4xp25_ASAP7_75t_R
+    15545   NAND5xp2_ASAP7_75t_R
+   152889   NOR2xp33_ASAP7_75t_R
+    15743   NOR3xp33_ASAP7_75t_R
+    49685   NOR4xp25_ASAP7_75t_R
+     7814   NOR5xp2_ASAP7_75t_R
+      858   OR2x4_ASAP7_75t_R
+     2874   OR3x1_ASAP7_75t_R
+      736   OR4x2_ASAP7_75t_R
+    21947   XNOR2x2_ASAP7_75t_R
+   158017   XOR2x2_ASAP7_75t_R
+       33   srambank_128x4x32_6t122
+      121   srambank_256x4x32_6t122
+        1 submodules
+        1   AecEvalCore
+

@@ -1,0 +1,32 @@
+Startpoint: _602957_ (rising edge-triggered flip-flop clocked by clock)
+Endpoint: _602953_ (rising edge-triggered flip-flop clocked by clock)
+Path Group: clock
+Path Type: max
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+            0.000    0.000    0.000   clock clock (rise edge)
+                     0.000    0.000   clock network delay (ideal)
+            0.000    0.000    0.000 ^ _602957_/CLK (DFFHQNx1_ASAP7_75t_R)
+   1.155   22.489   46.823   46.823 v _602957_/QN (DFFHQNx1_ASAP7_75t_R)
+   7.280   66.375   39.349   86.171 ^ _317897_/Y (INVx1_ASAP7_75t_R)
+   0.347   23.042   21.797  107.969 v _385790_/Y (NOR2xp33_ASAP7_75t_R)
+1082.646 28084.381 12771.381 12879.350 ^ _385791_/Y (NAND2xp33_ASAP7_75t_R)
+2345.880    0.000 206984.375 219863.719 v _385792_/Y (INVx1_ASAP7_75t_R)
+   0.559   23.091   12.591 219876.312 ^ _354289_/Y (OAI21xp33_ASAP7_75t_R)
+           23.091    0.000 219876.312 ^ _602953_/D (DFFHQNx1_ASAP7_75t_R)
+                           219876.312   data arrival time
+
+            0.000 2000.000 2000.000   clock clock (rise edge)
+                     0.000 2000.000   clock network delay (ideal)
+                     0.000 2000.000   clock reconvergence pessimism
+                           2000.000 ^ _602953_/CLK (DFFHQNx1_ASAP7_75t_R)
+                   -20.606 1979.394   library setup time
+                           1979.394   data required time
+---------------------------------------------------------------------------
+                           1979.394   data required time
+                           -219876.312   data arrival time
+---------------------------------------------------------------------------
+                           -217896.922   slack (VIOLATED)
+
+

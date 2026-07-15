@@ -1,0 +1,10 @@
+area_um2=25582.782419969073
+critical_path_delay_ps=219876.312000000
+worst_slack_ps=-217896.922000000
+tns_ps=-837089856.000000000
+fmax_mhz=4.548012
+mapped_cell_count=308265
+timing_valid=true
+power_valid=false
+ppa_valid=false
+proxy=false

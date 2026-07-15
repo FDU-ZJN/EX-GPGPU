@@ -1,0 +1,973 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.64+308 (git sha1 78e05dfb0, Release, GNU /usr/bin/c++ 13.3.0)
+
+-- Running command `read_verilog -sv rtl/sv/generated/eval_core/AecEvalCore.sv; hierarchy -top AecLineCache; proc; opt; memory_dff; opt; stat' --
+
+1. Executing Verilog-2005 frontend: rtl/sv/generated/eval_core/AecEvalCore.sv
+Parsing SystemVerilog input from `rtl/sv/generated/eval_core/AecEvalCore.sv' to AST representation.
+Generating RTLIL representation for module `\AecBankedSram32'.
+Generating RTLIL representation for module `\AecInstructionSram'.
+Generating RTLIL representation for module `\AecPredecoder'.
+Generating RTLIL representation for module `\AecLaunchValidator'.
+Generating RTLIL representation for module `\AecCtaBarrier'.
+Generating RTLIL representation for module `\Queue'.
+Generating RTLIL representation for module `\AecExternalMemoryEngine'.
+Generating RTLIL representation for module `\Queue_1'.
+Generating RTLIL representation for module `\Queue_2'.
+Generating RTLIL representation for module `\AecLineCache'.
+Generating RTLIL representation for module `\AecBankedSram32_4'.
+Generating RTLIL representation for module `\AecPackedValidSram'.
+Generating RTLIL representation for module `\AecLocalLsu'.
+Generating RTLIL representation for module `\AecBankedSram32_7'.
+Generating RTLIL representation for module `\AecRowInitializedGroup'.
+Generating RTLIL representation for module `\AecRowInitializedBank'.
+Generating RTLIL representation for module `\AecRegBank'.
+Generating RTLIL representation for module `\AecScoreboard'.
+Generating RTLIL representation for module `\AecIntAlu'.
+Generating RTLIL representation for module `\AecIntWarpRequestStage'.
+Generating RTLIL representation for module `\AecResultLaneBank'.
+Generating RTLIL representation for module `\AecEightLaneIntUnit'.
+Generating RTLIL representation for module `\BoothEncoderF64F32F16'.
+Generating RTLIL representation for module `\CSA3to2'.
+Generating RTLIL representation for module `\CSA4to2'.
+Generating RTLIL representation for module `\CSA_Nto2With3to2MainPipeline'.
+Generating RTLIL representation for module `\FloatFMA'.
+Generating RTLIL representation for module `\Queue_3'.
+Generating RTLIL representation for module `\YunSuanFmaPipe'.
+Generating RTLIL representation for module `\CLZ'.
+Generating RTLIL representation for module `\FPUpConverter'.
+Generating RTLIL representation for module `\FPToFP'.
+Generating RTLIL representation for module `\CompareRecFN'.
+Generating RTLIL representation for module `\CompareRecFN_1'.
+Generating RTLIL representation for module `\RoundingUnit'.
+Generating RTLIL representation for module `\ShiftRightJam'.
+Generating RTLIL representation for module `\FPDownConverter'.
+Generating RTLIL representation for module `\FPToFP_5'.
+Generating RTLIL representation for module `\CLZ_5'.
+Generating RTLIL representation for module `\FPUpConverter_5'.
+Generating RTLIL representation for module `\FPToFP_6'.
+Generating RTLIL representation for module `\RoundingUnit_2'.
+Generating RTLIL representation for module `\ShiftRightJam_1'.
+Generating RTLIL representation for module `\FPDownConverter_1'.
+Generating RTLIL representation for module `\FPToFP_7'.
+Generating RTLIL representation for module `\AecFp32PipeUnit'.
+Generating RTLIL representation for module `\AecFpWarpRequestStage'.
+Generating RTLIL representation for module `\AecFp32Unit'.
+Generating RTLIL representation for module `\FloatFMA_16'.
+Generating RTLIL representation for module `\YunSuanFmaPipe_16'.
+Generating RTLIL representation for module `\FPUpConverter_96'.
+Generating RTLIL representation for module `\FPToFP_128'.
+Generating RTLIL representation for module `\CLZ_99'.
+Generating RTLIL representation for module `\FPUpConverter_99'.
+Generating RTLIL representation for module `\FPToFP_131'.
+Generating RTLIL representation for module `\CompareRecFN_34'.
+Generating RTLIL representation for module `\ShiftRightJam_32'.
+Generating RTLIL representation for module `\FPDownConverter_32'.
+Generating RTLIL representation for module `\FPToFP_137'.
+Generating RTLIL representation for module `\RoundingUnit_68'.
+Generating RTLIL representation for module `\ShiftRightJam_34'.
+Generating RTLIL representation for module `\FPDownConverter_34'.
+Generating RTLIL representation for module `\FPToFP_139'.
+Generating RTLIL representation for module `\AecFp64PipeUnit'.
+Generating RTLIL representation for module `\AecFpWarpRequestStage_16'.
+Generating RTLIL representation for module `\AecFp64Unit'.
+Generating RTLIL representation for module `\AecIntDivider'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie8_is24_oe11_os53'.
+Generating RTLIL representation for module `\RecFNToRecFN'.
+Generating RTLIL representation for module `\DivSqrtRawFN_small_e11_s53'.
+Generating RTLIL representation for module `\DivSqrtRecFMToRaw_small_e11_s53'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie11_is55_oe8_os24'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie11_is55_oe11_os53'.
+Generating RTLIL representation for module `\RoundRawFNToRecFN_e11_s53'.
+Generating RTLIL representation for module `\AecTransMultiplier'.
+Generating RTLIL representation for module `\AecQ34ToF32'.
+Generating RTLIL representation for module `\AecTranscendental'.
+Generating RTLIL representation for module `\AESSFU'.
+Generating RTLIL representation for module `\AecSfuWarpUnit'.
+Generating RTLIL representation for module `\AecWarpRequestLaneBank'.
+Generating RTLIL representation for module `\AecWarpRequestBuffer'.
+Generating RTLIL representation for module `\AecClusterOperandSelect'.
+Generating RTLIL representation for module `\AecPartitionBackend'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie6_is32_oe11_os53'.
+Generating RTLIL representation for module `\INToRecFN_i32_e11_s53'.
+Generating RTLIL representation for module `\RecFNToIN_e11_s53_i32'.
+Generating RTLIL representation for module `\RecFNToIN_e11_s53_i8'.
+Generating RTLIL representation for module `\AecConvertLane'.
+Generating RTLIL representation for module `\AecGmemLineWord'.
+Generating RTLIL representation for module `\AecGmemLsu'.
+Generating RTLIL representation for module `\AecWarpRob'.
+Generating RTLIL representation for module `\AecOperandStore'.
+Generating RTLIL representation for module `\AecWritebackLaneScratch'.
+Generating RTLIL representation for module `\AecUnsignedDivider8'.
+Generating RTLIL representation for module `\AecCoordinateFabric'.
+Generating RTLIL representation for module `\AecCompletionLaneStage'.
+Generating RTLIL representation for module `\AecCompletionArbiter'.
+Generating RTLIL representation for module `\AecResultStoreLane'.
+Generating RTLIL representation for module `\AecResultStoreEntry'.
+Generating RTLIL representation for module `\AecResultStoreReadLane'.
+Generating RTLIL representation for module `\AecPartitionResultStore'.
+Generating RTLIL representation for module `\AecCommitSelector'.
+Generating RTLIL representation for module `\AecEvalCore'.
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \AecLineCache
+Used module:     \Queue_2
+Used module:     \Queue_1
+
+2.2. Analyzing design hierarchy..
+Top module:  \AecLineCache
+Used module:     \Queue_2
+Used module:     \Queue_1
+Removing unused module `\AecEvalCore'.
+Removing unused module `\AecCommitSelector'.
+Removing unused module `\AecPartitionResultStore'.
+Removing unused module `\AecResultStoreReadLane'.
+Removing unused module `\AecResultStoreEntry'.
+Removing unused module `\AecResultStoreLane'.
+Removing unused module `\AecCompletionArbiter'.
+Removing unused module `\AecCompletionLaneStage'.
+Removing unused module `\AecCoordinateFabric'.
+Removing unused module `\AecUnsignedDivider8'.
+Removing unused module `\AecWritebackLaneScratch'.
+Removing unused module `\AecOperandStore'.
+Removing unused module `\AecWarpRob'.
+Removing unused module `\AecGmemLsu'.
+Removing unused module `\AecGmemLineWord'.
+Removing unused module `\AecConvertLane'.
+Removing unused module `\RecFNToIN_e11_s53_i8'.
+Removing unused module `\RecFNToIN_e11_s53_i32'.
+Removing unused module `\INToRecFN_i32_e11_s53'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie6_is32_oe11_os53'.
+Removing unused module `\AecPartitionBackend'.
+Removing unused module `\AecClusterOperandSelect'.
+Removing unused module `\AecWarpRequestBuffer'.
+Removing unused module `\AecWarpRequestLaneBank'.
+Removing unused module `\AecSfuWarpUnit'.
+Removing unused module `\AESSFU'.
+Removing unused module `\AecTranscendental'.
+Removing unused module `\AecQ34ToF32'.
+Removing unused module `\AecTransMultiplier'.
+Removing unused module `\RoundRawFNToRecFN_e11_s53'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie11_is55_oe11_os53'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie11_is55_oe8_os24'.
+Removing unused module `\DivSqrtRecFMToRaw_small_e11_s53'.
+Removing unused module `\DivSqrtRawFN_small_e11_s53'.
+Removing unused module `\RecFNToRecFN'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie8_is24_oe11_os53'.
+Removing unused module `\AecIntDivider'.
+Removing unused module `\AecFp64Unit'.
+Removing unused module `\AecFpWarpRequestStage_16'.
+Removing unused module `\AecFp64PipeUnit'.
+Removing unused module `\FPToFP_139'.
+Removing unused module `\FPDownConverter_34'.
+Removing unused module `\ShiftRightJam_34'.
+Removing unused module `\RoundingUnit_68'.
+Removing unused module `\FPToFP_137'.
+Removing unused module `\FPDownConverter_32'.
+Removing unused module `\ShiftRightJam_32'.
+Removing unused module `\CompareRecFN_34'.
+Removing unused module `\FPToFP_131'.
+Removing unused module `\FPUpConverter_99'.
+Removing unused module `\CLZ_99'.
+Removing unused module `\FPToFP_128'.
+Removing unused module `\FPUpConverter_96'.
+Removing unused module `\YunSuanFmaPipe_16'.
+Removing unused module `\FloatFMA_16'.
+Removing unused module `\AecFp32Unit'.
+Removing unused module `\AecFpWarpRequestStage'.
+Removing unused module `\AecFp32PipeUnit'.
+Removing unused module `\FPToFP_7'.
+Removing unused module `\FPDownConverter_1'.
+Removing unused module `\ShiftRightJam_1'.
+Removing unused module `\RoundingUnit_2'.
+Removing unused module `\FPToFP_6'.
+Removing unused module `\FPUpConverter_5'.
+Removing unused module `\CLZ_5'.
+Removing unused module `\FPToFP_5'.
+Removing unused module `\FPDownConverter'.
+Removing unused module `\ShiftRightJam'.
+Removing unused module `\RoundingUnit'.
+Removing unused module `\CompareRecFN_1'.
+Removing unused module `\CompareRecFN'.
+Removing unused module `\FPToFP'.
+Removing unused module `\FPUpConverter'.
+Removing unused module `\CLZ'.
+Removing unused module `\YunSuanFmaPipe'.
+Removing unused module `\Queue_3'.
+Removing unused module `\FloatFMA'.
+Removing unused module `\CSA_Nto2With3to2MainPipeline'.
+Removing unused module `\CSA4to2'.
+Removing unused module `\CSA3to2'.
+Removing unused module `\BoothEncoderF64F32F16'.
+Removing unused module `\AecEightLaneIntUnit'.
+Removing unused module `\AecResultLaneBank'.
+Removing unused module `\AecIntWarpRequestStage'.
+Removing unused module `\AecIntAlu'.
+Removing unused module `\AecScoreboard'.
+Removing unused module `\AecRegBank'.
+Removing unused module `\AecRowInitializedBank'.
+Removing unused module `\AecRowInitializedGroup'.
+Removing unused module `\AecBankedSram32_7'.
+Removing unused module `\AecLocalLsu'.
+Removing unused module `\AecPackedValidSram'.
+Removing unused module `\AecBankedSram32_4'.
+Removing unused module `\AecExternalMemoryEngine'.
+Removing unused module `\Queue'.
+Removing unused module `\AecCtaBarrier'.
+Removing unused module `\AecLaunchValidator'.
+Removing unused module `\AecPredecoder'.
+Removing unused module `\AecInstructionSram'.
+Removing unused module `\AecBankedSram32'.
+Removed 100 unused modules.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2877$1463 in module Queue_2.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2870$1461 in module Queue_2.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2863$1459 in module Queue_2.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437 in module Queue_2.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2690$1418 in module Queue_1.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2683$1417 in module Queue_1.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2676$1416 in module Queue_1.
+Marked 4 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387 in module Queue_1.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4244$1883 in module AecLineCache.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4237$1882 in module AecLineCache.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4230$1881 in module AecLineCache.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4223$1880 in module AecLineCache.
+Marked 32 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847 in module AecLineCache.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 17 redundant assignments.
+Promoted 21 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \reset in `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2877$1463'.
+Found async reset \reset in `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2870$1461'.
+Found async reset \reset in `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2863$1459'.
+Found async reset \reset in `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2690$1418'.
+Found async reset \reset in `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2683$1417'.
+Found async reset \reset in `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2676$1416'.
+Found async reset \reset in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4244$1883'.
+Found async reset \reset in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4237$1882'.
+Found async reset \reset in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4230$1881'.
+Found async reset \reset in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4223$1880'.
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~79 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2877$1463'.
+     1/1: $0\maybe_full[0:0]
+Creating decoders for process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2870$1461'.
+     1/1: $0\deq_ptr_value[0:0]
+Creating decoders for process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2863$1459'.
+     1/1: $0\enq_ptr_value[0:0]
+Creating decoders for process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+     1/9: $1$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2860$1422_EN[3:0]$1458
+     2/9: $1$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2860$1422_DATA[3:0]$1457
+     3/9: $1$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2860$1422_ADDR[0:0]$1456
+     4/9: $1$memwr$\ram_error$rtl/sv/generated/eval_core/AecEvalCore.sv:2857$1421_EN[0:0]$1454
+     5/9: $1$memwr$\ram_error$rtl/sv/generated/eval_core/AecEvalCore.sv:2857$1421_DATA[0:0]$1453
+     6/9: $1$memwr$\ram_error$rtl/sv/generated/eval_core/AecEvalCore.sv:2857$1421_ADDR[0:0]$1452
+     7/9: $1$memwr$\ram_rdata$rtl/sv/generated/eval_core/AecEvalCore.sv:2854$1420_EN[1023:0]$1450
+     8/9: $1$memwr$\ram_rdata$rtl/sv/generated/eval_core/AecEvalCore.sv:2854$1420_DATA[1023:0]$1449
+     9/9: $1$memwr$\ram_rdata$rtl/sv/generated/eval_core/AecEvalCore.sv:2854$1420_ADDR[0:0]$1448
+Creating decoders for process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2690$1418'.
+     1/1: $0\maybe_full[0:0]
+Creating decoders for process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2683$1417'.
+     1/1: $0\deq_ptr_value[1:0]
+Creating decoders for process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2676$1416'.
+     1/1: $0\enq_ptr_value[1:0]
+Creating decoders for process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+     1/12: $1$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2673$1368_EN[3:0]$1415
+     2/12: $1$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2673$1368_DATA[3:0]$1414
+     3/12: $1$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2673$1368_ADDR[1:0]$1413
+     4/12: $1$memwr$\ram_cacheable$rtl/sv/generated/eval_core/AecEvalCore.sv:2670$1367_EN[0:0]$1411
+     5/12: $1$memwr$\ram_cacheable$rtl/sv/generated/eval_core/AecEvalCore.sv:2670$1367_DATA[0:0]$1410
+     6/12: $1$memwr$\ram_cacheable$rtl/sv/generated/eval_core/AecEvalCore.sv:2670$1367_ADDR[1:0]$1409
+     7/12: $1$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:2667$1366_EN[31:0]$1407
+     8/12: $1$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:2667$1366_DATA[31:0]$1406
+     9/12: $1$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:2667$1366_ADDR[1:0]$1405
+    10/12: $1$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:2664$1365_EN[0:0]$1403
+    11/12: $1$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:2664$1365_DATA[0:0]$1402
+    12/12: $1$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:2664$1365_ADDR[1:0]$1401
+Creating decoders for process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4244$1883'.
+     1/1: $0\bypassValid[0:0]
+Creating decoders for process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4237$1882'.
+     1/1: $0\resultValid[0:0]
+Creating decoders for process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4230$1881'.
+     1/1: $0\lookupPending[0:0]
+Creating decoders for process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4223$1880'.
+     1/1: $0\initializedGroups[15:0]
+Creating decoders for process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+     1/35: $0\initializedLines_15[31:0]
+     2/35: $0\initializedLines_14[31:0]
+     3/35: $0\initializedLines_13[31:0]
+     4/35: $0\initializedLines_12[31:0]
+     5/35: $0\initializedLines_11[31:0]
+     6/35: $0\initializedLines_10[31:0]
+     7/35: $0\initializedLines_9[31:0]
+     8/35: $0\initializedLines_8[31:0]
+     9/35: $0\initializedLines_7[31:0]
+    10/35: $0\initializedLines_6[31:0]
+    11/35: $0\initializedLines_5[31:0]
+    12/35: $0\initializedLines_4[31:0]
+    13/35: $0\initializedLines_3[31:0]
+    14/35: $0\initializedLines_2[31:0]
+    15/35: $0\initializedLines_1[31:0]
+    16/35: $0\initializedLines_0[31:0]
+    17/35: $0\bypassReq_token[3:0]
+    18/35: $0\bypassReq_cacheable[0:0]
+    19/35: $0\bypassReq_wstrb[127:0]
+    20/35: $0\bypassReq_wdata[1023:0]
+    21/35: $0\bypassReq_address[31:0]
+    22/35: $0\bypassReq_write[0:0]
+    23/35: $0\bypassReq_space[0:0]
+    24/35: $0\resultLine[1023:0]
+    25/35: $0\resultMetadata[31:0]
+    26/35: $0\resultInitialized[0:0]
+    27/35: $0\resultReq_token[3:0]
+    28/35: $0\resultReq_cacheable[0:0]
+    29/35: $0\resultReq_address[31:0]
+    30/35: $0\resultReq_space[0:0]
+    31/35: $0\lookupInitialized[0:0]
+    32/35: $0\lookupReq_token[3:0]
+    33/35: $0\lookupReq_cacheable[0:0]
+    34/35: $0\lookupReq_address[31:0]
+    35/35: $0\lookupReq_space[0:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\Queue_2.\maybe_full' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2877$1463'.
+  created $adff cell `$procdff$32939' with positive edge clock and positive level reset.
+Creating register for signal `\Queue_2.\deq_ptr_value' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2870$1461'.
+  created $adff cell `$procdff$32942' with positive edge clock and positive level reset.
+Creating register for signal `\Queue_2.\enq_ptr_value' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2863$1459'.
+  created $adff cell `$procdff$32945' with positive edge clock and positive level reset.
+Creating register for signal `\Queue_2.$memwr$\ram_rdata$rtl/sv/generated/eval_core/AecEvalCore.sv:2854$1420_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32946' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_rdata$rtl/sv/generated/eval_core/AecEvalCore.sv:2854$1420_DATA' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32947' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_rdata$rtl/sv/generated/eval_core/AecEvalCore.sv:2854$1420_EN' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32948' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_error$rtl/sv/generated/eval_core/AecEvalCore.sv:2857$1421_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32949' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_error$rtl/sv/generated/eval_core/AecEvalCore.sv:2857$1421_DATA' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32950' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_error$rtl/sv/generated/eval_core/AecEvalCore.sv:2857$1421_EN' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32951' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2860$1422_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32952' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2860$1422_DATA' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32953' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2860$1422_EN' using process `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+  created $dff cell `$procdff$32954' with positive edge clock.
+Creating register for signal `\Queue_1.\maybe_full' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2690$1418'.
+  created $adff cell `$procdff$32957' with positive edge clock and positive level reset.
+Creating register for signal `\Queue_1.\deq_ptr_value' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2683$1417'.
+  created $adff cell `$procdff$32960' with positive edge clock and positive level reset.
+Creating register for signal `\Queue_1.\enq_ptr_value' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2676$1416'.
+  created $adff cell `$procdff$32963' with positive edge clock and positive level reset.
+Creating register for signal `\Queue_1.$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:2664$1365_ADDR' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32964' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:2664$1365_DATA' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32965' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:2664$1365_EN' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32966' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:2667$1366_ADDR' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32967' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:2667$1366_DATA' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32968' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:2667$1366_EN' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32969' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_cacheable$rtl/sv/generated/eval_core/AecEvalCore.sv:2670$1367_ADDR' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32970' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_cacheable$rtl/sv/generated/eval_core/AecEvalCore.sv:2670$1367_DATA' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32971' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_cacheable$rtl/sv/generated/eval_core/AecEvalCore.sv:2670$1367_EN' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32972' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2673$1368_ADDR' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32973' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2673$1368_DATA' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32974' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram_token$rtl/sv/generated/eval_core/AecEvalCore.sv:2673$1368_EN' using process `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+  created $dff cell `$procdff$32975' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassValid' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4244$1883'.
+  created $adff cell `$procdff$32978' with positive edge clock and positive level reset.
+Creating register for signal `\AecLineCache.\resultValid' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4237$1882'.
+  created $adff cell `$procdff$32981' with positive edge clock and positive level reset.
+Creating register for signal `\AecLineCache.\lookupPending' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4230$1881'.
+  created $adff cell `$procdff$32984' with positive edge clock and positive level reset.
+Creating register for signal `\AecLineCache.\initializedGroups' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4223$1880'.
+  created $adff cell `$procdff$32987' with positive edge clock and positive level reset.
+Creating register for signal `\AecLineCache.\initializedLines_0' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32988' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_1' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32989' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_2' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32990' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_3' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32991' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_4' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32992' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_5' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32993' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_6' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32994' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_7' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32995' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_8' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32996' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_9' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32997' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_10' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32998' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_11' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$32999' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_12' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33000' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_13' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33001' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_14' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33002' with positive edge clock.
+Creating register for signal `\AecLineCache.\initializedLines_15' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33003' with positive edge clock.
+Creating register for signal `\AecLineCache.\lookupReq_space' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33004' with positive edge clock.
+Creating register for signal `\AecLineCache.\lookupReq_address' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33005' with positive edge clock.
+Creating register for signal `\AecLineCache.\lookupReq_cacheable' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33006' with positive edge clock.
+Creating register for signal `\AecLineCache.\lookupReq_token' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33007' with positive edge clock.
+Creating register for signal `\AecLineCache.\lookupInitialized' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33008' with positive edge clock.
+Creating register for signal `\AecLineCache.\resultReq_space' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33009' with positive edge clock.
+Creating register for signal `\AecLineCache.\resultReq_address' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33010' with positive edge clock.
+Creating register for signal `\AecLineCache.\resultReq_cacheable' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33011' with positive edge clock.
+Creating register for signal `\AecLineCache.\resultReq_token' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33012' with positive edge clock.
+Creating register for signal `\AecLineCache.\resultInitialized' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33013' with positive edge clock.
+Creating register for signal `\AecLineCache.\resultMetadata' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33014' with positive edge clock.
+Creating register for signal `\AecLineCache.\resultLine' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33015' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassReq_space' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33016' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassReq_write' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33017' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassReq_address' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33018' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassReq_wdata' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33019' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassReq_wstrb' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33020' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassReq_cacheable' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33021' with positive edge clock.
+Creating register for signal `\AecLineCache.\bypassReq_token' using process `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+  created $dff cell `$procdff$33022' with positive edge clock.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2877$1463'.
+Removing empty process `Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2877$1463'.
+Found and cleaned up 1 empty switch in `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2870$1461'.
+Removing empty process `Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2870$1461'.
+Found and cleaned up 1 empty switch in `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2863$1459'.
+Removing empty process `Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2863$1459'.
+Found and cleaned up 3 empty switches in `\Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+Removing empty process `Queue_2.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2852$1437'.
+Found and cleaned up 1 empty switch in `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2690$1418'.
+Removing empty process `Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2690$1418'.
+Found and cleaned up 1 empty switch in `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2683$1417'.
+Removing empty process `Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2683$1417'.
+Found and cleaned up 1 empty switch in `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2676$1416'.
+Removing empty process `Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2676$1416'.
+Found and cleaned up 4 empty switches in `\Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+Removing empty process `Queue_1.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2662$1387'.
+Removing empty process `AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4244$1883'.
+Found and cleaned up 1 empty switch in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4237$1882'.
+Removing empty process `AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4237$1882'.
+Found and cleaned up 1 empty switch in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4230$1881'.
+Removing empty process `AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4230$1881'.
+Found and cleaned up 1 empty switch in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4223$1880'.
+Removing empty process `AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:4223$1880'.
+Found and cleaned up 63 empty switches in `\AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+Removing empty process `AecLineCache.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:3996$1847'.
+Cleaned up 79 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue_2.
+<suppressed ~6 debug messages>
+Optimizing module Queue_1.
+<suppressed ~7 debug messages>
+Optimizing module AecLineCache.
+<suppressed ~13 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module AecLineCache.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 44 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Computing hashes of 41 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+<suppressed ~9 debug messages>
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 53 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Computing hashes of 49 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\AecLineCache'.
+Computing hashes of 555 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+Computing hashes of 401 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+Computing hashes of 334 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+<suppressed ~663 debug messages>
+Removed a total of 228 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecLineCache..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~396 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue_2.
+    Consolidated identical input bits for $mux cell $procmux$32723:
+      Old ports: A=1024'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, B=1024'1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111, Y=$procmux$32723_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$32723_Y [0]
+      New connections: $procmux$32723_Y [1023:1] = { $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] $procmux$32723_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$32705:
+      Old ports: A=4'0000, B=4'1111, Y=$procmux$32705_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$32705_Y [0]
+      New connections: $procmux$32705_Y [3:1] = { $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] }
+  Optimizing cells in module \Queue_2.
+  Optimizing cells in module \Queue_1.
+    Consolidated identical input bits for $mux cell $procmux$32756:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$procmux$32756_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$32756_Y [0]
+      New connections: $procmux$32756_Y [31:1] = { $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] $procmux$32756_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$32738:
+      Old ports: A=4'0000, B=4'1111, Y=$procmux$32738_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$32738_Y [0]
+      New connections: $procmux$32738_Y [3:1] = { $procmux$32738_Y [0] $procmux$32738_Y [0] $procmux$32738_Y [0] }
+  Optimizing cells in module \Queue_1.
+  Optimizing cells in module \AecLineCache.
+Performed a total of 4 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 41 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Computing hashes of 37 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Computing hashes of 35 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+<suppressed ~18 debug messages>
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 49 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Computing hashes of 43 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Computing hashes of 39 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+<suppressed ~30 debug messages>
+Finding identical cells in module `\AecLineCache'.
+Computing hashes of 334 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+Computing hashes of 303 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+<suppressed ~93 debug messages>
+Removed a total of 47 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$32942 ($adff) from module Queue_2 (D = $add$rtl/sv/generated/eval_core/AecEvalCore.sv:2874$1462_Y, Q = \deq_ptr_value).
+Adding EN signal on $procdff$32945 ($adff) from module Queue_2 (D = $add$rtl/sv/generated/eval_core/AecEvalCore.sv:2867$1460_Y, Q = \enq_ptr_value).
+Adding EN signal on $procdff$32939 ($adff) from module Queue_2 (D = $and$rtl/sv/generated/eval_core/AecEvalCore.sv:2824$1427_Y, Q = \maybe_full).
+Adding EN signal on $procdff$32957 ($adff) from module Queue_1 (D = $and$rtl/sv/generated/eval_core/AecEvalCore.sv:2624$1373_Y, Q = \maybe_full).
+Adding EN signal on $procdff$32960 ($adff) from module Queue_1 (D = $add$rtl/sv/generated/eval_core/AecEvalCore.sv:2627$1376_Y, Q = \deq_ptr_value).
+Adding EN signal on $procdff$32963 ($adff) from module Queue_1 (D = $add$rtl/sv/generated/eval_core/AecEvalCore.sv:2626$1375_Y, Q = \enq_ptr_value).
+Adding EN signal on $procdff$33004 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_space, Q = \lookupReq_space).
+Adding EN signal on $procdff$33005 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_address, Q = \lookupReq_address).
+Adding EN signal on $procdff$33006 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_cacheable, Q = \lookupReq_cacheable).
+Adding EN signal on $procdff$33007 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_token, Q = \lookupReq_token).
+Adding EN signal on $procdff$33008 ($dff) from module AecLineCache (D = $and$rtl/sv/generated/eval_core/AecEvalCore.sv:3384$1558_Y, Q = \lookupInitialized).
+Adding EN signal on $procdff$33009 ($dff) from module AecLineCache (D = \lookupReq_space, Q = \resultReq_space).
+Adding EN signal on $procdff$33010 ($dff) from module AecLineCache (D = \lookupReq_address, Q = \resultReq_address).
+Adding EN signal on $procdff$33011 ($dff) from module AecLineCache (D = \lookupReq_cacheable, Q = \resultReq_cacheable).
+Adding EN signal on $procdff$33012 ($dff) from module AecLineCache (D = \lookupReq_token, Q = \resultReq_token).
+Adding EN signal on $procdff$33013 ($dff) from module AecLineCache (D = \lookupInitialized, Q = \resultInitialized).
+Adding EN signal on $procdff$33014 ($dff) from module AecLineCache (D = \metadata_read_data, Q = \resultMetadata).
+Adding EN signal on $procdff$33015 ($dff) from module AecLineCache (D = { \dataBanks_31_read_data \dataBanks_30_read_data \dataBanks_29_read_data \dataBanks_28_read_data \dataBanks_27_read_data \dataBanks_26_read_data \dataBanks_25_read_data \dataBanks_24_read_data \dataBanks_23_read_data \dataBanks_22_read_data \dataBanks_21_read_data \dataBanks_20_read_data \dataBanks_19_read_data \dataBanks_18_read_data \dataBanks_17_read_data \dataBanks_16_read_data \dataBanks_15_read_data \dataBanks_14_read_data \dataBanks_13_read_data \dataBanks_12_read_data \dataBanks_11_read_data \dataBanks_10_read_data \dataBanks_9_read_data \dataBanks_8_read_data \dataBanks_7_read_data \dataBanks_6_read_data \dataBanks_5_read_data \dataBanks_4_read_data \dataBanks_3_read_data \dataBanks_2_read_data \dataBanks_1_read_data \dataBanks_0_read_data }, Q = \resultLine).
+Adding EN signal on $procdff$33016 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_space, Q = \bypassReq_space).
+Adding EN signal on $procdff$33017 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_write, Q = \bypassReq_write).
+Adding EN signal on $procdff$33018 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_address, Q = \bypassReq_address).
+Adding EN signal on $procdff$32984 ($adff) from module AecLineCache (D = $and$rtl/sv/generated/eval_core/AecEvalCore.sv:3387$1564_Y, Q = \lookupPending).
+Adding EN signal on $procdff$33022 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_token, Q = \bypassReq_token).
+Adding EN signal on $procdff$32987 ($adff) from module AecLineCache (D = $or$rtl/sv/generated/eval_core/AecEvalCore.sv:3423$1606_Y, Q = \initializedGroups).
+Adding EN signal on $procdff$33019 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_wdata, Q = \bypassReq_wdata).
+Adding EN signal on $procdff$33020 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_wstrb, Q = \bypassReq_wstrb).
+Adding EN signal on $procdff$32981 ($adff) from module AecLineCache (D = \lookupPending, Q = \resultValid).
+Adding EN signal on $procdff$33021 ($dff) from module AecLineCache (D = \io_cpuRequest_bits_cacheable, Q = \bypassReq_cacheable).
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue_2..
+Finding unused cells or wires in module \Queue_1..
+Finding unused cells or wires in module \AecLineCache..
+Removed 55 unused cells and 667 unused wires.
+<suppressed ~58 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module AecLineCache.
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecLineCache..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~246 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue_2.
+  Optimizing cells in module \Queue_1.
+  Optimizing cells in module \AecLineCache.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 25 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 28 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Finding identical cells in module `\AecLineCache'.
+Computing hashes of 281 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+Computing hashes of 271 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+<suppressed ~30 debug messages>
+Removed a total of 10 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue_2..
+Finding unused cells or wires in module \Queue_1..
+Finding unused cells or wires in module \AecLineCache..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~1 debug messages>
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module AecLineCache.
+
+4.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecLineCache..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~246 debug messages>
+
+4.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue_2.
+  Optimizing cells in module \Queue_1.
+  Optimizing cells in module \AecLineCache.
+Performed a total of 0 changes.
+
+4.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 25 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 28 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Finding identical cells in module `\AecLineCache'.
+Computing hashes of 271 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+Removed a total of 0 cells.
+
+4.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue_2..
+Finding unused cells or wires in module \Queue_1..
+Finding unused cells or wires in module \AecLineCache..
+
+4.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module AecLineCache.
+
+4.23. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\ram_token'[0] in module `\Queue_2': no output FF found.
+Checking read port `\ram_error'[0] in module `\Queue_2': no output FF found.
+Checking read port `\ram_rdata'[0] in module `\Queue_2': no output FF found.
+Checking read port address `\ram_token'[0] in module `\Queue_2': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_error'[0] in module `\Queue_2': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_rdata'[0] in module `\Queue_2': address FF has async set and/or reset, not supported.
+Checking read port `\ram_token'[0] in module `\Queue_1': no output FF found.
+Checking read port `\ram_cacheable'[0] in module `\Queue_1': no output FF found.
+Checking read port `\ram_address'[0] in module `\Queue_1': no output FF found.
+Checking read port `\ram_space'[0] in module `\Queue_1': no output FF found.
+Checking read port address `\ram_token'[0] in module `\Queue_1': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_cacheable'[0] in module `\Queue_1': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_address'[0] in module `\Queue_1': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_space'[0] in module `\Queue_1': address FF has async set and/or reset, not supported.
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module AecLineCache.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 25 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 28 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Finding identical cells in module `\AecLineCache'.
+Computing hashes of 271 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+Removed a total of 0 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecLineCache..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~246 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue_2.
+  Optimizing cells in module \Queue_1.
+  Optimizing cells in module \AecLineCache.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 25 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 28 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Finding identical cells in module `\AecLineCache'.
+Computing hashes of 271 cells of `\AecLineCache'.
+Finding duplicate cells in `\AecLineCache'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue_2..
+Finding unused cells or wires in module \Queue_1..
+Finding unused cells or wires in module \AecLineCache..
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module AecLineCache.
+
+6.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Printing statistics.
+
+=== Queue_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       50 wires
+     5180 wire bits
+       41 public wires
+     4145 public wire bits
+       12 ports
+     2064 port bits
+        3 memories
+     2058 memory bits
+       25 cells
+        2   $add
+        3   $adffe
+        4   $and
+        1   $eq
+        3   $memrd
+        3   $memwr_v2
+        5   $mux
+        1   $ne
+        3   $not
+
+=== Queue_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       60 wires
+      274 wire bits
+       52 public wires
+      200 public wire bits
+       14 ports
+       82 port bits
+        4 memories
+      152 memory bits
+       28 cells
+        2   $add
+        3   $adffe
+        4   $and
+        1   $eq
+        4   $memrd
+        4   $memwr_v2
+        6   $mux
+        1   $ne
+        3   $not
+
+=== AecLineCache ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      519 wires
+    17555 wire bits
+      439 public wires
+    16483 public wire bits
+       34 ports
+     4485 port bits
+      269 cells
+        1   $adff
+        3   $adffe
+       26   $and
+       16   $dff
+       19   $dffe
+       31   $eq
+        1   $logic_not
+      110   $mux
+       10   $not
+       11   $or
+        2   $reduce_and
+        2   $shl
+        4   $shr
+       33   aec_sram_512x32
+        2 submodules
+        1   Queue_1
+        1   Queue_2
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+      322 AecLineCache
+       28 Queue_1
+       25 Queue_2
+
+        +----------Count including submodules.
+        | 
+      629 wires
+    23009 wire bits
+      532 public wires
+    20828 public wire bits
+       60 ports
+     6631 port bits
+        7 memories
+     2210 memory bits
+        - processes
+      322 cells
+        4   $add
+        1   $adff
+        9   $adffe
+       34   $and
+       16   $dff
+       19   $dffe
+       33   $eq
+        1   $logic_not
+        7   $memrd
+        7   $memwr_v2
+      121   $mux
+        2   $ne
+       16   $not
+       11   $or
+        2   $reduce_and
+        2   $shl
+        4   $shr
+       33   aec_sram_512x32
+        2 submodules
+        1   Queue_1
+        1   Queue_2
+
+End of script. Logfile hash: 41ba544e74, time: 1.78s, user: 1.65s, system: 0.13s, MEM: 347.80 MB peak
+Yosys 0.64+308 (git sha1 78e05dfb0, Release, GNU /usr/bin/c++ 13.3.0)
+Time spent: 82% 2x read_verilog (1 sec), 4% 4x opt_clean (0 sec), ...

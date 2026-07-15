@@ -1,0 +1,17 @@
+# MBAR scopes plus same-warp RDTSC uniformity and monotonicity.
+CPY.u32 R1, %laneid
+RDTSC R10
+MBAR.ct
+MBAR.sys
+RDTSC R11
+CMP.le.u32 R20, R10, R11
+MTCH.any R21, R10
+LOADI R30, 8
+MUL.u32 R31, R1, R30
+LOADI R32, 0x100
+ADD.u32 R31, R31, R32
+ST.gmem.u32 [R31], R20
+LOADI R33, 4
+ADD.u32 R31, R31, R33
+ST.gmem.u32 [R31], R21
+HALT

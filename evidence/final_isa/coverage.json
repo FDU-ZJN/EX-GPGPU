@@ -1,0 +1,51 @@
+{
+  "suite_cases": 61,
+  "covered": {
+    "opcodes": 53,
+    "legal_types": 94,
+    "conversions": 64,
+    "compares": 36,
+    "atomics": 32,
+    "shuffles": 12,
+    "votes": 6,
+    "loads": 25,
+    "stores": 12,
+    "ldc_types": 3,
+    "mbar_scopes": 2,
+    "sfu_modes": 10,
+    "special_registers": 13,
+    "statuses": 4
+  },
+  "required": {
+    "opcodes": 53,
+    "legal_types": 94,
+    "conversions": 64,
+    "compares": 36,
+    "atomics": 32,
+    "shuffles": 12,
+    "votes": 6,
+    "loads": 25,
+    "stores": 12,
+    "ldc_types": 3,
+    "mbar_scopes": 2,
+    "sfu_modes": 10,
+    "special_registers": 13,
+    "statuses": 4
+  },
+  "missing": {
+    "opcodes": [],
+    "legal_types": [],
+    "conversions": [],
+    "compares": [],
+    "atomics": [],
+    "shuffles": [],
+    "votes": [],
+    "loads": [],
+    "stores": [],
+    "ldc_types": [],
+    "mbar_scopes": [],
+    "sfu_modes": [],
+    "special_registers": [],
+    "statuses": []
+  }
+}

@@ -1,0 +1,56 @@
+# All x/y/z special registers over nontrivial grid and block dimensions.
+CPY.u32 R10, %tid.x
+CPY.u32 R11, %ntid.x
+CPY.u32 R12, %ctaid.x
+CPY.u32 R13, %nctaid.x
+CPY.u32 R14, %laneid
+CPY.u32 R15, %tid.y
+CPY.u32 R16, %ntid.y
+CPY.u32 R17, %ctaid.y
+CPY.u32 R18, %nctaid.y
+CPY.u32 R19, %tid.z
+CPY.u32 R20, %ntid.z
+CPY.u32 R21, %ctaid.z
+CPY.u32 R22, %nctaid.z
+MUL.u32 R30, R16, R19
+ADD.u32 R30, R15, R30
+MUL.u32 R30, R11, R30
+ADD.u32 R30, R10, R30
+MUL.u32 R31, R18, R21
+ADD.u32 R31, R17, R31
+MUL.u32 R31, R13, R31
+ADD.u32 R31, R12, R31
+LOADI R32, 8
+MUL.u32 R31, R31, R32
+ADD.u32 R31, R31, R30
+LOADI R33, 52
+MUL.u32 R31, R31, R33
+LOADI R34, 0x100
+ADD.u32 R31, R31, R34
+LOADI R35, 4
+ST.gmem.u32 [R31], R10
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R11
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R12
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R13
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R14
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R15
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R16
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R17
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R18
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R19
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R20
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R21
+ADD.u32 R31, R31, R35
+ST.gmem.u32 [R31], R22
+HALT

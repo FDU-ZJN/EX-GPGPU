@@ -1,0 +1,27 @@
+ZGPGPU Track B b-013 submission audit
+Date: 2026-07-15
+
+Architecture:
+- Initial design: 8-warp high-performance implementation
+- Submission design: one scheduler, two resident warp slots
+- Architectural CTA support: up to eight warps via pair rebinding
+
+Verification:
+- Generated AecEvalCore from candidate Chisel: PASS
+- CModel/RTL build: PASS
+- Locked SRAM behavioral checksum: 4/4 PASS
+- RTL public suite: 36/36 PASS, 20,936 cycles
+- CModel public suite: 36/36 PASS
+- ISA-gap coverage: 61 cases, all audited dimensions complete
+- scripts/check_submission.sh: PASS
+
+PPA environment:
+- Official bundled flow: TrackB-b-013/ppa-flow
+- Tool/library/checksum check: PASS
+- RTL filelist selects eval_core/AecEvalCore.sv
+
+Reports:
+- reports/DESIGN.md
+- reports/VERIFICATION.md
+- reports/PPA.md
+- reports/LIMITATIONS.md

@@ -1,0 +1,16 @@
+case_id: EXT.ISA.OPCODE.COMPLETION
+category: extended_isa_gap
+program: program.bin
+launch:
+  grid: [1, 1, 1]
+  block: [1, 1, 1]
+  program_instructions: 58
+memory_init: []
+expected:
+  status: done
+  memory:
+    - address: 0x00000000
+      size: 312
+      file: expected/gmem_00000000.bin
+  comparison: exact
+max_cycles: 80000

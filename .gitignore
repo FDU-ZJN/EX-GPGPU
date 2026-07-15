@@ -1,0 +1,65 @@
+# Ignore every top-level entry by default.
+/*
+
+# Keep the submission manifest and this whitelist.
+!/.gitignore
+!/README.md
+
+# Supported submission directories.
+!/rtl/
+!/rtl/**
+!/cmodel/
+!/cmodel/**
+!/scripts/
+!/scripts/**
+!/reports/
+!/reports/**
+!/evidence/
+!/evidence/**
+!/TrackB-b-013/
+!/TrackB-b-013/**
+
+# Common local and temporary artifacts inside supported directories.
+**/__pycache__/
+**/*.py[cod]
+**/.DS_Store
+**/*.tmp
+**/*.swp
+
+# CModel compiler and packaging outputs.
+/cmodel/build/
+/cmodel/dist/
+/cmodel/*.o
+/cmodel/*.a
+/cmodel/*.so
+/cmodel/*.egg-info/
+
+# RTL simulator, Scala/SBT, test, and PPA work products.
+/rtl/.*_obj/
+/rtl/.sbt-global/
+/rtl/.bsp/
+/rtl/.metals/
+/rtl/target/
+/rtl/project/target/
+/rtl/project/project/
+/rtl/test_run_dir/
+/rtl/reports/
+/rtl/rtl/
+
+# Keep generated SystemVerilog, but drop Chisel metadata and temporary PPA tops.
+/rtl/sv/generated/**/*.fir
+/rtl/sv/generated/**/*.anno.json
+/rtl/sv/generated/.fp_source.sha256
+/rtl/sv/generated/frontend_partition_ppa/
+/rtl/sv/generated/frontend_partition_ppa_clean/
+
+# Only the required human-authored submission reports belong here. Machine
+# generated synthesis and STA material should be placed under evidence/.
+/reports/*
+!/reports/DESIGN.md
+!/reports/VERIFICATION.md
+!/reports/PPA.md
+!/reports/LIMITATIONS.md
+
+# Evidence may contain logs, waveforms, JSON, and synthesis/STA reports; only
+# transient editor and Python cache files are excluded by the common rules.

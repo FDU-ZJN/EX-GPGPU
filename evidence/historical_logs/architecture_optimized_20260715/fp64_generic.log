@@ -1,0 +1,2996 @@
+
+-- Running command `read_verilog -sv rtl/sv/generated/fp64/AecFp64Unit.sv; hierarchy -top AecFp64Unit; proc; opt; stat' --
+
+1. Executing Verilog-2005 frontend: rtl/sv/generated/fp64/AecFp64Unit.sv
+Parsing SystemVerilog input from `rtl/sv/generated/fp64/AecFp64Unit.sv' to AST representation.
+Generating RTLIL representation for module `\BoothEncoderF64F32F16'.
+Generating RTLIL representation for module `\CSA3to2'.
+Generating RTLIL representation for module `\CSA4to2'.
+Generating RTLIL representation for module `\CSA_Nto2With3to2MainPipeline'.
+Generating RTLIL representation for module `\FloatFMA'.
+Generating RTLIL representation for module `\Queue'.
+Generating RTLIL representation for module `\YunSuanFmaPipe'.
+Generating RTLIL representation for module `\Queue_1'.
+Generating RTLIL representation for module `\Queue_2'.
+Generating RTLIL representation for module `\CompareRecFN'.
+Generating RTLIL representation for module `\CompareRecFN_1'.
+Generating RTLIL representation for module `\CompareRecFN_2'.
+Generating RTLIL representation for module `\RoundingUnit'.
+Generating RTLIL representation for module `\ShiftRightJam'.
+Generating RTLIL representation for module `\FPDownConverter'.
+Generating RTLIL representation for module `\FPToFP_9'.
+Generating RTLIL representation for module `\RoundingUnit_2'.
+Generating RTLIL representation for module `\ShiftRightJam_1'.
+Generating RTLIL representation for module `\FPDownConverter_1'.
+Generating RTLIL representation for module `\FPToFP_10'.
+Generating RTLIL representation for module `\RoundingUnit_4'.
+Generating RTLIL representation for module `\ShiftRightJam_2'.
+Generating RTLIL representation for module `\FPDownConverter_2'.
+Generating RTLIL representation for module `\FPToFP_11'.
+Generating RTLIL representation for module `\AecFp64PipeUnit'.
+Generating RTLIL representation for module `\AecFpWarpRequestStage'.
+Generating RTLIL representation for module `\AecWarpRequestLaneBank'.
+Generating RTLIL representation for module `\AecWarpRequestBuffer'.
+Generating RTLIL representation for module `\AecResultLaneBank'.
+Generating RTLIL representation for module `\AecFp64Unit'.
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \AecFp64Unit
+Used module:     \AecResultLaneBank
+Used module:     \AecWarpRequestBuffer
+Used module:         \AecWarpRequestLaneBank
+Used module:     \AecFpWarpRequestStage
+Used module:     \AecFp64PipeUnit
+Used module:         \FPToFP_11
+Used module:             \FPDownConverter_2
+Used module:                 \RoundingUnit_4
+Used module:                 \ShiftRightJam_2
+Used module:         \FPToFP_10
+Used module:             \FPDownConverter_1
+Used module:                 \RoundingUnit_2
+Used module:                 \ShiftRightJam_1
+Used module:         \FPToFP_9
+Used module:             \FPDownConverter
+Used module:                 \RoundingUnit
+Used module:                 \ShiftRightJam
+Used module:         \CompareRecFN_2
+Used module:         \CompareRecFN_1
+Used module:         \CompareRecFN
+Used module:         \Queue_2
+Used module:         \Queue_1
+Used module:         \YunSuanFmaPipe
+Used module:             \Queue
+Used module:             \FloatFMA
+Used module:                 \CSA3to2
+Used module:                 \CSA_Nto2With3to2MainPipeline
+Used module:                     \CSA4to2
+Used module:                 \BoothEncoderF64F32F16
+
+2.2. Analyzing design hierarchy..
+Top module:  \AecFp64Unit
+Used module:     \AecResultLaneBank
+Used module:     \AecWarpRequestBuffer
+Used module:         \AecWarpRequestLaneBank
+Used module:     \AecFpWarpRequestStage
+Used module:     \AecFp64PipeUnit
+Used module:         \FPToFP_11
+Used module:             \FPDownConverter_2
+Used module:                 \RoundingUnit_4
+Used module:                 \ShiftRightJam_2
+Used module:         \FPToFP_10
+Used module:             \FPDownConverter_1
+Used module:                 \RoundingUnit_2
+Used module:                 \ShiftRightJam_1
+Used module:         \FPToFP_9
+Used module:             \FPDownConverter
+Used module:                 \RoundingUnit
+Used module:                 \ShiftRightJam
+Used module:         \CompareRecFN_2
+Used module:         \CompareRecFN_1
+Used module:         \CompareRecFN
+Used module:         \Queue_2
+Used module:         \Queue_1
+Used module:         \YunSuanFmaPipe
+Used module:             \Queue
+Used module:             \FloatFMA
+Used module:                 \CSA3to2
+Used module:                 \CSA_Nto2With3to2MainPipeline
+Used module:                     \CSA4to2
+Used module:                 \BoothEncoderF64F32F16
+Removed 0 unused modules.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 24 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628 in module AecFp64Unit.
+Marked 5 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286 in module AecResultLaneBank.
+Marked 52 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284 in module AecWarpRequestLaneBank.
+Marked 12 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273 in module AecFpWarpRequestStage.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5065$3256 in module AecFp64PipeUnit.
+Marked 8 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473 in module Queue_2.
+Marked 4 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439 in module Queue_1.
+Marked 5 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424 in module YunSuanFmaPipe.
+Marked 7 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379 in module Queue.
+Marked 12 switch rules as full_case in process $proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334 in module FloatFMA.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 75 redundant assignments.
+Promoted 50 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~262 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+     1/15: $0\armClusters_7[0:0]
+     2/15: $0\armClusters_6[0:0]
+     3/15: $0\armClusters_5[0:0]
+     4/15: $0\armClusters_4[0:0]
+     5/15: $0\armClusters_3[0:0]
+     6/15: $0\armClusters_2[0:0]
+     7/15: $0\armClusters_1[0:0]
+     8/15: $0\armClusters_0[0:0]
+     9/15: $0\armPending[0:0]
+    10/15: $0\commitPending[0:0]
+    11/15: $0\groupIssued[0:0]
+    12/15: $0\running[0:0]
+    13/15: $0\capturePending[0:0]
+    14/15: $0\outValid[0:0]
+    15/15: $0\group[1:0]
+Creating decoders for process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+     1/5: $0\pending[0:0]
+     2/5: $0\error[0:0]
+     3/5: $0\predicate[0:0]
+     4/5: $0\flags[4:0]
+     5/5: $0\result[63:0]
+Creating decoders for process `\AecWarpRequestBuffer.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7199$3285'.
+     1/3: $0\dest[7:0]
+     2/3: $0\dtype[3:0]
+     3/3: $0\op[15:0]
+Creating decoders for process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+     1/104: $0\maskCapture_3[0:0]
+     2/104: $0\maskCapture_2[0:0]
+     3/104: $0\maskCapture_1[0:0]
+     4/104: $0\maskCapture_0[0:0]
+     5/104: $0\operandCapture_3_11[0:0]
+     6/104: $0\operandCapture_3_10[0:0]
+     7/104: $0\operandCapture_3_9[0:0]
+     8/104: $0\operandCapture_3_8[0:0]
+     9/104: $0\operandCapture_3_7[0:0]
+    10/104: $0\operandCapture_3_6[0:0]
+    11/104: $0\operandCapture_3_5[0:0]
+    12/104: $0\operandCapture_3_4[0:0]
+    13/104: $0\operandCapture_3_3[0:0]
+    14/104: $0\operandCapture_3_2[0:0]
+    15/104: $0\operandCapture_3_1[0:0]
+    16/104: $0\operandCapture_3_0[0:0]
+    17/104: $0\operandCapture_2_11[0:0]
+    18/104: $0\operandCapture_2_10[0:0]
+    19/104: $0\operandCapture_2_9[0:0]
+    20/104: $0\operandCapture_2_8[0:0]
+    21/104: $0\operandCapture_2_7[0:0]
+    22/104: $0\operandCapture_2_6[0:0]
+    23/104: $0\operandCapture_2_5[0:0]
+    24/104: $0\operandCapture_2_4[0:0]
+    25/104: $0\operandCapture_2_3[0:0]
+    26/104: $0\operandCapture_2_2[0:0]
+    27/104: $0\operandCapture_2_1[0:0]
+    28/104: $0\operandCapture_2_0[0:0]
+    29/104: $0\operandCapture_1_11[0:0]
+    30/104: $0\operandCapture_1_10[0:0]
+    31/104: $0\operandCapture_1_9[0:0]
+    32/104: $0\operandCapture_1_8[0:0]
+    33/104: $0\operandCapture_1_7[0:0]
+    34/104: $0\operandCapture_1_6[0:0]
+    35/104: $0\operandCapture_1_5[0:0]
+    36/104: $0\operandCapture_1_4[0:0]
+    37/104: $0\operandCapture_1_3[0:0]
+    38/104: $0\operandCapture_1_2[0:0]
+    39/104: $0\operandCapture_1_1[0:0]
+    40/104: $0\operandCapture_1_0[0:0]
+    41/104: $0\operandCapture_0_11[0:0]
+    42/104: $0\operandCapture_0_10[0:0]
+    43/104: $0\operandCapture_0_9[0:0]
+    44/104: $0\operandCapture_0_8[0:0]
+    45/104: $0\operandCapture_0_7[0:0]
+    46/104: $0\operandCapture_0_6[0:0]
+    47/104: $0\operandCapture_0_5[0:0]
+    48/104: $0\operandCapture_0_4[0:0]
+    49/104: $0\operandCapture_0_3[0:0]
+    50/104: $0\operandCapture_0_2[0:0]
+    51/104: $0\operandCapture_0_1[0:0]
+    52/104: $0\operandCapture_0_0[0:0]
+    53/104: $0\active_3[0:0]
+    54/104: $0\active_2[0:0]
+    55/104: $0\active_1[0:0]
+    56/104: $0\active_0[0:0]
+    57/104: $0\c_3_3[15:0]
+    58/104: $0\c_3_2[15:0]
+    59/104: $0\c_3_1[15:0]
+    60/104: $0\c_3_0[15:0]
+    61/104: $0\c_2_3[15:0]
+    62/104: $0\c_2_2[15:0]
+    63/104: $0\c_2_1[15:0]
+    64/104: $0\c_2_0[15:0]
+    65/104: $0\c_1_3[15:0]
+    66/104: $0\c_1_2[15:0]
+    67/104: $0\c_1_1[15:0]
+    68/104: $0\c_1_0[15:0]
+    69/104: $0\c_0_3[15:0]
+    70/104: $0\c_0_2[15:0]
+    71/104: $0\c_0_1[15:0]
+    72/104: $0\c_0_0[15:0]
+    73/104: $0\b_3_3[15:0]
+    74/104: $0\b_3_2[15:0]
+    75/104: $0\b_3_1[15:0]
+    76/104: $0\b_3_0[15:0]
+    77/104: $0\b_2_3[15:0]
+    78/104: $0\b_2_2[15:0]
+    79/104: $0\b_2_1[15:0]
+    80/104: $0\b_2_0[15:0]
+    81/104: $0\b_1_3[15:0]
+    82/104: $0\b_1_2[15:0]
+    83/104: $0\b_1_1[15:0]
+    84/104: $0\b_1_0[15:0]
+    85/104: $0\b_0_3[15:0]
+    86/104: $0\b_0_2[15:0]
+    87/104: $0\b_0_1[15:0]
+    88/104: $0\b_0_0[15:0]
+    89/104: $0\a_3_3[15:0]
+    90/104: $0\a_3_2[15:0]
+    91/104: $0\a_3_1[15:0]
+    92/104: $0\a_3_0[15:0]
+    93/104: $0\a_2_3[15:0]
+    94/104: $0\a_2_2[15:0]
+    95/104: $0\a_2_1[15:0]
+    96/104: $0\a_2_0[15:0]
+    97/104: $0\a_1_3[15:0]
+    98/104: $0\a_1_2[15:0]
+    99/104: $0\a_1_1[15:0]
+   100/104: $0\a_1_0[15:0]
+   101/104: $0\a_0_3[15:0]
+   102/104: $0\a_0_2[15:0]
+   103/104: $0\a_0_1[15:0]
+   104/104: $0\a_0_0[15:0]
+Creating decoders for process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+     1/8: $0\selectedGroup[1:0]
+     2/8: $0\selectValid[0:0]
+     3/8: $0\data_c[63:0]
+     4/8: $0\data_b[63:0]
+     5/8: $0\data_a[63:0]
+     6/8: $0\data_dtype[3:0]
+     7/8: $0\data_op[6:0]
+     8/8: $0\dataValid[0:0]
+Creating decoders for process `\AecFp64PipeUnit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5065$3256'.
+     1/1: $0\issueSeq[5:0]
+Creating decoders for process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+     1/18: $1$memwr$\ram_req_b$rtl/sv/generated/fp64/AecFp64Unit.sv:3813$2452_EN[63:0]$2508
+     2/18: $1$memwr$\ram_req_b$rtl/sv/generated/fp64/AecFp64Unit.sv:3813$2452_DATA[63:0]$2507
+     3/18: $1$memwr$\ram_req_b$rtl/sv/generated/fp64/AecFp64Unit.sv:3813$2452_ADDR[1:0]$2506
+     4/18: $1$memwr$\ram_req_a$rtl/sv/generated/fp64/AecFp64Unit.sv:3810$2451_EN[63:0]$2504
+     5/18: $1$memwr$\ram_req_a$rtl/sv/generated/fp64/AecFp64Unit.sv:3810$2451_DATA[63:0]$2503
+     6/18: $1$memwr$\ram_req_a$rtl/sv/generated/fp64/AecFp64Unit.sv:3810$2451_ADDR[1:0]$2502
+     7/18: $1$memwr$\ram_req_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3807$2450_EN[3:0]$2500
+     8/18: $1$memwr$\ram_req_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3807$2450_DATA[3:0]$2499
+     9/18: $1$memwr$\ram_req_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3807$2450_ADDR[1:0]$2498
+    10/18: $1$memwr$\ram_req_op$rtl/sv/generated/fp64/AecFp64Unit.sv:3804$2449_EN[6:0]$2496
+    11/18: $1$memwr$\ram_req_op$rtl/sv/generated/fp64/AecFp64Unit.sv:3804$2449_DATA[6:0]$2495
+    12/18: $1$memwr$\ram_req_op$rtl/sv/generated/fp64/AecFp64Unit.sv:3804$2449_ADDR[1:0]$2494
+    13/18: $1$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3801$2448_EN[5:0]$2492
+    14/18: $1$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3801$2448_DATA[5:0]$2491
+    15/18: $1$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3801$2448_ADDR[1:0]$2490
+    16/18: $0\maybe_full[0:0]
+    17/18: $0\deq_ptr_value[1:0]
+    18/18: $0\enq_ptr_value[1:0]
+Creating decoders for process `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+     1/6: $1$memwr$\ram$rtl/sv/generated/fp64/AecFp64Unit.sv:3604$2426_EN[5:0]$2446
+     2/6: $1$memwr$\ram$rtl/sv/generated/fp64/AecFp64Unit.sv:3604$2426_DATA[5:0]$2445
+     3/6: $1$memwr$\ram$rtl/sv/generated/fp64/AecFp64Unit.sv:3604$2426_ADDR[3:0]$2444
+     4/6: $0\maybe_full[0:0]
+     5/6: $0\deq_ptr_value[3:0]
+     6/6: $0\enq_ptr_value[3:0]
+Creating decoders for process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+     1/10: $0\valid2[0:0]
+     2/10: $0\valid1[0:0]
+     3/10: $0\valid0[0:0]
+     4/10: $0\meta2_dtype[3:0]
+     5/10: $0\meta2_seq[5:0]
+     6/10: $0\meta1_dtype[3:0]
+     7/10: $0\meta1_seq[5:0]
+     8/10: $0\meta0_dtype[3:0]
+     9/10: $0\meta0_seq[5:0]
+    10/10: $0\outstanding[3:0]
+Creating decoders for process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+     1/15: $1$memwr$\ram_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3250$2359_EN[3:0]$2407
+     2/15: $1$memwr$\ram_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3250$2359_DATA[3:0]$2406
+     3/15: $1$memwr$\ram_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3250$2359_ADDR[2:0]$2405
+     4/15: $1$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3247$2358_EN[5:0]$2403
+     5/15: $1$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3247$2358_DATA[5:0]$2402
+     6/15: $1$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3247$2358_ADDR[2:0]$2401
+     7/15: $1$memwr$\ram_fflags$rtl/sv/generated/fp64/AecFp64Unit.sv:3244$2357_EN[4:0]$2399
+     8/15: $1$memwr$\ram_fflags$rtl/sv/generated/fp64/AecFp64Unit.sv:3244$2357_DATA[4:0]$2398
+     9/15: $1$memwr$\ram_fflags$rtl/sv/generated/fp64/AecFp64Unit.sv:3244$2357_ADDR[2:0]$2397
+    10/15: $1$memwr$\ram_result$rtl/sv/generated/fp64/AecFp64Unit.sv:3241$2356_EN[63:0]$2395
+    11/15: $1$memwr$\ram_result$rtl/sv/generated/fp64/AecFp64Unit.sv:3241$2356_DATA[63:0]$2394
+    12/15: $1$memwr$\ram_result$rtl/sv/generated/fp64/AecFp64Unit.sv:3241$2356_ADDR[2:0]$2393
+    13/15: $0\maybe_full[0:0]
+    14/15: $0\deq_ptr_value[2:0]
+    15/15: $0\enq_ptr_value[2:0]
+Creating decoders for process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+     1/46: $0\has_inf_f64_result_inf_sign_reg2_r[0:0]
+     2/46: $0\lshift_value_max_f64_reg0[11:0]
+     3/46: $0\E_greater_reg2_r[11:0]
+     4/46: $0\fp_c_rshiftValue_inv_f64_reg0[161:0]
+     5/46: $0\rshift_sticky_f16[0:0]
+     6/46: $0\fire_reg0_last_r[0:0]
+     7/46: $0\fp_a_or_b_is_zero_f64_reg2[0:0]
+     8/46: $0\fp_a_or_b_is_zero_f64_reg2_r_1[0:0]
+     9/46: $0\has_inf_f64_result_inf_sign_reg2[0:0]
+    10/46: $0\has_inf_f64_result_inf_sign_reg2_r_1[0:0]
+    11/46: $0\has_inf_f64_is_NV_reg2[0:0]
+    12/46: $0\has_inf_f64_is_NV_reg2_r_1[0:0]
+    13/46: $0\has_inf_f64_reg2[0:0]
+    14/46: $0\has_inf_f64_reg2_r_1[0:0]
+    15/46: $0\has_nan_f64_is_NV_reg2[0:0]
+    16/46: $0\has_nan_f64_is_NV_reg2_r_1[0:0]
+    17/46: $0\has_nan_f64_reg2[0:0]
+    18/46: $0\has_nan_f64_reg2_r_1[0:0]
+    19/46: $0\fp_result_f64_fp_a_or_b_is_zero_reg2[63:0]
+    20/46: $0\fp_result_fp_a_or_b_is_zero_reg_r_1[63:0]
+    21/46: $0\has_zero_f64_reg2_r_2[0:0]
+    22/46: $0\has_zero_f64_reg2_r_1[0:0]
+    23/46: $0\normal_result_is_zero_f64_reg2[0:0]
+    24/46: $0\normal_result_is_zero_f64_reg2_r[0:0]
+    25/46: $0\exponent_is_min_f64[0:0]
+    26/46: $0\lshift_value_reg2[7:0]
+    27/46: $0\is_fix_reg2[0:0]
+    28/46: $0\round_lshift_uf_f64_reg2[0:0]
+    29/46: $0\guard_lshift_f64_reg2[0:0]
+    30/46: $0\round_lshift_f64_reg2[0:0]
+    31/46: $0\sticky_uf_f64_reg2[0:0]
+    32/46: $0\sticky_uf_f64_reg2_r[0:0]
+    33/46: $0\sticky_f64_reg2[0:0]
+    34/46: $0\sticky_f64_reg2_r[0:0]
+    35/46: $0\sign_result_temp_f64_reg2[0:0]
+    36/46: $0\sign_result_temp_f64_reg2_r_2[0:0]
+    37/46: $0\fraction_result_no_round_f64_reg2[51:0]
+    38/46: $0\adder_f64_reg1[163:0]
+    39/46: $0\lshift_mask_valid_f16_reg1[0:0]
+    40/46: $0\lzd_adder_inv_mask_reg1[162:0]
+    41/46: $0\tzd_adder_reg1[163:0]
+    42/46: $0\E_greater_f64_reg2[11:0]
+    43/46: $0\E_greater_reg2_r_1[11:0]
+    44/46: $0\adder_is_negative_f16_reg2[0:0]
+    45/46: $0\adder_is_negative_reg1[0:0]
+    46/46: $0\fire_reg1_last_r[0:0]
+Creating decoders for process `\CSA_Nto2With3to2MainPipeline.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:1627$1637'.
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\AecFp64Unit.\capturePending' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4343' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\group' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4344' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\outValid' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4345' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\running' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4346' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\groupIssued' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4347' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\commitPending' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4348' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armPending' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4349' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_0' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4350' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_1' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4351' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_2' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4352' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_3' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4353' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_4' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4354' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_5' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4355' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_6' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4356' with positive edge clock.
+Creating register for signal `\AecFp64Unit.\armClusters_7' using process `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+  created $dff cell `$procdff$4357' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\result' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4358' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\flags' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4359' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\predicate' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4360' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\error' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4361' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\pending' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4362' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\stagedResult' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4363' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\stagedFlags' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4364' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\stagedPredicate' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4365' with positive edge clock.
+Creating register for signal `\AecResultLaneBank.\stagedError' using process `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+  created $dff cell `$procdff$4366' with positive edge clock.
+Creating register for signal `\AecWarpRequestBuffer.\op' using process `\AecWarpRequestBuffer.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7199$3285'.
+  created $dff cell `$procdff$4367' with positive edge clock.
+Creating register for signal `\AecWarpRequestBuffer.\dtype' using process `\AecWarpRequestBuffer.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7199$3285'.
+  created $dff cell `$procdff$4368' with positive edge clock.
+Creating register for signal `\AecWarpRequestBuffer.\dest' using process `\AecWarpRequestBuffer.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7199$3285'.
+  created $dff cell `$procdff$4369' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4370' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4371' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4372' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4373' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_4' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4374' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_5' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4375' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_6' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4376' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_7' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4377' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_8' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4378' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_9' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4379' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_10' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4380' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_0_11' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4381' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4382' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4383' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4384' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4385' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_4' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4386' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_5' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4387' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_6' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4388' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_7' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4389' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_8' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4390' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_9' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4391' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_10' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4392' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_1_11' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4393' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4394' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4395' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4396' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4397' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_4' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4398' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_5' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4399' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_6' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4400' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_7' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4401' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_8' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4402' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_9' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4403' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_10' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4404' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_2_11' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4405' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4406' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4407' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4408' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4409' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_4' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4410' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_5' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4411' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_6' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4412' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_7' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4413' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_8' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4414' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_9' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4415' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_10' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4416' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\operandCapture_3_11' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4417' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\maskCapture_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4418' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\maskCapture_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4419' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\maskCapture_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4420' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\maskCapture_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4421' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_0_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4422' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_0_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4423' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_0_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4424' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_0_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4425' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_1_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4426' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_1_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4427' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_1_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4428' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_1_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4429' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_2_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4430' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_2_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4431' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_2_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4432' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_2_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4433' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_3_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4434' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_3_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4435' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_3_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4436' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\a_3_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4437' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_0_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4438' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_0_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4439' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_0_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4440' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_0_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4441' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_1_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4442' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_1_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4443' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_1_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4444' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_1_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4445' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_2_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4446' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_2_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4447' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_2_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4448' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_2_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4449' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_3_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4450' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_3_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4451' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_3_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4452' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\b_3_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4453' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_0_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4454' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_0_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4455' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_0_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4456' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_0_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4457' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_1_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4458' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_1_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4459' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_1_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4460' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_1_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4461' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_2_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4462' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_2_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4463' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_2_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4464' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_2_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4465' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_3_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4466' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_3_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4467' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_3_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4468' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\c_3_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4469' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\active_0' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4470' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\active_1' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4471' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\active_2' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4472' with positive edge clock.
+Creating register for signal `\AecWarpRequestLaneBank.\active_3' using process `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+  created $dff cell `$procdff$4473' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\dataValid' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4474' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\data_op' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4475' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\data_dtype' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4476' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\data_a' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4477' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\data_b' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4478' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\data_c' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4479' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\selectValid' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4480' with positive edge clock.
+Creating register for signal `\AecFpWarpRequestStage.\selectedGroup' using process `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+  created $dff cell `$procdff$4481' with positive edge clock.
+Creating register for signal `\AecFp64PipeUnit.\issueSeq' using process `\AecFp64PipeUnit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5065$3256'.
+  created $dff cell `$procdff$4482' with positive edge clock.
+Creating register for signal `\Queue_2.\enq_ptr_value' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4483' with positive edge clock.
+Creating register for signal `\Queue_2.\deq_ptr_value' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4484' with positive edge clock.
+Creating register for signal `\Queue_2.\maybe_full' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4485' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3801$2448_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4486' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3801$2448_DATA' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4487' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3801$2448_EN' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4488' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_op$rtl/sv/generated/fp64/AecFp64Unit.sv:3804$2449_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4489' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_op$rtl/sv/generated/fp64/AecFp64Unit.sv:3804$2449_DATA' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4490' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_op$rtl/sv/generated/fp64/AecFp64Unit.sv:3804$2449_EN' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4491' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3807$2450_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4492' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3807$2450_DATA' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4493' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3807$2450_EN' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4494' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_a$rtl/sv/generated/fp64/AecFp64Unit.sv:3810$2451_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4495' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_a$rtl/sv/generated/fp64/AecFp64Unit.sv:3810$2451_DATA' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4496' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_a$rtl/sv/generated/fp64/AecFp64Unit.sv:3810$2451_EN' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4497' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_b$rtl/sv/generated/fp64/AecFp64Unit.sv:3813$2452_ADDR' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4498' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_b$rtl/sv/generated/fp64/AecFp64Unit.sv:3813$2452_DATA' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4499' with positive edge clock.
+Creating register for signal `\Queue_2.$memwr$\ram_req_b$rtl/sv/generated/fp64/AecFp64Unit.sv:3813$2452_EN' using process `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+  created $dff cell `$procdff$4500' with positive edge clock.
+Creating register for signal `\Queue_1.\enq_ptr_value' using process `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+  created $dff cell `$procdff$4501' with positive edge clock.
+Creating register for signal `\Queue_1.\deq_ptr_value' using process `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+  created $dff cell `$procdff$4502' with positive edge clock.
+Creating register for signal `\Queue_1.\maybe_full' using process `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+  created $dff cell `$procdff$4503' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram$rtl/sv/generated/fp64/AecFp64Unit.sv:3604$2426_ADDR' using process `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+  created $dff cell `$procdff$4504' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram$rtl/sv/generated/fp64/AecFp64Unit.sv:3604$2426_DATA' using process `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+  created $dff cell `$procdff$4505' with positive edge clock.
+Creating register for signal `\Queue_1.$memwr$\ram$rtl/sv/generated/fp64/AecFp64Unit.sv:3604$2426_EN' using process `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+  created $dff cell `$procdff$4506' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\outstanding' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4507' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\valid0' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4508' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\valid1' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4509' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\valid2' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4510' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\meta0_seq' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4511' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\meta0_dtype' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4512' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\meta1_seq' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4513' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\meta1_dtype' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4514' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\meta2_seq' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4515' with positive edge clock.
+Creating register for signal `\YunSuanFmaPipe.\meta2_dtype' using process `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+  created $dff cell `$procdff$4516' with positive edge clock.
+Creating register for signal `\Queue.\enq_ptr_value' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4517' with positive edge clock.
+Creating register for signal `\Queue.\deq_ptr_value' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4518' with positive edge clock.
+Creating register for signal `\Queue.\maybe_full' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4519' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_result$rtl/sv/generated/fp64/AecFp64Unit.sv:3241$2356_ADDR' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4520' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_result$rtl/sv/generated/fp64/AecFp64Unit.sv:3241$2356_DATA' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4521' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_result$rtl/sv/generated/fp64/AecFp64Unit.sv:3241$2356_EN' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4522' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_fflags$rtl/sv/generated/fp64/AecFp64Unit.sv:3244$2357_ADDR' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4523' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_fflags$rtl/sv/generated/fp64/AecFp64Unit.sv:3244$2357_DATA' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4524' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_fflags$rtl/sv/generated/fp64/AecFp64Unit.sv:3244$2357_EN' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4525' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3247$2358_ADDR' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4526' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3247$2358_DATA' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4527' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_seq$rtl/sv/generated/fp64/AecFp64Unit.sv:3247$2358_EN' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4528' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3250$2359_ADDR' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4529' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3250$2359_DATA' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4530' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_dtype$rtl/sv/generated/fp64/AecFp64Unit.sv:3250$2359_EN' using process `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+  created $dff cell `$procdff$4531' with positive edge clock.
+Creating register for signal `\FloatFMA.\fire_reg0_last_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4532' with positive edge clock.
+Creating register for signal `\FloatFMA.\fire_reg1_last_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4533' with positive edge clock.
+Creating register for signal `\FloatFMA.\is_sub_f64_reg0' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4534' with positive edge clock.
+Creating register for signal `\FloatFMA.\rshift_guard_f16' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4535' with positive edge clock.
+Creating register for signal `\FloatFMA.\rshift_round_f16' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4536' with positive edge clock.
+Creating register for signal `\FloatFMA.\rshift_sticky_f16' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4537' with positive edge clock.
+Creating register for signal `\FloatFMA.\fp_c_rshiftValue_inv_f64_reg0' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4538' with positive edge clock.
+Creating register for signal `\FloatFMA.\adder_is_negative_reg1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4539' with positive edge clock.
+Creating register for signal `\FloatFMA.\adder_is_negative_f16_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4540' with positive edge clock.
+Creating register for signal `\FloatFMA.\E_greater_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4541' with positive edge clock.
+Creating register for signal `\FloatFMA.\E_greater_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4542' with positive edge clock.
+Creating register for signal `\FloatFMA.\E_greater_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4543' with positive edge clock.
+Creating register for signal `\FloatFMA.\lshift_value_max_f64_reg0' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4544' with positive edge clock.
+Creating register for signal `\FloatFMA.\tzd_adder_reg1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4545' with positive edge clock.
+Creating register for signal `\FloatFMA.\lzd_adder_inv_mask_reg1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4546' with positive edge clock.
+Creating register for signal `\FloatFMA.\lshift_mask_valid_f16_reg1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4547' with positive edge clock.
+Creating register for signal `\FloatFMA.\adder_f64_reg1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4548' with positive edge clock.
+Creating register for signal `\FloatFMA.\fraction_result_no_round_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4549' with positive edge clock.
+Creating register for signal `\FloatFMA.\sign_result_temp_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4550' with positive edge clock.
+Creating register for signal `\FloatFMA.\sign_result_temp_f64_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4551' with positive edge clock.
+Creating register for signal `\FloatFMA.\sign_result_temp_f64_reg2_r_2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4552' with positive edge clock.
+Creating register for signal `\FloatFMA.\sign_result_temp_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4553' with positive edge clock.
+Creating register for signal `\FloatFMA.\sticky_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4554' with positive edge clock.
+Creating register for signal `\FloatFMA.\sticky_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4555' with positive edge clock.
+Creating register for signal `\FloatFMA.\sticky_uf_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4556' with positive edge clock.
+Creating register for signal `\FloatFMA.\sticky_uf_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4557' with positive edge clock.
+Creating register for signal `\FloatFMA.\round_lshift_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4558' with positive edge clock.
+Creating register for signal `\FloatFMA.\guard_lshift_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4559' with positive edge clock.
+Creating register for signal `\FloatFMA.\round_lshift_uf_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4560' with positive edge clock.
+Creating register for signal `\FloatFMA.\is_fix_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4561' with positive edge clock.
+Creating register for signal `\FloatFMA.\lshift_value_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4562' with positive edge clock.
+Creating register for signal `\FloatFMA.\exponent_is_min_f64' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4563' with positive edge clock.
+Creating register for signal `\FloatFMA.\normal_result_is_zero_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4564' with positive edge clock.
+Creating register for signal `\FloatFMA.\normal_result_is_zero_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4565' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_zero_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4566' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_zero_f64_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4567' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_zero_f64_reg2_r_2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4568' with positive edge clock.
+Creating register for signal `\FloatFMA.\fp_result_fp_a_or_b_is_zero_reg_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4569' with positive edge clock.
+Creating register for signal `\FloatFMA.\fp_result_fp_a_or_b_is_zero_reg_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4570' with positive edge clock.
+Creating register for signal `\FloatFMA.\fp_result_f64_fp_a_or_b_is_zero_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4571' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_nan_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4572' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_nan_f64_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4573' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_nan_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4574' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_nan_f64_is_NV_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4575' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_nan_f64_is_NV_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4576' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_nan_f64_is_NV_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4577' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4578' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4579' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4580' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_is_NV_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4581' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_is_NV_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4582' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_is_NV_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4583' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_result_inf_sign_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4584' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_result_inf_sign_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4585' with positive edge clock.
+Creating register for signal `\FloatFMA.\has_inf_f64_result_inf_sign_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4586' with positive edge clock.
+Creating register for signal `\FloatFMA.\fp_a_or_b_is_zero_f64_reg2_r' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4587' with positive edge clock.
+Creating register for signal `\FloatFMA.\fp_a_or_b_is_zero_f64_reg2_r_1' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4588' with positive edge clock.
+Creating register for signal `\FloatFMA.\fp_a_or_b_is_zero_f64_reg2' using process `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+  created $dff cell `$procdff$4589' with positive edge clock.
+Creating register for signal `\CSA_Nto2With3to2MainPipeline.\U_CSA4to2_io_in_a_r' using process `\CSA_Nto2With3to2MainPipeline.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:1627$1637'.
+  created $dff cell `$procdff$4590' with positive edge clock.
+Creating register for signal `\CSA_Nto2With3to2MainPipeline.\U_CSA4to2_io_in_b_r' using process `\CSA_Nto2With3to2MainPipeline.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:1627$1637'.
+  created $dff cell `$procdff$4591' with positive edge clock.
+Creating register for signal `\CSA_Nto2With3to2MainPipeline.\U_CSA4to2_io_in_c_r' using process `\CSA_Nto2With3to2MainPipeline.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:1627$1637'.
+  created $dff cell `$procdff$4592' with positive edge clock.
+Creating register for signal `\CSA_Nto2With3to2MainPipeline.\U_CSA4to2_io_in_d_r' using process `\CSA_Nto2With3to2MainPipeline.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:1627$1637'.
+  created $dff cell `$procdff$4593' with positive edge clock.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 26 empty switches in `\AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+Removing empty process `AecFp64Unit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:10368$3628'.
+Found and cleaned up 9 empty switches in `\AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+Removing empty process `AecResultLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7297$3286'.
+Found and cleaned up 3 empty switches in `\AecWarpRequestBuffer.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7199$3285'.
+Removing empty process `AecWarpRequestBuffer.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:7199$3285'.
+Found and cleaned up 104 empty switches in `\AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+Removing empty process `AecWarpRequestLaneBank.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5596$3284'.
+Found and cleaned up 26 empty switches in `\AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+Removing empty process `AecFpWarpRequestStage.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5184$3273'.
+Found and cleaned up 2 empty switches in `\AecFp64PipeUnit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5065$3256'.
+Removing empty process `AecFp64PipeUnit.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:5065$3256'.
+Found and cleaned up 11 empty switches in `\Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+Removing empty process `Queue_2.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3799$2473'.
+Found and cleaned up 7 empty switches in `\Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+Removing empty process `Queue_1.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3602$2439'.
+Found and cleaned up 12 empty switches in `\YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+Removing empty process `YunSuanFmaPipe.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3448$2424'.
+Found and cleaned up 10 empty switches in `\Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+Removing empty process `Queue.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:3239$2379'.
+Found and cleaned up 52 empty switches in `\FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+Removing empty process `FloatFMA.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:2795$2334'.
+Removing empty process `CSA_Nto2With3to2MainPipeline.$proc$rtl/sv/generated/fp64/AecFp64Unit.sv:1627$1637'.
+Cleaned up 262 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module AecFp64Unit.
+<suppressed ~8 debug messages>
+Optimizing module AecResultLaneBank.
+Optimizing module AecWarpRequestBuffer.
+Optimizing module AecWarpRequestLaneBank.
+Optimizing module AecFpWarpRequestStage.
+Optimizing module AecFp64PipeUnit.
+<suppressed ~27 debug messages>
+Optimizing module FPToFP_11.
+Optimizing module FPDownConverter_2.
+<suppressed ~2 debug messages>
+Optimizing module ShiftRightJam_2.
+Optimizing module RoundingUnit_4.
+Optimizing module FPToFP_10.
+Optimizing module FPDownConverter_1.
+<suppressed ~2 debug messages>
+Optimizing module ShiftRightJam_1.
+Optimizing module RoundingUnit_2.
+Optimizing module FPToFP_9.
+Optimizing module FPDownConverter.
+<suppressed ~2 debug messages>
+Optimizing module ShiftRightJam.
+Optimizing module RoundingUnit.
+Optimizing module CompareRecFN_2.
+<suppressed ~2 debug messages>
+Optimizing module CompareRecFN_1.
+<suppressed ~2 debug messages>
+Optimizing module CompareRecFN.
+<suppressed ~2 debug messages>
+Optimizing module Queue_2.
+<suppressed ~5 debug messages>
+Optimizing module Queue_1.
+<suppressed ~1 debug messages>
+Optimizing module YunSuanFmaPipe.
+<suppressed ~1 debug messages>
+Optimizing module Queue.
+<suppressed ~4 debug messages>
+Optimizing module FloatFMA.
+<suppressed ~107 debug messages>
+Optimizing module CSA_Nto2With3to2MainPipeline.
+Optimizing module CSA4to2.
+Optimizing module CSA3to2.
+Optimizing module BoothEncoderF64F32F16.
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module AecFp64Unit.
+Optimizing module AecResultLaneBank.
+Optimizing module AecWarpRequestBuffer.
+Optimizing module AecWarpRequestLaneBank.
+Optimizing module AecFpWarpRequestStage.
+Optimizing module AecFp64PipeUnit.
+Optimizing module FPToFP_11.
+Optimizing module FPDownConverter_2.
+Optimizing module ShiftRightJam_2.
+Optimizing module RoundingUnit_4.
+Optimizing module FPToFP_10.
+Optimizing module FPDownConverter_1.
+Optimizing module ShiftRightJam_1.
+Optimizing module RoundingUnit_2.
+Optimizing module FPToFP_9.
+Optimizing module FPDownConverter.
+Optimizing module ShiftRightJam.
+Optimizing module RoundingUnit.
+Optimizing module CompareRecFN_2.
+Optimizing module CompareRecFN_1.
+Optimizing module CompareRecFN.
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module YunSuanFmaPipe.
+Optimizing module Queue.
+Optimizing module FloatFMA.
+Optimizing module CSA_Nto2With3to2MainPipeline.
+Optimizing module CSA4to2.
+Optimizing module CSA3to2.
+Optimizing module BoothEncoderF64F32F16.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\AecFp64Unit'.
+Computing hashes of 431 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Computing hashes of 353 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Computing hashes of 314 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Computing hashes of 279 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Computing hashes of 272 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+<suppressed ~477 debug messages>
+Finding identical cells in module `\AecResultLaneBank'.
+Computing hashes of 18 cells of `\AecResultLaneBank'.
+Finding duplicate cells in `\AecResultLaneBank'.
+Finding identical cells in module `\AecWarpRequestBuffer'.
+Computing hashes of 14 cells of `\AecWarpRequestBuffer'.
+Finding duplicate cells in `\AecWarpRequestBuffer'.
+Finding identical cells in module `\AecWarpRequestLaneBank'.
+Computing hashes of 208 cells of `\AecWarpRequestLaneBank'.
+Finding duplicate cells in `\AecWarpRequestLaneBank'.
+Finding identical cells in module `\AecFpWarpRequestStage'.
+Computing hashes of 60 cells of `\AecFpWarpRequestStage'.
+Finding duplicate cells in `\AecFpWarpRequestStage'.
+Computing hashes of 47 cells of `\AecFpWarpRequestStage'.
+Finding duplicate cells in `\AecFpWarpRequestStage'.
+Computing hashes of 46 cells of `\AecFpWarpRequestStage'.
+Finding duplicate cells in `\AecFpWarpRequestStage'.
+<suppressed ~42 debug messages>
+Finding identical cells in module `\AecFp64PipeUnit'.
+Computing hashes of 443 cells of `\AecFp64PipeUnit'.
+Finding duplicate cells in `\AecFp64PipeUnit'.
+Computing hashes of 416 cells of `\AecFp64PipeUnit'.
+Finding duplicate cells in `\AecFp64PipeUnit'.
+<suppressed ~81 debug messages>
+Finding identical cells in module `\FPToFP_11'.
+Computing hashes of 1 cells of `\FPToFP_11'.
+Finding duplicate cells in `\FPToFP_11'.
+Finding identical cells in module `\FPDownConverter_2'.
+Computing hashes of 40 cells of `\FPDownConverter_2'.
+Finding duplicate cells in `\FPDownConverter_2'.
+Computing hashes of 38 cells of `\FPDownConverter_2'.
+Finding duplicate cells in `\FPDownConverter_2'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ShiftRightJam_2'.
+Computing hashes of 9 cells of `\ShiftRightJam_2'.
+Finding duplicate cells in `\ShiftRightJam_2'.
+Finding identical cells in module `\RoundingUnit_4'.
+Computing hashes of 9 cells of `\RoundingUnit_4'.
+Finding duplicate cells in `\RoundingUnit_4'.
+Finding identical cells in module `\FPToFP_10'.
+Computing hashes of 1 cells of `\FPToFP_10'.
+Finding duplicate cells in `\FPToFP_10'.
+Finding identical cells in module `\FPDownConverter_1'.
+Computing hashes of 40 cells of `\FPDownConverter_1'.
+Finding duplicate cells in `\FPDownConverter_1'.
+Computing hashes of 38 cells of `\FPDownConverter_1'.
+Finding duplicate cells in `\FPDownConverter_1'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ShiftRightJam_1'.
+Computing hashes of 9 cells of `\ShiftRightJam_1'.
+Finding duplicate cells in `\ShiftRightJam_1'.
+Finding identical cells in module `\RoundingUnit_2'.
+Computing hashes of 9 cells of `\RoundingUnit_2'.
+Finding duplicate cells in `\RoundingUnit_2'.
+Finding identical cells in module `\FPToFP_9'.
+Computing hashes of 1 cells of `\FPToFP_9'.
+Finding duplicate cells in `\FPToFP_9'.
+Finding identical cells in module `\FPDownConverter'.
+Computing hashes of 40 cells of `\FPDownConverter'.
+Finding duplicate cells in `\FPDownConverter'.
+Computing hashes of 38 cells of `\FPDownConverter'.
+Finding duplicate cells in `\FPDownConverter'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ShiftRightJam'.
+Computing hashes of 9 cells of `\ShiftRightJam'.
+Finding duplicate cells in `\ShiftRightJam'.
+Finding identical cells in module `\RoundingUnit'.
+Computing hashes of 9 cells of `\RoundingUnit'.
+Finding duplicate cells in `\RoundingUnit'.
+Finding identical cells in module `\CompareRecFN_2'.
+Computing hashes of 48 cells of `\CompareRecFN_2'.
+Finding duplicate cells in `\CompareRecFN_2'.
+Computing hashes of 47 cells of `\CompareRecFN_2'.
+Finding duplicate cells in `\CompareRecFN_2'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\CompareRecFN_1'.
+Computing hashes of 48 cells of `\CompareRecFN_1'.
+Finding duplicate cells in `\CompareRecFN_1'.
+Computing hashes of 47 cells of `\CompareRecFN_1'.
+Finding duplicate cells in `\CompareRecFN_1'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\CompareRecFN'.
+Computing hashes of 48 cells of `\CompareRecFN'.
+Finding duplicate cells in `\CompareRecFN'.
+Computing hashes of 47 cells of `\CompareRecFN'.
+Finding duplicate cells in `\CompareRecFN'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 65 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Computing hashes of 60 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+<suppressed ~15 debug messages>
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 29 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Computing hashes of 28 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\YunSuanFmaPipe'.
+Computing hashes of 40 cells of `\YunSuanFmaPipe'.
+Finding duplicate cells in `\YunSuanFmaPipe'.
+Computing hashes of 39 cells of `\YunSuanFmaPipe'.
+Finding duplicate cells in `\YunSuanFmaPipe'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\Queue'.
+Computing hashes of 57 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Computing hashes of 53 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\FloatFMA'.
+Computing hashes of 725 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+Computing hashes of 709 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+<suppressed ~48 debug messages>
+Finding identical cells in module `\CSA_Nto2With3to2MainPipeline'.
+Computing hashes of 26 cells of `\CSA_Nto2With3to2MainPipeline'.
+Finding duplicate cells in `\CSA_Nto2With3to2MainPipeline'.
+Finding identical cells in module `\CSA4to2'.
+Computing hashes of 955 cells of `\CSA4to2'.
+Finding duplicate cells in `\CSA4to2'.
+Computing hashes of 744 cells of `\CSA4to2'.
+Finding duplicate cells in `\CSA4to2'.
+Computing hashes of 639 cells of `\CSA4to2'.
+Finding duplicate cells in `\CSA4to2'.
+<suppressed ~948 debug messages>
+Finding identical cells in module `\CSA3to2'.
+Computing hashes of 7 cells of `\CSA3to2'.
+Finding duplicate cells in `\CSA3to2'.
+Finding identical cells in module `\BoothEncoderF64F32F16'.
+Computing hashes of 674 cells of `\BoothEncoderF64F32F16'.
+Finding duplicate cells in `\BoothEncoderF64F32F16'.
+Removed a total of 552 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \AecFp64Unit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecResultLaneBank..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecWarpRequestBuffer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecWarpRequestLaneBank..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecFpWarpRequestStage..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecFp64PipeUnit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_11..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit_4..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_10..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_9..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CompareRecFN_2..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CompareRecFN_1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CompareRecFN..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Queue_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \YunSuanFmaPipe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FloatFMA..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CSA_Nto2With3to2MainPipeline..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CSA4to2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CSA3to2..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \BoothEncoderF64F32F16..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2848 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \AecFp64Unit.
+  Optimizing cells in module \AecResultLaneBank.
+  Optimizing cells in module \AecWarpRequestBuffer.
+  Optimizing cells in module \AecWarpRequestLaneBank.
+  Optimizing cells in module \AecFpWarpRequestStage.
+  Optimizing cells in module \AecFp64PipeUnit.
+  Optimizing cells in module \FPToFP_11.
+  Optimizing cells in module \FPDownConverter_2.
+  Optimizing cells in module \ShiftRightJam_2.
+  Optimizing cells in module \RoundingUnit_4.
+  Optimizing cells in module \FPToFP_10.
+  Optimizing cells in module \FPDownConverter_1.
+  Optimizing cells in module \ShiftRightJam_1.
+  Optimizing cells in module \RoundingUnit_2.
+  Optimizing cells in module \FPToFP_9.
+  Optimizing cells in module \FPDownConverter.
+  Optimizing cells in module \ShiftRightJam.
+  Optimizing cells in module \RoundingUnit.
+  Optimizing cells in module \CompareRecFN_2.
+  Optimizing cells in module \CompareRecFN_1.
+  Optimizing cells in module \CompareRecFN.
+  Optimizing cells in module \Queue_2.
+    Consolidated identical input bits for $mux cell $procmux$4100:
+      Old ports: A=6'000000, B=6'111111, Y=$procmux$4100_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4100_Y [0]
+      New connections: $procmux$4100_Y [5:1] = { $procmux$4100_Y [0] $procmux$4100_Y [0] $procmux$4100_Y [0] $procmux$4100_Y [0] $procmux$4100_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$4091:
+      Old ports: A=7'0000000, B=7'1111111, Y=$procmux$4091_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4091_Y [0]
+      New connections: $procmux$4091_Y [6:1] = { $procmux$4091_Y [0] $procmux$4091_Y [0] $procmux$4091_Y [0] $procmux$4091_Y [0] $procmux$4091_Y [0] $procmux$4091_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$4082:
+      Old ports: A=4'0000, B=4'1111, Y=$procmux$4082_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4082_Y [0]
+      New connections: $procmux$4082_Y [3:1] = { $procmux$4082_Y [0] $procmux$4082_Y [0] $procmux$4082_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$4073:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$procmux$4073_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4073_Y [0]
+      New connections: $procmux$4073_Y [63:1] = { $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] $procmux$4073_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$4064:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$procmux$4064_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4064_Y [0]
+      New connections: $procmux$4064_Y [63:1] = { $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] $procmux$4064_Y [0] }
+  Optimizing cells in module \Queue_2.
+  Optimizing cells in module \Queue_1.
+    Consolidated identical input bits for $mux cell $procmux$4124:
+      Old ports: A=6'000000, B=6'111111, Y=$procmux$4124_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4124_Y [0]
+      New connections: $procmux$4124_Y [5:1] = { $procmux$4124_Y [0] $procmux$4124_Y [0] $procmux$4124_Y [0] $procmux$4124_Y [0] $procmux$4124_Y [0] }
+  Optimizing cells in module \Queue_1.
+  Optimizing cells in module \YunSuanFmaPipe.
+  Optimizing cells in module \Queue.
+    Consolidated identical input bits for $mux cell $procmux$4204:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$procmux$4204_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4204_Y [0]
+      New connections: $procmux$4204_Y [63:1] = { $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] $procmux$4204_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$4195:
+      Old ports: A=5'00000, B=5'11111, Y=$procmux$4195_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4195_Y [0]
+      New connections: $procmux$4195_Y [4:1] = { $procmux$4195_Y [0] $procmux$4195_Y [0] $procmux$4195_Y [0] $procmux$4195_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$4186:
+      Old ports: A=6'000000, B=6'111111, Y=$procmux$4186_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4186_Y [0]
+      New connections: $procmux$4186_Y [5:1] = { $procmux$4186_Y [0] $procmux$4186_Y [0] $procmux$4186_Y [0] $procmux$4186_Y [0] $procmux$4186_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$4177:
+      Old ports: A=4'0000, B=4'1111, Y=$procmux$4177_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4177_Y [0]
+      New connections: $procmux$4177_Y [3:1] = { $procmux$4177_Y [0] $procmux$4177_Y [0] $procmux$4177_Y [0] }
+  Optimizing cells in module \Queue.
+  Optimizing cells in module \FloatFMA.
+    New input vector for $reduce_or cell $reduce_or$rtl/sv/generated/fp64/AecFp64Unit.sv:2622$2270: \io_fp_a [62:0]
+    New input vector for $reduce_or cell $reduce_or$rtl/sv/generated/fp64/AecFp64Unit.sv:2623$2272: \io_fp_b [62:0]
+    New input vector for $reduce_or cell $reduce_or$rtl/sv/generated/fp64/AecFp64Unit.sv:2814$2338: $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1832$1649_Y [62:0]
+  Optimizing cells in module \FloatFMA.
+  Optimizing cells in module \CSA_Nto2With3to2MainPipeline.
+  Optimizing cells in module \CSA4to2.
+  Optimizing cells in module \CSA3to2.
+  Optimizing cells in module \BoothEncoderF64F32F16.
+Performed a total of 13 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\AecFp64Unit'.
+Computing hashes of 272 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Computing hashes of 263 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Computing hashes of 255 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+<suppressed ~51 debug messages>
+Finding identical cells in module `\AecResultLaneBank'.
+Computing hashes of 18 cells of `\AecResultLaneBank'.
+Finding duplicate cells in `\AecResultLaneBank'.
+Finding identical cells in module `\AecWarpRequestBuffer'.
+Computing hashes of 14 cells of `\AecWarpRequestBuffer'.
+Finding duplicate cells in `\AecWarpRequestBuffer'.
+Finding identical cells in module `\AecWarpRequestLaneBank'.
+Computing hashes of 208 cells of `\AecWarpRequestLaneBank'.
+Finding duplicate cells in `\AecWarpRequestLaneBank'.
+Computing hashes of 157 cells of `\AecWarpRequestLaneBank'.
+Finding duplicate cells in `\AecWarpRequestLaneBank'.
+Computing hashes of 106 cells of `\AecWarpRequestLaneBank'.
+Finding duplicate cells in `\AecWarpRequestLaneBank'.
+<suppressed ~306 debug messages>
+Finding identical cells in module `\AecFpWarpRequestStage'.
+Computing hashes of 46 cells of `\AecFpWarpRequestStage'.
+Finding duplicate cells in `\AecFpWarpRequestStage'.
+Finding identical cells in module `\AecFp64PipeUnit'.
+Computing hashes of 416 cells of `\AecFp64PipeUnit'.
+Finding duplicate cells in `\AecFp64PipeUnit'.
+Finding identical cells in module `\FPToFP_11'.
+Computing hashes of 1 cells of `\FPToFP_11'.
+Finding duplicate cells in `\FPToFP_11'.
+Finding identical cells in module `\FPDownConverter_2'.
+Computing hashes of 38 cells of `\FPDownConverter_2'.
+Finding duplicate cells in `\FPDownConverter_2'.
+Finding identical cells in module `\ShiftRightJam_2'.
+Computing hashes of 9 cells of `\ShiftRightJam_2'.
+Finding duplicate cells in `\ShiftRightJam_2'.
+Finding identical cells in module `\RoundingUnit_4'.
+Computing hashes of 9 cells of `\RoundingUnit_4'.
+Finding duplicate cells in `\RoundingUnit_4'.
+Finding identical cells in module `\FPToFP_10'.
+Computing hashes of 1 cells of `\FPToFP_10'.
+Finding duplicate cells in `\FPToFP_10'.
+Finding identical cells in module `\FPDownConverter_1'.
+Computing hashes of 38 cells of `\FPDownConverter_1'.
+Finding duplicate cells in `\FPDownConverter_1'.
+Finding identical cells in module `\ShiftRightJam_1'.
+Computing hashes of 9 cells of `\ShiftRightJam_1'.
+Finding duplicate cells in `\ShiftRightJam_1'.
+Finding identical cells in module `\RoundingUnit_2'.
+Computing hashes of 9 cells of `\RoundingUnit_2'.
+Finding duplicate cells in `\RoundingUnit_2'.
+Finding identical cells in module `\FPToFP_9'.
+Computing hashes of 1 cells of `\FPToFP_9'.
+Finding duplicate cells in `\FPToFP_9'.
+Finding identical cells in module `\FPDownConverter'.
+Computing hashes of 38 cells of `\FPDownConverter'.
+Finding duplicate cells in `\FPDownConverter'.
+Finding identical cells in module `\ShiftRightJam'.
+Computing hashes of 9 cells of `\ShiftRightJam'.
+Finding duplicate cells in `\ShiftRightJam'.
+Finding identical cells in module `\RoundingUnit'.
+Computing hashes of 9 cells of `\RoundingUnit'.
+Finding duplicate cells in `\RoundingUnit'.
+Finding identical cells in module `\CompareRecFN_2'.
+Computing hashes of 47 cells of `\CompareRecFN_2'.
+Finding duplicate cells in `\CompareRecFN_2'.
+Finding identical cells in module `\CompareRecFN_1'.
+Computing hashes of 47 cells of `\CompareRecFN_1'.
+Finding duplicate cells in `\CompareRecFN_1'.
+Finding identical cells in module `\CompareRecFN'.
+Computing hashes of 47 cells of `\CompareRecFN'.
+Finding duplicate cells in `\CompareRecFN'.
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 60 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Computing hashes of 52 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Computing hashes of 47 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+<suppressed ~39 debug messages>
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 28 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Finding identical cells in module `\YunSuanFmaPipe'.
+Computing hashes of 39 cells of `\YunSuanFmaPipe'.
+Finding duplicate cells in `\YunSuanFmaPipe'.
+Finding identical cells in module `\Queue'.
+Computing hashes of 53 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Computing hashes of 47 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Computing hashes of 44 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+<suppressed ~27 debug messages>
+Finding identical cells in module `\FloatFMA'.
+Computing hashes of 709 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+Computing hashes of 708 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+Computing hashes of 707 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+Computing hashes of 706 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+<suppressed ~9 debug messages>
+Finding identical cells in module `\CSA_Nto2With3to2MainPipeline'.
+Computing hashes of 26 cells of `\CSA_Nto2With3to2MainPipeline'.
+Finding duplicate cells in `\CSA_Nto2With3to2MainPipeline'.
+Finding identical cells in module `\CSA4to2'.
+Computing hashes of 639 cells of `\CSA4to2'.
+Finding duplicate cells in `\CSA4to2'.
+Finding identical cells in module `\CSA3to2'.
+Computing hashes of 7 cells of `\CSA3to2'.
+Finding duplicate cells in `\CSA3to2'.
+Finding identical cells in module `\BoothEncoderF64F32F16'.
+Computing hashes of 674 cells of `\BoothEncoderF64F32F16'.
+Finding duplicate cells in `\BoothEncoderF64F32F16'.
+Removed a total of 144 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$4348 ($dff) from module AecFp64Unit (D = $or$rtl/sv/generated/fp64/AecFp64Unit.sv:8650$3327_Y, Q = \commitPending, rval = 1'0).
+Adding SRST signal on $procdff$4343 ($dff) from module AecFp64Unit (D = $or$rtl/sv/generated/fp64/AecFp64Unit.sv:8643$3314_Y, Q = \capturePending, rval = 1'0).
+Adding SRST signal on $procdff$4344 ($dff) from module AecFp64Unit (D = $procmux$3700_Y, Q = \group, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$4624 ($sdff) from module AecFp64Unit (D = $procmux$3700_Y, Q = \group).
+Adding SRST signal on $procdff$4345 ($dff) from module AecFp64Unit (D = $procmux$3686_Y, Q = \outValid, rval = 1'0).
+Adding SRST signal on $procdff$4346 ($dff) from module AecFp64Unit (D = $procmux$3672_Y, Q = \running, rval = 1'0).
+Adding SRST signal on $procdff$4347 ($dff) from module AecFp64Unit (D = $or$rtl/sv/generated/fp64/AecFp64Unit.sv:8649$3323_Y, Q = \groupIssued, rval = 1'0).
+Adding SRST signal on $procdff$4358 ($dff) from module AecResultLaneBank (D = $procmux$3723_Y, Q = \result, rval = 64'0000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$4635 ($sdff) from module AecResultLaneBank (D = \stagedResult, Q = \result).
+Adding SRST signal on $procdff$4359 ($dff) from module AecResultLaneBank (D = $procmux$3718_Y, Q = \flags, rval = 5'00000).
+Adding EN signal on $auto$ff.cc:337:slice$4637 ($sdff) from module AecResultLaneBank (D = \stagedFlags, Q = \flags).
+Adding SRST signal on $procdff$4360 ($dff) from module AecResultLaneBank (D = $procmux$3713_Y, Q = \predicate, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4639 ($sdff) from module AecResultLaneBank (D = \stagedPredicate, Q = \predicate).
+Adding SRST signal on $procdff$4361 ($dff) from module AecResultLaneBank (D = $procmux$3708_Y, Q = \error, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4641 ($sdff) from module AecResultLaneBank (D = \stagedError, Q = \error).
+Adding SRST signal on $procdff$4362 ($dff) from module AecResultLaneBank (D = \io_write, Q = \pending, rval = 1'0).
+Adding EN signal on $procdff$4367 ($dff) from module AecWarpRequestBuffer (D = \io_in_op, Q = \op).
+Adding EN signal on $procdff$4368 ($dff) from module AecWarpRequestBuffer (D = \io_in_dtype, Q = \dtype).
+Adding EN signal on $procdff$4369 ($dff) from module AecWarpRequestBuffer (D = \io_in_dest, Q = \dest).
+Adding EN signal on $procdff$4423 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_0 [31:16], Q = \a_0_1).
+Adding EN signal on $procdff$4424 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_0 [47:32], Q = \a_0_2).
+Adding EN signal on $procdff$4425 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_0 [63:48], Q = \a_0_3).
+Adding EN signal on $procdff$4426 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_1 [15:0], Q = \a_1_0).
+Adding EN signal on $procdff$4427 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_1 [31:16], Q = \a_1_1).
+Adding EN signal on $procdff$4428 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_1 [47:32], Q = \a_1_2).
+Adding EN signal on $procdff$4429 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_1 [63:48], Q = \a_1_3).
+Adding EN signal on $procdff$4430 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_2 [15:0], Q = \a_2_0).
+Adding EN signal on $procdff$4431 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_2 [31:16], Q = \a_2_1).
+Adding EN signal on $procdff$4432 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_2 [47:32], Q = \a_2_2).
+Adding EN signal on $procdff$4433 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_2 [63:48], Q = \a_2_3).
+Adding EN signal on $procdff$4434 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_3 [15:0], Q = \a_3_0).
+Adding EN signal on $procdff$4435 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_3 [31:16], Q = \a_3_1).
+Adding EN signal on $procdff$4436 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_3 [47:32], Q = \a_3_2).
+Adding EN signal on $procdff$4437 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_3 [63:48], Q = \a_3_3).
+Adding EN signal on $procdff$4438 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_0 [15:0], Q = \b_0_0).
+Adding EN signal on $procdff$4439 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_0 [31:16], Q = \b_0_1).
+Adding EN signal on $procdff$4440 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_0 [47:32], Q = \b_0_2).
+Adding EN signal on $procdff$4441 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_0 [63:48], Q = \b_0_3).
+Adding EN signal on $procdff$4442 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_1 [15:0], Q = \b_1_0).
+Adding EN signal on $procdff$4443 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_1 [31:16], Q = \b_1_1).
+Adding EN signal on $procdff$4444 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_1 [47:32], Q = \b_1_2).
+Adding EN signal on $procdff$4445 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_1 [63:48], Q = \b_1_3).
+Adding EN signal on $procdff$4446 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_2 [15:0], Q = \b_2_0).
+Adding EN signal on $procdff$4447 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_2 [31:16], Q = \b_2_1).
+Adding EN signal on $procdff$4448 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_2 [47:32], Q = \b_2_2).
+Adding EN signal on $procdff$4449 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_2 [63:48], Q = \b_2_3).
+Adding EN signal on $procdff$4450 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_3 [15:0], Q = \b_3_0).
+Adding EN signal on $procdff$4451 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_3 [31:16], Q = \b_3_1).
+Adding EN signal on $procdff$4452 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_3 [47:32], Q = \b_3_2).
+Adding EN signal on $procdff$4453 ($dff) from module AecWarpRequestLaneBank (D = \io_inB_3 [63:48], Q = \b_3_3).
+Adding EN signal on $procdff$4454 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_0 [15:0], Q = \c_0_0).
+Adding EN signal on $procdff$4455 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_0 [31:16], Q = \c_0_1).
+Adding EN signal on $procdff$4456 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_0 [47:32], Q = \c_0_2).
+Adding EN signal on $procdff$4457 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_0 [63:48], Q = \c_0_3).
+Adding EN signal on $procdff$4458 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_1 [15:0], Q = \c_1_0).
+Adding EN signal on $procdff$4459 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_1 [31:16], Q = \c_1_1).
+Adding EN signal on $procdff$4460 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_1 [47:32], Q = \c_1_2).
+Adding EN signal on $procdff$4461 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_1 [63:48], Q = \c_1_3).
+Adding EN signal on $procdff$4462 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_2 [15:0], Q = \c_2_0).
+Adding EN signal on $procdff$4463 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_2 [31:16], Q = \c_2_1).
+Adding EN signal on $procdff$4464 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_2 [47:32], Q = \c_2_2).
+Adding EN signal on $procdff$4465 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_2 [63:48], Q = \c_2_3).
+Adding EN signal on $procdff$4466 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_3 [15:0], Q = \c_3_0).
+Adding EN signal on $procdff$4467 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_3 [31:16], Q = \c_3_1).
+Adding EN signal on $procdff$4468 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_3 [47:32], Q = \c_3_2).
+Adding EN signal on $procdff$4469 ($dff) from module AecWarpRequestLaneBank (D = \io_inC_3 [63:48], Q = \c_3_3).
+Adding EN signal on $procdff$4470 ($dff) from module AecWarpRequestLaneBank (D = \io_inActive [0], Q = \active_0).
+Adding EN signal on $procdff$4471 ($dff) from module AecWarpRequestLaneBank (D = \io_inActive [1], Q = \active_1).
+Adding EN signal on $procdff$4472 ($dff) from module AecWarpRequestLaneBank (D = \io_inActive [2], Q = \active_2).
+Adding EN signal on $procdff$4473 ($dff) from module AecWarpRequestLaneBank (D = \io_inActive [3], Q = \active_3).
+Adding EN signal on $procdff$4422 ($dff) from module AecWarpRequestLaneBank (D = \io_inA_0 [15:0], Q = \a_0_0).
+Adding SRST signal on $procdff$4474 ($dff) from module AecFpWarpRequestStage (D = $procmux$4053_Y, Q = \dataValid, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4699 ($sdff) from module AecFpWarpRequestStage (D = \selectValid, Q = \dataValid).
+Adding EN signal on $procdff$4475 ($dff) from module AecFpWarpRequestStage (D = $procmux$4047_Y, Q = \data_op).
+Adding EN signal on $procdff$4476 ($dff) from module AecFpWarpRequestStage (D = $procmux$4037_Y, Q = \data_dtype).
+Adding EN signal on $procdff$4477 ($dff) from module AecFpWarpRequestStage (D = $procmux$4027_Y, Q = \data_a).
+Adding EN signal on $procdff$4478 ($dff) from module AecFpWarpRequestStage (D = $procmux$4017_Y, Q = \data_b).
+Adding EN signal on $procdff$4479 ($dff) from module AecFpWarpRequestStage (D = $procmux$4007_Y, Q = \data_c).
+Adding SRST signal on $procdff$4480 ($dff) from module AecFpWarpRequestStage (D = $procmux$3998_Y, Q = \selectValid, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4716 ($sdff) from module AecFpWarpRequestStage (D = \io_inValid, Q = \selectValid).
+Adding EN signal on $procdff$4481 ($dff) from module AecFpWarpRequestStage (D = \io_group, Q = \selectedGroup).
+Adding SRST signal on $procdff$4482 ($dff) from module AecFp64PipeUnit (D = $procmux$4058_Y, Q = \issueSeq, rval = 6'000000).
+Adding EN signal on $auto$ff.cc:337:slice$4721 ($sdff) from module AecFp64PipeUnit (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:4502$2829_Y, Q = \issueSeq).
+Adding SRST signal on $procdff$4483 ($dff) from module Queue_2 (D = $procmux$4118_Y, Q = \enq_ptr_value, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$4723 ($sdff) from module Queue_2 (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:3755$2459_Y, Q = \enq_ptr_value).
+Adding SRST signal on $procdff$4484 ($dff) from module Queue_2 (D = $procmux$4113_Y, Q = \deq_ptr_value, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$4725 ($sdff) from module Queue_2 (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:3756$2460_Y, Q = \deq_ptr_value).
+Adding SRST signal on $procdff$4485 ($dff) from module Queue_2 (D = $procmux$4108_Y, Q = \maybe_full, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4727 ($sdff) from module Queue_2 (D = $and$rtl/sv/generated/fp64/AecFp64Unit.sv:3753$2457_Y, Q = \maybe_full).
+Adding SRST signal on $procdff$4501 ($dff) from module Queue_1 (D = $procmux$4142_Y, Q = \enq_ptr_value, rval = 4'0000).
+Adding EN signal on $auto$ff.cc:337:slice$4729 ($sdff) from module Queue_1 (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:3590$2433_Y, Q = \enq_ptr_value).
+Adding SRST signal on $procdff$4502 ($dff) from module Queue_1 (D = $procmux$4137_Y, Q = \deq_ptr_value, rval = 4'0000).
+Adding EN signal on $auto$ff.cc:337:slice$4731 ($sdff) from module Queue_1 (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:3591$2434_Y, Q = \deq_ptr_value).
+Adding SRST signal on $procdff$4503 ($dff) from module Queue_1 (D = $procmux$4132_Y, Q = \maybe_full, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4733 ($sdff) from module Queue_1 (D = $and$rtl/sv/generated/fp64/AecFp64Unit.sv:3588$2431_Y, Q = \maybe_full).
+Adding EN signal on $procdff$4516 ($dff) from module YunSuanFmaPipe (D = \meta1_dtype, Q = \meta2_dtype).
+Adding SRST signal on $procdff$4507 ($dff) from module YunSuanFmaPipe (D = $procmux$4171_Y, Q = \outstanding, rval = 4'0000).
+Adding EN signal on $auto$ff.cc:337:slice$4736 ($sdff) from module YunSuanFmaPipe (D = $procmux$4169_Y, Q = \outstanding).
+Adding SRST signal on $procdff$4508 ($dff) from module YunSuanFmaPipe (D = $and$rtl/sv/generated/fp64/AecFp64Unit.sv:3385$2409_Y, Q = \valid0, rval = 1'0).
+Adding SRST signal on $procdff$4509 ($dff) from module YunSuanFmaPipe (D = \valid0, Q = \valid1, rval = 1'0).
+Adding SRST signal on $procdff$4510 ($dff) from module YunSuanFmaPipe (D = \valid1, Q = \valid2, rval = 1'0).
+Adding EN signal on $procdff$4511 ($dff) from module YunSuanFmaPipe (D = \io_req_bits_seq, Q = \meta0_seq).
+Adding EN signal on $procdff$4512 ($dff) from module YunSuanFmaPipe (D = \io_req_bits_dtype, Q = \meta0_dtype).
+Adding EN signal on $procdff$4513 ($dff) from module YunSuanFmaPipe (D = \meta0_seq, Q = \meta1_seq).
+Adding EN signal on $procdff$4514 ($dff) from module YunSuanFmaPipe (D = \meta0_dtype, Q = \meta1_dtype).
+Adding EN signal on $procdff$4515 ($dff) from module YunSuanFmaPipe (D = \meta1_seq, Q = \meta2_seq).
+Adding SRST signal on $procdff$4519 ($dff) from module Queue (D = $procmux$4212_Y, Q = \maybe_full, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4746 ($sdff) from module Queue (D = $and$rtl/sv/generated/fp64/AecFp64Unit.sv:3201$2364_Y, Q = \maybe_full).
+Adding SRST signal on $procdff$4517 ($dff) from module Queue (D = $procmux$4222_Y, Q = \enq_ptr_value, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$4748 ($sdff) from module Queue (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:3203$2366_Y, Q = \enq_ptr_value).
+Adding SRST signal on $procdff$4518 ($dff) from module Queue (D = $procmux$4217_Y, Q = \deq_ptr_value, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$4750 ($sdff) from module Queue (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:3204$2367_Y, Q = \deq_ptr_value).
+Adding EN signal on $procdff$4589 ($dff) from module FloatFMA (D = \fp_a_or_b_is_zero_f64_reg2_r_1, Q = \fp_a_or_b_is_zero_f64_reg2).
+Adding EN signal on $procdff$4588 ($dff) from module FloatFMA (D = \fp_a_or_b_is_zero_f64_reg2_r, Q = \fp_a_or_b_is_zero_f64_reg2_r_1).
+Adding EN signal on $procdff$4586 ($dff) from module FloatFMA (D = \has_inf_f64_result_inf_sign_reg2_r_1, Q = \has_inf_f64_result_inf_sign_reg2).
+Adding EN signal on $procdff$4585 ($dff) from module FloatFMA (D = \has_inf_f64_result_inf_sign_reg2_r, Q = \has_inf_f64_result_inf_sign_reg2_r_1).
+Adding EN signal on $procdff$4583 ($dff) from module FloatFMA (D = \has_inf_f64_is_NV_reg2_r_1, Q = \has_inf_f64_is_NV_reg2).
+Adding EN signal on $procdff$4582 ($dff) from module FloatFMA (D = \has_inf_f64_is_NV_reg2_r, Q = \has_inf_f64_is_NV_reg2_r_1).
+Adding EN signal on $procdff$4580 ($dff) from module FloatFMA (D = \has_inf_f64_reg2_r_1, Q = \has_inf_f64_reg2).
+Adding EN signal on $procdff$4579 ($dff) from module FloatFMA (D = \has_inf_f64_reg2_r, Q = \has_inf_f64_reg2_r_1).
+Adding EN signal on $procdff$4577 ($dff) from module FloatFMA (D = \has_nan_f64_is_NV_reg2_r_1, Q = \has_nan_f64_is_NV_reg2).
+Adding EN signal on $procdff$4576 ($dff) from module FloatFMA (D = \has_nan_f64_is_NV_reg2_r, Q = \has_nan_f64_is_NV_reg2_r_1).
+Adding EN signal on $procdff$4574 ($dff) from module FloatFMA (D = \has_nan_f64_reg2_r_1, Q = \has_nan_f64_reg2).
+Adding EN signal on $procdff$4573 ($dff) from module FloatFMA (D = \has_nan_f64_reg2_r, Q = \has_nan_f64_reg2_r_1).
+Adding EN signal on $procdff$4571 ($dff) from module FloatFMA (D = \fp_result_fp_a_or_b_is_zero_reg_r_1, Q = \fp_result_f64_fp_a_or_b_is_zero_reg2).
+Adding EN signal on $procdff$4570 ($dff) from module FloatFMA (D = \fp_result_fp_a_or_b_is_zero_reg_r, Q = \fp_result_fp_a_or_b_is_zero_reg_r_1).
+Adding EN signal on $procdff$4568 ($dff) from module FloatFMA (D = \has_zero_f64_reg2_r_1, Q = \has_zero_f64_reg2_r_2).
+Adding EN signal on $procdff$4567 ($dff) from module FloatFMA (D = \has_zero_f64_reg2_r, Q = \has_zero_f64_reg2_r_1).
+Adding EN signal on $procdff$4565 ($dff) from module FloatFMA (D = \normal_result_is_zero_f64_reg2_r, Q = \normal_result_is_zero_f64_reg2).
+Adding EN signal on $procdff$4564 ($dff) from module FloatFMA (D = $not$rtl/sv/generated/fp64/AecFp64Unit.sv:2625$2276_Y, Q = \normal_result_is_zero_f64_reg2_r).
+Adding EN signal on $procdff$4563 ($dff) from module FloatFMA (D = $and$rtl/sv/generated/fp64/AecFp64Unit.sv:2612$2260_Y, Q = \exponent_is_min_f64).
+Adding EN signal on $procdff$4562 ($dff) from module FloatFMA (D = $procmux$4293_Y, Q = \lshift_value_reg2).
+Adding EN signal on $procdff$4561 ($dff) from module FloatFMA (D = $eq$rtl/sv/generated/fp64/AecFp64Unit.sv:2574$2218_Y, Q = \is_fix_reg2).
+Adding EN signal on $procdff$4560 ($dff) from module FloatFMA (D = $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:2575$2219_Y [107], Q = \round_lshift_uf_f64_reg2).
+Adding EN signal on $procdff$4559 ($dff) from module FloatFMA (D = $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:2575$2219_Y [109], Q = \guard_lshift_f64_reg2).
+Adding EN signal on $procdff$4558 ($dff) from module FloatFMA (D = $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:2575$2219_Y [108], Q = \round_lshift_f64_reg2).
+Adding EN signal on $procdff$4557 ($dff) from module FloatFMA (D = $or$rtl/sv/generated/fp64/AecFp64Unit.sv:2587$2224_Y, Q = \sticky_uf_f64_reg2).
+Adding EN signal on $procdff$4556 ($dff) from module FloatFMA (D = \rshift_sticky_f16, Q = \sticky_uf_f64_reg2_r).
+Adding EN signal on $procdff$4555 ($dff) from module FloatFMA (D = $or$rtl/sv/generated/fp64/AecFp64Unit.sv:2584$2222_Y, Q = \sticky_f64_reg2).
+Adding EN signal on $procdff$4554 ($dff) from module FloatFMA (D = \rshift_sticky_f16, Q = \sticky_f64_reg2_r).
+Adding EN signal on $procdff$4553 ($dff) from module FloatFMA (D = \sign_result_temp_f64_reg2_r_2, Q = \sign_result_temp_f64_reg2).
+Adding EN signal on $procdff$4552 ($dff) from module FloatFMA (D = $procmux$4316_Y, Q = \sign_result_temp_f64_reg2_r_2).
+Adding EN signal on $procdff$4549 ($dff) from module FloatFMA (D = $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:2575$2219_Y [161:110], Q = \fraction_result_no_round_f64_reg2).
+Adding EN signal on $procdff$4548 ($dff) from module FloatFMA (D = { $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1915$1713_Y $add$rtl/sv/generated/fp64/AecFp64Unit.sv:1910$1711_Y [105:0] $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1921$1716_Y }, Q = \adder_f64_reg1).
+Adding EN signal on $procdff$4547 ($dff) from module FloatFMA (D = $eq$rtl/sv/generated/fp64/AecFp64Unit.sv:2534$2206_Y, Q = \lshift_mask_valid_f16_reg1).
+Adding EN signal on $procdff$4546 ($dff) from module FloatFMA (D = $or$rtl/sv/generated/fp64/AecFp64Unit.sv:2280$1991_Y, Q = \lzd_adder_inv_mask_reg1).
+Adding EN signal on $procdff$4545 ($dff) from module FloatFMA (D = { $or$rtl/sv/generated/fp64/AecFp64Unit.sv:1968$1742_Y $or$rtl/sv/generated/fp64/AecFp64Unit.sv:1998$1760_Y $or$rtl/sv/generated/fp64/AecFp64Unit.sv:2023$1775_Y $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1915$1713_Y [52] $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1915$1713_Y [53] $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1915$1713_Y [54] $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1915$1713_Y [55] }, Q = \tzd_adder_reg1).
+Adding SRST signal on $procdff$4544 ($dff) from module FloatFMA (D = $sub$rtl/sv/generated/fp64/AecFp64Unit.sv:1932$1720_Y [11], Q = \lshift_value_max_f64_reg0 [11], rval = 1'0).
+Adding EN signal on $procdff$4543 ($dff) from module FloatFMA (D = \E_greater_reg2_r_1, Q = \E_greater_f64_reg2).
+Adding EN signal on $procdff$4542 ($dff) from module FloatFMA (D = \E_greater_reg2_r, Q = \E_greater_reg2_r_1).
+Adding SRST signal on $procdff$4541 ($dff) from module FloatFMA (D = $add$rtl/sv/generated/fp64/AecFp64Unit.sv:1855$1663_Y [11], Q = \E_greater_reg2_r [11], rval = 1'0).
+Adding EN signal on $procdff$4540 ($dff) from module FloatFMA (D = \adder_is_negative_reg1, Q = \adder_is_negative_f16_reg2).
+Adding EN signal on $procdff$4539 ($dff) from module FloatFMA (D = $ternary$rtl/sv/generated/fp64/AecFp64Unit.sv:1915$1713_Y [55], Q = \adder_is_negative_reg1).
+Adding SRST signal on $procdff$4533 ($dff) from module FloatFMA (D = $procmux$4338_Y, Q = \fire_reg1_last_r, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$4795 ($sdff) from module FloatFMA (D = \fire_reg0_last_r, Q = \fire_reg1_last_r).
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \AecFp64Unit..
+Finding unused cells or wires in module \AecResultLaneBank..
+Finding unused cells or wires in module \AecWarpRequestBuffer..
+Finding unused cells or wires in module \AecWarpRequestLaneBank..
+Finding unused cells or wires in module \AecFpWarpRequestStage..
+Finding unused cells or wires in module \AecFp64PipeUnit..
+Finding unused cells or wires in module \FPToFP_11..
+Finding unused cells or wires in module \FPDownConverter_2..
+Finding unused cells or wires in module \ShiftRightJam_2..
+Finding unused cells or wires in module \RoundingUnit_4..
+Finding unused cells or wires in module \FPToFP_10..
+Finding unused cells or wires in module \FPDownConverter_1..
+Finding unused cells or wires in module \ShiftRightJam_1..
+Finding unused cells or wires in module \RoundingUnit_2..
+Finding unused cells or wires in module \FPToFP_9..
+Finding unused cells or wires in module \FPDownConverter..
+Finding unused cells or wires in module \ShiftRightJam..
+Finding unused cells or wires in module \RoundingUnit..
+Finding unused cells or wires in module \CompareRecFN_2..
+Finding unused cells or wires in module \CompareRecFN_1..
+Finding unused cells or wires in module \CompareRecFN..
+Finding unused cells or wires in module \Queue_2..
+Finding unused cells or wires in module \Queue_1..
+Finding unused cells or wires in module \YunSuanFmaPipe..
+Finding unused cells or wires in module \Queue..
+Finding unused cells or wires in module \FloatFMA..
+Finding unused cells or wires in module \CSA_Nto2With3to2MainPipeline..
+Finding unused cells or wires in module \CSA4to2..
+Finding unused cells or wires in module \CSA3to2..
+Finding unused cells or wires in module \BoothEncoderF64F32F16..
+Removed 193 unused cells and 3859 unused wires.
+<suppressed ~229 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module AecFp64Unit.
+<suppressed ~1 debug messages>
+Optimizing module AecResultLaneBank.
+Optimizing module AecWarpRequestBuffer.
+Optimizing module AecWarpRequestLaneBank.
+Optimizing module AecFpWarpRequestStage.
+Optimizing module AecFp64PipeUnit.
+Optimizing module FPToFP_11.
+Optimizing module FPDownConverter_2.
+Optimizing module ShiftRightJam_2.
+Optimizing module RoundingUnit_4.
+Optimizing module FPToFP_10.
+Optimizing module FPDownConverter_1.
+Optimizing module ShiftRightJam_1.
+Optimizing module RoundingUnit_2.
+Optimizing module FPToFP_9.
+Optimizing module FPDownConverter.
+Optimizing module ShiftRightJam.
+Optimizing module RoundingUnit.
+Optimizing module CompareRecFN_2.
+Optimizing module CompareRecFN_1.
+Optimizing module CompareRecFN.
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module YunSuanFmaPipe.
+Optimizing module Queue.
+Optimizing module FloatFMA.
+Optimizing module CSA_Nto2With3to2MainPipeline.
+Optimizing module CSA4to2.
+Optimizing module CSA3to2.
+Optimizing module BoothEncoderF64F32F16.
+<suppressed ~12 debug messages>
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \AecFp64Unit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecResultLaneBank..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \AecWarpRequestBuffer..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \AecWarpRequestLaneBank..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecFpWarpRequestStage..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecFp64PipeUnit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_11..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit_4..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_10..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_9..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CompareRecFN_2..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CompareRecFN_1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CompareRecFN..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Queue_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \YunSuanFmaPipe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FloatFMA..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CSA_Nto2With3to2MainPipeline..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CSA4to2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CSA3to2..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \BoothEncoderF64F32F16..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2085 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \AecFp64Unit.
+  Optimizing cells in module \AecResultLaneBank.
+  Optimizing cells in module \AecWarpRequestBuffer.
+  Optimizing cells in module \AecWarpRequestLaneBank.
+  Optimizing cells in module \AecFpWarpRequestStage.
+  Optimizing cells in module \AecFp64PipeUnit.
+  Optimizing cells in module \FPToFP_11.
+  Optimizing cells in module \FPDownConverter_2.
+  Optimizing cells in module \ShiftRightJam_2.
+  Optimizing cells in module \RoundingUnit_4.
+  Optimizing cells in module \FPToFP_10.
+  Optimizing cells in module \FPDownConverter_1.
+  Optimizing cells in module \ShiftRightJam_1.
+  Optimizing cells in module \RoundingUnit_2.
+  Optimizing cells in module \FPToFP_9.
+  Optimizing cells in module \FPDownConverter.
+  Optimizing cells in module \ShiftRightJam.
+  Optimizing cells in module \RoundingUnit.
+  Optimizing cells in module \CompareRecFN_2.
+  Optimizing cells in module \CompareRecFN_1.
+  Optimizing cells in module \CompareRecFN.
+  Optimizing cells in module \Queue_2.
+  Optimizing cells in module \Queue_1.
+  Optimizing cells in module \YunSuanFmaPipe.
+  Optimizing cells in module \Queue.
+  Optimizing cells in module \FloatFMA.
+  Optimizing cells in module \CSA_Nto2With3to2MainPipeline.
+  Optimizing cells in module \CSA4to2.
+  Optimizing cells in module \CSA3to2.
+  Optimizing cells in module \BoothEncoderF64F32F16.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\AecFp64Unit'.
+Computing hashes of 250 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Computing hashes of 249 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\AecResultLaneBank'.
+Computing hashes of 9 cells of `\AecResultLaneBank'.
+Finding duplicate cells in `\AecResultLaneBank'.
+Finding identical cells in module `\AecWarpRequestBuffer'.
+Computing hashes of 11 cells of `\AecWarpRequestBuffer'.
+Finding duplicate cells in `\AecWarpRequestBuffer'.
+Finding identical cells in module `\AecWarpRequestLaneBank'.
+Computing hashes of 54 cells of `\AecWarpRequestLaneBank'.
+Finding duplicate cells in `\AecWarpRequestLaneBank'.
+Finding identical cells in module `\AecFpWarpRequestStage'.
+Computing hashes of 36 cells of `\AecFpWarpRequestStage'.
+Finding duplicate cells in `\AecFpWarpRequestStage'.
+Computing hashes of 32 cells of `\AecFpWarpRequestStage'.
+Finding duplicate cells in `\AecFpWarpRequestStage'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\AecFp64PipeUnit'.
+Computing hashes of 408 cells of `\AecFp64PipeUnit'.
+Finding duplicate cells in `\AecFp64PipeUnit'.
+Finding identical cells in module `\FPToFP_11'.
+Computing hashes of 1 cells of `\FPToFP_11'.
+Finding duplicate cells in `\FPToFP_11'.
+Finding identical cells in module `\FPDownConverter_2'.
+Computing hashes of 37 cells of `\FPDownConverter_2'.
+Finding duplicate cells in `\FPDownConverter_2'.
+Finding identical cells in module `\ShiftRightJam_2'.
+Computing hashes of 9 cells of `\ShiftRightJam_2'.
+Finding duplicate cells in `\ShiftRightJam_2'.
+Finding identical cells in module `\RoundingUnit_4'.
+Computing hashes of 9 cells of `\RoundingUnit_4'.
+Finding duplicate cells in `\RoundingUnit_4'.
+Finding identical cells in module `\FPToFP_10'.
+Computing hashes of 1 cells of `\FPToFP_10'.
+Finding duplicate cells in `\FPToFP_10'.
+Finding identical cells in module `\FPDownConverter_1'.
+Computing hashes of 37 cells of `\FPDownConverter_1'.
+Finding duplicate cells in `\FPDownConverter_1'.
+Finding identical cells in module `\ShiftRightJam_1'.
+Computing hashes of 9 cells of `\ShiftRightJam_1'.
+Finding duplicate cells in `\ShiftRightJam_1'.
+Finding identical cells in module `\RoundingUnit_2'.
+Computing hashes of 9 cells of `\RoundingUnit_2'.
+Finding duplicate cells in `\RoundingUnit_2'.
+Finding identical cells in module `\FPToFP_9'.
+Computing hashes of 1 cells of `\FPToFP_9'.
+Finding duplicate cells in `\FPToFP_9'.
+Finding identical cells in module `\FPDownConverter'.
+Computing hashes of 37 cells of `\FPDownConverter'.
+Finding duplicate cells in `\FPDownConverter'.
+Finding identical cells in module `\ShiftRightJam'.
+Computing hashes of 9 cells of `\ShiftRightJam'.
+Finding duplicate cells in `\ShiftRightJam'.
+Finding identical cells in module `\RoundingUnit'.
+Computing hashes of 9 cells of `\RoundingUnit'.
+Finding duplicate cells in `\RoundingUnit'.
+Finding identical cells in module `\CompareRecFN_2'.
+Computing hashes of 47 cells of `\CompareRecFN_2'.
+Finding duplicate cells in `\CompareRecFN_2'.
+Finding identical cells in module `\CompareRecFN_1'.
+Computing hashes of 47 cells of `\CompareRecFN_1'.
+Finding duplicate cells in `\CompareRecFN_1'.
+Finding identical cells in module `\CompareRecFN'.
+Computing hashes of 47 cells of `\CompareRecFN'.
+Finding duplicate cells in `\CompareRecFN'.
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 31 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 19 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Finding identical cells in module `\YunSuanFmaPipe'.
+Computing hashes of 28 cells of `\YunSuanFmaPipe'.
+Finding duplicate cells in `\YunSuanFmaPipe'.
+Finding identical cells in module `\Queue'.
+Computing hashes of 29 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Finding identical cells in module `\FloatFMA'.
+Computing hashes of 667 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+Computing hashes of 666 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\CSA_Nto2With3to2MainPipeline'.
+Computing hashes of 26 cells of `\CSA_Nto2With3to2MainPipeline'.
+Finding duplicate cells in `\CSA_Nto2With3to2MainPipeline'.
+Finding identical cells in module `\CSA4to2'.
+Computing hashes of 639 cells of `\CSA4to2'.
+Finding duplicate cells in `\CSA4to2'.
+Finding identical cells in module `\CSA3to2'.
+Computing hashes of 7 cells of `\CSA3to2'.
+Finding duplicate cells in `\CSA3to2'.
+Finding identical cells in module `\BoothEncoderF64F32F16'.
+Computing hashes of 662 cells of `\BoothEncoderF64F32F16'.
+Finding duplicate cells in `\BoothEncoderF64F32F16'.
+Removed a total of 6 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$4351 ($dff) from module AecFp64Unit (D = \armCapture, Q = \armClusters_1, rval = 1'0).
+Adding SRST signal on $procdff$4421 ($dff) from module AecWarpRequestLaneBank (D = \io_arm, Q = \maskCapture_3, rval = 1'0).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \AecFp64Unit..
+Finding unused cells or wires in module \AecResultLaneBank..
+Finding unused cells or wires in module \AecWarpRequestBuffer..
+Finding unused cells or wires in module \AecWarpRequestLaneBank..
+Finding unused cells or wires in module \AecFpWarpRequestStage..
+Finding unused cells or wires in module \AecFp64PipeUnit..
+Finding unused cells or wires in module \FPToFP_11..
+Finding unused cells or wires in module \FPDownConverter_2..
+Finding unused cells or wires in module \ShiftRightJam_2..
+Finding unused cells or wires in module \RoundingUnit_4..
+Finding unused cells or wires in module \FPToFP_10..
+Finding unused cells or wires in module \FPDownConverter_1..
+Finding unused cells or wires in module \ShiftRightJam_1..
+Finding unused cells or wires in module \RoundingUnit_2..
+Finding unused cells or wires in module \FPToFP_9..
+Finding unused cells or wires in module \FPDownConverter..
+Finding unused cells or wires in module \ShiftRightJam..
+Finding unused cells or wires in module \RoundingUnit..
+Finding unused cells or wires in module \CompareRecFN_2..
+Finding unused cells or wires in module \CompareRecFN_1..
+Finding unused cells or wires in module \CompareRecFN..
+Finding unused cells or wires in module \Queue_2..
+Finding unused cells or wires in module \Queue_1..
+Finding unused cells or wires in module \YunSuanFmaPipe..
+Finding unused cells or wires in module \Queue..
+Finding unused cells or wires in module \FloatFMA..
+Finding unused cells or wires in module \CSA_Nto2With3to2MainPipeline..
+Finding unused cells or wires in module \CSA4to2..
+Finding unused cells or wires in module \CSA3to2..
+Finding unused cells or wires in module \BoothEncoderF64F32F16..
+Removed 2 unused cells and 13 unused wires.
+<suppressed ~6 debug messages>
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module AecFp64Unit.
+Optimizing module AecResultLaneBank.
+Optimizing module AecWarpRequestBuffer.
+Optimizing module AecWarpRequestLaneBank.
+Optimizing module AecFpWarpRequestStage.
+Optimizing module AecFp64PipeUnit.
+Optimizing module FPToFP_11.
+Optimizing module FPDownConverter_2.
+Optimizing module ShiftRightJam_2.
+Optimizing module RoundingUnit_4.
+Optimizing module FPToFP_10.
+Optimizing module FPDownConverter_1.
+Optimizing module ShiftRightJam_1.
+Optimizing module RoundingUnit_2.
+Optimizing module FPToFP_9.
+Optimizing module FPDownConverter.
+Optimizing module ShiftRightJam.
+Optimizing module RoundingUnit.
+Optimizing module CompareRecFN_2.
+Optimizing module CompareRecFN_1.
+Optimizing module CompareRecFN.
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module YunSuanFmaPipe.
+Optimizing module Queue.
+Optimizing module FloatFMA.
+Optimizing module CSA_Nto2With3to2MainPipeline.
+Optimizing module CSA4to2.
+Optimizing module CSA3to2.
+Optimizing module BoothEncoderF64F32F16.
+
+4.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \AecFp64Unit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecResultLaneBank..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \AecWarpRequestBuffer..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \AecWarpRequestLaneBank..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \AecFpWarpRequestStage..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecFp64PipeUnit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_11..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit_4..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_10..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FPToFP_9..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \FPDownConverter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ShiftRightJam..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \RoundingUnit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CompareRecFN_2..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CompareRecFN_1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CompareRecFN..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Queue_2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue_1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \YunSuanFmaPipe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \Queue..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \FloatFMA..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CSA_Nto2With3to2MainPipeline..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \CSA4to2..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \CSA3to2..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \BoothEncoderF64F32F16..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2081 debug messages>
+
+4.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \AecFp64Unit.
+  Optimizing cells in module \AecResultLaneBank.
+  Optimizing cells in module \AecWarpRequestBuffer.
+  Optimizing cells in module \AecWarpRequestLaneBank.
+  Optimizing cells in module \AecFpWarpRequestStage.
+  Optimizing cells in module \AecFp64PipeUnit.
+  Optimizing cells in module \FPToFP_11.
+  Optimizing cells in module \FPDownConverter_2.
+  Optimizing cells in module \ShiftRightJam_2.
+  Optimizing cells in module \RoundingUnit_4.
+  Optimizing cells in module \FPToFP_10.
+  Optimizing cells in module \FPDownConverter_1.
+  Optimizing cells in module \ShiftRightJam_1.
+  Optimizing cells in module \RoundingUnit_2.
+  Optimizing cells in module \FPToFP_9.
+  Optimizing cells in module \FPDownConverter.
+  Optimizing cells in module \ShiftRightJam.
+  Optimizing cells in module \RoundingUnit.
+  Optimizing cells in module \CompareRecFN_2.
+  Optimizing cells in module \CompareRecFN_1.
+  Optimizing cells in module \CompareRecFN.
+  Optimizing cells in module \Queue_2.
+  Optimizing cells in module \Queue_1.
+  Optimizing cells in module \YunSuanFmaPipe.
+  Optimizing cells in module \Queue.
+  Optimizing cells in module \FloatFMA.
+  Optimizing cells in module \CSA_Nto2With3to2MainPipeline.
+  Optimizing cells in module \CSA4to2.
+  Optimizing cells in module \CSA3to2.
+  Optimizing cells in module \BoothEncoderF64F32F16.
+Performed a total of 0 changes.
+
+4.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\AecFp64Unit'.
+Computing hashes of 248 cells of `\AecFp64Unit'.
+Finding duplicate cells in `\AecFp64Unit'.
+Finding identical cells in module `\AecResultLaneBank'.
+Computing hashes of 9 cells of `\AecResultLaneBank'.
+Finding duplicate cells in `\AecResultLaneBank'.
+Finding identical cells in module `\AecWarpRequestBuffer'.
+Computing hashes of 11 cells of `\AecWarpRequestBuffer'.
+Finding duplicate cells in `\AecWarpRequestBuffer'.
+Finding identical cells in module `\AecWarpRequestLaneBank'.
+Computing hashes of 53 cells of `\AecWarpRequestLaneBank'.
+Finding duplicate cells in `\AecWarpRequestLaneBank'.
+Finding identical cells in module `\AecFpWarpRequestStage'.
+Computing hashes of 32 cells of `\AecFpWarpRequestStage'.
+Finding duplicate cells in `\AecFpWarpRequestStage'.
+Finding identical cells in module `\AecFp64PipeUnit'.
+Computing hashes of 408 cells of `\AecFp64PipeUnit'.
+Finding duplicate cells in `\AecFp64PipeUnit'.
+Finding identical cells in module `\FPToFP_11'.
+Computing hashes of 1 cells of `\FPToFP_11'.
+Finding duplicate cells in `\FPToFP_11'.
+Finding identical cells in module `\FPDownConverter_2'.
+Computing hashes of 37 cells of `\FPDownConverter_2'.
+Finding duplicate cells in `\FPDownConverter_2'.
+Finding identical cells in module `\ShiftRightJam_2'.
+Computing hashes of 9 cells of `\ShiftRightJam_2'.
+Finding duplicate cells in `\ShiftRightJam_2'.
+Finding identical cells in module `\RoundingUnit_4'.
+Computing hashes of 9 cells of `\RoundingUnit_4'.
+Finding duplicate cells in `\RoundingUnit_4'.
+Finding identical cells in module `\FPToFP_10'.
+Computing hashes of 1 cells of `\FPToFP_10'.
+Finding duplicate cells in `\FPToFP_10'.
+Finding identical cells in module `\FPDownConverter_1'.
+Computing hashes of 37 cells of `\FPDownConverter_1'.
+Finding duplicate cells in `\FPDownConverter_1'.
+Finding identical cells in module `\ShiftRightJam_1'.
+Computing hashes of 9 cells of `\ShiftRightJam_1'.
+Finding duplicate cells in `\ShiftRightJam_1'.
+Finding identical cells in module `\RoundingUnit_2'.
+Computing hashes of 9 cells of `\RoundingUnit_2'.
+Finding duplicate cells in `\RoundingUnit_2'.
+Finding identical cells in module `\FPToFP_9'.
+Computing hashes of 1 cells of `\FPToFP_9'.
+Finding duplicate cells in `\FPToFP_9'.
+Finding identical cells in module `\FPDownConverter'.
+Computing hashes of 37 cells of `\FPDownConverter'.
+Finding duplicate cells in `\FPDownConverter'.
+Finding identical cells in module `\ShiftRightJam'.
+Computing hashes of 9 cells of `\ShiftRightJam'.
+Finding duplicate cells in `\ShiftRightJam'.
+Finding identical cells in module `\RoundingUnit'.
+Computing hashes of 9 cells of `\RoundingUnit'.
+Finding duplicate cells in `\RoundingUnit'.
+Finding identical cells in module `\CompareRecFN_2'.
+Computing hashes of 47 cells of `\CompareRecFN_2'.
+Finding duplicate cells in `\CompareRecFN_2'.
+Finding identical cells in module `\CompareRecFN_1'.
+Computing hashes of 47 cells of `\CompareRecFN_1'.
+Finding duplicate cells in `\CompareRecFN_1'.
+Finding identical cells in module `\CompareRecFN'.
+Computing hashes of 47 cells of `\CompareRecFN'.
+Finding duplicate cells in `\CompareRecFN'.
+Finding identical cells in module `\Queue_2'.
+Computing hashes of 31 cells of `\Queue_2'.
+Finding duplicate cells in `\Queue_2'.
+Finding identical cells in module `\Queue_1'.
+Computing hashes of 19 cells of `\Queue_1'.
+Finding duplicate cells in `\Queue_1'.
+Finding identical cells in module `\YunSuanFmaPipe'.
+Computing hashes of 28 cells of `\YunSuanFmaPipe'.
+Finding duplicate cells in `\YunSuanFmaPipe'.
+Finding identical cells in module `\Queue'.
+Computing hashes of 29 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Finding identical cells in module `\FloatFMA'.
+Computing hashes of 666 cells of `\FloatFMA'.
+Finding duplicate cells in `\FloatFMA'.
+Finding identical cells in module `\CSA_Nto2With3to2MainPipeline'.
+Computing hashes of 26 cells of `\CSA_Nto2With3to2MainPipeline'.
+Finding duplicate cells in `\CSA_Nto2With3to2MainPipeline'.
+Finding identical cells in module `\CSA4to2'.
+Computing hashes of 639 cells of `\CSA4to2'.
+Finding duplicate cells in `\CSA4to2'.
+Finding identical cells in module `\CSA3to2'.
+Computing hashes of 7 cells of `\CSA3to2'.
+Finding duplicate cells in `\CSA3to2'.
+Finding identical cells in module `\BoothEncoderF64F32F16'.
+Computing hashes of 662 cells of `\BoothEncoderF64F32F16'.
+Finding duplicate cells in `\BoothEncoderF64F32F16'.
+Removed a total of 0 cells.
+
+4.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \AecFp64Unit..
+Finding unused cells or wires in module \AecResultLaneBank..
+Finding unused cells or wires in module \AecWarpRequestBuffer..
+Finding unused cells or wires in module \AecWarpRequestLaneBank..
+Finding unused cells or wires in module \AecFpWarpRequestStage..
+Finding unused cells or wires in module \AecFp64PipeUnit..
+Finding unused cells or wires in module \FPToFP_11..
+Finding unused cells or wires in module \FPDownConverter_2..
+Finding unused cells or wires in module \ShiftRightJam_2..
+Finding unused cells or wires in module \RoundingUnit_4..
+Finding unused cells or wires in module \FPToFP_10..
+Finding unused cells or wires in module \FPDownConverter_1..
+Finding unused cells or wires in module \ShiftRightJam_1..
+Finding unused cells or wires in module \RoundingUnit_2..
+Finding unused cells or wires in module \FPToFP_9..
+Finding unused cells or wires in module \FPDownConverter..
+Finding unused cells or wires in module \ShiftRightJam..
+Finding unused cells or wires in module \RoundingUnit..
+Finding unused cells or wires in module \CompareRecFN_2..
+Finding unused cells or wires in module \CompareRecFN_1..
+Finding unused cells or wires in module \CompareRecFN..
+Finding unused cells or wires in module \Queue_2..
+Finding unused cells or wires in module \Queue_1..
+Finding unused cells or wires in module \YunSuanFmaPipe..
+Finding unused cells or wires in module \Queue..
+Finding unused cells or wires in module \FloatFMA..
+Finding unused cells or wires in module \CSA_Nto2With3to2MainPipeline..
+Finding unused cells or wires in module \CSA4to2..
+Finding unused cells or wires in module \CSA3to2..
+Finding unused cells or wires in module \BoothEncoderF64F32F16..
+
+4.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module AecFp64Unit.
+Optimizing module AecResultLaneBank.
+Optimizing module AecWarpRequestBuffer.
+Optimizing module AecWarpRequestLaneBank.
+Optimizing module AecFpWarpRequestStage.
+Optimizing module AecFp64PipeUnit.
+Optimizing module FPToFP_11.
+Optimizing module FPDownConverter_2.
+Optimizing module ShiftRightJam_2.
+Optimizing module RoundingUnit_4.
+Optimizing module FPToFP_10.
+Optimizing module FPDownConverter_1.
+Optimizing module ShiftRightJam_1.
+Optimizing module RoundingUnit_2.
+Optimizing module FPToFP_9.
+Optimizing module FPDownConverter.
+Optimizing module ShiftRightJam.
+Optimizing module RoundingUnit.
+Optimizing module CompareRecFN_2.
+Optimizing module CompareRecFN_1.
+Optimizing module CompareRecFN.
+Optimizing module Queue_2.
+Optimizing module Queue_1.
+Optimizing module YunSuanFmaPipe.
+Optimizing module Queue.
+Optimizing module FloatFMA.
+Optimizing module CSA_Nto2With3to2MainPipeline.
+Optimizing module CSA4to2.
+Optimizing module CSA3to2.
+Optimizing module BoothEncoderF64F32F16.
+
+4.23. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Printing statistics.
+
+=== AecFp64Unit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1262 wires
+    36326 wire bits
+     1222 public wires
+    36283 public wire bits
+      176 ports
+     8557 port bits
+      199 cells
+        1   $add
+       99   $and
+        3   $eq
+        1   $logic_not
+       73   $mux
+        6   $not
+        5   $or
+        1   $reduce_bool
+        3   $reduce_or
+        6   $sdff
+        1   $sdffe
+       49 submodules
+        8   AecFp64PipeUnit
+        8   AecFpWarpRequestStage
+       32   AecResultLaneBank
+        1   AecWarpRequestBuffer
+
+=== AecResultLaneBank ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       20 wires
+      288 wire bits
+       20 public wires
+      288 public wire bits
+       11 ports
+      145 port bits
+        9 cells
+        4   $dff
+        1   $sdff
+        4   $sdffe
+
+=== AecWarpRequestBuffer ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      448 wires
+    24855 wire bits
+      448 public wires
+    24855 public wire bits
+      211 ports
+    12419 port bits
+        3 cells
+        3   $dffe
+        8 submodules
+        8   AecWarpRequestLaneBank
+
+=== AecWarpRequestLaneBank ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      159 wires
+     3143 wire bits
+      159 public wires
+     3143 public wire bits
+       29 ports
+     1547 port bits
+       53 cells
+       52   $dffe
+        1   $sdff
+
+=== AecFpWarpRequestStage ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       64 wires
+     1848 wire bits
+       47 public wires
+     1435 public wire bits
+       32 ports
+     1023 port bits
+       32 cells
+        6   $dffe
+        3   $eq
+       15   $mux
+        2   $not
+        2   $or
+        2   $reduce_and
+        2   $sdffe
+
+=== AecFp64PipeUnit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      557 wires
+     7752 wire bits
+      505 public wires
+     7700 public wire bits
+       15 ports
+      280 port bits
+      399 cells
+        7   $add
+       39   $and
+       32   $eq
+        2   $ge
+       15   $logic_not
+        2   $lt
+      247   $mux
+       18   $not
+       22   $or
+        2   $reduce_and
+        3   $reduce_or
+        1   $sdffe
+        6   $shl
+        2   $sub
+        1   $xor
+        9 submodules
+        1   CompareRecFN
+        1   CompareRecFN_1
+        1   CompareRecFN_2
+        1   FPToFP_10
+        1   FPToFP_11
+        1   FPToFP_9
+        1   Queue_1
+        1   Queue_2
+        1   YunSuanFmaPipe
+
+=== FPToFP_11 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        4 wires
+      192 wire bits
+        4 public wires
+      192 public wire bits
+        2 ports
+       96 port bits
+        1 submodules
+        1   FPDownConverter_2
+
+=== FPDownConverter_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       56 wires
+      619 wire bits
+       54 public wires
+      617 public wire bits
+        2 ports
+       96 port bits
+       34 cells
+        1   $add
+        5   $and
+        2   $gt
+        1   $lt
+       10   $mux
+        3   $not
+        6   $or
+        1   $reduce_and
+        3   $reduce_or
+        2   $sub
+        3 submodules
+        2   RoundingUnit_4
+        1   ShiftRightJam_2
+
+=== ShiftRightJam_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       12 wires
+      232 wire bits
+       12 public wires
+      232 public wire bits
+        4 ports
+       62 port bits
+        9 cells
+        1   $and
+        1   $gt
+        2   $mux
+        1   $or
+        1   $reduce_or
+        1   $shl
+        1   $shr
+        1   $sub
+
+=== RoundingUnit_4 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       13 wires
+       79 wire bits
+        8 public wires
+       74 public wire bits
+        5 ports
+       49 port bits
+        9 cells
+        1   $add
+        4   $and
+        1   $mux
+        1   $not
+        1   $or
+        1   $reduce_and
+
+=== FPToFP_10 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        4 wires
+      160 wire bits
+        4 public wires
+      160 public wire bits
+        2 ports
+       80 port bits
+        1 submodules
+        1   FPDownConverter_1
+
+=== FPDownConverter_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       56 wires
+      395 wire bits
+       54 public wires
+      393 public wire bits
+        2 ports
+       80 port bits
+       34 cells
+        1   $add
+        5   $and
+        2   $gt
+        1   $lt
+       10   $mux
+        3   $not
+        6   $or
+        1   $reduce_and
+        3   $reduce_or
+        2   $sub
+        3 submodules
+        2   RoundingUnit_2
+        1   ShiftRightJam_1
+
+=== ShiftRightJam_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       12 wires
+      103 wire bits
+       12 public wires
+      103 public wire bits
+        4 ports
+       30 port bits
+        9 cells
+        1   $and
+        1   $gt
+        2   $mux
+        1   $or
+        1   $reduce_or
+        1   $shl
+        1   $shr
+        1   $sub
+
+=== RoundingUnit_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       13 wires
+       31 wire bits
+        8 public wires
+       26 public wire bits
+        5 ports
+       17 port bits
+        9 cells
+        1   $add
+        4   $and
+        1   $mux
+        1   $not
+        1   $or
+        1   $reduce_and
+
+=== FPToFP_9 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        4 wires
+      160 wire bits
+        4 public wires
+      160 public wire bits
+        2 ports
+       80 port bits
+        1 submodules
+        1   FPDownConverter
+
+=== FPDownConverter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       56 wires
+      407 wire bits
+       54 public wires
+      405 public wire bits
+        2 ports
+       80 port bits
+       34 cells
+        1   $add
+        5   $and
+        2   $gt
+        1   $lt
+       10   $mux
+        3   $not
+        6   $or
+        1   $reduce_and
+        3   $reduce_or
+        2   $sub
+        3 submodules
+        2   RoundingUnit
+        1   ShiftRightJam
+
+=== ShiftRightJam ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       12 wires
+      121 wire bits
+       12 public wires
+      121 public wire bits
+        4 ports
+       36 port bits
+        9 cells
+        1   $and
+        1   $gt
+        2   $mux
+        1   $or
+        1   $reduce_or
+        1   $shl
+        1   $shr
+        1   $sub
+
+=== RoundingUnit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       13 wires
+       40 wire bits
+        8 public wires
+       35 public wire bits
+        5 ports
+       23 port bits
+        9 cells
+        1   $add
+        4   $and
+        1   $mux
+        1   $not
+        1   $or
+        1   $reduce_and
+
+=== CompareRecFN_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       57 wires
+      337 wire bits
+       36 public wires
+      316 public wire bits
+        5 ports
+      133 port bits
+       47 cells
+       20   $and
+        5   $eq
+        2   $logic_not
+        2   $lt
+       13   $not
+        5   $or
+
+=== CompareRecFN_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       57 wires
+      203 wire bits
+       36 public wires
+      182 public wire bits
+        5 ports
+       69 port bits
+       47 cells
+       20   $and
+        5   $eq
+        2   $logic_not
+        2   $lt
+       13   $not
+        5   $or
+
+=== CompareRecFN ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       57 wires
+      133 wire bits
+       36 public wires
+      112 public wire bits
+        5 ports
+       37 port bits
+       47 cells
+       20   $and
+        5   $eq
+        2   $logic_not
+        2   $lt
+       13   $not
+        5   $or
+
+=== Queue_2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       70 wires
+      848 wire bits
+       61 public wires
+      635 public wire bits
+       16 ports
+      296 port bits
+        5 memories
+      580 memory bits
+       31 cells
+        2   $add
+        4   $and
+        1   $eq
+        5   $memrd
+        5   $memwr_v2
+        7   $mux
+        1   $ne
+        3   $not
+        3   $sdffe
+
+=== Queue_1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       30 wires
+       81 wire bits
+       25 public wires
+       63 public wire bits
+        8 ports
+       18 port bits
+        1 memories
+       96 memory bits
+       19 cells
+        2   $add
+        4   $and
+        1   $eq
+        1   $memrd
+        1   $memwr_v2
+        3   $mux
+        1   $ne
+        3   $not
+        3   $sdffe
+
+=== YunSuanFmaPipe ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       60 wires
+      909 wire bits
+       56 public wires
+      902 public wire bits
+       16 ports
+      294 port bits
+       26 cells
+        1   $add
+        2   $and
+        6   $dffe
+        3   $eq
+        1   $lt
+        5   $mux
+        1   $ne
+        1   $not
+        1   $or
+        3   $sdff
+        1   $sdffe
+        1   $sub
+        2 submodules
+        1   FloatFMA
+        1   Queue
+
+=== Queue ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       61 wires
+      465 wire bits
+       52 public wires
+      376 public wire bits
+       14 ports
+      164 port bits
+        4 memories
+      632 memory bits
+       29 cells
+        2   $add
+        4   $and
+        1   $eq
+        4   $memrd
+        4   $memwr_v2
+        6   $mux
+        1   $ne
+        3   $not
+        1   $or
+        3   $sdffe
+
+=== FloatFMA ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      997 wires
+    35893 wire bits
+      905 public wires
+    35618 public wire bits
+        8 ports
+      267 port bits
+      663 cells
+        8   $add
+       35   $and
+       18   $dff
+       38   $dffe
+        5   $eq
+        2   $gt
+        1   $le
+        1   $logic_not
+        2   $lt
+      391   $mux
+       32   $not
+       90   $or
+        5   $reduce_and
+       21   $reduce_or
+        2   $sdff
+        1   $sdffe
+        1   $shr
+        5   $sub
+        5   $xor
+        3 submodules
+        1   BoothEncoderF64F32F16
+        1   CSA3to2
+        1   CSA_Nto2With3to2MainPipeline
+
+=== CSA_Nto2With3to2MainPipeline ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      147 wires
+    15623 wire bits
+      147 public wires
+    15623 public wire bits
+       30 ports
+     3104 port bits
+        4 cells
+        4   $dff
+       22 submodules
+       19   CSA3to2
+        3   CSA4to2
+
+=== CSA4to2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      677 wires
+     1807 wire bits
+      569 public wires
+     1699 public wire bits
+        6 ports
+      642 port bits
+      639 cells
+      212   $mux
+      427   $xor
+
+=== CSA3to2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       11 wires
+     1177 wire bits
+       11 public wires
+     1177 public wire bits
+        5 ports
+      535 port bits
+        7 cells
+        3   $and
+        2   $or
+        2   $xor
+
+=== BoothEncoderF64F32F16 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      757 wires
+    22968 wire bits
+      601 public wires
+    22812 public wire bits
+       29 ports
+     2995 port bits
+      662 cells
+      108   $and
+      156   $eq
+      264   $mux
+       27   $not
+      107   $or
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+    34882 AecFp64Unit
+      399 AecFp64PipeUnit
+       47   CompareRecFN
+       47   CompareRecFN_1
+       47   CompareRecFN_2
+       34     FPDownConverter_1
+        9       RoundingUnit_2
+        9       ShiftRightJam_1
+       34     FPDownConverter_2
+        9       RoundingUnit_4
+        9       ShiftRightJam_2
+       34     FPDownConverter
+        9       RoundingUnit
+        9       ShiftRightJam
+       19   Queue_1
+       31   Queue_2
+       26   YunSuanFmaPipe
+      663     FloatFMA
+      662       BoothEncoderF64F32F16
+        7       CSA3to2
+        4       CSA_Nto2With3to2MainPipeline
+        7         CSA3to2
+      639         CSA4to2
+       29     Queue
+       32 AecFpWarpRequestStage
+        9 AecResultLaneBank
+        3 AecWarpRequestBuffer
+       53   AecWarpRequestLaneBank
+
+        +----------Count including submodules.
+        | 
+    47294 wires
+  1045221 wire bits
+    41118 public wires
+  1032010 public wire bits
+     3811 ports
+   214984 port bits
+       80 memories
+    10464 memory bits
+        - processes
+    34882 cells
+      249   $add
+     2963   $and
+      304   $dff
+      819   $dffe
+     1739   $eq
+       16   $ge
+       88   $gt
+        8   $le
+      177   $logic_not
+      112   $lt
+       80   $memrd
+       80   $memwr_v2
+    13001   $mux
+       32   $ne
+     1150   $not
+     2445   $or
+      144   $reduce_and
+        1   $reduce_bool
+      291   $reduce_or
+       86   $sdff
+      241   $sdffe
+       72   $shl
+       32   $shr
+      136   $sub
+    10616   $xor
+       49 submodules
+        8   AecFp64PipeUnit
+        8   AecFpWarpRequestStage
+       32   AecResultLaneBank
+        1   AecWarpRequestBuffer
+
+End of script. Logfile hash: d12f446a67, time: 0.93s, user: 0.90s, system: 0.03s, MEM: 66.75 MB peak
+Yosys 0.64+308 (git sha1 78e05dfb0, Release, GNU /usr/bin/c++ 13.3.0)
+Time spent: 30% 3x opt_clean (0 sec), 19% 2x read_verilog (0 sec), ...

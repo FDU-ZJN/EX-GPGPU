@@ -1,0 +1,1135 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.64+308 (git sha1 78e05dfb0, Release, GNU /usr/bin/c++ 13.3.0)
+
+-- Running command `read_verilog -sv rtl/sv/generated/eval_core/AecEvalCore.sv; hierarchy -top AecExternalMemoryEngine; proc; opt; memory_dff; opt; stat' --
+
+1. Executing Verilog-2005 frontend: rtl/sv/generated/eval_core/AecEvalCore.sv
+Parsing SystemVerilog input from `rtl/sv/generated/eval_core/AecEvalCore.sv' to AST representation.
+Generating RTLIL representation for module `\AecBankedSram32'.
+Generating RTLIL representation for module `\AecInstructionSram'.
+Generating RTLIL representation for module `\AecPredecoder'.
+Generating RTLIL representation for module `\AecLaunchValidator'.
+Generating RTLIL representation for module `\AecCtaBarrier'.
+Generating RTLIL representation for module `\Queue'.
+Generating RTLIL representation for module `\AecExternalMemoryEngine'.
+Generating RTLIL representation for module `\Queue_1'.
+Generating RTLIL representation for module `\Queue_2'.
+Generating RTLIL representation for module `\AecLineCache'.
+Generating RTLIL representation for module `\AecBankedSram32_4'.
+Generating RTLIL representation for module `\AecPackedValidSram'.
+Generating RTLIL representation for module `\AecLocalLsu'.
+Generating RTLIL representation for module `\AecBankedSram32_7'.
+Generating RTLIL representation for module `\AecRowInitializedGroup'.
+Generating RTLIL representation for module `\AecRowInitializedBank'.
+Generating RTLIL representation for module `\AecRegBank'.
+Generating RTLIL representation for module `\AecScoreboard'.
+Generating RTLIL representation for module `\AecIntAlu'.
+Generating RTLIL representation for module `\AecIntWarpRequestStage'.
+Generating RTLIL representation for module `\AecResultLaneBank'.
+Generating RTLIL representation for module `\AecEightLaneIntUnit'.
+Generating RTLIL representation for module `\BoothEncoderF64F32F16'.
+Generating RTLIL representation for module `\CSA3to2'.
+Generating RTLIL representation for module `\CSA4to2'.
+Generating RTLIL representation for module `\CSA_Nto2With3to2MainPipeline'.
+Generating RTLIL representation for module `\FloatFMA'.
+Generating RTLIL representation for module `\Queue_3'.
+Generating RTLIL representation for module `\YunSuanFmaPipe'.
+Generating RTLIL representation for module `\CLZ'.
+Generating RTLIL representation for module `\FPUpConverter'.
+Generating RTLIL representation for module `\FPToFP'.
+Generating RTLIL representation for module `\CompareRecFN'.
+Generating RTLIL representation for module `\CompareRecFN_1'.
+Generating RTLIL representation for module `\RoundingUnit'.
+Generating RTLIL representation for module `\ShiftRightJam'.
+Generating RTLIL representation for module `\FPDownConverter'.
+Generating RTLIL representation for module `\FPToFP_5'.
+Generating RTLIL representation for module `\CLZ_5'.
+Generating RTLIL representation for module `\FPUpConverter_5'.
+Generating RTLIL representation for module `\FPToFP_6'.
+Generating RTLIL representation for module `\RoundingUnit_2'.
+Generating RTLIL representation for module `\ShiftRightJam_1'.
+Generating RTLIL representation for module `\FPDownConverter_1'.
+Generating RTLIL representation for module `\FPToFP_7'.
+Generating RTLIL representation for module `\AecFp32PipeUnit'.
+Generating RTLIL representation for module `\AecFpWarpRequestStage'.
+Generating RTLIL representation for module `\AecFp32Unit'.
+Generating RTLIL representation for module `\FloatFMA_16'.
+Generating RTLIL representation for module `\YunSuanFmaPipe_16'.
+Generating RTLIL representation for module `\FPUpConverter_96'.
+Generating RTLIL representation for module `\FPToFP_128'.
+Generating RTLIL representation for module `\CLZ_99'.
+Generating RTLIL representation for module `\FPUpConverter_99'.
+Generating RTLIL representation for module `\FPToFP_131'.
+Generating RTLIL representation for module `\CompareRecFN_34'.
+Generating RTLIL representation for module `\ShiftRightJam_32'.
+Generating RTLIL representation for module `\FPDownConverter_32'.
+Generating RTLIL representation for module `\FPToFP_137'.
+Generating RTLIL representation for module `\RoundingUnit_68'.
+Generating RTLIL representation for module `\ShiftRightJam_34'.
+Generating RTLIL representation for module `\FPDownConverter_34'.
+Generating RTLIL representation for module `\FPToFP_139'.
+Generating RTLIL representation for module `\AecFp64PipeUnit'.
+Generating RTLIL representation for module `\AecFpWarpRequestStage_16'.
+Generating RTLIL representation for module `\AecFp64Unit'.
+Generating RTLIL representation for module `\AecIntDivider'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie8_is24_oe11_os53'.
+Generating RTLIL representation for module `\RecFNToRecFN'.
+Generating RTLIL representation for module `\DivSqrtRawFN_small_e11_s53'.
+Generating RTLIL representation for module `\DivSqrtRecFMToRaw_small_e11_s53'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie11_is55_oe8_os24'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie11_is55_oe11_os53'.
+Generating RTLIL representation for module `\RoundRawFNToRecFN_e11_s53'.
+Generating RTLIL representation for module `\AecTransMultiplier'.
+Generating RTLIL representation for module `\AecQ34ToF32'.
+Generating RTLIL representation for module `\AecTranscendental'.
+Generating RTLIL representation for module `\AESSFU'.
+Generating RTLIL representation for module `\AecSfuWarpUnit'.
+Generating RTLIL representation for module `\AecWarpRequestLaneBank'.
+Generating RTLIL representation for module `\AecWarpRequestBuffer'.
+Generating RTLIL representation for module `\AecClusterOperandSelect'.
+Generating RTLIL representation for module `\AecPartitionBackend'.
+Generating RTLIL representation for module `\RoundAnyRawFNToRecFN_ie6_is32_oe11_os53'.
+Generating RTLIL representation for module `\INToRecFN_i32_e11_s53'.
+Generating RTLIL representation for module `\RecFNToIN_e11_s53_i32'.
+Generating RTLIL representation for module `\RecFNToIN_e11_s53_i8'.
+Generating RTLIL representation for module `\AecConvertLane'.
+Generating RTLIL representation for module `\AecGmemLineWord'.
+Generating RTLIL representation for module `\AecGmemLsu'.
+Generating RTLIL representation for module `\AecWarpRob'.
+Generating RTLIL representation for module `\AecOperandStore'.
+Generating RTLIL representation for module `\AecWritebackLaneScratch'.
+Generating RTLIL representation for module `\AecUnsignedDivider8'.
+Generating RTLIL representation for module `\AecCoordinateFabric'.
+Generating RTLIL representation for module `\AecCompletionLaneStage'.
+Generating RTLIL representation for module `\AecCompletionArbiter'.
+Generating RTLIL representation for module `\AecResultStoreLane'.
+Generating RTLIL representation for module `\AecResultStoreEntry'.
+Generating RTLIL representation for module `\AecResultStoreReadLane'.
+Generating RTLIL representation for module `\AecPartitionResultStore'.
+Generating RTLIL representation for module `\AecCommitSelector'.
+Generating RTLIL representation for module `\AecEvalCore'.
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \AecExternalMemoryEngine
+Used module:     \Queue
+
+2.2. Analyzing design hierarchy..
+Top module:  \AecExternalMemoryEngine
+Used module:     \Queue
+Removing unused module `\AecEvalCore'.
+Removing unused module `\AecCommitSelector'.
+Removing unused module `\AecPartitionResultStore'.
+Removing unused module `\AecResultStoreReadLane'.
+Removing unused module `\AecResultStoreEntry'.
+Removing unused module `\AecResultStoreLane'.
+Removing unused module `\AecCompletionArbiter'.
+Removing unused module `\AecCompletionLaneStage'.
+Removing unused module `\AecCoordinateFabric'.
+Removing unused module `\AecUnsignedDivider8'.
+Removing unused module `\AecWritebackLaneScratch'.
+Removing unused module `\AecOperandStore'.
+Removing unused module `\AecWarpRob'.
+Removing unused module `\AecGmemLsu'.
+Removing unused module `\AecGmemLineWord'.
+Removing unused module `\AecConvertLane'.
+Removing unused module `\RecFNToIN_e11_s53_i8'.
+Removing unused module `\RecFNToIN_e11_s53_i32'.
+Removing unused module `\INToRecFN_i32_e11_s53'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie6_is32_oe11_os53'.
+Removing unused module `\AecPartitionBackend'.
+Removing unused module `\AecClusterOperandSelect'.
+Removing unused module `\AecWarpRequestBuffer'.
+Removing unused module `\AecWarpRequestLaneBank'.
+Removing unused module `\AecSfuWarpUnit'.
+Removing unused module `\AESSFU'.
+Removing unused module `\AecTranscendental'.
+Removing unused module `\AecQ34ToF32'.
+Removing unused module `\AecTransMultiplier'.
+Removing unused module `\RoundRawFNToRecFN_e11_s53'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie11_is55_oe11_os53'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie11_is55_oe8_os24'.
+Removing unused module `\DivSqrtRecFMToRaw_small_e11_s53'.
+Removing unused module `\DivSqrtRawFN_small_e11_s53'.
+Removing unused module `\RecFNToRecFN'.
+Removing unused module `\RoundAnyRawFNToRecFN_ie8_is24_oe11_os53'.
+Removing unused module `\AecIntDivider'.
+Removing unused module `\AecFp64Unit'.
+Removing unused module `\AecFpWarpRequestStage_16'.
+Removing unused module `\AecFp64PipeUnit'.
+Removing unused module `\FPToFP_139'.
+Removing unused module `\FPDownConverter_34'.
+Removing unused module `\ShiftRightJam_34'.
+Removing unused module `\RoundingUnit_68'.
+Removing unused module `\FPToFP_137'.
+Removing unused module `\FPDownConverter_32'.
+Removing unused module `\ShiftRightJam_32'.
+Removing unused module `\CompareRecFN_34'.
+Removing unused module `\FPToFP_131'.
+Removing unused module `\FPUpConverter_99'.
+Removing unused module `\CLZ_99'.
+Removing unused module `\FPToFP_128'.
+Removing unused module `\FPUpConverter_96'.
+Removing unused module `\YunSuanFmaPipe_16'.
+Removing unused module `\FloatFMA_16'.
+Removing unused module `\AecFp32Unit'.
+Removing unused module `\AecFpWarpRequestStage'.
+Removing unused module `\AecFp32PipeUnit'.
+Removing unused module `\FPToFP_7'.
+Removing unused module `\FPDownConverter_1'.
+Removing unused module `\ShiftRightJam_1'.
+Removing unused module `\RoundingUnit_2'.
+Removing unused module `\FPToFP_6'.
+Removing unused module `\FPUpConverter_5'.
+Removing unused module `\CLZ_5'.
+Removing unused module `\FPToFP_5'.
+Removing unused module `\FPDownConverter'.
+Removing unused module `\ShiftRightJam'.
+Removing unused module `\RoundingUnit'.
+Removing unused module `\CompareRecFN_1'.
+Removing unused module `\CompareRecFN'.
+Removing unused module `\FPToFP'.
+Removing unused module `\FPUpConverter'.
+Removing unused module `\CLZ'.
+Removing unused module `\YunSuanFmaPipe'.
+Removing unused module `\Queue_3'.
+Removing unused module `\FloatFMA'.
+Removing unused module `\CSA_Nto2With3to2MainPipeline'.
+Removing unused module `\CSA4to2'.
+Removing unused module `\CSA3to2'.
+Removing unused module `\BoothEncoderF64F32F16'.
+Removing unused module `\AecEightLaneIntUnit'.
+Removing unused module `\AecResultLaneBank'.
+Removing unused module `\AecIntWarpRequestStage'.
+Removing unused module `\AecIntAlu'.
+Removing unused module `\AecScoreboard'.
+Removing unused module `\AecRegBank'.
+Removing unused module `\AecRowInitializedBank'.
+Removing unused module `\AecRowInitializedGroup'.
+Removing unused module `\AecBankedSram32_7'.
+Removing unused module `\AecLocalLsu'.
+Removing unused module `\AecPackedValidSram'.
+Removing unused module `\AecBankedSram32_4'.
+Removing unused module `\AecLineCache'.
+Removing unused module `\Queue_2'.
+Removing unused module `\Queue_1'.
+Removing unused module `\AecCtaBarrier'.
+Removing unused module `\AecLaunchValidator'.
+Removing unused module `\AecPredecoder'.
+Removing unused module `\AecInstructionSram'.
+Removing unused module `\AecBankedSram32'.
+Removed 101 unused modules.
+Module AecExternalMemoryEngine directly or indirectly contains formal properties -> setting "keep" attribute.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1052$948 in module Queue.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1045$946 in module Queue.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1038$944 in module Queue.
+Marked 4 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915 in module Queue.
+Marked 1 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2246$1357 in module AecExternalMemoryEngine.
+Marked 2 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2237$1355 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2224$1353 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2211$1351 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2198$1349 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2185$1347 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2172$1345 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2159$1343 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2146$1341 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2133$1339 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2120$1337 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2107$1335 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2094$1333 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2081$1331 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2068$1329 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2055$1327 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2042$1325 in module AecExternalMemoryEngine.
+Marked 3 switch rules as full_case in process $proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2029$1323 in module AecExternalMemoryEngine.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 17 redundant assignments.
+Promoted 13 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \reset in `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1052$948'.
+Found async reset \reset in `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1045$946'.
+Found async reset \reset in `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1038$944'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2246$1357'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2237$1355'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2224$1353'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2211$1351'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2198$1349'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2185$1347'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2172$1345'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2159$1343'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2146$1341'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2133$1339'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2120$1337'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2107$1335'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2094$1333'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2081$1331'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2068$1329'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2055$1327'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2042$1325'.
+Found async reset \reset in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2029$1323'.
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~206 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1052$948'.
+     1/1: $0\maybe_full[0:0]
+Creating decoders for process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1045$946'.
+     1/1: $0\deq_ptr_value[0:0]
+Creating decoders for process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1038$944'.
+     1/1: $0\enq_ptr_value[0:0]
+Creating decoders for process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+     1/12: $1$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:1035$898_EN[31:0]$943
+     2/12: $1$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:1035$898_DATA[31:0]$942
+     3/12: $1$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:1035$898_ADDR[0:0]$941
+     4/12: $1$memwr$\ram_write$rtl/sv/generated/eval_core/AecEvalCore.sv:1032$897_EN[0:0]$939
+     5/12: $1$memwr$\ram_write$rtl/sv/generated/eval_core/AecEvalCore.sv:1032$897_DATA[0:0]$938
+     6/12: $1$memwr$\ram_write$rtl/sv/generated/eval_core/AecEvalCore.sv:1032$897_ADDR[0:0]$937
+     7/12: $1$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:1029$896_EN[0:0]$935
+     8/12: $1$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:1029$896_DATA[0:0]$934
+     9/12: $1$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:1029$896_ADDR[0:0]$933
+    10/12: $1$memwr$\ram_tag$rtl/sv/generated/eval_core/AecEvalCore.sv:1026$895_EN[3:0]$931
+    11/12: $1$memwr$\ram_tag$rtl/sv/generated/eval_core/AecEvalCore.sv:1026$895_DATA[3:0]$930
+    12/12: $1$memwr$\ram_tag$rtl/sv/generated/eval_core/AecEvalCore.sv:1026$895_ADDR[0:0]$929
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2552$1360'.
+     1/1: $assert$rtl/sv/generated/eval_core/AecEvalCore.sv:2555$1363_EN
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2246$1357'.
+     1/1: $0\wasStalled[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2237$1355'.
+     1/1: $0\storePayloadValid[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2224$1353'.
+     1/1: $0\valid_15[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2211$1351'.
+     1/1: $0\valid_14[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2198$1349'.
+     1/1: $0\valid_13[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2185$1347'.
+     1/1: $0\valid_12[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2172$1345'.
+     1/1: $0\valid_11[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2159$1343'.
+     1/1: $0\valid_10[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2146$1341'.
+     1/1: $0\valid_9[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2133$1339'.
+     1/1: $0\valid_8[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2120$1337'.
+     1/1: $0\valid_7[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2107$1335'.
+     1/1: $0\valid_6[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2094$1333'.
+     1/1: $0\valid_5[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2081$1331'.
+     1/1: $0\valid_4[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2068$1329'.
+     1/1: $0\valid_3[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2055$1327'.
+     1/1: $0\valid_2[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2042$1325'.
+     1/1: $0\valid_1[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2029$1323'.
+     1/1: $0\valid_0[0:0]
+Creating decoders for process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+     1/82: $0\storeWstrb[127:0]
+     2/82: $0\storeWdata[1023:0]
+     3/82: $0\token_15[3:0]
+     4/82: $0\token_14[3:0]
+     5/82: $0\token_13[3:0]
+     6/82: $0\token_12[3:0]
+     7/82: $0\token_11[3:0]
+     8/82: $0\token_10[3:0]
+     9/82: $0\token_9[3:0]
+    10/82: $0\token_8[3:0]
+    11/82: $0\token_7[3:0]
+    12/82: $0\token_6[3:0]
+    13/82: $0\token_5[3:0]
+    14/82: $0\token_4[3:0]
+    15/82: $0\token_3[3:0]
+    16/82: $0\token_2[3:0]
+    17/82: $0\token_1[3:0]
+    18/82: $0\token_0[3:0]
+    19/82: $0\cacheable_15[0:0]
+    20/82: $0\cacheable_14[0:0]
+    21/82: $0\cacheable_13[0:0]
+    22/82: $0\cacheable_12[0:0]
+    23/82: $0\cacheable_11[0:0]
+    24/82: $0\cacheable_10[0:0]
+    25/82: $0\cacheable_9[0:0]
+    26/82: $0\cacheable_8[0:0]
+    27/82: $0\cacheable_7[0:0]
+    28/82: $0\cacheable_6[0:0]
+    29/82: $0\cacheable_5[0:0]
+    30/82: $0\cacheable_4[0:0]
+    31/82: $0\cacheable_3[0:0]
+    32/82: $0\cacheable_2[0:0]
+    33/82: $0\cacheable_1[0:0]
+    34/82: $0\cacheable_0[0:0]
+    35/82: $0\address_15[31:0]
+    36/82: $0\address_14[31:0]
+    37/82: $0\address_13[31:0]
+    38/82: $0\address_12[31:0]
+    39/82: $0\address_11[31:0]
+    40/82: $0\address_10[31:0]
+    41/82: $0\address_9[31:0]
+    42/82: $0\address_8[31:0]
+    43/82: $0\address_7[31:0]
+    44/82: $0\address_6[31:0]
+    45/82: $0\address_5[31:0]
+    46/82: $0\address_4[31:0]
+    47/82: $0\address_3[31:0]
+    48/82: $0\address_2[31:0]
+    49/82: $0\address_1[31:0]
+    50/82: $0\address_0[31:0]
+    51/82: $0\write_15[0:0]
+    52/82: $0\write_14[0:0]
+    53/82: $0\write_13[0:0]
+    54/82: $0\write_12[0:0]
+    55/82: $0\write_11[0:0]
+    56/82: $0\write_10[0:0]
+    57/82: $0\write_9[0:0]
+    58/82: $0\write_8[0:0]
+    59/82: $0\write_7[0:0]
+    60/82: $0\write_6[0:0]
+    61/82: $0\write_5[0:0]
+    62/82: $0\write_4[0:0]
+    63/82: $0\write_3[0:0]
+    64/82: $0\write_2[0:0]
+    65/82: $0\write_1[0:0]
+    66/82: $0\write_0[0:0]
+    67/82: $0\space_15[0:0]
+    68/82: $0\space_14[0:0]
+    69/82: $0\space_13[0:0]
+    70/82: $0\space_12[0:0]
+    71/82: $0\space_11[0:0]
+    72/82: $0\space_10[0:0]
+    73/82: $0\space_9[0:0]
+    74/82: $0\space_8[0:0]
+    75/82: $0\space_7[0:0]
+    76/82: $0\space_6[0:0]
+    77/82: $0\space_5[0:0]
+    78/82: $0\space_4[0:0]
+    79/82: $0\space_3[0:0]
+    80/82: $0\space_2[0:0]
+    81/82: $0\space_1[0:0]
+    82/82: $0\space_0[0:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\Queue.\maybe_full' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1052$948'.
+  created $adff cell `$procdff$33173' with positive edge clock and positive level reset.
+Creating register for signal `\Queue.\deq_ptr_value' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1045$946'.
+  created $adff cell `$procdff$33176' with positive edge clock and positive level reset.
+Creating register for signal `\Queue.\enq_ptr_value' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1038$944'.
+  created $adff cell `$procdff$33179' with positive edge clock and positive level reset.
+Creating register for signal `\Queue.$memwr$\ram_tag$rtl/sv/generated/eval_core/AecEvalCore.sv:1026$895_ADDR' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33180' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_tag$rtl/sv/generated/eval_core/AecEvalCore.sv:1026$895_DATA' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33181' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_tag$rtl/sv/generated/eval_core/AecEvalCore.sv:1026$895_EN' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33182' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:1029$896_ADDR' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33183' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:1029$896_DATA' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33184' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_space$rtl/sv/generated/eval_core/AecEvalCore.sv:1029$896_EN' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33185' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_write$rtl/sv/generated/eval_core/AecEvalCore.sv:1032$897_ADDR' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33186' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_write$rtl/sv/generated/eval_core/AecEvalCore.sv:1032$897_DATA' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33187' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_write$rtl/sv/generated/eval_core/AecEvalCore.sv:1032$897_EN' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33188' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:1035$898_ADDR' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33189' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:1035$898_DATA' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33190' with positive edge clock.
+Creating register for signal `\Queue.$memwr$\ram_address$rtl/sv/generated/eval_core/AecEvalCore.sv:1035$898_EN' using process `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+  created $dff cell `$procdff$33191' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\wasStalled' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2246$1357'.
+  created $adff cell `$procdff$33194' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\storePayloadValid' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2237$1355'.
+  created $adff cell `$procdff$33197' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_15' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2224$1353'.
+  created $adff cell `$procdff$33200' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_14' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2211$1351'.
+  created $adff cell `$procdff$33203' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_13' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2198$1349'.
+  created $adff cell `$procdff$33206' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_12' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2185$1347'.
+  created $adff cell `$procdff$33209' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_11' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2172$1345'.
+  created $adff cell `$procdff$33212' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_10' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2159$1343'.
+  created $adff cell `$procdff$33215' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_9' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2146$1341'.
+  created $adff cell `$procdff$33218' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_8' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2133$1339'.
+  created $adff cell `$procdff$33221' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_7' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2120$1337'.
+  created $adff cell `$procdff$33224' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_6' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2107$1335'.
+  created $adff cell `$procdff$33227' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_5' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2094$1333'.
+  created $adff cell `$procdff$33230' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_4' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2081$1331'.
+  created $adff cell `$procdff$33233' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_3' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2068$1329'.
+  created $adff cell `$procdff$33236' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_2' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2055$1327'.
+  created $adff cell `$procdff$33239' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_1' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2042$1325'.
+  created $adff cell `$procdff$33242' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\valid_0' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2029$1323'.
+  created $adff cell `$procdff$33245' with positive edge clock and positive level reset.
+Creating register for signal `\AecExternalMemoryEngine.\space_0' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33246' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_1' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33247' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_2' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33248' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_3' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33249' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_4' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33250' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_5' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33251' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_6' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33252' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_7' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33253' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_8' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33254' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_9' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33255' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_10' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33256' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_11' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33257' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_12' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33258' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_13' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33259' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_14' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33260' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\space_15' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33261' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_0' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33262' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_1' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33263' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_2' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33264' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_3' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33265' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_4' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33266' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_5' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33267' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_6' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33268' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_7' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33269' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_8' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33270' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_9' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33271' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_10' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33272' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_11' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33273' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_12' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33274' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_13' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33275' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_14' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33276' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\write_15' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33277' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_0' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33278' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_1' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33279' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_2' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33280' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_3' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33281' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_4' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33282' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_5' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33283' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_6' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33284' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_7' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33285' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_8' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33286' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_9' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33287' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_10' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33288' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_11' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33289' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_12' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33290' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_13' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33291' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_14' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33292' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\address_15' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33293' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_0' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33294' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_1' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33295' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_2' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33296' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_3' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33297' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_4' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33298' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_5' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33299' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_6' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33300' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_7' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33301' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_8' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33302' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_9' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33303' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_10' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33304' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_11' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33305' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_12' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33306' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_13' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33307' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_14' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33308' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\cacheable_15' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33309' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_0' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33310' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_1' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33311' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_2' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33312' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_3' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33313' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_4' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33314' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_5' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33315' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_6' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33316' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_7' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33317' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_8' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33318' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_9' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33319' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_10' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33320' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_11' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33321' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_12' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33322' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_13' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33323' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_14' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33324' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\token_15' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33325' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\storeWdata' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33326' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\storeWstrb' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33327' with positive edge clock.
+Creating register for signal `\AecExternalMemoryEngine.\previousPayload' using process `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+  created $dff cell `$procdff$33328' with positive edge clock.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1052$948'.
+Removing empty process `Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1052$948'.
+Found and cleaned up 1 empty switch in `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1045$946'.
+Removing empty process `Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1045$946'.
+Found and cleaned up 1 empty switch in `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1038$944'.
+Removing empty process `Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1038$944'.
+Found and cleaned up 4 empty switches in `\Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+Removing empty process `Queue.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1024$915'.
+Found and cleaned up 1 empty switch in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2552$1360'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2552$1360'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2246$1357'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2237$1355'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2237$1355'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2224$1353'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2224$1353'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2211$1351'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2211$1351'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2198$1349'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2198$1349'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2185$1347'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2185$1347'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2172$1345'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2172$1345'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2159$1343'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2159$1343'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2146$1341'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2146$1341'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2133$1339'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2133$1339'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2120$1337'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2120$1337'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2107$1335'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2107$1335'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2094$1333'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2094$1333'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2081$1331'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2081$1331'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2068$1329'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2068$1329'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2055$1327'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2055$1327'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2042$1325'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2042$1325'.
+Found and cleaned up 2 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2029$1323'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:2029$1323'.
+Found and cleaned up 164 empty switches in `\AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+Removing empty process `AecExternalMemoryEngine.$proc$rtl/sv/generated/eval_core/AecEvalCore.sv:1603$1242'.
+Cleaned up 206 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue.
+<suppressed ~7 debug messages>
+Optimizing module AecExternalMemoryEngine.
+<suppressed ~41 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue.
+Optimizing module AecExternalMemoryEngine.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue'.
+Computing hashes of 53 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Computing hashes of 49 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\AecExternalMemoryEngine'.
+Computing hashes of 696 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+Computing hashes of 526 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+<suppressed ~510 debug messages>
+Removed a total of 174 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecExternalMemoryEngine..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~540 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue.
+    Consolidated identical input bits for $mux cell $procmux$32732:
+      Old ports: A=4'0000, B=4'1111, Y=$procmux$32732_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$32732_Y [0]
+      New connections: $procmux$32732_Y [3:1] = { $procmux$32732_Y [0] $procmux$32732_Y [0] $procmux$32732_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$32705:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$procmux$32705_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$32705_Y [0]
+      New connections: $procmux$32705_Y [31:1] = { $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] $procmux$32705_Y [0] }
+  Optimizing cells in module \Queue.
+  Optimizing cells in module \AecExternalMemoryEngine.
+Performed a total of 2 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue'.
+Computing hashes of 49 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Computing hashes of 43 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Computing hashes of 39 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+<suppressed ~30 debug messages>
+Finding identical cells in module `\AecExternalMemoryEngine'.
+Computing hashes of 526 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+Computing hashes of 525 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+<suppressed ~3 debug messages>
+Removed a total of 11 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$33173 ($adff) from module Queue (D = $and$rtl/sv/generated/eval_core/AecEvalCore.sv:988$903_Y, Q = \maybe_full).
+Adding EN signal on $procdff$33176 ($adff) from module Queue (D = $add$rtl/sv/generated/eval_core/AecEvalCore.sv:1049$947_Y, Q = \deq_ptr_value).
+Adding EN signal on $procdff$33179 ($adff) from module Queue (D = $add$rtl/sv/generated/eval_core/AecEvalCore.sv:1042$945_Y, Q = \enq_ptr_value).
+Adding EN signal on $procdff$33311 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_1).
+Adding EN signal on $procdff$33312 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_2).
+Adding EN signal on $procdff$33197 ($adff) from module AecExternalMemoryEngine (D = $procmux$32745_Y, Q = \storePayloadValid).
+Adding EN signal on $procdff$33313 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_3).
+Adding EN signal on $procdff$33314 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_4).
+Adding EN signal on $procdff$33315 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_5).
+Adding EN signal on $procdff$33316 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_6).
+Adding EN signal on $procdff$33317 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_7).
+Adding EN signal on $procdff$33318 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_8).
+Adding EN signal on $procdff$33319 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_9).
+Adding EN signal on $procdff$33320 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_10).
+Adding EN signal on $procdff$33321 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_11).
+Adding EN signal on $procdff$33322 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_12).
+Adding EN signal on $procdff$33323 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_13).
+Adding EN signal on $procdff$33324 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_14).
+Adding EN signal on $procdff$33325 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_15).
+Adding EN signal on $procdff$33326 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_wdata, Q = \storeWdata).
+Adding EN signal on $procdff$33327 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_wstrb, Q = \storeWstrb).
+Adding EN signal on $procdff$33246 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_0).
+Adding EN signal on $procdff$33247 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_1).
+Adding EN signal on $procdff$33248 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_2).
+Adding EN signal on $procdff$33249 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_3).
+Adding EN signal on $procdff$33250 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_4).
+Adding EN signal on $procdff$33251 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_5).
+Adding EN signal on $procdff$33252 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_6).
+Adding EN signal on $procdff$33253 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_7).
+Adding EN signal on $procdff$33254 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_8).
+Adding EN signal on $procdff$33255 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_9).
+Adding EN signal on $procdff$33256 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_10).
+Adding EN signal on $procdff$33257 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_11).
+Adding EN signal on $procdff$33258 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_12).
+Adding EN signal on $procdff$33259 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_13).
+Adding EN signal on $procdff$33260 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_14).
+Adding EN signal on $procdff$33261 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_space, Q = \space_15).
+Adding EN signal on $procdff$33262 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_0).
+Adding EN signal on $procdff$33263 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_1).
+Adding EN signal on $procdff$33264 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_2).
+Adding EN signal on $procdff$33265 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_3).
+Adding EN signal on $procdff$33266 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_4).
+Adding EN signal on $procdff$33267 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_5).
+Adding EN signal on $procdff$33268 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_6).
+Adding EN signal on $procdff$33269 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_7).
+Adding EN signal on $procdff$33270 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_8).
+Adding EN signal on $procdff$33271 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_9).
+Adding EN signal on $procdff$33272 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_10).
+Adding EN signal on $procdff$33273 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_11).
+Adding EN signal on $procdff$33274 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_12).
+Adding EN signal on $procdff$33275 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_13).
+Adding EN signal on $procdff$33276 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_14).
+Adding EN signal on $procdff$33277 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_write, Q = \write_15).
+Adding EN signal on $procdff$33278 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_0).
+Adding EN signal on $procdff$33279 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_1).
+Adding EN signal on $procdff$33280 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_2).
+Adding EN signal on $procdff$33281 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_3).
+Adding EN signal on $procdff$33282 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_4).
+Adding EN signal on $procdff$33283 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_5).
+Adding EN signal on $procdff$33284 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_6).
+Adding EN signal on $procdff$33285 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_7).
+Adding EN signal on $procdff$33286 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_8).
+Adding EN signal on $procdff$33287 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_9).
+Adding EN signal on $procdff$33288 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_10).
+Adding EN signal on $procdff$33289 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_11).
+Adding EN signal on $procdff$33290 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_12).
+Adding EN signal on $procdff$33291 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_13).
+Adding EN signal on $procdff$33292 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_14).
+Adding EN signal on $procdff$33293 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_address, Q = \address_15).
+Adding EN signal on $procdff$33294 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_0).
+Adding EN signal on $procdff$33295 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_1).
+Adding EN signal on $procdff$33296 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_2).
+Adding EN signal on $procdff$33297 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_3).
+Adding EN signal on $procdff$33298 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_4).
+Adding EN signal on $procdff$33299 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_5).
+Adding EN signal on $procdff$33300 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_6).
+Adding EN signal on $procdff$33301 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_7).
+Adding EN signal on $procdff$33302 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_8).
+Adding EN signal on $procdff$33303 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_9).
+Adding EN signal on $procdff$33304 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_10).
+Adding EN signal on $procdff$33305 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_11).
+Adding EN signal on $procdff$33306 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_12).
+Adding EN signal on $procdff$33307 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_13).
+Adding EN signal on $procdff$33308 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_14).
+Adding EN signal on $procdff$33309 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_cacheable, Q = \cacheable_15).
+Adding EN signal on $procdff$33310 ($dff) from module AecExternalMemoryEngine (D = \io_lineIn_bits_token, Q = \token_0).
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue..
+Finding unused cells or wires in module \AecExternalMemoryEngine..
+Removed 175 unused cells and 920 unused wires.
+<suppressed ~177 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue.
+Optimizing module AecExternalMemoryEngine.
+<suppressed ~1 debug messages>
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecExternalMemoryEngine..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~245 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue.
+  Optimizing cells in module \AecExternalMemoryEngine.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue'.
+Computing hashes of 28 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Finding identical cells in module `\AecExternalMemoryEngine'.
+Computing hashes of 444 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+Computing hashes of 379 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+<suppressed ~195 debug messages>
+Removed a total of 65 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue..
+Finding unused cells or wires in module \AecExternalMemoryEngine..
+Removed 0 unused cells and 65 unused wires.
+<suppressed ~1 debug messages>
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue.
+Optimizing module AecExternalMemoryEngine.
+
+4.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecExternalMemoryEngine..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~245 debug messages>
+
+4.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue.
+  Optimizing cells in module \AecExternalMemoryEngine.
+Performed a total of 0 changes.
+
+4.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue'.
+Computing hashes of 28 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Finding identical cells in module `\AecExternalMemoryEngine'.
+Computing hashes of 379 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+Removed a total of 0 cells.
+
+4.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue..
+Finding unused cells or wires in module \AecExternalMemoryEngine..
+
+4.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue.
+Optimizing module AecExternalMemoryEngine.
+
+4.23. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\ram_address'[0] in module `\Queue': no output FF found.
+Checking read port `\ram_write'[0] in module `\Queue': no output FF found.
+Checking read port `\ram_space'[0] in module `\Queue': no output FF found.
+Checking read port `\ram_tag'[0] in module `\Queue': no output FF found.
+Checking read port address `\ram_address'[0] in module `\Queue': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_write'[0] in module `\Queue': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_space'[0] in module `\Queue': address FF has async set and/or reset, not supported.
+Checking read port address `\ram_tag'[0] in module `\Queue': address FF has async set and/or reset, not supported.
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue.
+Optimizing module AecExternalMemoryEngine.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue'.
+Computing hashes of 28 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Finding identical cells in module `\AecExternalMemoryEngine'.
+Computing hashes of 379 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+Removed a total of 0 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \Queue..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \AecExternalMemoryEngine..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~245 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \Queue.
+  Optimizing cells in module \AecExternalMemoryEngine.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\Queue'.
+Computing hashes of 28 cells of `\Queue'.
+Finding duplicate cells in `\Queue'.
+Finding identical cells in module `\AecExternalMemoryEngine'.
+Computing hashes of 379 cells of `\AecExternalMemoryEngine'.
+Finding duplicate cells in `\AecExternalMemoryEngine'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \Queue..
+Finding unused cells or wires in module \AecExternalMemoryEngine..
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module Queue.
+Optimizing module AecExternalMemoryEngine.
+
+6.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Printing statistics.
+
+=== Queue ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       60 wires
+      261 wire bits
+       50 public wires
+      186 public wire bits
+       14 ports
+       82 port bits
+        4 memories
+       76 memory bits
+       28 cells
+        2   $add
+        3   $adffe
+        4   $and
+        1   $eq
+        4   $memrd
+        4   $memwr_v2
+        6   $mux
+        1   $ne
+        3   $not
+
+=== AecExternalMemoryEngine ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      418 wires
+    10766 wire bits
+      323 public wires
+    10671 public wire bits
+       34 ports
+     4489 port bits
+      378 cells
+       15   $add
+       17   $adff
+        1   $adffe
+       13   $and
+        1   $check
+        1   $dff
+       82   $dffe
+       31   $eq
+        2   $logic_not
+      158   $mux
+       20   $not
+       18   $or
+       17   $reduce_and
+        1   $reduce_bool
+        1   $reduce_or
+        1 submodules
+        1   Queue
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+      406 AecExternalMemoryEngine
+       28 Queue
+
+        +----------Count including submodules.
+        | 
+      478 wires
+    11027 wire bits
+      373 public wires
+    10857 public wire bits
+       48 ports
+     4571 port bits
+        4 memories
+       76 memory bits
+        - processes
+      406 cells
+       17   $add
+       17   $adff
+        4   $adffe
+       17   $and
+        1   $check
+        1   $dff
+       82   $dffe
+       32   $eq
+        2   $logic_not
+        4   $memrd
+        4   $memwr_v2
+      164   $mux
+        1   $ne
+       23   $not
+       18   $or
+       17   $reduce_and
+        1   $reduce_bool
+        1   $reduce_or
+        1 submodules
+        1   Queue
+
+End of script. Logfile hash: 192583003b, time: 1.73s, user: 1.58s, system: 0.16s, MEM: 348.52 MB peak
+Yosys 0.64+308 (git sha1 78e05dfb0, Release, GNU /usr/bin/c++ 13.3.0)
+Time spent: 87% 2x read_verilog (1 sec), 3% 1x hierarchy (0 sec), ...

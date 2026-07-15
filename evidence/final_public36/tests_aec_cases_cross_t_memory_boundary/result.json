@@ -1,0 +1,8 @@
+{
+  "status": "fail",
+  "cycles": 87,
+  "expected_status": "fail",
+  "comparison": "exact",
+  "passed": true,
+  "failures": []
+}
